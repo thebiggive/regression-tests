@@ -1,0 +1,29 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node
+      - image: blueimp/chromedriver
+        init: true # required: https://github.com/blueimp/chromedriver/issues/5
+    working_directory: ~/app
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+            - v1-deps-{{ .Branch }}
+            - v1-deps
+      - run:
+          name: Install Dependencies
+          command: yarn install --ignore-engines --frozen-lockfile --prod
+      - save_cache:
+          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/.cache
+      - run: nc -vz localhost 4444 # Check chromedriver/chrome has started
+      - run: yarn lint
+      - run: yarn test:ci
+      - store_test_results:
+          path: ~/app/build
+      - store_artifacts:
+          path: ~/app/build
