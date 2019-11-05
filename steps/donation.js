@@ -58,15 +58,16 @@ Then(
         checkTitle('You are donating to Reaching Higher', 7);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
-        clickSelector('a=Proceed as guest');
+        clickSelector('a=Proceed as guest', 5);
+        checkSelectOption('#country-select', 'GB');
         checkSelectOption('#title-select', 'Dr');
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
-        inputSelectorValue('#paf_addr', 'TestWC2B 5LX');
-        sendKeys('40');
-        sendKeys('\uE007'); // press enter to submit search
+        inputSelectorValue('#paf_addr', 'WC2B 5LX');
+        sendKeys('\ue015'); // ARROW_DOWN
+        sendKeys('\uE007'); // press enter to select address
         clickSelector("label[for='agree-check']");
-        clickSelector('=Next');
+        clickSelector('button*=Next');
     }
 );
 
