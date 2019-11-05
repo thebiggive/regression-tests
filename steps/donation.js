@@ -46,13 +46,13 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        checkTitle('You are donating to Reaching Higher', 7);
+        checkTitle('You are donating to Reaching Higher', 10);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a=Proceed as guest');
         checkSelectOption('#title-select', 'Dr', 5);
         inputSelectorValue('#first-name', 'Regression');
-        inputSelectorValue('#last-name', 'Test');
+        inputSelectorValue("input[name='last-name']", 'Test');
     }
 );
 
