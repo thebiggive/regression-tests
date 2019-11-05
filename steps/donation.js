@@ -17,7 +17,7 @@ Given(
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        const randomNum = Math.floor(Math.random() * 25000) + 5;
+        const randomNum = Math.floor(Math.random() * 100) + 5;
         if (checkIfElementExists('#donationAmount')) {
             const amountSelector = $('#donationAmount');
             amountSelector.setValue(randomNum);
