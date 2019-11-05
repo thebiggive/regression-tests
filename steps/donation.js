@@ -24,3 +24,10 @@ Then(
         // TODO
     }
 )
+
+Then(
+    /^I press Donate$/,
+    () => {
+        // TODO
+    }
+)
