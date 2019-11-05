@@ -43,7 +43,7 @@ Then(
 Then(
     /^I press Donate$/,
     () => {
-        // TODO
+        clickSelector('button=Donate Now');
     }
 );
 
