@@ -32,7 +32,7 @@ Then(
 );
 
 Then(
-    /^Then I am taken to Charity Checkout pages, where I can complete my other donation information$/,
+    /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
         // TODO
     }
