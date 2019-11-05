@@ -17,3 +17,10 @@ When(
         // TODO
     }
 )
+
+Then(
+    /^I choose a preference for Gift Aid, charity comms and TBG comms$/,
+    () => {
+        // TODO
+    }
+)
