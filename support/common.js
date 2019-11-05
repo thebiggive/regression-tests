@@ -36,13 +36,18 @@ export function wait(seconds = 3) {
  * Click on element
  *
  * @param {string} selector to be clicked
+ * @param {int} seconds to wait
  */
-export function clickSelector(selector) {
+export function clickSelector(selector, seconds = 3) {
     console.log(`ACTION: Click "${selector}"`);
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-    $(selector).click();
+    browser.waitUntil(
+        () => { $(selector).click(); return true; },
+        (1000 * seconds),
+        `Expected click "${selector}"`
+    );
 }
 
 /**

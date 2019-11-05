@@ -48,6 +48,8 @@ Then(
     () => {
         checkTitle('You are donating to Reaching Higher', 5);
         inputSelectorValue('#email-field', 'regression-test@example.org');
+        clickSelector('button=Next');
+        clickSelector('a=Proceed as guest');
     }
 );
 
