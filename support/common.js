@@ -134,17 +134,11 @@ export function checkSelectOption(selector, selectedValue, seconds = 3) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-    browser.waitUntil(
-        () => {
-            const selectBox = $(selector);
-            selectBox.selectByVisibleText(selectedValue);
-            // returns "Dr"
-            console.log(
-                `ACTION: set selected "${selectBox.getText('option:checked')}"`
-            );
-            return true;
-        },
-        (1000 * seconds),
-        `Expected selected option is "${selectedValue}"`
+    const selectBox = $(selector);
+    selectBox.waitForExist((1000 * seconds));
+    selectBox.selectByAttribute('value', `string:${selectedValue}`);
+    // returns "Dr"
+    console.log(
+        `ACTION: set selected "${selectBox.getValue()}"`
     );
 }

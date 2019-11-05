@@ -1,6 +1,11 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl, clickSelector, inputSelectorValue, checkTitle, checkSelectOption, sendKeys
+    goToUrl,
+    clickSelector,
+    inputSelectorValue,
+    checkTitle,
+    checkSelectOption,
+    sendKeys
 } from '../support/common';
 
 // CONSTANS
@@ -50,7 +55,7 @@ Then(
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a=Proceed as guest');
-        //checkSelectOption('#title-select', 'Dr');
+        checkSelectOption('#title-select', 'Dr', 5);
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'TestWC2B 5LX');
