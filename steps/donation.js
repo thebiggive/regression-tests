@@ -19,7 +19,9 @@ When(
     () => {
         const randomNum = Math.floor(Math.random() * 25000) + 5;
         if (checkIfElementExists('#donationAmount')) {
-            $('#donationAmount').setValue(randomNum);
+            const amountSelector = $('#donationAmount');
+            amountSelector.setValue(randomNum);
+            console.log(`ACTION: set Amount to "${amountSelector.getValue()}"`);
         }
     }
 );
