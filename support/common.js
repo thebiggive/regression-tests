@@ -55,12 +55,14 @@ export function clickSelector(selector, seconds = 3) {
  *
  * @param {string} selector to be filled
  * @param {string} value to be inserted
+ * @param {int} seconds to wait
  */
-export function inputSelectorValue(selector, value) {
+export function inputSelectorValue(selector, value, seconds = 3) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
+    $(selector).waitForDisplayed((1000 * seconds));
     $(selector).setValue(value);
 }
 

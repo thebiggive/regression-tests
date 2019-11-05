@@ -50,8 +50,9 @@ Then(
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a=Proceed as guest');
-        // title-select
-        checkSelectOption('#title-select', 'Dr');
+        checkSelectOption('#title-select', 'Dr', 5);
+        inputSelectorValue('#first-name', 'Regression');
+        inputSelectorValue('#last-name', 'Test');
     }
 );
 
