@@ -53,6 +53,7 @@ Then(
         checkSelectOption('#title-select', 'Dr', 5);
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
+        inputSelectorValue("#paf_addr", 'TestWC2B 5LX');
     }
 );
 
