@@ -5,7 +5,8 @@ import {
     inputSelectorValue,
     checkTitle,
     checkSelectOption,
-    sendKeys
+    sendKeys,
+    checkIfElementExists
 } from '../support/common';
 
 // CONSTANS
@@ -45,13 +46,16 @@ Then(
     /^I press Donate$/,
     () => {
         clickSelector('button=Donate Now');
+        if (checkIfElementExists('button=Proceed anyway')) {
+            clickSelector('button=Proceed anyway');
+        }
     }
 );
 
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        checkTitle('You are donating to Reaching Higher', 10);
+        checkTitle('You are donating to Reaching Higher', 7);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a=Proceed as guest');
@@ -62,6 +66,7 @@ Then(
         sendKeys('40');
         sendKeys('\uE007'); // press enter to submit search
         clickSelector("label[for='agree-check']");
+        clickSelector('=Next');
     }
 );
 
