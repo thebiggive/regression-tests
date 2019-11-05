@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl, checkIfElementExists
+    goToUrl, checkIfElementExists, clickSelector
 } from '../support/common';
 
 // CONSTANS
@@ -29,7 +29,14 @@ When(
 Then(
     /^I choose a preference for Gift Aid, charity comms and TBG comms$/,
     () => {
-        // TODO
+        // Claim Gift Aid? select NO
+        clickSelector('#mat-radio-3');
+
+        // Receive email from the charity? select NO
+        clickSelector('#mat-radio-6');
+
+        // Receive email from the Big Give? select NO
+        clickSelector('#mat-radio-9');
     }
 );
 
