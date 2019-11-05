@@ -10,3 +10,10 @@ Given(
         goToUrl('donate/a051r00001NogBOAAZ');
     }
 );
+
+When(
+    /^I enter an amount between £5 and £25,000$/,
+    (firstAmount, secondAmount) => {
+        // TODO
+    }
+)
