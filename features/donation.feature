@@ -9,7 +9,7 @@ Feature: Make a matched donation
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid, charity comms and TBG comms
         And I press Donate
-        Then I am taken to Charity Checkout pages, where I can complete my other donation information (we can probably gloss over the detail for this a bit, as the steps are expected to change shortly)
+        Then I am taken to Charity Checkout pages, where I can complete my other donation information
         When my bank approves the charge and the payment steps took less than 15 minutes
         Then I should be redirected to a Thank You confirmation page
         And I should see an initial message saying the donation succeeded
