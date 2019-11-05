@@ -15,7 +15,7 @@ exports.config = {
     logLevel: 'warn',
     coloredLogs: true,
     screenshotPath: './build/screenshots/',
-    baseUrl: 'https://www.google.com',
+    baseUrl: 'https://regtest1-thebiggive.cs105.force.com/s/',
     waitforTimeout: 10000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
