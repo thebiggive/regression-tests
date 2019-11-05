@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl, checkIfElementExists, clickSelector
+    goToUrl, checkIfElementExists, clickSelector, inputSelectorValue, checkTitle
 } from '../support/common';
 
 // CONSTANS
@@ -18,11 +18,7 @@ When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
         const randomNum = Math.floor(Math.random() * 100) + 5;
-        if (checkIfElementExists('#donationAmount')) {
-            const amountSelector = $('#donationAmount');
-            amountSelector.setValue(randomNum);
-            console.log(`ACTION: set Amount to "${amountSelector.getValue()}"`);
-        }
+        inputSelectorValue('#donationAmount', randomNum);
     }
 );
 
@@ -50,7 +46,11 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        // TODO
+        checkTitle('You are donating to Reaching Higher', 5);
+        browser.waitUntil(
+            () => { inputSelectorValue('#email-field', 'regression-test@example.org'); return true; },
+            5000
+        );
     }
 );
 
