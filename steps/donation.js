@@ -55,12 +55,13 @@ Then(
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a=Proceed as guest');
-        checkSelectOption('#title-select', 'Dr', 5);
+        checkSelectOption('#title-select', 'Dr');
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'TestWC2B 5LX');
         sendKeys('40');
         sendKeys('\uE007'); // press enter to submit search
+        clickSelector("label[for='agree-check']");
     }
 );
 
