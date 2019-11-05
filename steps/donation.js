@@ -47,14 +47,7 @@ Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
         checkTitle('You are donating to Reaching Higher', 5);
-        browser.waitUntil(
-            () => {
-                inputSelectorValue('#email-field',
-                    'regression-test@example.org');
-                return true;
-            },
-            5000
-        );
+        inputSelectorValue('#email-field', 'regression-test@example.org');
     }
 );
 
