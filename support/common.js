@@ -62,7 +62,7 @@ export function inputSelectorValue(selector, value, seconds = 3) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-    $(selector).waitForDisplayed((1000 * seconds));
+    $(selector).waitForExist((1000 * seconds));
     $(selector).setValue(value);
 }
 
