@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl, checkIfElementExists, clickSelector, inputSelectorValue, checkTitle
+    goToUrl, clickSelector, inputSelectorValue, checkTitle
 } from '../support/common';
 
 // CONSTANS
@@ -48,7 +48,11 @@ Then(
     () => {
         checkTitle('You are donating to Reaching Higher', 5);
         browser.waitUntil(
-            () => { inputSelectorValue('#email-field', 'regression-test@example.org'); return true; },
+            () => {
+                inputSelectorValue('#email-field',
+                    'regression-test@example.org');
+                return true;
+            },
             5000
         );
     }
