@@ -52,3 +52,38 @@ Then(
         // TODO
     }
 )
+
+Then(
+    /^I should see an initial message saying the donation succeeded$/,
+    () => {
+        // TODO
+    }
+)
+
+When(
+    /^I wait 5 seconds$/,
+    () => {
+        // TODO
+    }
+)
+
+Then(
+    /^I should see my Charity Checkout transaction ID$/,
+    () => {
+        // TODO
+    }
+)
+
+Then(
+    /^I should see my matched amount is the same as my donation amount$/,
+    () => {
+        // TODO
+    }
+)
+
+Then(
+    /^I should see the total value of my donation is double my donation amount, plus any Gift Aid$/,
+    () => {
+        // TODO
+    }
+)
