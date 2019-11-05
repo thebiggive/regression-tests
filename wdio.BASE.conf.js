@@ -15,7 +15,7 @@ exports.config = {
     logLevel: 'warn',
     coloredLogs: true,
     screenshotPath: './build/screenshots/',
-    baseUrl: 'https://regtest1-thebiggive.cs105.force.com/s/',
+    baseUrl: 'https://donate-staging.thebiggivetest.org.uk/',
     waitforTimeout: 10000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
