@@ -1,19 +1,26 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl
+    goToUrl, checkIfElementExists
 } from '../support/common';
 
+// CONSTANS
+const donatePage = 'donate/a051r00001NogBOAAZ';
+
+// Seteps
 Given(
     /^that I am on my chosen Donate page$/,
     () => {
-        goToUrl('donate/a051r00001NogBOAAZ');
+        goToUrl(donatePage);
     }
 );
 
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        // TODO
+        const randomNum = Math.floor(Math.random() * 25000) + 5;
+        if (checkIfElementExists('#donationAmount')) {
+            $('#donationAmount').setValue(randomNum);
+        }
     }
 );
 
