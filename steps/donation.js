@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl, clickSelector, inputSelectorValue, checkTitle
+    goToUrl, clickSelector, inputSelectorValue, checkTitle, checkSelectOption
 } from '../support/common';
 
 // CONSTANS
@@ -46,10 +46,12 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        checkTitle('You are donating to Reaching Higher', 5);
+        checkTitle('You are donating to Reaching Higher', 7);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a=Proceed as guest');
+        // title-select
+        checkSelectOption('#title-select', 'Dr');
     }
 );
 
