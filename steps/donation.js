@@ -4,7 +4,7 @@ import {
     clickSelector,
     inputSelectorValue,
     checkTitle,
-    checkSelectOption,
+    setSelectOption,
     sendKeys,
     checkIfElementExists,
     wait
@@ -59,9 +59,9 @@ Then(
         checkTitle('You are donating to Reaching Higher', 7);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
-        clickSelector('a*=Proceed as guest', 5);
-        checkSelectOption('#country-select', 'GB');
-        checkSelectOption('#title-select', 'Dr');
+        clickSelector('a*=Proceed as guest');
+        setSelectOption('#country-select', 'string:GB');
+        setSelectOption('#title-select', 'string:Dr');
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'WC2B 5LX');
@@ -70,8 +70,6 @@ Then(
         sendKeys('\uE007'); // press enter to select address
         clickSelector(".agree-box");
         clickSelector('.js-next-button');
-        wait(10);
-        //clickSelector('a.btn=Next');
     }
 );
 

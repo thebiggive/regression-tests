@@ -125,12 +125,13 @@ export function checkSelectorContent(selector, content, seconds = 3) {
  * @param {string} selectedValue value
  * @param {int} seconds to wait
  */
-export function checkSelectOption(selector, selectedValue, seconds = 3) {
+export function setSelectOption(selector, selectedValue) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
     const selectBox = $(selector);
-    selectBox.selectByAttribute('value', `string:${selectedValue}`);
+    selectBox.selectByAttribute('value', selectedValue);
+    
     // returns "Dr"
     console.log(
         `ACTION: set selected "${selectBox.getValue()}"`
