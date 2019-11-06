@@ -67,7 +67,7 @@ Then(
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         clickSelector("label[for='agree-check']");
-        clickSelector('button*=Next');
+        // clickSelector('button*=Next');
     }
 );
 
