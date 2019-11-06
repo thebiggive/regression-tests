@@ -10,10 +10,10 @@ import {
     wait
 } from '../support/common';
 
-// CONSTANS
-const donatePage = 'donate/a051r00001NogBOAAZ';
+// Constants
+const donatePage = 'donate/a051w000001OtHOAA0';
 
-// Seteps
+// Steps
 Given(
     /^that I am on my chosen Donate page$/,
     () => {
