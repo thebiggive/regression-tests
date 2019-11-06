@@ -44,11 +44,8 @@ export function clickSelector(selector, seconds = 3) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    browser.waitUntil(
-        () => { $(selector).click(); return true; },
-        (1000 * seconds),
-        `Expected click "${selector}"`
-    );
+    $(selector).waitForExist((1000 * seconds))
+    $(selector).click();
 }
 
 /**
@@ -74,7 +71,7 @@ export function inputSelectorValue(selector, value, seconds = 3) {
  */
 export function sendKeys(value) {
     console.log(`ACTION: Send keys "${value}"`);
-    browser.keys(value);
+    browser.keys(value)
 }
 
 /**

@@ -46,7 +46,7 @@ Then(
     /^I press Donate$/,
     () => {
         clickSelector('button=Donate Now');
-        if (checkIfElementExists('button=Proceed anyway')) {
+        if (checkIfElementExists('button*=Proceed anyway', 5)) {
             clickSelector('button*=Proceed anyway');
         }
     }
@@ -58,16 +58,22 @@ Then(
         checkTitle('You are donating to Reaching Higher', 7);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
-        clickSelector('a=Proceed as guest', 5);
+        clickSelector('a*=Proceed as guest', 5);
         checkSelectOption('#country-select', 'GB');
         checkSelectOption('#title-select', 'Dr');
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'WC2B 5LX');
+        browser.waitUntil(
+        () => { 
+            return $('#paf_addr').getValue() === 'WC2B 5LX'; 
+        },
+        5000
+        );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         clickSelector("label[for='agree-check']");
-        // clickSelector('button*=Next');
+        //clickSelector('button*=Next');
     }
 );
 
