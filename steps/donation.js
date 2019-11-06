@@ -21,7 +21,7 @@ Given(
     () => {
         goToUrl(donatePage);
         checkTitle('Donate to ChoraChori (regtest1)');
-        checkIfElementExists('h1=Donating to ChoraChori (regtest1)!');
+        checkIfElementExists('h1*=Donating to ChoraChori (regtest1)!');
     }
 );
 
