@@ -19,13 +19,14 @@ Given(
     /^that I am on my chosen Donate page$/,
     () => {
         goToUrl(donatePage);
+        checkTitle('Donate to ChoraChori (regtest1)');
+        checkIfElementExists('h1=Donating to ChoraChori (regtest1)!');
     }
 );
 
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        wait(5);
         const randomNum = Math.floor(Math.random() * 100) + 5;
         inputSelectorValue('#donationAmount', randomNum);
     }
@@ -35,7 +36,6 @@ Then(
     /^I choose a preference for Gift Aid, charity comms and TBG comms$/,
     () => {
         // Claim Gift Aid? select NO
-        clickSelector('#mat-radio-3');
         clickSelector('#mat-radio-3');
 
         // Receive email from the charity? select NO
@@ -51,7 +51,7 @@ Then(
     () => {
         clickSelector('button=Donate Now');
         if ($('=Match funds not available').isExisting()) {
-            if (checkIfElementExists('button*=Proceed anyway', 5)) {
+            if (checkIfElementExists('button*=Proceed anyway')) {
                 clickSelector('button*=Proceed anyway');
             }
         }
@@ -61,7 +61,7 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        checkTitle('You are donating to ChoraChori', 15);
+        checkTitle('You are donating to ChoraChori');
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         wait(5);
@@ -76,6 +76,11 @@ Then(
         sendKeys('\uE007'); // press enter to select address
         clickSelector('.agree-box');
         clickSelector('.js-next-button');
+        // checkSelectorContent(
+        //     'li*=Please take a payment of',
+        //     'Please take a payment of £50 from my account for ChoraChori',
+        //     7
+        //     );
     }
 );
 
