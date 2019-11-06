@@ -3,10 +3,11 @@ import {
     goToUrl,
     clickSelector,
     inputSelectorValue,
-    checkTitle,
     setSelectOption,
     sendKeys,
+    checkTitle,
     checkIfElementExists,
+    checkSelectorContent,
     wait,
     randomIntFromInterval
 } from '../support/common';
@@ -21,7 +22,7 @@ Given(
     () => {
         goToUrl(donatePage);
         checkTitle('Donate to ChoraChori (regtest1)');
-        checkIfElementExists('h1*=Donating to ChoraChori (regtest1)!');
+        checkSelectorContent('form h1', 'Donating to ChoraChori (regtest1)!');
     }
 );
 
