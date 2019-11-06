@@ -43,8 +43,6 @@ export function clickSelector(selector, seconds = 3) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-
-    $(selector).waitForExist((1000 * seconds));
     $(selector).click();
 }
 
@@ -60,7 +58,6 @@ export function inputSelectorValue(selector, value, seconds = 3) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-    $(selector).waitForExist((1000 * seconds));
     $(selector).setValue(value);
 }
 
@@ -133,7 +130,6 @@ export function checkSelectOption(selector, selectedValue, seconds = 3) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
     const selectBox = $(selector);
-    selectBox.waitForExist((1000 * seconds));
     selectBox.selectByAttribute('value', `string:${selectedValue}`);
     // returns "Dr"
     console.log(
