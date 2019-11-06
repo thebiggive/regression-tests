@@ -50,7 +50,8 @@ Then(
     /^I press Donate$/,
     () => {
         clickSelector('button=Donate Now');
-        if ($('=Match funds not available').isExisting() && checkIfElementExists('button*=Proceed anyway')) {
+        if ($('=Match funds not available').isExisting()
+        && checkIfElementExists('button*=Proceed anyway')) {
             clickSelector('button*=Proceed anyway');
         }
     }
