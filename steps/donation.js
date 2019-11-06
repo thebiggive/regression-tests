@@ -65,15 +65,13 @@ Then(
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'WC2B 5LX');
         browser.waitUntil(
-        () => { 
-            return $('#paf_addr').getValue() === 'WC2B 5LX'; 
-        },
-        5000
+            () => $('#paf_addr').getValue() === 'WC2B 5LX',
+            5000
         );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         clickSelector("label[for='agree-check']");
-        //clickSelector('button*=Next');
+        // clickSelector('button*=Next');
     }
 );
 
