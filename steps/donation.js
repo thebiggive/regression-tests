@@ -47,7 +47,7 @@ Then(
     () => {
         clickSelector('button=Donate Now');
         if (checkIfElementExists('button=Proceed anyway')) {
-            clickSelector('button=Proceed anyway');
+            clickSelector('button*=Proceed anyway');
         }
     }
 );
