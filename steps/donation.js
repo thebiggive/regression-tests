@@ -68,7 +68,7 @@ Then(
         wait();
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        clickSelector(".agree-box");
+        clickSelector('.agree-box');
         clickSelector('.js-next-button');
     }
 );

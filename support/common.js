@@ -38,7 +38,7 @@ export function wait(seconds = 3) {
  * @param {string} selector to be clicked
  * @param {int} seconds to wait
  */
-export function clickSelector(selector, seconds = 3) {
+export function clickSelector(selector) {
     console.log(`ACTION: Click "${selector}"`);
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
@@ -53,7 +53,7 @@ export function clickSelector(selector, seconds = 3) {
  * @param {string} value to be inserted
  * @param {int} seconds to wait
  */
-export function inputSelectorValue(selector, value, seconds = 3) {
+export function inputSelectorValue(selector, value) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
@@ -131,7 +131,7 @@ export function setSelectOption(selector, selectedValue) {
     }
     const selectBox = $(selector);
     selectBox.selectByAttribute('value', selectedValue);
-    
+
     // returns "Dr"
     console.log(
         `ACTION: set selected "${selectBox.getValue()}"`
