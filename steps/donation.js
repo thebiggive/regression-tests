@@ -37,7 +37,7 @@ Then(
     () => {
         // Claim Gift Aid? select NO
         clickSelector('#mat-radio-3');
-        
+
         // Receive email from the charity? select NO
         clickSelector('#mat-radio-6');
 
@@ -60,7 +60,7 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        checkTitle('You are donating to ChoraChori',15);
+        checkTitle('You are donating to ChoraChori', 15);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         wait(5);
