@@ -1,8 +1,9 @@
 Feature: Demo
 
   I want to demo WDIO cucumber style tests
-
-  Scenario: Search for demo
+  
+  @ignore 
+  Scenario: Search for demo 
     Given I am on the Google homepage
     When I search for "demo wikipedia"
     And the URL is "https://www.google.com/search"

@@ -37,7 +37,7 @@ exports.config = {
         ],
         snippetSyntax: undefined,
         strict: true,
-        tagExpression: 'not @Pending',
+        tagExpression: 'not @ignore',
         tagsInTitle: false,
         timeout: 20000,
     },
