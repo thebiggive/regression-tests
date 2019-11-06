@@ -12,6 +12,7 @@ import {
 
 // Constants
 const donatePage = 'donate/a051w000001OtHOAA0';
+//const cardNumber = '4111110000000211';
 
 // Steps
 Given(
