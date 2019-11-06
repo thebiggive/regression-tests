@@ -36,6 +36,7 @@ Then(
     () => {
         // Claim Gift Aid? select NO
         clickSelector('#mat-radio-3');
+        clickSelector('#mat-radio-3');
 
         // Receive email from the charity? select NO
         clickSelector('#mat-radio-6');
@@ -63,6 +64,7 @@ Then(
         checkTitle('You are donating to ChoraChori', 15);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
+        wait();
         clickSelector('a*=Proceed as guest');
         setSelectOption('#country-select', 'string:GB');
         setSelectOption('#title-select', 'string:Dr');
