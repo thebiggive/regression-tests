@@ -1,3 +1,4 @@
+import WAIT_SECONDS from 'constants';
 /**
  * Check if element exists
  *
@@ -5,7 +6,7 @@
  * @param {int} seconds to wait
  * @returns {boolean} True if element exists or false if element doesn't exist
  */
-export function checkIfElementExists(selector, seconds = 3) {
+export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     return $(selector).waitForExist((1000 * seconds), false,
         `Element "${selector}" does not exist`);
 }
@@ -25,7 +26,7 @@ export function goToUrl(url) {
  *
  * @param {int} seconds to wait
  */
-export function wait(seconds = 3) {
+export function wait(seconds = WAIT_SECONDS) {
     console.warn(
         'WARNING: Fixed sleep being used - avoid unless absolutely necessary!'
     );
@@ -77,7 +78,7 @@ export function sendKeys(value) {
  * @param {string} url to be asserted
  * @param {int} seconds to wait
  */
-export function checkUrl(url, seconds = 3) {
+export function checkUrl(url, seconds = WAIT_SECONDS) {
     browser.waitUntil(
         () => browser.getUrl().includes(url),
         (seconds * 1000),
@@ -91,7 +92,7 @@ export function checkUrl(url, seconds = 3) {
  * @param {string} title of webpage
  * @param {int} seconds to wait
  */
-export function checkTitle(title, seconds = 3) {
+export function checkTitle(title, seconds = WAIT_SECONDS) {
     browser.waitUntil(
         () => browser.getTitle().includes(title),
         (seconds * 1000),
@@ -106,7 +107,8 @@ export function checkTitle(title, seconds = 3) {
  * @param {string} content text
  * @param {int} seconds to wait
  */
-export function checkSelectorContent(selector, content, seconds = 3) {
+export function checkSelectorContent(selector, content,
+    seconds = WAIT_SECONDS) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
@@ -140,13 +142,13 @@ export function setSelectOption(selector, selectedValue) {
 
 
 /**
- * Assert Input Value
+ * Assert Input     Value
  *
  * @param {string} selector to be asserted
  * @param {string} value to be asserted
  * @param {int} seconds to wait
  */
-export function checkInputValue(selector, value, seconds = 3) {
+export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
     browser.waitUntil(
         () => selector.getValue() === value,
         (seconds * 1000),
