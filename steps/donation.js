@@ -12,7 +12,7 @@ import {
 
 // Constants
 const donatePage = 'donate/a051w000001OtHOAA0';
-//const cardNumber = '4111110000000211';
+// const cardNumber = '4111110000000211';
 
 // Steps
 Given(
@@ -48,8 +48,10 @@ Then(
     /^I press Donate$/,
     () => {
         clickSelector('button=Donate Now');
-        if (checkIfElementExists('button*=Proceed anyway', 5)) {
-            clickSelector('button*=Proceed anyway');
+        if ($('=Match funds not available').isExisting()) {
+            if (checkIfElementExists('button*=Proceed anyway', 5)) {
+                clickSelector('button*=Proceed anyway');
+            }
         }
     }
 );
