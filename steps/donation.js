@@ -7,7 +7,8 @@ import {
     setSelectOption,
     sendKeys,
     checkIfElementExists,
-    wait
+    wait,
+    randomIntFromInterval
 } from '../support/common';
 
 // Constants
@@ -27,8 +28,7 @@ Given(
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        const randomNum = Math.floor(Math.random() * 100) + 5;
-        inputSelectorValue('#donationAmount', randomNum);
+        inputSelectorValue('#donationAmount', randomIntFromInterval(5, 100));
     }
 );
 
