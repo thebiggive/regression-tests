@@ -6,7 +6,8 @@ import {
     checkTitle,
     checkSelectOption,
     sendKeys,
-    checkIfElementExists
+    checkIfElementExists,
+    wait
 } from '../support/common';
 
 // CONSTANS
@@ -64,14 +65,13 @@ Then(
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'WC2B 5LX');
-        browser.waitUntil(
-            () => $('#paf_addr').getValue() === 'WC2B 5LX',
-            10000
-        );
+        wait();
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        clickSelector("label[for='agree-check']");
+        clickSelector(".agree-box");
         clickSelector('.js-next-button');
+        wait(10);
+        //clickSelector('a.btn=Next');
     }
 );
 
