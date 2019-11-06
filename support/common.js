@@ -1,4 +1,5 @@
 import WAIT_SECONDS from 'constants';
+
 /**
  * Check if element exists
  *
