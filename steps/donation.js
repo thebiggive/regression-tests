@@ -25,6 +25,7 @@ Given(
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
+        wait(5);
         const randomNum = Math.floor(Math.random() * 100) + 5;
         inputSelectorValue('#donationAmount', randomNum);
     }
@@ -59,7 +60,7 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        checkTitle('You are donating to ChoraChori', 7);
+        checkTitle('You are donating to ChoraChori', 15);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a*=Proceed as guest');
