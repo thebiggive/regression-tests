@@ -59,7 +59,7 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
     () => {
-        checkTitle('You are donating to Reaching Higher', 7);
+        checkTitle('You are donating to ChoraChori', 7);
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         clickSelector('a*=Proceed as guest');
