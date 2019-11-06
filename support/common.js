@@ -137,3 +137,19 @@ export function setSelectOption(selector, selectedValue) {
         `ACTION: set selected "${selectBox.getValue()}"`
     );
 }
+
+
+/**
+ * Assert Input Value
+ *
+ * @param {string} selector to be asserted
+ * @param {string} value to be asserted
+ * @param {int} seconds to wait
+ */
+export function checkInputValue(selector, value, seconds = 3) {
+    browser.waitUntil(
+        () => selector.getValue() === value,
+        (seconds * 1000),
+        `Expected Input "${selector}" to contain "${value}"`
+    );
+}
