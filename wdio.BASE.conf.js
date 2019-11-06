@@ -12,7 +12,7 @@ exports.config = {
         browserName: 'chrome',
         'goog:chromeOptions': {}, // see wdio.*.conf.js
     }],
-    logLevel: 'warn',
+    logLevel: process.env.LOG_LEVEL || 'warn',
     coloredLogs: true,
     screenshotPath: './build/screenshots/',
     baseUrl: 'https://donate-regression.thebiggivetest.org.uk/',
