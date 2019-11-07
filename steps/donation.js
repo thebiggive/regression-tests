@@ -81,7 +81,6 @@ Then(
     () => {
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
-        wait(5);
         clickSelector('a*=Proceed as guest');
         setSelectOption('#country-select', 'string:GB');
         setSelectOption('#title-select', 'string:Dr');
