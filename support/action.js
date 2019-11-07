@@ -1,4 +1,5 @@
 import { checkIfElementExists } from './check';
+import { WAIT_SECONDS } from './constants';
 
 /**
  * Click on element
@@ -11,7 +12,15 @@ export function clickSelector(selector) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    $(selector).click();
+    const element = $(selector);
+
+    browser.waitUntil(
+        () => element.isDisplayed(),
+        (WAIT_SECONDS * 1000),
+        `This element ${selector} not visible`
+    );
+
+    element.click();
 }
 
 /**
