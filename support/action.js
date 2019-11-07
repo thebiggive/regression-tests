@@ -1,5 +1,4 @@
 import { checkIfElementExists } from './check';
-import { WAIT_SECONDS } from './constants';
 
 /**
  * Click on element
