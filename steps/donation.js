@@ -9,7 +9,8 @@ import {
     checkIfElementExists,
     checkSelectorContent,
     wait,
-    randomIntFromInterval
+    randomIntFromInterval,
+    checkAngularReady
 } from '../support/common';
 
 // Constants
@@ -21,6 +22,7 @@ Given(
     /^that I am on my chosen Donate page$/,
     () => {
         goToUrl(donatePage);
+        checkAngularReady();
         checkTitle('Donate to ChoraChori (regtest1)');
         checkSelectorContent('form h1', 'Donating to ChoraChori (regtest1)!');
     }

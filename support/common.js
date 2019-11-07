@@ -163,3 +163,27 @@ export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
 export function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+/**
+ * Check if Angular is initialised and ready to interact
+ *
+ * @param {int} seconds to wait
+ * @returns {boolean} True if angular is ready
+ */
+export function checkAngularReady(seconds = WAIT_SECONDS) {
+    console.log('CHECK: Angular is ready');
+    return browser.waitUntil(
+        () => {
+            const result = browser.execute(() => {
+                const root = document.querySelector('app-root'); // eslint-disable-line
+                const testable = window.getAngularTestability(root); // eslint-disable-line
+                return testable && testable.isStable()
+                    && (testable.getPendingRequestCount() === 0);
+            });
+            console.debug(`CHECK: Angular ready state - ${result}`);
+            return result;
+        },
+        (seconds * 1000),
+        'Expected Angular to be ready'
+    );
+}
