@@ -1,17 +1,23 @@
 import { Given, When, Then } from 'cucumber';
 import {
     goToUrl,
-    clickSelector,
-    inputSelectorValue,
-    setSelectOption,
     sendKeys,
+    wait,
+    randomIntFromInterval
+} from '../support/util';
+
+import {
     checkTitle,
     checkIfElementExists,
     checkSelectorContent,
-    wait,
-    randomIntFromInterval,
     checkAngularReady
-} from '../support/common';
+} from '../support/check';
+
+import {
+    clickSelector,
+    setSelectOption,
+    inputSelectorValue
+} from '../support/action';
 
 // Constants
 const donatePage = 'donate/a051w000001OtHOAA0';

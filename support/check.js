@@ -13,66 +13,6 @@ export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
 }
 
 /**
- * Go to URL
- *
- * @param {string} url to go
- */
-export function goToUrl(url) {
-    console.log(`ACTION: Change URL to "${url}"`);
-    browser.url(url);
-}
-
-/**
- * Wait x seconds
- *
- * @param {int} seconds to wait
- */
-export function wait(seconds = WAIT_SECONDS) {
-    console.warn(
-        'WARNING: Fixed sleep being used - avoid unless absolutely necessary!'
-    );
-    browser.pause(seconds * 1000);
-}
-
-/**
- * Click on element
- *
- * @param {string} selector to be clicked
- */
-export function clickSelector(selector) {
-    console.log(`ACTION: Click "${selector}"`);
-    if (!checkIfElementExists(selector)) {
-        throw new Error(`Expected element "${selector}" to exist`);
-    }
-
-    $(selector).click();
-}
-
-/**
- * Set value inside input
- *
- * @param {string} selector to be filled
- * @param {string} value to be inserted
- */
-export function inputSelectorValue(selector, value) {
-    console.log(`ACTION: Input "${selector}" with "${value}"`);
-    if (!checkIfElementExists(selector)) {
-        throw new Error(`Expected element "${selector}" to exist`);
-    }
-    $(selector).setValue(value);
-}
-
-/**
- * Send keys
- *
- * @param {string} value to be typed
- */
-export function sendKeys(value) {
-    console.log(`ACTION: Send keys "${value}"`);
-    browser.keys(value);
-}
-
-/**
  * Assert URL
  *
  * @param {string} url to be asserted
@@ -121,25 +61,6 @@ export function checkSelectorContent(selector, content,
 }
 
 /**
- * Select Option
- *
- * @param {string} selector select input
- * @param {string} selectedValue value
- */
-export function setSelectOption(selector, selectedValue) {
-    if (!checkIfElementExists(selector)) {
-        throw new Error(`Expected element "${selector}" to exist`);
-    }
-    const selectBox = $(selector);
-    selectBox.selectByAttribute('value', selectedValue);
-
-    // returns "Dr"
-    console.log(
-        `ACTION: set selected "${selectBox.getValue()}"`
-    );
-}
-
-/**
  * Assert input value
  *
  * @param {string} selector to be asserted
@@ -152,17 +73,6 @@ export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
         (seconds * 1000),
         `Expected Input "${selector}" to contain "${value}"`
     );
-}
-
-/**
- * Generate number between minimum and maximum fixed numbers
- *
- * @param {int} min number
- * @param {int} max number
- * @returns {int} generated number
- */
-export function randomIntFromInterval(min, max) { // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 /**
