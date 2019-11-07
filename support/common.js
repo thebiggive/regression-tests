@@ -38,7 +38,6 @@ export function wait(seconds = WAIT_SECONDS) {
  * Click on element
  *
  * @param {string} selector to be clicked
- * @param {int} seconds to wait
  */
 export function clickSelector(selector) {
     console.log(`ACTION: Click "${selector}"`);
@@ -53,7 +52,6 @@ export function clickSelector(selector) {
  *
  * @param {string} selector to be filled
  * @param {string} value to be inserted
- * @param {int} seconds to wait
  */
 export function inputSelectorValue(selector, value) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
@@ -126,7 +124,6 @@ export function checkSelectorContent(selector, content,
  *
  * @param {string} selector select input
  * @param {string} selectedValue value
- * @param {int} seconds to wait
  */
 export function setSelectOption(selector, selectedValue) {
     if (!checkIfElementExists(selector)) {
@@ -141,9 +138,8 @@ export function setSelectOption(selector, selectedValue) {
     );
 }
 
-
 /**
- * Assert Input     Value
+ * Assert input value
  *
  * @param {string} selector to be asserted
  * @param {string} value to be asserted
@@ -158,7 +154,8 @@ export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
 }
 
 /**
- * generate number between minimum and maximum fixed numbers
+ * Generate number between minimum and maximum fixed numbers
+ *
  * @param {int} min number
  * @param {int} max number
  * @returns {int} generated number
