@@ -64,9 +64,15 @@ Then(
 );
 
 Then(
-    /^I am taken to Charity Checkout pages, where I can complete my other donation information$/,
+    /^I am taken to Charity Checkout pages$/,
     () => {
         checkTitle('You are donating to ChoraChori', 15);
+    }
+);
+
+Then(
+    /^I complete my donation as a guest$/,
+    () => {
         inputSelectorValue('#email-field', 'regression-test@example.org');
         clickSelector('button=Next');
         wait(5);
@@ -76,11 +82,16 @@ Then(
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'WC2B 5LX');
-        wait();
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         clickSelector('.agree-box');
         clickSelector('.js-next-button');
+    }
+);
+
+Then(
+    /^enter my payment information$/,
+    () => {
         // checkSelectorContent(
         //     'li*=Please take a payment of',
         //     'Please take a payment of £50 from my account for ChoraChori',
