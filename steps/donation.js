@@ -86,9 +86,12 @@ Then(
         inputSelectorValue('#first-name', 'Regression');
         inputSelectorValue("input[name='last-name']", 'Test');
         inputSelectorValue('#paf_addr', 'WC2B 5LX');
+        checkIfElementExists(
+            'li[title*="WC2B 5LX, Reed Online,"'
+        );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        clickSelector('.agree-box');
+        clickSelector('.agree-box', { x: 1 });
         clickSelector('.js-next-button');
     }
 );
