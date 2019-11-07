@@ -25,6 +25,9 @@ Given(
         checkAngularReady();
         checkTitle('Donate to ChoraChori (regtest1)');
         checkSelectorContent('form h1', 'Donating to ChoraChori (regtest1)!');
+        // We need to interact with the form,
+        // otherwise radio buttons aren't selected reliably on first click
+        clickSelector('button=Donate Now');
     }
 );
 
