@@ -13,15 +13,7 @@ export function clickSelector(selector, options = {}) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    const element = $(selector);
-
-    browser.waitUntil(
-        () => element.isDisplayed(),
-        (WAIT_SECONDS * 1000),
-        `This element ${selector} not visible`
-    );
-
-    element.click(options);
+    $(selector).click(options);
 }
 
 /**

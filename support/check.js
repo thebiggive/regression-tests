@@ -8,8 +8,8 @@ import { WAIT_SECONDS } from './constants';
  * @returns {boolean} True if element exists or false if element doesn't exist
  */
 export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
-    return $(selector).waitForExist((1000 * seconds), false,
-        `Element "${selector}" does not exist`);
+    return $(selector).waitForDisplayed((1000 * seconds), false,
+        `Element "${selector}" is not displayed`);
 }
 
 /**
