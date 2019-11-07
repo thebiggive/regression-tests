@@ -47,7 +47,7 @@ export function clickSelector(selector) {
     const el = $(selector);
     browser.waitUntil(
         () => el.isClickable(),
-        WAIT_SECONDS,
+        (WAIT_SECONDS * 1000),
         `Error: Element ${selector} is not clickable`
     );
     $(selector).click();
