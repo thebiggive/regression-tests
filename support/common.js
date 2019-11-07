@@ -44,12 +44,7 @@ export function clickSelector(selector) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-    const el = $(selector);
-    browser.waitUntil(
-        () => el.isClickable(),
-        (WAIT_SECONDS * 1000),
-        `Error: Element ${selector} is not clickable`
-    );
+   
     $(selector).click();
 }
 
