@@ -1,4 +1,6 @@
-import { WAIT_SECONDS } from './constants';
+import WAIT_SECONDS from 'constants';
+
+console.log(`WAIT_SECONDS: ${WAIT_SECONDS}`);
 
 /**
  * Check if element exists
