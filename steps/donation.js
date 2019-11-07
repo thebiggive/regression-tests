@@ -2,7 +2,6 @@ import { Given, When, Then } from 'cucumber';
 import {
     goToUrl,
     sendKeys,
-    wait,
     randomIntFromInterval
 } from '../support/util';
 
