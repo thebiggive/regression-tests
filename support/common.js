@@ -44,7 +44,7 @@ export function clickSelector(selector) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-   
+
     $(selector).click();
 }
 
