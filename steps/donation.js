@@ -91,7 +91,7 @@ Then(
         );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        clickSelector('.agree-box', { x: 1 });
+        clickSelector('.agree-box', { x: 1 }); // Click far left of element
         clickSelector('.js-next-button');
     }
 );
