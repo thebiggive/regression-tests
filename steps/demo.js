@@ -1,21 +1,18 @@
 import { Given, When, Then } from 'cucumber';
 import {
     goToUrl,
-    sendKeys,
     wait
 } from '../support/util';
-
 import {
     checkUrl,
     checkTitle,
     checkSelectorContent
 } from '../support/check';
-
 import {
     clickSelector,
-    inputSelectorValue
+    inputSelectorValue,
+    sendKeys
 } from '../support/action';
-
 
 Given(
     /^I am on the Google homepage$/,

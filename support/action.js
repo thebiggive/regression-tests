@@ -47,3 +47,13 @@ export function setSelectOption(selector, selectedValue) {
         `ACTION: set selected "${selectBox.getValue()}"`
     );
 }
+
+/**
+ * Send keys
+ *
+ * @param {string} value to be typed
+ */
+export function sendKeys(value) {
+    console.log(`ACTION: Send keys "${value}"`);
+    browser.keys(value);
+}

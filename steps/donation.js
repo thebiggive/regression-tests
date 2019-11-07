@@ -1,21 +1,19 @@
 import { Given, When, Then } from 'cucumber';
 import {
     goToUrl,
-    sendKeys,
     randomIntFromInterval
 } from '../support/util';
-
 import {
     checkTitle,
     checkIfElementExists,
     checkSelectorContent,
     checkAngularReady
 } from '../support/check';
-
 import {
     clickSelector,
     setSelectOption,
-    inputSelectorValue
+    inputSelectorValue,
+    sendKeys
 } from '../support/action';
 
 // Constants

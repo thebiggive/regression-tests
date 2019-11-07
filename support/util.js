@@ -23,16 +23,6 @@ export function wait(seconds = WAIT_SECONDS) {
 }
 
 /**
- * Send keys
- *
- * @param {string} value to be typed
- */
-export function sendKeys(value) {
-    console.log(`ACTION: Send keys "${value}"`);
-    browser.keys(value);
-}
-
-/**
  * Generate number between minimum and maximum fixed numbers
  *
  * @param {int} min number
