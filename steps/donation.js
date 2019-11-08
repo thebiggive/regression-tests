@@ -19,7 +19,8 @@ import {
 
 // Constants
 const donatePage = 'donate/a051w000001OtHOAA0';
-// const cardNumber = '4111110000000211';
+const guestEmail = 'regression-test@example.org';
+const cardNumber = '4111110000000211';
 
 // Steps
 Given(
@@ -81,9 +82,15 @@ Then(
 Then(
     /^I complete my donation as a guest$/,
     () => {
-        inputSelectorValue('#email-field', 'regression-test@example.org');
+        inputSelectorValue('#email-field', guestEmail);
         clickSelector('button=Next');
+        checkSelectorContent(
+            'span.ut-email-error',
+            'This email is already in use. Please Sign In to your '
+            + 'existing account or use another email address.'
+        );
         clickSelector('a*=Proceed as guest');
+
         setSelectOption('#country-select', 'string:GB');
         setSelectOption('#title-select', 'string:Dr');
         inputSelectorValue('#first-name', 'Regression');
@@ -94,7 +101,7 @@ Then(
         );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        clickSelector('.agree-box', { x: 1 }); // Click far left of element
+        clickSelector('label[for=agree-check]', { x: 50 }); // click left side
         clickSelector('.js-next-button');
     }
 );
@@ -102,11 +109,17 @@ Then(
 Then(
     /^enter my payment information$/,
     () => {
-        // checkSelectorContent(
-        //     'li*=Please take a payment of',
-        //     'Please take a payment of £50 from my account for ChoraChori',
-        //     7
-        //     );
+        checkSelectorContent(
+            'main h2',
+            'Please check the details of your donation'
+        );
+        clickSelector('a.btn');
+
+        checkSelectorContent(
+            'main #js-payment-form h2',
+            'Please enter your payment details'
+        );
+        inputSelectorValue('input#stPan', cardNumber);
     }
 );
 
