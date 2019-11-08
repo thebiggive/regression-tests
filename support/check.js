@@ -27,6 +27,21 @@ export function checkUrl(url, seconds = WAIT_SECONDS) {
 }
 
 /**
+ * Assert URL Regex
+ *
+ * @param {string} url to be asserted
+ * @param {int} seconds to wait
+ */
+export function checkUrlMatch(url, seconds = WAIT_SECONDS) {
+    const regex = new RegExp(url);
+    browser.waitUntil(
+        () => regex.test(browser.getUrl()),
+        (seconds * 1000),
+        `Expected URL "${browser.getUrl()}" to match regex "${url}"`
+    );
+}
+
+/**
  * Check webpage title
  *
  * @param {string} title of webpage
@@ -76,21 +91,25 @@ export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
 }
 
 /**
- * Check if Angular is initialised and ready to interact
+ * Check if Angular v5 is initialised and ready to interact
  *
+ * @param {string} tag root
  * @param {int} seconds to wait
  * @returns {boolean} True if angular is ready
  */
-export function checkAngularReady(seconds = WAIT_SECONDS) {
+export function checkAngularV5Ready(tag, seconds = WAIT_SECONDS) {
     console.log('CHECK: Angular is ready');
     return browser.waitUntil(
         () => {
-            const result = browser.execute(() => {
-                const root = document.querySelector('app-root'); // eslint-disable-line
+            const result = browser.execute((tag) => { // eslint-disable-line
+                if (!window.getAngularTestability) { // eslint-disable-line
+                    return false;
+                }
+                const root = document.querySelector(tag); // eslint-disable-line
                 const testable = window.getAngularTestability(root); // eslint-disable-line
                 return testable && testable.isStable()
                     && (testable.getPendingRequestCount() === 0);
-            });
+            }, tag);
             console.debug(`CHECK: Angular ready state - ${result}`);
             return result;
         },

@@ -5,9 +5,10 @@ import {
 } from '../support/util';
 import {
     checkTitle,
+    checkUrlMatch,
     checkIfElementExists,
     checkSelectorContent,
-    checkAngularReady
+    checkAngularV5Ready
 } from '../support/check';
 import {
     clickSelector,
@@ -25,7 +26,7 @@ Given(
     /^that I am on my chosen Donate page$/,
     () => {
         goToUrl(donatePage);
-        checkAngularReady();
+        checkAngularV5Ready('app-root');
         checkTitle('Donate to ChoraChori (regtest1)');
         checkSelectorContent('form h1', 'Donating to ChoraChori (regtest1)!');
         // We need to interact with the form,
@@ -69,7 +70,11 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages$/,
     () => {
-        checkTitle('You are donating to ChoraChori', 15);
+        checkUrlMatch(
+            'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/checkout'
+        );
+        checkTitle('You are donating to ChoraChori');
+        checkSelectorContent('#main h1', 'You are donating to ChoraChori');
     }
 );
 
