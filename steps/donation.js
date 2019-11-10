@@ -21,6 +21,9 @@ import {
 const donatePage = 'donate/a051w000001OtHOAA0';
 const guestEmail = 'regression-test@example.org';
 const cardNumber = '4111110000000211';
+const cardExpireYear = '2023';
+const cardExpireMonth = '10';
+const cardCvc = '456';
 
 // Steps
 Given(
@@ -62,7 +65,7 @@ Then(
     () => {
         clickSelector('button=Donate Now');
         if ($('=Match funds not available').isExisting()
-        && checkIfElementExists('button*=Proceed anyway')) {
+            && checkIfElementExists('button*=Proceed anyway')) {
             clickSelector('button*=Proceed anyway');
         }
     }
@@ -120,6 +123,10 @@ Then(
             'Please enter your payment details'
         );
         inputSelectorValue('input#stPan', cardNumber);
+        setSelectOption('#st-month', cardExpireMonth);
+        setSelectOption('#st-year', cardExpireYear);
+        inputSelectorValue('input#stSc', cardCvc);
+        clickSelector('input#st-submit-btn');
     }
 );
 
