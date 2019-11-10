@@ -8,7 +8,8 @@ import {
     checkUrlMatch,
     checkIfElementExists,
     checkSelectorContent,
-    checkAngularV5Ready
+    checkAngularV5Ready,
+    checkUrl
 } from '../support/check';
 import {
     clickSelector,
@@ -140,7 +141,9 @@ When(
 Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
-        // TODO
+        checkUrl('thanks');
+        checkTitle('The Big Give');
+        checkSelectorContent('h2', 'Thank you!');
     }
 );
 
