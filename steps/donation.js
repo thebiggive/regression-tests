@@ -1,16 +1,14 @@
 import { Given, When, Then } from 'cucumber';
 import {
     goToUrl,
-    randomIntFromInterval,
-    wait
+    randomIntFromInterval
 } from '../support/util';
 import {
     checkTitle,
     checkUrlMatch,
     checkIfElementExists,
     checkSelectorContent,
-    checkAngularV5Ready,
-    checkUrl
+    checkAngularV5Ready
 } from '../support/check';
 import {
     clickSelector,
@@ -143,15 +141,15 @@ When(
 Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
-        //checkUrl('thanks');
-        //checkTitle('The Big Give');
-        //checkSelectorContent('h2', 'Thank you!');
-        //checkSelectorContent(
+        // checkUrl('thanks');
+        // checkTitle('The Big Give');
+        // checkSelectorContent('h2', 'Thank you!');
+        // checkSelectorContent(
         //  '.ng-star-inserted p', 'Your donation status: Reserved'
-        //);
-        //checkSelectorContent(
+        // );
+        // checkSelectorContent(
         //  '.ng-star-inserted p', `You donated £${randomDonationAmount}`
-        //);
+        // );
     }
 );
 
