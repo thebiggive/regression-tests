@@ -1,7 +1,8 @@
 import { Given, When, Then } from 'cucumber';
 import {
     goToUrl,
-    randomIntFromInterval
+    randomIntFromInterval,
+    wait
 } from '../support/util';
 import {
     checkTitle,
@@ -19,6 +20,7 @@ import {
 } from '../support/action';
 
 // Constants
+const randomDonationAmount = randomIntFromInterval(5, 100);
 const donatePage = 'donate/a051w000001OtHOAA0';
 const guestEmail = 'regression-test@example.org';
 const cardNumber = '4111110000000211';
@@ -43,7 +45,7 @@ Given(
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        inputSelectorValue('#donationAmount', randomIntFromInterval(5, 100));
+        inputSelectorValue('#donationAmount', randomDonationAmount);
     }
 );
 
@@ -127,7 +129,7 @@ Then(
         setSelectOption('#st-month', cardExpireMonth);
         setSelectOption('#st-year', cardExpireYear);
         inputSelectorValue('input#stSc', cardCvc);
-        clickSelector('input#st-submit-btn');
+        clickSelector('#st-submit-btn');
     }
 );
 
@@ -141,9 +143,16 @@ When(
 Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
+        wait();
         checkUrl('thanks');
         checkTitle('The Big Give');
         checkSelectorContent('h2', 'Thank you!');
+        checkSelectorContent(
+            '.ng-star-inserted p', 'Your donation status: Reserved'
+        );
+        checkSelectorContent(
+            '.ng-star-inserted p', `You donated £${randomDonationAmount}`
+        );
     }
 );
 
