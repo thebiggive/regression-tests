@@ -8,6 +8,7 @@ import { checkIfElementExists } from './check';
  */
 export function clickSelector(selector, options = {}) {
     console.log(`ACTION: Click "${selector}"`);
+
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
@@ -23,9 +24,11 @@ export function clickSelector(selector, options = {}) {
  */
 export function inputSelectorValue(selector, value) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
+
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
+
     $(selector).setValue(value);
 }
 
@@ -33,19 +36,16 @@ export function inputSelectorValue(selector, value) {
  * Select Option
  *
  * @param {string} selector select input
- * @param {string} selectedValue value
+ * @param {string} value value
  */
-export function setSelectOption(selector, selectedValue) {
+export function setSelectOption(selector, value) {
+    console.log(`ACTION: Set select option "${selector}" value "${value}"`);
+
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
-    const selectBox = $(selector);
-    selectBox.selectByAttribute('value', selectedValue);
 
-    // returns "Dr"
-    console.log(
-        `ACTION: set selected "${selectBox.getValue()}"`
-    );
+    $(selector).selectByAttribute('value', value);
 }
 
 /**
