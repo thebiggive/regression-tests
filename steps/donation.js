@@ -150,7 +150,7 @@ Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
         wait();
-        checkUrl('thanks');
+        checkUrl('thanks', 15);
         checkTitle('The Big Give', 3);
     }
 );
