@@ -89,6 +89,7 @@ Then(
 Then(
     /^I complete my donation as a guest$/,
     () => {
+        wait(3);
         inputSelectorValue('#email-field', guestEmail);
         clickSelector('button=Next');
         checkSelectorContent(
@@ -108,9 +109,9 @@ Then(
         );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        wait(5);
+        wait(3);
         clickSelector('label[for=agree-check]', { x: 50 }); // click left side
-        wait(5);
+        wait(3);
         clickSelector('.js-next-button');
     }
 );
