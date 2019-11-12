@@ -149,7 +149,7 @@ Then(
             '.ng-star-inserted p', 'Your donation status: Reserved'
         );
         checkSelectorContent(
-         '.ng-star-inserted p', `You donated £${randomDonationAmount}`
+            '.ng-star-inserted p', `You donated £${randomDonationAmount}`
         );
     }
 );
