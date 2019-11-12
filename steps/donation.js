@@ -118,7 +118,7 @@ Then(
 Then(
     /^enter my payment information$/,
     () => {
-        wait();
+        wait(2);
         checkSelectorContent(
             'main h2',
             'Please check the details of your donation'
