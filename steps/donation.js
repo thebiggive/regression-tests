@@ -82,7 +82,7 @@ Then(
             'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/checkout'
         );
         checkTitle('You are donating to ChoraChori');
-        checkSelectorContent('#main h1', 'You are donating to ChoraChori');
+        checkSelectorContent('#main h1', 'You are donating to ChoraChori', 5);
     }
 );
 
