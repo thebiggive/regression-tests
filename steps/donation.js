@@ -126,7 +126,7 @@ Then(
         );
         wait(1);
         clickSelector('a.btn=Next');
-
+        wait(3);
         checkSelectorContent(
             'main #js-payment-form h2',
             'Please enter your payment details'
