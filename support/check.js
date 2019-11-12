@@ -9,6 +9,7 @@ import { WAIT_SECONDS } from './constants';
  */
 export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.debug(`CHECK: Check "${selector}" exists`);
+    
     return $(selector).waitForDisplayed((1000 * seconds), false,
         `Element "${selector}" is not displayed`);
 }
@@ -21,6 +22,7 @@ export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
  */
 export function checkUrl(url, seconds = WAIT_SECONDS) {
     console.log(`CHECK: URL contains "${url}"`);
+
     browser.waitUntil(
         () => browser.getUrl().includes(url),
         (seconds * 1000),
@@ -36,6 +38,7 @@ export function checkUrl(url, seconds = WAIT_SECONDS) {
  */
 export function checkUrlMatch(url, seconds = WAIT_SECONDS) {
     console.log(`CHECK: URL matches "${url}"`);
+
     const regex = new RegExp(url);
     browser.waitUntil(
         () => regex.test(browser.getUrl()),
@@ -52,6 +55,7 @@ export function checkUrlMatch(url, seconds = WAIT_SECONDS) {
  */
 export function checkTitle(title, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Title contains "${title}"`);
+
     browser.waitUntil(
         () => browser.getTitle().includes(title),
         (seconds * 1000),
@@ -69,6 +73,7 @@ export function checkTitle(title, seconds = WAIT_SECONDS) {
 export function checkSelectorContent(selector, content,
     seconds = WAIT_SECONDS) {
     console.log(`CHECK: Element "${selector}" contains content "${content}"`);
+
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
@@ -88,7 +93,8 @@ export function checkSelectorContent(selector, content,
  * @param {int} seconds to wait
  */
 export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
-  console.log(`CHECK: Input "${selector}" contains value "${value}"`);
+    console.log(`CHECK: Input "${selector}" contains value "${value}"`);
+
     browser.waitUntil(
         () => selector.getValue() === value,
         (seconds * 1000),
@@ -105,6 +111,7 @@ export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
  */
 export function checkAngularV5Ready(tag, seconds = WAIT_SECONDS) {
     console.log('CHECK: Angular is ready');
+
     return browser.waitUntil(
         () => {
             const result = browser.execute((tag) => { // eslint-disable-line
