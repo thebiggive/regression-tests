@@ -77,6 +77,7 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages$/,
     () => {
+        wait(5);
         checkUrlMatch(
             'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/checkout'
         );
@@ -160,9 +161,9 @@ Then(
         checkSelectorContent(
             '.ng-star-inserted p', 'Your donation status: Reserved'
         );
-        // checkSelectorContent(
-        //     '.ng-star-inserted p', `You donated £${randomDonationAmount}`
-        // );
+        checkSelectorContent(
+            '.ng-star-inserted p:nth-child(2)', `You donated £${randomDonationAmount}`
+        );
     }
 );
 
