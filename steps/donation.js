@@ -149,9 +149,9 @@ When(
 Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
-        wait(3);
+        wait(5);
         checkUrl('thanks');
-        checkTitle('The Big Give');
+        checkTitle('The Big Give',3);
     }
 );
 
