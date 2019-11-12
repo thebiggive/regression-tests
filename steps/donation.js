@@ -123,7 +123,7 @@ Then(
             'main h2',
             'Please check the details of your donation'
         );
-        wait(2);
+        wait(1);
         clickSelector('a.btn=Next');
 
         checkSelectorContent(
@@ -162,7 +162,8 @@ Then(
             '.ng-star-inserted p', 'Your donation status: Reserved'
         );
         checkSelectorContent(
-            '.ng-star-inserted p:nth-child(2)', `You donated £${randomDonationAmount}`
+            '.ng-star-inserted p:nth-child(2)',
+            `You donated £${randomDonationAmount}`
         );
     }
 );
