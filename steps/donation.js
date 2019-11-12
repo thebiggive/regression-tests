@@ -151,7 +151,7 @@ Then(
     () => {
         wait();
         checkUrl('thanks');
-        checkTitle('The Big Give',3);
+        checkTitle('The Big Give', 3);
     }
 );
 
