@@ -89,7 +89,6 @@ Then(
 Then(
     /^I complete my donation as a guest$/,
     () => {
-        wait();
         inputSelectorValue('#email-field', guestEmail);
         clickSelector('button=Next');
         checkSelectorContent(
