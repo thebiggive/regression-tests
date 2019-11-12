@@ -81,8 +81,8 @@ Then(
         checkUrlMatch(
             'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/checkout'
         );
-        checkTitle('You are donating to ChoraChori', 5);
-        checkSelectorContent('#main h1', 'You are donating to ChoraChori', 5);
+        checkTitle('You are donating to ChoraChori', 8);
+        checkSelectorContent('#main h1', 'You are donating to ChoraChori', 2);
     }
 );
 
