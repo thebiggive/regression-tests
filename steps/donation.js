@@ -1,7 +1,8 @@
 import { Given, When, Then } from 'cucumber';
 import {
     goToUrl,
-    randomIntFromInterval
+    randomIntFromInterval,
+    wait
 } from '../support/util';
 import {
     checkTitle,
@@ -106,7 +107,9 @@ Then(
         );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
+        wait(5);
         clickSelector('label[for=agree-check]', { x: 50 }); // click left side
+        wait(5);
         clickSelector('.js-next-button');
     }
 );
@@ -114,11 +117,13 @@ Then(
 Then(
     /^enter my payment information$/,
     () => {
+        wait();
         checkSelectorContent(
             'main h2',
             'Please check the details of your donation'
         );
-        clickSelector('a.btn');
+        wait(2);
+        clickSelector('a.btn=Next');
 
         checkSelectorContent(
             'main #js-payment-form h2',
@@ -135,15 +140,22 @@ Then(
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
-        // TODO
+        console.log('ACTION: Implicit approval payments ');
     }
 );
 
 Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
+        wait();
         checkUrl('thanks');
         checkTitle('The Big Give');
+    }
+);
+
+Then(
+    /^I should see an initial message saying the donation succeeded$/,
+    () => {
         checkSelectorContent('h2', 'Thank you!');
         checkSelectorContent(
             '.ng-star-inserted p', 'Your donation status: Reserved'
@@ -151,13 +163,6 @@ Then(
         // checkSelectorContent(
         //     '.ng-star-inserted p', `You donated £${randomDonationAmount}`
         // );
-    }
-);
-
-Then(
-    /^I should see an initial message saying the donation succeeded$/,
-    () => {
-        // TODO
     }
 );
 
