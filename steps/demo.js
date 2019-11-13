@@ -1,8 +1,18 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl, clickSelector, inputSelectorValue, sendKeys, checkUrl, checkTitle,
+    goToUrl,
+    wait
+} from '../support/util';
+import {
+    checkUrl,
+    checkTitle,
     checkSelectorContent
-} from '../support/common';
+} from '../support/check';
+import {
+    clickSelector,
+    inputSelectorValue,
+    sendKeys
+} from '../support/action';
 
 Given(
     /^I am on the Google homepage$/,
@@ -31,6 +41,7 @@ When(
 Then(
     /^the URL is "([^"]*)?"$/,
     (expectedUrl) => {
+        wait(5);
         checkUrl(expectedUrl);
     }
 );
