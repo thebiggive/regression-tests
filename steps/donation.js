@@ -21,7 +21,7 @@ import {
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
-const donatePage = 'donate/a051w000001OtHOAA0';
+const donatePage = process.env.DONATE_PAGE;
 const guestEmail = 'regression-test@example.org';
 const cardNumber = '4111110000000211';
 const cardExpireYear = '2023';

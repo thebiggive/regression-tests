@@ -15,7 +15,7 @@ exports.config = {
     logLevel: process.env.LOG_LEVEL || 'warn',
     coloredLogs: true,
     screenshotPath: './build/screenshots/',
-    baseUrl: 'https://donate-regression.thebiggivetest.org.uk/',
+    baseUrl: process.env.BASE_URL,
     waitforTimeout: 10000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
