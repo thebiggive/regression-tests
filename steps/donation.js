@@ -27,14 +27,16 @@ const cardCvc = '456';
 Given(
     /^that I am on my chosen Donate page$/,
     () => {
-        DonatePage.donateForm();
+        DonatePage.open();
+        DonatePage.checkReady();
+        DonatePage.init();
     }
 );
 
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        DonatePage.setRandomDonationAmount(randomDonationAmount);
+        DonatePage.setDonationAmount(randomDonationAmount);
     }
 );
 
@@ -48,7 +50,7 @@ Then(
 Then(
     /^I press Donate$/,
     () => {
-        DonatePage.pressDonateAction();
+        DonatePage.submitForm();
     }
 );
 

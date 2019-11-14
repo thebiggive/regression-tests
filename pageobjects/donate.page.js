@@ -24,24 +24,33 @@ const matchFundsNotAvailableSelector = '=Match funds not available';
  * donate page object
  */
 export default class DonatePage {
+
     /**
-     * show donation form and make assertion
+     * open the donate page
      */
-    static donateForm() {
+    static open(){
         goToUrl(donatePage);
+
+    }
+
+    static checkReady(){
         checkAngularV5Ready('app-root');
         checkTitle('Donate to ChoraChori (regtest1)');
         checkSelectorContent('form h1', 'Donating to ChoraChori (regtest1)!');
-        // We need to interact with the form,
-        // otherwise radio buttons aren't selected reliably on first click
-        clickSelector(submitBtnSelector);
     }
 
+    /**
+     * We need to interact with the form,
+     * otherwise radio buttons aren't selected reliably on first click
+     */
+    static init(){
+        clickSelector(submitBtnSelector);
+    }
     /**
      * set amount value
      * @param {int} amount number
      */
-    static setRandomDonationAmount(amount) {
+    static setDonationAmount(amount) {
         inputSelectorValue(donationAmountSelector, amount);
     }
 
@@ -62,9 +71,9 @@ export default class DonatePage {
     /**
      * press donate button
      */
-    static pressDonateAction() {
+    static submitForm(skipMatchFundsCheck = true) {
         clickSelector(submitBtnSelector);
-        if ($(matchFundsNotAvailableSelector).isExisting()
+        if (skipMatchFundsCheck === true && $(matchFundsNotAvailableSelector).isExisting()
             && checkIfElementExists(proceedAnyWayBtnSelector)) {
             clickSelector(proceedAnyWayBtnSelector);
         }
