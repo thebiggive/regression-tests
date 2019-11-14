@@ -19,6 +19,11 @@ const receiveEmailFromCharitySelector = '#mat-radio-6';
 const receiveEmailFromTheBigGiveSelector = '#mat-radio-9';
 const proceedAnyWayBtnSelector = 'button*=Proceed anyway';
 const matchFundsNotAvailableSelector = '=Match funds not available';
+const pageHeadingSelector = 'form h1';
+
+//checks
+const titleCheck = 'Donate to ChoraChori (regtest1)';
+const pageHeadingCheck = 'Donating to ChoraChori (regtest1)!';
 
 /**
  * donate page object
@@ -36,8 +41,8 @@ export default class DonatePage {
      */
     static checkReady() {
         checkAngularV5Ready('app-root');
-        checkTitle('Donate to ChoraChori (regtest1)');
-        checkSelectorContent('form h1', 'Donating to ChoraChori (regtest1)!');
+        checkTitle(titleCheck);
+        checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
     }
 
     /**
