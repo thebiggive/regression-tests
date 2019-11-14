@@ -1,6 +1,5 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    goToUrl,
     randomIntFromInterval,
     wait
 } from '../support/util';
@@ -9,7 +8,6 @@ import {
     checkUrlMatch,
     checkIfElementExists,
     checkSelectorContent,
-    checkAngularV5Ready,
     checkUrl
 } from '../support/check';
 import {
@@ -18,10 +16,10 @@ import {
     inputSelectorValue,
     sendKeys
 } from '../support/action';
+import DonatePage from '../pageobjects/donate.page';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
-const donatePage = process.env.DONATE_PAGE;
 const guestEmail = 'regression-test@example.org';
 const cardNumber = '4111110000000211';
 const cardExpireYear = '2023';
@@ -32,45 +30,28 @@ const cardCvc = '456';
 Given(
     /^that I am on my chosen Donate page$/,
     () => {
-        goToUrl(donatePage);
-        checkAngularV5Ready('app-root');
-        checkTitle('Donate to ChoraChori (regtest1)');
-        checkSelectorContent('form h1', 'Donating to ChoraChori (regtest1)!');
-        // We need to interact with the form,
-        // otherwise radio buttons aren't selected reliably on first click
-        clickSelector('button=Donate Now');
+        DonatePage.donateForm();
     }
 );
 
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        inputSelectorValue('#donationAmount', randomDonationAmount);
+        DonatePage.setRandomDonationAmount(randomDonationAmount);
     }
 );
 
 Then(
     /^I choose a preference for Gift Aid, charity comms and TBG comms$/,
     () => {
-        // Claim Gift Aid? select NO
-        clickSelector('#mat-radio-3');
-
-        // Receive email from the charity? select NO
-        clickSelector('#mat-radio-6');
-
-        // Receive email from the Big Give? select NO
-        clickSelector('#mat-radio-9');
+        DonatePage.choosePreference();
     }
 );
 
 Then(
     /^I press Donate$/,
     () => {
-        clickSelector('button=Donate Now');
-        if ($('=Match funds not available').isExisting()
-            && checkIfElementExists('button*=Proceed anyway')) {
-            clickSelector('button*=Proceed anyway');
-        }
+        DonatePage.pressDonateAction();
     }
 );
 
