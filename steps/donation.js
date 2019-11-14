@@ -5,22 +5,19 @@ import {
 } from '../support/util';
 import {
     checkTitle,
-    checkUrlMatch,
-    checkIfElementExists,
     checkSelectorContent,
     checkUrl
 } from '../support/check';
 import {
     clickSelector,
     setSelectOption,
-    inputSelectorValue,
-    sendKeys
+    inputSelectorValue
 } from '../support/action';
 import DonatePage from '../pageobjects/donate.page';
+import checkoutRegistration from '../pageobjects/checkoutRegistration.page';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
-const guestEmail = 'regression-test@example.org';
 const cardNumber = '4111110000000211';
 const cardExpireYear = '2023';
 const cardExpireMonth = '10';
@@ -58,42 +55,14 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages$/,
     () => {
-        wait();
-        checkUrlMatch(
-            'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/checkout'
-        );
-        checkTitle('You are donating to ChoraChori', 8);
-        checkSelectorContent('#main h1', 'You are donating to ChoraChori', 2);
+        checkoutRegistration.assertCheckOutRegisterPage();
     }
 );
 
 Then(
     /^I complete my donation as a guest$/,
     () => {
-        wait(5);
-        inputSelectorValue('#email-field', guestEmail);
-        clickSelector('button=Next');
-        checkSelectorContent(
-            'span.ut-email-error',
-            'This email is already in use. Please Sign In to your '
-            + 'existing account or use another email address.'
-        );
-        clickSelector('a*=Proceed as guest');
-
-        setSelectOption('#country-select', 'string:GB');
-        setSelectOption('#title-select', 'string:Dr');
-        inputSelectorValue('#first-name', 'Regression');
-        inputSelectorValue("input[name='last-name']", 'Test');
-        inputSelectorValue('#paf_addr', 'WC2B 5LX');
-        checkIfElementExists(
-            'li[title*="WC2B 5LX, Reed Online,"'
-        );
-        sendKeys('\ue015'); // ARROW_DOWN
-        sendKeys('\uE007'); // press enter to select address
-        wait(3);
-        clickSelector('label[for=agree-check]', { x: 50 }); // click left side
-        wait(3);
-        clickSelector('.js-next-button');
+        checkoutRegistration.register();
     }
 );
 
