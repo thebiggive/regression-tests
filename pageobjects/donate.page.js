@@ -21,7 +21,7 @@ const proceedAnyWayBtnSelector = 'button*=Proceed anyway';
 const matchFundsNotAvailableSelector = '=Match funds not available';
 const pageHeadingSelector = 'form h1';
 
-//checks
+// checks
 const titleCheck = 'Donate to ChoraChori (regtest1)';
 const pageHeadingCheck = 'Donating to ChoraChori (regtest1)!';
 
