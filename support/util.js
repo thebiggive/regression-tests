@@ -1,5 +1,3 @@
-import { WAIT_SECONDS } from './constants';
-
 /**
  * Go to URL
  *

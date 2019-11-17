@@ -60,15 +60,28 @@ export default class CheckoutRegistrationPage {
     }
 
     /**
-     * checkout registration form
+     * submit registration
      */
-    static register() {
+    static submitForm() {
+        wait(3);
+        clickSelector(submitBtnSelector);
+    }
+
+    /**
+     * register as guest
+     */
+    static proceedAsGuest() {
         wait(5);
         inputSelectorValue(emailInputSelector, guestEmail);
         clickSelector(btnNextSelector);
         checkSelectorContent(emailErrorSelector, emailErrorCheck);
         clickSelector(proceedAsGuestSelector);
+    }
 
+    /**
+     * fill all form elements
+     */
+    static fillForm() {
         setSelectOption(countrySelector, countryCheck);
         setSelectOption(formTitleSelector, formTitleCheck);
         inputSelectorValue(firstNameSelector, firstNameCheck);
@@ -81,7 +94,5 @@ export default class CheckoutRegistrationPage {
         sendKeys('\uE007'); // press enter to select address
         wait(3);
         clickSelector(agreeCheckboxSelector, { x: 50 }); // click left side
-        wait(3);
-        clickSelector(submitBtnSelector);
     }
 }

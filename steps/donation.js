@@ -52,7 +52,9 @@ Then(
 Then(
     /^I complete my donation as a guest$/,
     () => {
-        CheckoutRegistrationPage.register();
+        CheckoutRegistrationPage.proceedAsGuest();
+        CheckoutRegistrationPage.fillForm();
+        CheckoutRegistrationPage.submitForm();
     }
 );
 
