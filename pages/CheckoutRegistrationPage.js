@@ -29,7 +29,7 @@ const guestEmail = 'regression-test@example.org';
 /**
  * checkout Registration page
  */
-export default class checkoutRegistration {
+export default class CheckoutRegistrationPage {
     /**
      * confirm that I'm on the right place
      */

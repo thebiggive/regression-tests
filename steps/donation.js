@@ -14,7 +14,7 @@ import {
     inputSelectorValue
 } from '../support/action';
 import DonatePage from '../pages/DonatePage';
-import checkoutRegistration from '../pages/CheckoutRegistrationPage';
+import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 
 // Constants
@@ -58,14 +58,14 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages$/,
     () => {
-        checkoutRegistration.checkReady();
+        CheckoutRegistrationPage.checkReady();
     }
 );
 
 Then(
     /^I complete my donation as a guest$/,
     () => {
-        checkoutRegistration.register();
+        CheckoutRegistrationPage.register();
     }
 );
 
