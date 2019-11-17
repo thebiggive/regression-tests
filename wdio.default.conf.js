@@ -9,7 +9,7 @@ config.capabilities[0]['goog:chromeOptions'].args = [
     '--disable-setuid-sandbox',
     '--disable-dev-shm-usage',
 ];
-config.services = ['docker'];
+config.services.push('docker');
 config.dockerOptions = {
     image: 'blueimp/chromedriver',
     healthCheck: {

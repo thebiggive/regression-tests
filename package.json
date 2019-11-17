@@ -27,7 +27,8 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-wdio": "^5.13.2",
     "eslint-watch": "^6.0.1",
-    "wdio-docker-service": "^2.1.4"
+    "wdio-docker-service": "^2.1.4",
+    "wdio-timeline-reporter": "^5.1.1"
   },
   "devDependencies": {
     "chromedriver": "78.0.1",

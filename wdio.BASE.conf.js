@@ -1,4 +1,5 @@
 require('dotenv').config(); // load process.env from ".env" file for local
+const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
 
 exports.config = {
     runner: 'local',
@@ -19,9 +20,18 @@ exports.config = {
     waitforTimeout: 10000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
-    services: [], // see wdio.*.conf.js
+    services: [
+        [TimelineService],
+    ], // see wdio.*.conf.js for additional entries
     framework: 'cucumber',
-    reporters: ['spec'],
+    reporters: [
+        'spec',
+        ['timeline', {
+          outputDir: './build',
+          embedImages: true,
+          screenshotStrategy: 'before:click',
+        }],
+    ],
     cucumberOpts: {
         backtrace: false,
         requireModule: ['@babel/register'],
