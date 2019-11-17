@@ -3,7 +3,7 @@ import { wait } from '../support/util';
 import { clickSelector } from '../support/action';
 
 // selectors
-const pageHeadingSelector = 'main h2';
+const pageHeadingSelector = '#main h2';
 const submitBtnSelector = 'a.btn=Next';
 
 // checks

@@ -17,7 +17,6 @@ Given(
     () => {
         DonatePage.open();
         DonatePage.checkReady();
-        DonatePage.init();
     }
 );
 

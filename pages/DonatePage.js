@@ -12,7 +12,7 @@ import { clickSelector, inputSelectorValue } from '../support/action';
 const donatePage = process.env.DONATE_PAGE;
 
 // selectors
-const submitBtnSelector = 'button=Donate Now';
+const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
 const claimGiftAidSelector = '#mat-radio-3';
 const receiveEmailFromCharitySelector = '#mat-radio-6';
@@ -43,14 +43,6 @@ export default class DonatePage {
         checkAngularV5Ready('app-root');
         checkTitle(titleCheck);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
-    }
-
-    /**
-     * We need to interact with the form,
-     * otherwise radio buttons aren't selected reliably on first click
-     */
-    static init() {
-        clickSelector(submitBtnSelector);
     }
 
     /**
