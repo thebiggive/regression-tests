@@ -8,21 +8,13 @@ import {
     checkSelectorContent,
     checkUrl
 } from '../support/check';
-import {
-    clickSelector,
-    setSelectOption,
-    inputSelectorValue
-} from '../support/action';
 import DonatePage from '../pages/DonatePage';
 import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
+import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
-const cardNumber = '4111110000000211';
-const cardExpireYear = '2023';
-const cardExpireMonth = '10';
-const cardCvc = '456';
 
 // Steps
 Given(
@@ -72,19 +64,14 @@ Then(
 Then(
     /^enter my payment information$/,
     () => {
+        // checkout confirm step
         CheckoutConfirmPage.init();
         CheckoutConfirmPage.checkReady();
         CheckoutConfirmPage.submitForm();
 
-        checkSelectorContent(
-            'main #js-payment-form h2',
-            'Please enter your payment details'
-        );
-        inputSelectorValue('input#stPan', cardNumber);
-        setSelectOption('#st-month', cardExpireMonth);
-        setSelectOption('#st-year', cardExpireYear);
-        inputSelectorValue('input#stSc', cardCvc);
-        clickSelector('#st-submit-btn');
+        // checkout payment step
+        CheckoutPaymentPage.checkReady();
+        CheckoutPaymentPage.checkout();
     }
 );
 

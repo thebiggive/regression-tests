@@ -31,7 +31,7 @@ const guestEmail = 'regression-test@example.org';
  */
 export default class CheckoutRegistrationPage {
     /**
-     * confirm that I'm on the right place
+     * check if page ready
      */
     static checkReady() {
         wait();
