@@ -27,9 +27,9 @@ exports.config = {
     reporters: [
         'spec',
         ['timeline', {
-          outputDir: './build',
-          embedImages: true,
-          screenshotStrategy: 'before:click',
+            outputDir: './build',
+            embedImages: true,
+            screenshotStrategy: 'before:click',
         }],
     ],
     cucumberOpts: {
