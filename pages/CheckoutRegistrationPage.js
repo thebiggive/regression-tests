@@ -8,6 +8,7 @@ import {
     setSelectOption,
     sendKeys
 } from '../support/action';
+import { WAIT_SECONDS } from '../support/constants';
 
 // selectors
 const headingSelector = '#main h1';
@@ -46,7 +47,7 @@ export default class CheckoutRegistrationPage {
      * check if page ready
      */
     static checkReady() {
-        wait();
+        wait(WAIT_SECONDS);
         checkUrlMatch(
             urlCheck
         );
