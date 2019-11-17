@@ -75,11 +75,11 @@ export default class CheckoutRegistrationPage {
      * fill all form elements
      */
     static fillForm() {
-        setSelectOption(countrySelector, countryCheck);
-        setSelectOption(formTitleSelector, formTitleCheck);
-        inputSelectorValue(firstNameSelector, firstNameCheck);
-        inputSelectorValue(lastNameSelector, lastNameCheck);
-        inputSelectorValue(addressSelector, addressCheck);
+        setSelectOption(countrySelector, countryInput);
+        setSelectOption(formTitleSelector, formTitleInput);
+        inputSelectorValue(firstNameSelector, firstNameInput);
+        inputSelectorValue(lastNameSelector, lastNameInput);
+        inputSelectorValue(addressSelector, addressInput);
         checkIfElementExists(
             addressAutoCompleteSelector
         );
