@@ -13,8 +13,8 @@ import {
     setSelectOption,
     inputSelectorValue
 } from '../support/action';
-import DonatePage from '../pageobjects/donate.page';
-import checkoutRegistration from '../pageobjects/checkoutRegistration.page';
+import DonatePage from '../pages/DonatePage';
+import checkoutRegistration from '../pages/CheckoutRegistrationPage';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
