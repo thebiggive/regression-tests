@@ -17,10 +17,10 @@ const submitBtnSelector = '#st-submit-btn';
 const pageHeadingCheck = 'Please enter your payment details';
 
 // inputs
-const cardNumber = '4111110000000211';
-const cardExpireYear = '2023';
-const cardExpireMonth = '10';
-const cardCvc = '456';
+const cardNumberInput = '4111110000000211';
+const cardExpireYearInput = '2023';
+const cardExpireMonthInput = '10';
+const cardCvcInput = '456';
 
 /**
  * checkout payment page
@@ -40,10 +40,10 @@ export default class CheckoutPaymentPage {
      * checkout payment form
      */
     static checkout() {
-        inputSelectorValue(cardNumberSelector, cardNumber);
-        setSelectOption(cardExpireMonthSelector, cardExpireMonth);
-        setSelectOption(cardExpireYearSelector, cardExpireYear);
-        inputSelectorValue(cardCvcSelector, cardCvc);
+        inputSelectorValue(cardNumberSelector, cardNumberInput);
+        setSelectOption(cardExpireMonthSelector, cardExpireMonthInput);
+        setSelectOption(cardExpireYearSelector, cardExpireYearInput);
+        inputSelectorValue(cardCvcSelector, cardCvcInput);
         clickSelector(submitBtnSelector);
     }
 }
