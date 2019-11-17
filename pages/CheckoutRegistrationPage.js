@@ -33,7 +33,7 @@ export default class checkoutRegistration {
     /**
      * confirm that I'm on the right place
      */
-    static assertCheckOutRegisterPage() {
+    static checkReady() {
         wait();
         checkUrlMatch(
             'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/checkout'

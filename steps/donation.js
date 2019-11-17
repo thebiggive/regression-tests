@@ -15,6 +15,7 @@ import {
 } from '../support/action';
 import DonatePage from '../pages/DonatePage';
 import checkoutRegistration from '../pages/CheckoutRegistrationPage';
+import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
@@ -57,7 +58,7 @@ Then(
 Then(
     /^I am taken to Charity Checkout pages$/,
     () => {
-        checkoutRegistration.assertCheckOutRegisterPage();
+        checkoutRegistration.checkReady();
     }
 );
 
@@ -71,14 +72,10 @@ Then(
 Then(
     /^enter my payment information$/,
     () => {
-        wait();
-        checkSelectorContent(
-            'main h2',
-            'Please check the details of your donation'
-        );
-        wait(1);
-        clickSelector('a.btn=Next');
-        wait(3);
+        CheckoutConfirmPage.init();
+        CheckoutConfirmPage.checkReady();
+        CheckoutConfirmPage.submitForm();
+
         checkSelectorContent(
             'main #js-payment-form h2',
             'Please enter your payment details'
