@@ -14,16 +14,10 @@ const pageHeadingCheck = 'Please check the details of your donation';
  */
 export default class CheckoutConfirmPage {
     /**
-     * init CheckoutConfirmPage
-     */
-    static init() {
-        wait();
-    }
-
-    /**
      * check if page ready
      */
     static checkReady() {
+        wait();
         checkSelectorContent(
             pageHeadingSelector,
             pageHeadingCheck

@@ -23,16 +23,10 @@ const balanceTextCheck = 'You donated £';
  */
 export default class CheckoutSuccessPage {
     /**
-     * init page
-     */
-    static init() {
-        wait();
-    }
-
-    /**
      * check if page ready
      */
     static checkReady() {
+        wait();
         checkUrl(urlCheck, 15);
         checkTitle(pageTitleCheck, 3);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);

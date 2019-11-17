@@ -60,7 +60,6 @@ Then(
     /^enter my payment information$/,
     () => {
         // checkout confirm step
-        CheckoutConfirmPage.init();
         CheckoutConfirmPage.checkReady();
         CheckoutConfirmPage.submitForm();
 
@@ -80,7 +79,6 @@ When(
 Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
-        CheckoutSuccessPage.init();
         CheckoutSuccessPage.checkReady();
     }
 );
