@@ -16,7 +16,7 @@ const submitBtnSelector = '#st-submit-btn';
 // checks
 const pageHeadingCheck = 'Please enter your payment details';
 
-// fill
+// inputs
 const cardNumber = '4111110000000211';
 const cardExpireYear = '2023';
 const cardExpireMonth = '10';

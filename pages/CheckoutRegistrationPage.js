@@ -32,11 +32,13 @@ const titleCheck = 'You are donating to ChoraChori';
 const pageHeadingCheck = 'You are donating to ChoraChori';
 const emailErrorCheck = 'This email is already in use. Please Sign In to your '
 + 'existing account or use another email address.';
-const countryCheck = 'string:GB';
-const formTitleCheck = 'string:Dr';
-const firstNameCheck = 'Regression';
-const lastNameCheck = 'Test';
-const addressCheck = 'WC2B 5LX';
+
+// inputs
+const countryInput = 'string:GB';
+const formTitleInput = 'string:Dr';
+const firstNameInput = 'Regression';
+const lastNameInput = 'Test';
+const addressInput = 'WC2B 5LX';
 
 /**
  * checkout Registration page
