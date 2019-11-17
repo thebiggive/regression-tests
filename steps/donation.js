@@ -1,17 +1,12 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    randomIntFromInterval,
-    wait
+    randomIntFromInterval
 } from '../support/util';
-import {
-    checkTitle,
-    checkSelectorContent,
-    checkUrl
-} from '../support/check';
 import DonatePage from '../pages/DonatePage';
 import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
+import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
@@ -85,23 +80,15 @@ When(
 Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
-        wait();
-        checkUrl('thanks', 15);
-        checkTitle('The Big Give', 3);
+        CheckoutSuccessPage.init();
+        CheckoutSuccessPage.checkReady();
     }
 );
 
 Then(
     /^I should see an initial message saying the donation succeeded$/,
     () => {
-        checkSelectorContent('h2', 'Thank you!');
-        checkSelectorContent(
-            '.ng-star-inserted p', 'Your donation status: Reserved'
-        );
-        checkSelectorContent(
-            '.ng-star-inserted p:nth-child(2)',
-            `You donated £${randomDonationAmount}`
-        );
+        CheckoutSuccessPage.checkBalance(randomDonationAmount);
     }
 );
 
