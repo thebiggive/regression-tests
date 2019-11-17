@@ -15,7 +15,7 @@ const emailInputSelector = '#email-field';
 const btnNextSelector = 'button=Next';
 const emailErrorSelector = 'span.ut-email-error';
 const countrySelector = '#country-select';
-const titleSelector = '#title-select';
+const formTitleSelector = '#title-select';
 const firstNameSelector = '#first-name';
 const lastNameSelector = "input[name='last-name']";
 const addressSelector = '#paf_addr';
@@ -25,6 +25,18 @@ const submitBtnSelector = '.js-next-button';
 const proceedAsGuestSelector = 'a*=Proceed as guest';
 const guestEmail = 'regression-test@example.org';
 
+// checks
+const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
+                + 'checkout';
+const titleCheck = 'You are donating to ChoraChori';
+const pageHeadingCheck = 'You are donating to ChoraChori';
+const emailErrorCheck = 'This email is already in use. Please Sign In to your '
++ 'existing account or use another email address.';
+const countryCheck = 'string:GB';
+const formTitleCheck = 'string:Dr';
+const firstNameCheck = 'Regression';
+const lastNameCheck = 'Test';
+const addressCheck = 'WC2B 5LX';
 
 /**
  * checkout Registration page
@@ -36,12 +48,13 @@ export default class CheckoutRegistrationPage {
     static checkReady() {
         wait();
         checkUrlMatch(
-            'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/checkout'
+            urlCheck
         );
-        checkTitle('You are donating to ChoraChori', 8);
+        checkTitle(titleCheck, 8);
         checkSelectorContent(
             headingSelector,
-            'You are donating to ChoraChori', 2
+            pageHeadingCheck,
+            2
         );
     }
 
@@ -52,18 +65,14 @@ export default class CheckoutRegistrationPage {
         wait(5);
         inputSelectorValue(emailInputSelector, guestEmail);
         clickSelector(btnNextSelector);
-        checkSelectorContent(
-            emailErrorSelector,
-            'This email is already in use. Please Sign In to your '
-            + 'existing account or use another email address.'
-        );
+        checkSelectorContent(emailErrorSelector, emailErrorCheck);
         clickSelector(proceedAsGuestSelector);
 
-        setSelectOption(countrySelector, 'string:GB');
-        setSelectOption(titleSelector, 'string:Dr');
-        inputSelectorValue(firstNameSelector, 'Regression');
-        inputSelectorValue(lastNameSelector, 'Test');
-        inputSelectorValue(addressSelector, 'WC2B 5LX');
+        setSelectOption(countrySelector, countryCheck);
+        setSelectOption(formTitleSelector, formTitleCheck);
+        inputSelectorValue(firstNameSelector, firstNameCheck);
+        inputSelectorValue(lastNameSelector, lastNameCheck);
+        inputSelectorValue(addressSelector, addressCheck);
         checkIfElementExists(
             addressAutoCompleteSelector
         );
