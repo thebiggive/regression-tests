@@ -1,5 +1,3 @@
-import { WAIT_SECONDS } from './constants';
-
 /**
  * Go to URL
  *
@@ -15,7 +13,7 @@ export function goToUrl(url) {
  *
  * @param {int} seconds to wait
  */
-export function wait(seconds = WAIT_SECONDS) {
+export function wait(seconds) {
     console.warn(
         'WARNING: Fixed sleep being used - avoid unless absolutely necessary!'
     );
