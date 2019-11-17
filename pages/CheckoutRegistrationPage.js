@@ -86,7 +86,7 @@ export default class CheckoutRegistrationPage {
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         wait(3);
-        clickSelector(agreeCheckboxSelector, { x: 50 }); // click left side
+        clickSelector(agreeCheckboxSelector, { x: -50 }); // click left side
     }
 
     /**
