@@ -4,7 +4,6 @@ import {
     checkTitle,
     checkSelectorContent
 } from '../support/check';
-import { WAIT_SECONDS } from '../support/constants';
 
 // selectors
 const pageHeadingSelector = 'h2';
@@ -27,7 +26,7 @@ export default class CheckoutSuccessPage {
      * check if page ready
      */
     static checkReady() {
-        wait(WAIT_SECONDS);
+        wait(10);
         checkUrl(urlCheck, 15);
         checkTitle(pageTitleCheck, 3);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);

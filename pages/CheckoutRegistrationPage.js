@@ -8,7 +8,6 @@ import {
     setSelectOption,
     sendKeys
 } from '../support/action';
-import { WAIT_SECONDS } from '../support/constants';
 
 // selectors
 const headingSelector = '#main h1';
@@ -47,7 +46,7 @@ export default class CheckoutRegistrationPage {
      * check if page ready
      */
     static checkReady() {
-        wait(WAIT_SECONDS);
+        wait(10);
         checkUrlMatch(
             urlCheck
         );
@@ -57,14 +56,6 @@ export default class CheckoutRegistrationPage {
             pageHeadingCheck,
             2
         );
-    }
-
-    /**
-     * submit registration
-     */
-    static submitForm() {
-        wait(3);
-        clickSelector(submitBtnSelector);
     }
 
     /**
@@ -94,5 +85,13 @@ export default class CheckoutRegistrationPage {
         sendKeys('\uE007'); // press enter to select address
         wait(3);
         clickSelector(agreeCheckboxSelector, { x: 50 }); // click left side
+    }
+
+    /**
+     * submit registration
+     */
+    static submitForm() {
+        wait(3);
+        clickSelector(submitBtnSelector);
     }
 }
