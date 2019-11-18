@@ -4,7 +4,7 @@ import { clickSelector } from '../support/action';
 
 // selectors
 const pageHeadingSelector = '#main h2';
-const submitBtnSelector = 'a.btn=Next';
+const submitBtnSelector = 'a.btn=Confirm donation';
 
 // checks
 const pageHeadingCheck = 'Confirm your donation';

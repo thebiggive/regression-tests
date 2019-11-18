@@ -4,6 +4,7 @@ import {
     setSelectOption,
     clickSelector
 } from '../support/action';
+import { wait } from '../support/util';
 
 // constants
 const pageHeadingSelector = '#js-payment-form h2';
@@ -45,5 +46,16 @@ export default class CheckoutPaymentPage {
         setSelectOption(cardExpireYearSelector, cardExpireYearInput);
         inputSelectorValue(cardCvcSelector, cardCvcInput);
         clickSelector(submitBtnSelector);
+    }
+
+    /**
+     * set password step
+     * @param {boolean} skip boolean
+     */
+    static setPassword(skip = false) {
+        if (skip) {
+            wait(3);
+            clickSelector('a=No thanks');
+        }
     }
 }
