@@ -31,7 +31,7 @@ jobs:
 nightly:
     triggers:
       - schedule:
-          cron: "0 0 * * *"
+          cron: "0 10 * * *"
           filters:
             branches:
               only:
