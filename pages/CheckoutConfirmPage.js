@@ -7,7 +7,7 @@ const pageHeadingSelector = '#main h2';
 const submitBtnSelector = 'a.btn=Next';
 
 // checks
-const pageHeadingCheck = 'Please check the details of your donation';
+const pageHeadingCheck = 'Confirm your donation';
 
 /**
  * confirm step page object
