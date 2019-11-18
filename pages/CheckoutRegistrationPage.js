@@ -67,8 +67,8 @@ export default class CheckoutRegistrationPage {
         wait(5);
         inputSelectorValue(emailInputSelector, guestEmail);
         clickSelector(btnNextSelector);
-        checkSelectorContent(emailErrorSelector, emailErrorCheck);
-        clickSelector(proceedAsGuestSelector);
+        // checkSelectorContent(emailErrorSelector, emailErrorCheck);
+        // clickSelector(proceedAsGuestSelector);
     }
 
     /**
@@ -76,7 +76,7 @@ export default class CheckoutRegistrationPage {
      */
     static fillForm() {
         setSelectOption(countrySelector, countryInput);
-        setSelectOption(formTitleSelector, formTitleInput);
+        // setSelectOption(formTitleSelector, formTitleInput);
         inputSelectorValue(firstNameSelector, firstNameInput);
         inputSelectorValue(lastNameSelector, lastNameInput);
         inputSelectorValue(addressSelector, addressInput);
