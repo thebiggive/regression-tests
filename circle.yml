@@ -27,3 +27,12 @@ jobs:
           path: ~/app/build
       - store_artifacts:
           path: ~/app/build
+
+nightly:
+    triggers:
+      - schedule:
+          cron: "0 10 * * *"
+          filters:
+            branches:
+              only:
+                - master
