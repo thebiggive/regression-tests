@@ -51,7 +51,6 @@ Then(
 Then(
     /^I complete my donation as a guest$/,
     () => {
-        CheckoutRegistrationPage.proceedAsGuest();
         CheckoutRegistrationPage.fillForm();
         CheckoutRegistrationPage.submitForm();
     }
@@ -67,6 +66,7 @@ Then(
         // checkout payment step
         CheckoutPaymentPage.checkReady();
         CheckoutPaymentPage.checkout();
+        CheckoutPaymentPage.setPassword(true); // skip
     }
 );
 
