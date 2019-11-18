@@ -6,7 +6,7 @@ import {
 } from '../support/action';
 
 // constants
-const pageHeadingSelector = 'main #js-payment-form h2';
+const pageHeadingSelector = '#js-payment-form h2';
 const cardNumberSelector = 'input#stPan';
 const cardExpireMonthSelector = '#st-month';
 const cardExpireYearSelector = '#st-year';
@@ -14,7 +14,7 @@ const cardCvcSelector = 'input#stSc';
 const submitBtnSelector = '#st-submit-btn';
 
 // checks
-const pageHeadingCheck = 'Please enter your payment details';
+const pageHeadingCheck = 'Please select a payment method';
 
 // inputs
 const cardNumberInput = '4111110000000211';
