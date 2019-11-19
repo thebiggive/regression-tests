@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node
       - image: blueimp/chromedriver
@@ -32,15 +32,14 @@ workflows:
   version: 2
   commit:
     jobs:
-      - build
+      - test
   nightly:
     triggers:
       - schedule:
-          cron: "45 11 * * *"
+          cron: "10 12 * * *"
           filters:
             branches:
               only:
                 - master
-                - feat/add-schedule-config
     jobs:
-      - build
+      - test
