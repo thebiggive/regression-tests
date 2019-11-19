@@ -27,11 +27,20 @@ jobs:
           path: ~/app/build
       - store_artifacts:
           path: ~/app/build
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+  nightly:
     triggers:
       - schedule:
-          cron: "30 11 * * *"
+          cron: "45 11 * * *"
           filters:
             branches:
               only:
                 - master
                 - feat/add-schedule-config
+    jobs:
+      - build
