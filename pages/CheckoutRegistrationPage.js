@@ -65,6 +65,7 @@ export default class CheckoutRegistrationPage {
      * fill all form elements
      */
     static fillForm() {
+        wait(3);
         setSelectOption(countrySelector, countryInput);
         inputSelectorValue(firstNameSelector, firstNameInput);
         inputSelectorValue(lastNameSelector, lastNameInput);
@@ -76,7 +77,7 @@ export default class CheckoutRegistrationPage {
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         wait(3);
-        clickSelector(agreeCheckboxSelector, { x: -70 }); // click left side
+        clickSelector(agreeCheckboxSelector, { x: -90 }); // click left side
     }
 
     /**

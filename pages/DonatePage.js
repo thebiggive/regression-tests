@@ -67,6 +67,7 @@ export default class DonatePage {
         wait(3);
         // Receive email from the Big Give? select NO
         clickSelector(receiveEmailFromTheBigGiveSelector);
+        wait(3);
     }
 
     /**
