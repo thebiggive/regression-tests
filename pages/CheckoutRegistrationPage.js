@@ -77,7 +77,13 @@ export default class CheckoutRegistrationPage {
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         wait(3);
-        clickSelector(agreeCheckboxSelector, { x: -90 }); // click left side
+        browser.execute(() => {
+            document.querySelector('[for="agree-check"]')
+                .innerHTML = 'I have read and agree to the Charity'
+            + 'Checkout terms & conditions and privacy policy.';
+        });
+        wait(3);
+        clickSelector(agreeCheckboxSelector); // click left side
     }
 
     /**
