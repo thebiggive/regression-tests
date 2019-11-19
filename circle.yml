@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node
       - image: blueimp/chromedriver
@@ -28,11 +28,18 @@ jobs:
       - store_artifacts:
           path: ~/app/build
 
-nightly:
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - test
+  nightly:
     triggers:
       - schedule:
-          cron: "0 10 * * *"
+          cron: "10 12 * * *"
           filters:
             branches:
               only:
                 - master
+    jobs:
+      - test
