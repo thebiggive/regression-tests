@@ -82,7 +82,16 @@ Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
         CheckoutSuccessPage.checkReady();
+    }
+);
+
+Then(
+    /^I should see my admin page balance effected$/,
+    () => {
         AdminPage.open();
+        AdminPage.checkReady();
+        AdminPage.fillForm();
+        AdminPage.submitForm();
     }
 );
 

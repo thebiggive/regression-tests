@@ -1,4 +1,21 @@
 import { goToUrl } from '../support/util';
+import { inputSelectorValue, clickSelector } from '../support/action';
+import { checkTitle } from '../support/check';
+
+// routes
+const adminPage = process.env.ADMIN_PAGE;
+
+// selectors
+const emailSelector = 'input[placeholder=Email]';
+const passwordSelector = 'input[placeholder=Password]';
+const loginBtnSelector = 'button=Log in';
+
+// checks
+const titleCheck = 'The Big Give – Charity Login';
+
+// inputs
+const emailInput = 'regression-test-charity@example.org';
+const passwordInput = 'regression0test';
 
 /**
  * Charity Admin Page
@@ -8,6 +25,31 @@ export default class AdminPage {
      * open login page
      */
     static open() {
-        goToUrl('https://regtest1-thebiggive.cs105.force.com/charities/s/');
+        goToUrl(adminPage);
+    }
+
+    /**
+     * check if page ready
+     */
+    static checkReady() {
+        checkTitle(titleCheck);
+    }
+
+    /**
+     * fill login credentials
+     */
+    static fillForm() {
+        inputSelectorValue(
+            emailSelector,
+            emailInput
+        );
+        inputSelectorValue(passwordSelector, passwordInput);
+    }
+
+    /**
+     * submit login form
+     */
+    static submitForm() {
+        clickSelector(loginBtnSelector);
     }
 }
