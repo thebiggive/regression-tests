@@ -29,8 +29,9 @@ jobs:
           path: ~/app/build
     triggers:
       - schedule:
-          cron: "0 11 * * *"
+          cron: "30 11 * * *"
           filters:
             branches:
               only:
                 - master
+                - feat/add-schedule-config
