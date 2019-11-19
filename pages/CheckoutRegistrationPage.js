@@ -65,7 +65,7 @@ export default class CheckoutRegistrationPage {
      * fill all form elements
      */
     static fillForm() {
-        wait(3);
+        wait(5);
         setSelectOption(countrySelector, countryInput);
         inputSelectorValue(firstNameSelector, firstNameInput);
         inputSelectorValue(lastNameSelector, lastNameInput);
