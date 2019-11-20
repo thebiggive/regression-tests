@@ -7,7 +7,7 @@ import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
-import AdminPage from '../pages/AdminPage';
+import AdminLoginPage from '../pages/AdminLoginPage';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
@@ -88,10 +88,10 @@ Then(
 Then(
     /^I should see my admin page balance effected$/,
     () => {
-        AdminPage.open();
-        AdminPage.checkReady();
-        AdminPage.fillForm();
-        AdminPage.submitForm();
+        AdminLoginPage.open();
+        AdminLoginPage.checkReady();
+        AdminLoginPage.fillForm();
+        AdminLoginPage.submitForm();
     }
 );
 
