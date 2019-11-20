@@ -14,8 +14,8 @@ const loginBtnSelector = 'button=Log in';
 const titleCheck = 'The Big Give – Charity Login';
 
 // inputs
-const emailInput = 'regression-test-charity@example.org';
-const passwordInput = 'regression0test';
+const emailInput = process.env.ADMIN_EMAIL;
+const passwordInput = process.env.ADMIN_PASSWORD;
 
 /**
  * Charity Admin Page
