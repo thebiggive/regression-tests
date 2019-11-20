@@ -3,7 +3,7 @@ import { inputSelectorValue, clickSelector } from '../support/action';
 import { checkTitle } from '../support/check';
 
 // routes
-const adminPage = process.env.ADMIN_PAGE;
+const adminPage = process.env.ADMIN_URL;
 
 // selectors
 const emailSelector = 'input[placeholder=Email]';
