@@ -3,7 +3,7 @@ import { inputSelectorValue, clickSelector } from '../support/action';
 import { checkTitle } from '../support/check';
 
 // routes
-const adminPage = 'https://regtest1-thebiggive.cs105.force.com/charities/s/';
+const adminPage = process.env.ADMIN_PAGE;
 
 // selectors
 const emailSelector = 'input[placeholder=Email]';
