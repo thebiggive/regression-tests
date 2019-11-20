@@ -86,7 +86,7 @@ Then(
 );
 
 Then(
-    /^I should see my admin page balance effected$/,
+    /^I should see my admin page balance affected$/,
     () => {
         AdminLoginPage.open();
         AdminLoginPage.checkReady();
