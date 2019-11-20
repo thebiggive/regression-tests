@@ -65,6 +65,7 @@ export default class CheckoutRegistrationPage {
      * fill all form elements
      */
     static fillForm() {
+        wait(5);
         setSelectOption(countrySelector, countryInput);
         inputSelectorValue(firstNameSelector, firstNameInput);
         inputSelectorValue(lastNameSelector, lastNameInput);
@@ -76,7 +77,16 @@ export default class CheckoutRegistrationPage {
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         wait(3);
-        clickSelector(agreeCheckboxSelector, { x: -70 }); // click left side
+        // workaround
+        // the normal click will click on links of terms & privacy
+        // inject js snippet to be able to click the checkbox
+        browser.execute(() => {
+            document.querySelector('[for="agree-check"]')
+                .innerHTML = 'I have read and agree to the Charity'
+            + 'Checkout terms & conditions and privacy policy.';
+        });
+        wait(3);
+        clickSelector(agreeCheckboxSelector); // click left side
     }
 
     /**

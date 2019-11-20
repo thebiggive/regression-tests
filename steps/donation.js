@@ -7,6 +7,7 @@ import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
+import AdminLoginPage from '../pages/AdminLoginPage';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
@@ -81,6 +82,16 @@ Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
         CheckoutSuccessPage.checkReady();
+    }
+);
+
+Then(
+    /^I should see my admin page balance affected$/,
+    () => {
+        AdminLoginPage.open();
+        AdminLoginPage.checkReady();
+        AdminLoginPage.fillForm();
+        AdminLoginPage.submitForm();
     }
 );
 
