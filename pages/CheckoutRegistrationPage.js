@@ -77,6 +77,9 @@ export default class CheckoutRegistrationPage {
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
         wait(3);
+        // workaround
+        // the normal click will click on links of terms & privacy
+        // inject js snippet to be able to click the checkbox
         browser.execute(() => {
             document.querySelector('[for="agree-check"]')
                 .innerHTML = 'I have read and agree to the Charity'
