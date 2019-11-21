@@ -1,5 +1,6 @@
 import { checkTitle, checkUrl, checkIfElementExists } from '../support/check';
 import { clickSelector } from '../support/action';
+import { wait } from '../support/util';
 
 // selectors
 const popUpSelector = 'button[title="Close this window"]';
@@ -17,6 +18,7 @@ export default class AdminCheckBalancePage {
      * check if page ready && close overlay modal
      */
     static checkReady() {
+        wait(3);
         checkUrl(urlCheck);
         checkTitle(titleCheck);
         clickSelector(popUpSelector);
