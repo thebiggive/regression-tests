@@ -8,6 +8,7 @@ import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
 import AdminLoginPage from '../pages/AdminLoginPage';
+import AdminCheckBalancePage from '../pages/AdminCheckBalancePage';
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
@@ -92,6 +93,8 @@ Then(
         AdminLoginPage.checkReady();
         AdminLoginPage.fillForm();
         AdminLoginPage.submitForm();
+        AdminCheckBalancePage.checkReady();
+        AdminCheckBalancePage.checkBalance();
     }
 );
 
