@@ -11,6 +11,9 @@
     "test:local": "wdio run wdio.local.conf.js",
     "clean": "del-cli build/* !build/.gitkeep"
   },
+  "engines": {
+    "node": "10"
+  },
   "dependencies": {
     "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-export-default-from": "^7.5.2",
