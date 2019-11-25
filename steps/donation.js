@@ -79,7 +79,24 @@ When(
     () => {
         // TODO: Provide donation id & build donation data
         browser.call(async () => {
-            await sendCheckoutWebhook(0, {});
+            await sendCheckoutWebhook(
+                'a061w000002dvL1AAI',
+                {
+                    charityId: process.env.CHECKOUT_CHARITY_ID,
+                    donationAmount: 100,
+                    giftAid: true,
+                    donationMatched: true,
+                    firstName: 'Ezra',
+                    lastName: 'Furman',
+                    emailAddress: 'ezra@example.com',
+                    billingPostalAddress: '1 Main Street, London, N1 1AA',
+                    countryCode: 'GB',
+                    optInTbgEmail: true,
+                    projectId: process.env.CHECKOUT_PROJECT_ID,
+                    amountMatchedByChampionFunds: 40,
+                    amountMatchedByPledges: 60,
+                }
+            );
         });
     }
 );
