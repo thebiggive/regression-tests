@@ -49,9 +49,9 @@ export default async function sendCheckoutWebhook(id, data) {
     await request({
         method: 'PUT',
         uri: url,
-        data,
+        formData: data,
         headers: {
             'X-Webhook-Verify-Hash': hash,
-        }
+        },
     });
 }
