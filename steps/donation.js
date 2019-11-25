@@ -1,9 +1,16 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    randomIntFromInterval, wait
+    randomIntFromInterval
 } from '../support/util';
 import DonatePage from '../pages/DonatePage';
-import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
+import CheckoutRegistrationPage,
+{
+    firstNameInput,
+    lastNameInput,
+    countryInput,
+    addressInput,
+    guestEmail
+} from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
@@ -79,7 +86,7 @@ When(
     () => {
         const donationID = browser.getUrl()
             .split('/')[4]; // Donation ID
-        console.log(`DOnation ID: ${donationID}`);
+        console.log(`Donation ID: ${donationID}`);
         // TODO: Provide donation id & build donation data
         browser.call(async () => {
             await sendCheckoutWebhook(
@@ -89,11 +96,11 @@ When(
                     donationAmount: randomDonationAmount,
                     giftAid: true,
                     donationMatched: true,
-                    firstName: 'Ezra',
-                    lastName: 'Furman',
-                    emailAddress: 'ezra@example.com',
-                    billingPostalAddress: '1 Main Street, London, N1 1AA',
-                    countryCode: 'GB',
+                    firstName: firstNameInput,
+                    lastName: lastNameInput,
+                    emailAddress: guestEmail,
+                    billingPostalAddress: addressInput,
+                    countryCode: countryInput,
                     optInTbgEmail: true,
                     projectId: process.env.CHECKOUT_PROJECT_ID,
                     amountMatchedByChampionFunds: 40,

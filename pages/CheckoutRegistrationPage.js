@@ -28,11 +28,10 @@ const titleCheck = 'You are donating to ChoraChori';
 const pageHeadingCheck = 'You are donating to ChoraChori';
 
 // inputs
-const countryInput = 'string:GB';
-// const formTitleInput = 'string:Dr';
-const firstNameInput = 'Regression';
-const lastNameInput = 'Test';
-const addressInput = 'WC2B 5LX';
+export const countryInput = 'string:GB';
+export const firstNameInput = 'Regression';
+export const lastNameInput = 'Test';
+export const addressInput = 'WC2B 5LX';
 
 /**
  * checkout Registration page
