@@ -19,11 +19,10 @@ const addressSelector = '#paf_addr';
 const addressAutoCompleteSelector = 'li[title*="WC2B 5LX, Reed Online,"';
 const agreeCheckboxSelector = 'label[for=agree-check]';
 const submitBtnSelector = '.js-next-button';
-const guestEmail = 'regression-test@example.org';
 
 // checks
 const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
-                + 'checkout';
++ 'checkout';
 const titleCheck = 'You are donating to ChoraChori';
 const pageHeadingCheck = 'You are donating to ChoraChori';
 
@@ -32,6 +31,7 @@ export const countryInput = 'string:GB';
 export const firstNameInput = 'Regression';
 export const lastNameInput = 'Test';
 export const addressInput = 'WC2B 5LX';
+export const guestEmailInput = 'regression-test@example.org';
 
 /**
  * checkout Registration page
@@ -68,7 +68,7 @@ export default class CheckoutRegistrationPage {
         setSelectOption(countrySelector, countryInput);
         inputSelectorValue(firstNameSelector, firstNameInput);
         inputSelectorValue(lastNameSelector, lastNameInput);
-        inputSelectorValue(emailInputSelector, guestEmail);
+        inputSelectorValue(emailInputSelector, guestEmailInput);
         inputSelectorValue(addressSelector, addressInput);
         checkIfElementExists(
             addressAutoCompleteSelector

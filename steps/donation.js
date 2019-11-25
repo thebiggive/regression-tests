@@ -9,7 +9,7 @@ import CheckoutRegistrationPage,
     lastNameInput,
     countryInput,
     addressInput,
-    guestEmail
+    guestEmailInput
 } from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
@@ -98,7 +98,7 @@ When(
                     donationMatched: true,
                     firstName: firstNameInput,
                     lastName: lastNameInput,
-                    emailAddress: guestEmail,
+                    emailAddress: guestEmailInput,
                     billingPostalAddress: addressInput,
                     countryCode: countryInput,
                     optInTbgEmail: true,
