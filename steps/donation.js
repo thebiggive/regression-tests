@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    randomIntFromInterval
+    randomIntFromInterval, wait
 } from '../support/util';
 import DonatePage from '../pages/DonatePage';
 import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
@@ -77,10 +77,13 @@ Then(
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
+        const pathName = browser.getUrl()
+            .replace(`${process.env.BASE_URL}thanks/`);
+        console.log(pathName);
         // TODO: Provide donation id & build donation data
         browser.call(async () => {
             await sendCheckoutWebhook(
-                'a061w000002dvL1AAI',
+                pathName,
                 {
                     charityId: process.env.CHECKOUT_CHARITY_ID,
                     donationAmount: 100,

@@ -50,6 +50,6 @@ export default async function sendCheckoutWebhook(id, data) {
     await request({
         method: 'PUT',
         uri: url,
-        // TODO: header for hash & data in body
+        data,
     });
 }
