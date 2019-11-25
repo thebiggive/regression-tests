@@ -45,11 +45,13 @@ export default async function sendCheckoutWebhook(id, data) {
     const hash = getVerifyHash(data);
     console.debug(`sendCheckoutWebhook() ${hash}`);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
-
-    // TODO: Make HTTP request to process.env.CHECKOUT_WEBHOOK_URL
+    console.log('DATA:', data);
     await request({
         method: 'PUT',
         uri: url,
         data,
+        headers: {
+            'X-Webhook-Verify-Hash': hash,
+        }
     });
 }
