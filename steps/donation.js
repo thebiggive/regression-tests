@@ -9,6 +9,8 @@ import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
 import AdminLoginPage from '../pages/AdminLoginPage';
 import AdminCheckBalancePage from '../pages/AdminCheckBalancePage';
+import sendCheckoutWebhook from '../support/checkout/webhook';
+
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
@@ -75,7 +77,10 @@ Then(
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
-        console.log('ACTION: Implicit approval payments ');
+        // TODO: Provide donation id & build donation data
+        browser.call(async () => {
+            await sendCheckoutWebhook(0, {});
+        });
     }
 );
 
