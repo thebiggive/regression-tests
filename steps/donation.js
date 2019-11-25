@@ -76,7 +76,6 @@ When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
         console.log('ACTION: Implicit approval payments ');
-        // TODO
     }
 );
 
