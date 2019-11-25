@@ -49,8 +49,10 @@ export default async function sendCheckoutWebhook(id, data) {
     await request({
         method: 'PUT',
         uri: url,
-        formData: data,
+        body: JSON.stringify(data),
+        json: true,
         headers: {
+            'content-type': 'application/json',
             'X-Webhook-Verify-Hash': hash,
         },
     });
