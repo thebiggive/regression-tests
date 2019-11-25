@@ -77,16 +77,16 @@ Then(
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
-        const pathName = browser.getUrl()
-            .replace(`${process.env.BASE_URL}thanks/`);
-        console.log(pathName);
+        const donationID = browser.getUrl()
+            .split('/')[4]; // Donation ID
+        console.log(`DOnation ID: ${donationID}`);
         // TODO: Provide donation id & build donation data
         browser.call(async () => {
             await sendCheckoutWebhook(
-                pathName,
+                donationID,
                 {
                     charityId: process.env.CHECKOUT_CHARITY_ID,
-                    donationAmount: 100,
+                    donationAmount: randomDonationAmount,
                     giftAid: true,
                     donationMatched: true,
                     firstName: 'Ezra',
