@@ -48,6 +48,7 @@ export default async function sendCheckoutWebhook(id, data) {
     console.log('DATA:', data);
     await request({
         method: 'PUT',
+        path: id,
         uri: url,
         body: data,
         json: true,
@@ -55,5 +56,8 @@ export default async function sendCheckoutWebhook(id, data) {
             'content-type': 'application/json',
             'X-Webhook-Verify-Hash': hash,
         },
+    }, (error, response) => {
+        console.log('error: ', error);
+        console.log('RESPONSE: ', response);
     });
 }
