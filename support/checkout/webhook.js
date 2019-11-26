@@ -49,7 +49,7 @@ export default async function sendCheckoutWebhook(id, data) {
     await request({
         method: 'PUT',
         uri: url,
-        body: JSON.stringify(data),
+        body: data,
         json: true,
         headers: {
             'content-type': 'application/json',
