@@ -100,7 +100,7 @@ When(
                     lastName: lastNameInput,
                     emailAddress: guestEmailInput,
                     billingPostalAddress: addressInput,
-                    countryCode: countryInput,
+                    countryCode: countryInput.slice(7),
                     optInTbgEmail: true,
                     projectId: process.env.CHECKOUT_PROJECT_ID,
                     amountMatchedByChampionFunds: 40,
