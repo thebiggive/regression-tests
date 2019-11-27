@@ -12,7 +12,7 @@
     "clean": "del-cli build/* !build/.gitkeep"
   },
   "engines": {
-    "node": "10 || ^12.0.0"
+    "node": "10 || ^12.0.0 || 13.2.0"
   },
   "dependencies": {
     "@babel/core": "^7.6.4",
