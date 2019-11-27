@@ -23,7 +23,7 @@ const pageHeadingSelector = 'h1';
 
 // checks
 const titleCheck = 'Donate to ChoraChori (regtest1)';
-const pageHeadingCheck = 'ChoraChori (regtest1)!';
+const pageHeadingCheck = 'ChoraChori (regtest1)';
 
 /**
  * donate page object
