@@ -29,9 +29,11 @@ jobs:
           path: ~/app/build
       - slack/status:
           fail_only: true
+          only_for_branches: master
           webhook: ${SLACK_WEBHOOK_ERROR}
       - slack/status:
           fail_only: false
+          only_for_branches: master
           webhook: ${SLACK_WEBHOOK_SUCCESS}
 
 workflows:
