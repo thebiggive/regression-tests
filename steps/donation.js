@@ -3,12 +3,21 @@ import {
     randomIntFromInterval
 } from '../support/util';
 import DonatePage from '../pages/DonatePage';
-import CheckoutRegistrationPage from '../pages/CheckoutRegistrationPage';
+import CheckoutRegistrationPage,
+{
+    firstNameInput,
+    lastNameInput,
+    countryInput,
+    addressInput,
+    guestEmailInput
+} from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
 import AdminLoginPage from '../pages/AdminLoginPage';
 import AdminCheckBalancePage from '../pages/AdminCheckBalancePage';
+import sendCheckoutWebhook from '../support/checkout/webhook';
+
 
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
@@ -75,7 +84,29 @@ Then(
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
-        console.log('ACTION: Implicit approval payments ');
+        const donationID = browser.getUrl()
+            .split('/')[4]; // Donation ID
+        console.log(`Donation ID: ${donationID}`);
+        browser.call(async () => {
+            await sendCheckoutWebhook(
+                donationID,
+                {
+                    charityId: process.env.CHECKOUT_CHARITY_ID,
+                    donationAmount: randomDonationAmount,
+                    giftAid: true,
+                    donationMatched: true,
+                    firstName: firstNameInput,
+                    lastName: lastNameInput,
+                    emailAddress: guestEmailInput,
+                    billingPostalAddress: addressInput,
+                    // using slice to remove string: text
+                    countryCode: countryInput.slice(7),
+                    optInTbgEmail: true,
+                    projectId: process.env.CHECKOUT_PROJECT_ID,
+                    status: 'Paid',
+                }
+            );
+        });
     }
 );
 
