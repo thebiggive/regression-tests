@@ -103,8 +103,7 @@ When(
                     countryCode: countryInput.slice(7),
                     optInTbgEmail: true,
                     projectId: process.env.CHECKOUT_PROJECT_ID,
-                    amountMatchedByChampionFunds: 40,
-                    amountMatchedByPledges: 60,
+                    status: 'Paid',
                 }
             );
         });
