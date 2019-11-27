@@ -87,7 +87,6 @@ When(
         const donationID = browser.getUrl()
             .split('/')[4]; // Donation ID
         console.log(`Donation ID: ${donationID}`);
-        // TODO: Provide donation id & build donation data
         browser.call(async () => {
             await sendCheckoutWebhook(
                 donationID,
@@ -100,7 +99,7 @@ When(
                     lastName: lastNameInput,
                     emailAddress: guestEmailInput,
                     billingPostalAddress: addressInput,
-                    countryCode: countryInput.slice(7),
+                    countryCode: countryInput.slice(7), // using slice to remove string: text
                     optInTbgEmail: true,
                     projectId: process.env.CHECKOUT_PROJECT_ID,
                     status: 'Paid',
