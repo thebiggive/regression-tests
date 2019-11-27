@@ -50,4 +50,4 @@ workflows:
       - test
 
 orbs:
-  slack: circleci/slack@bdd
+  slack: circleci/slack
