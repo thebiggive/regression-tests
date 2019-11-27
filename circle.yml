@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/node
       - image: blueimp/chromedriver
-        init: true # required: https://github.com/blueimp/chromedriver/issues/5
+        ## init: true # required: https://github.com/blueimp/chromedriver/issues/5
     working_directory: ~/app
     steps:
       - checkout
