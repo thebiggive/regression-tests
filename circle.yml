@@ -51,8 +51,3 @@ workflows:
 
 orbs:
   slack: circleci/slack@bdd
-version: 2.1
-workflows:
-  commit:
-    jobs:
-      - test
