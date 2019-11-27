@@ -27,6 +27,11 @@ jobs:
           path: ~/app/build
       - store_artifacts:
           path: ~/app/build
+      - slack/notify:
+          color: '#42e2f4'
+          mentions: '@here'
+          message: Test Result
+          webhook: webhook
 
 workflows:
   version: 2
@@ -41,5 +46,13 @@ workflows:
             branches:
               only:
                 - master
+    jobs:
+      - test
+
+orbs:
+  slack: circleci/slack@bdd
+version: 2.1
+workflows:
+  commit:
     jobs:
       - test
