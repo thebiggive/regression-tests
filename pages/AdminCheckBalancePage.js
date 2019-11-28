@@ -28,6 +28,7 @@ export default class AdminCheckBalancePage {
      * TODO will move this method to a separate page object later
      */
     static downloadCsvFile() {
+        wait(4);
         clickSelector('a=My campaigns');
         clickSelector('button=Manage Campaign');
         clickSelector('a=Donations');
