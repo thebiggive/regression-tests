@@ -1,10 +1,9 @@
-import { checkTitle, checkUrl, checkIfElementExists } from '../support/check';
+import { checkTitle, checkUrl } from '../support/check';
 import { clickSelector } from '../support/action';
 import { wait } from '../support/util';
 
 // selectors
 const popUpSelector = 'button[title="Close this window"]';
-const balanceSelector = '.lf-dash-number=2';
 
 // checks
 const titleCheck = 'The Big Give - Dashboard';
@@ -25,19 +24,10 @@ export default class AdminCheckBalancePage {
     }
 
     /**
-     * assert that donation incremented
-     */
-    static checkBalance() {
-        checkIfElementExists(balanceSelector);
-        this.downloadCsvFile(); // download the csv file
-        // this.parseCsvFile(); // check if amount raised
-    }
-
-    /**
      * Download Csv file
      */
     static downloadCsvFile() {
-        // TODO
+        clickSelector('a=My campaigns');
     }
 
     /**

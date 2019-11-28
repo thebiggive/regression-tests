@@ -125,7 +125,7 @@ Then(
         AdminLoginPage.fillForm();
         AdminLoginPage.submitForm();
         AdminCheckBalancePage.checkReady();
-        AdminCheckBalancePage.checkBalance();
+        AdminCheckBalancePage.downloadCsvFile();
     }
 );
 
