@@ -56,8 +56,7 @@ export default async function sendCheckoutWebhook(id, data) {
             'content-type': 'application/json',
             'X-Webhook-Verify-Hash': hash,
         },
-    }, (error, response) => {
+    }, (error) => {
         console.log('error: ', error);
-        console.log('RESPONSE: ', response);
     });
 }
