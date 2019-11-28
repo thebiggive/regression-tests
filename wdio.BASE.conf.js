@@ -1,7 +1,48 @@
 require('dotenv').config(); // load process.env from ".env" file for local
 const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
+// Load the libraries we need for path/filesystem manipulation
+const path = require('path');
+const fs = require('fs');
+
+// Store the directory path in a global,
+// which allows us to access this path inside our tests
+const downloadDir = path.join(__dirname, 'tempDownload');
+
+/**
+  Pulled from https://gist.github.com/tkihira/2367067
+  this could be moved to a separate file if we wanted
+  @param {string} dir directory path
+ */
+function rmdir(dir) {
+    const list = fs.readdirSync(dir);
+    for (let i = 0; i < list.length; i += 1) {
+        const filename = path.join(dir, list[i]);
+        const stat = fs.statSync(filename);
+
+        if (filename === '.' || filename === '..') {
+        // pass these files
+        } else if (stat.isDirectory()) {
+        // rmdir recursively
+            rmdir(filename);
+        } else {
+        // rm fiilename
+            fs.unlinkSync(filename);
+        }
+    }
+    fs.rmdirSync(dir);
+}
 
 exports.config = {
+    onPrepare() {
+    // make sure download directory exists
+        if (!fs.existsSync(downloadDir)) {
+        // if it doesn't exist, create it
+            fs.mkdirSync(downloadDir);
+        }
+    },
+    onComplete() {
+        rmdir(downloadDir);
+    },
     runner: 'local',
     path: '/',
     specs: [
@@ -11,7 +52,13 @@ exports.config = {
     capabilities: [{
         maxInstances: 1,
         browserName: 'chrome',
-        'goog:chromeOptions': {}, // see wdio.*.conf.js
+        'goog:chromeOptions': {
+            prefs: {
+                directory_upgrade: true,
+                prompt_for_download: false,
+                'download.default_directory': downloadDir,
+            },
+        }, // see wdio.*.conf.js
     }],
     logLevel: process.env.LOG_LEVEL || 'warn',
     coloredLogs: true,
