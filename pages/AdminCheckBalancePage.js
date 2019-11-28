@@ -29,5 +29,36 @@ export default class AdminCheckBalancePage {
      */
     static checkBalance() {
         checkIfElementExists(balanceSelector);
+        this.downloadCsvFile(); // download the csv file
+        // this.parseCsvFile(); // check if amount raised
+    }
+
+    /**
+     * Download Csv file
+     */
+    static downloadCsvFile() {
+        // TODO
+    }
+
+    /**
+     * check if donation raised
+     */
+    static parseCsvFile() {
+        const fs = require('fs');
+        const csv = require('csv-parser');
+
+        fs.createReadStream('Campaign_Donations.csv')
+            .pipe(csv())
+            .on('data', (data) => {
+                try {
+                    console.log(`Row: ${data.Amount}`);
+                // perform the operation
+                } catch (err) {
+                // error handler
+                }
+            })
+            .on('end', () => {
+            // some final operation
+            });
     }
 }
