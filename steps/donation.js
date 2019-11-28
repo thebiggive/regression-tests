@@ -86,23 +86,22 @@ When(
     () => {
         const donationID = browser.getUrl()
             .split('/')[4]; // Donation ID
-        console.log(`Donation ID: ${donationID}`);
         browser.call(async () => {
             await sendCheckoutWebhook(
                 donationID,
                 {
                     charityId: process.env.CHECKOUT_CHARITY_ID,
+                    projectId: process.env.CHECKOUT_PROJECT_ID,
                     donationAmount: randomDonationAmount,
-                    giftAid: true,
-                    donationMatched: true,
+                    donationMatched: false,
+                    giftAid: false,
+                    optInTbgEmail: false,
                     firstName: firstNameInput,
                     lastName: lastNameInput,
                     emailAddress: guestEmailInput,
                     billingPostalAddress: addressInput,
                     // using slice to remove string: text
                     countryCode: countryInput.slice(7),
-                    optInTbgEmail: true,
-                    projectId: process.env.CHECKOUT_PROJECT_ID,
                     status: 'Paid',
                 }
             );
