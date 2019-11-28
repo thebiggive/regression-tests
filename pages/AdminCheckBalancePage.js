@@ -25,13 +25,12 @@ export default class AdminCheckBalancePage {
 
     /**
      * Download Csv file
+     * TODO will move this method to a separate page object later
      */
     static downloadCsvFile() {
         clickSelector('a=My campaigns');
-        wait(3);
         clickSelector('button=Manage Campaign');
-        wait(3);
-        clickSelector("li[data-label='Donations']");
+        clickSelector('a=Donations');
     }
 
     /**

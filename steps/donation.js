@@ -118,13 +118,20 @@ Then(
 );
 
 Then(
-    /^I should see my admin page balance affected$/,
+    /^I login to my admin page$/,
     () => {
         AdminLoginPage.open();
         AdminLoginPage.checkReady();
         AdminLoginPage.fillForm();
         AdminLoginPage.submitForm();
         AdminCheckBalancePage.checkReady();
+    }
+);
+
+
+Then(
+    /^I should download the donation csv file$/,
+    () => {
         AdminCheckBalancePage.downloadCsvFile();
     }
 );
@@ -132,6 +139,7 @@ Then(
 Then(
     /^I should see an initial message saying the donation succeeded$/,
     () => {
+        AdminCheckBalancePage.downloadCsvFile();
         // CheckoutSuccessPage.checkBalance(randomDonationAmount);
     }
 );
