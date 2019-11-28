@@ -103,7 +103,7 @@ When(
                     countryCode: countryInput.slice(7),
                     optInTbgEmail: true,
                     projectId: process.env.CHECKOUT_PROJECT_ID,
-                    status: 'Paid',
+                    status: 'Collected',
                 }
             );
         });
