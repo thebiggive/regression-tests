@@ -26,6 +26,7 @@
     "@wdio/spec-reporter": "^5.15.2",
     "chai": "^4.2.0",
     "crypto": "^1.0.1",
+    "csv-parser": "^2.3.2",
     "del-cli": "^3.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^6.6.0",
