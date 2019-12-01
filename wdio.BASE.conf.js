@@ -34,7 +34,6 @@ function rmdir(dir) {
 
 exports.config = {
     onPrepare() {
-        console.log('Download Dir: ', downloadDir);
         // make sure download directory exists
         if (!fs.existsSync(downloadDir)) {
         // if it doesn't exist, create it

@@ -29,7 +29,11 @@ const pageHeadingCheck = 'You are donating to ChoraChori';
 // inputs
 export const countryInput = 'string:GB';
 export const firstNameInput = 'Regression';
-export const lastNameInput = 'Test';
+const date = new Date();
+
+export const lastNameInput = `${date.toLocaleDateString()}:
+${date.getMilliseconds()}`;
+
 export const addressInput = 'WC2B 5LX';
 export const guestEmailInput = 'regression-test@example.org';
 
