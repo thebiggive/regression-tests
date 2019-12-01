@@ -1,6 +1,6 @@
 import { goToUrl, wait } from '../support/util';
 import {
-    checkAngularV5Ready,
+    // checkAngularV5Ready,
     checkTitle,
     checkSelectorContent,
     checkIfElementExists
