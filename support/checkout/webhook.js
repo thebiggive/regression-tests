@@ -41,11 +41,9 @@ function getVerifyHash(data) {
  * }
  */
 export default async function sendCheckoutWebhook(id, data) {
-    console.debug('sendCheckoutWebhook()');
+    console.log(`WEBHOOK: Send checkout webhook - Donation ID "${id}"`);
     const hash = getVerifyHash(data);
-    console.debug(`sendCheckoutWebhook() ${hash}`);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
-    console.log('DATA:', data);
     await request({
         method: 'PUT',
         path: id,
@@ -57,6 +55,9 @@ export default async function sendCheckoutWebhook(id, data) {
             'X-Webhook-Verify-Hash': hash,
         },
     }, (error) => {
-        console.log('error: ', error);
+        if (error) {
+            console.error(`WEBHOOK: Error - "${error}"`);
+            throw new Error(error);
+        }
     });
 }

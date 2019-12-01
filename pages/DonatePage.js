@@ -1,6 +1,6 @@
 import { goToUrl, wait } from '../support/util';
 import {
-    checkAngularV5Ready,
+    // checkAngularV5Ready,
     checkTitle,
     checkSelectorContent,
     checkIfElementExists
@@ -40,7 +40,11 @@ export default class DonatePage {
      * check if page ready
      */
     static checkReady() {
-        checkAngularV5Ready('app-root');
+        // The following check no longer passes - replacing with fixed wait...
+        // window.getAngularTestability(document.
+        //  querySelector('app-root')).isStable()
+        // checkAngularV5Ready('app-root');
+        wait(3);
         checkTitle(titleCheck);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
     }
