@@ -13,24 +13,24 @@ global.downloadDir = path.join(__dirname, 'tempDownload');
   this could be moved to a separate file if we wanted
   @param {string} dir directory path
  */
-function rmdir(dir) {
-    const list = fs.readdirSync(dir);
-    for (let i = 0; i < list.length; i += 1) {
-        const filename = path.join(dir, list[i]);
-        const stat = fs.statSync(filename);
+// function rmdir(dir) {
+//     const list = fs.readdirSync(dir);
+//     for (let i = 0; i < list.length; i += 1) {
+//         const filename = path.join(dir, list[i]);
+//         const stat = fs.statSync(filename);
 
-        if (filename === '.' || filename === '..') {
-        // pass these files
-        } else if (stat.isDirectory()) {
-        // rmdir recursively
-            rmdir(filename);
-        } else {
-        // rm fiilename
-            fs.unlinkSync(filename);
-        }
-    }
-    fs.rmdirSync(dir);
-}
+//         if (filename === '.' || filename === '..') {
+//         // pass these files
+//         } else if (stat.isDirectory()) {
+//         // rmdir recursively
+//             rmdir(filename);
+//         } else {
+//         // rm fiilename
+//             fs.unlinkSync(filename);
+//         }
+//     }
+//     fs.rmdirSync(dir);
+// }
 
 exports.config = {
     onPrepare() {
