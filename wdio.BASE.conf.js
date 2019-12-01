@@ -42,7 +42,7 @@ exports.config = {
         }
     },
     onComplete() {
-        // rmdir(downloadDir);
+        rmdir(downloadDir);
     },
     runner: 'local',
     path: '/',
