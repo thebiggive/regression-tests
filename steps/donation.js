@@ -128,7 +128,6 @@ Then(
     }
 );
 
-
 Then(
     /^I should download the donation csv file$/,
     () => {
@@ -139,7 +138,6 @@ Then(
 Then(
     /^I should see an initial message saying the donation succeeded$/,
     () => {
-        AdminCheckBalancePage.downloadCsvFile();
         // CheckoutSuccessPage.checkBalance(randomDonationAmount);
     }
 );
