@@ -41,7 +41,7 @@ exports.config = {
         }
     },
     onComplete() {
-        rmdir(global.downloadDir);
+        // rmdir(global.downloadDir);
     },
     runner: 'local',
     path: '/',
