@@ -30,7 +30,9 @@ export default class AdminCheckBalancePage {
     static downloadCsvFile() {
         wait(4);
         clickSelector('a=My campaigns');
+        wait(3);
         clickSelector('button=Manage Campaign');
+        wait(3);
         clickSelector('a=Donations');
     }
 
