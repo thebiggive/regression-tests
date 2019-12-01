@@ -15,7 +15,7 @@ jobs:
             - v1-deps
       - run:
           name: Create Download Directory
-          command: mkdir ~/app/build/downloads && chmod 0777 /app/build/downloads
+          command: mkdir ~/app/build/downloads && chmod 0777 ~/app/build/downloads
       - run:
           name: Install Dependencies
           command: yarn install --ignore-engines --frozen-lockfile --prod
