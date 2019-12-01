@@ -34,14 +34,15 @@ function rmdir(dir) {
 
 exports.config = {
     onPrepare() {
-    // make sure download directory exists
+        console.log('Download Dir: ', downloadDir);
+        // make sure download directory exists
         if (!fs.existsSync(downloadDir)) {
         // if it doesn't exist, create it
             fs.mkdirSync(downloadDir);
         }
     },
     onComplete() {
-        rmdir(downloadDir);
+        // rmdir(downloadDir);
     },
     runner: 'local',
     path: '/',
@@ -56,6 +57,7 @@ exports.config = {
             prefs: {
                 directory_upgrade: true,
                 prompt_for_download: false,
+                'safebrowsing.enabled': false,
                 'download.default_directory': downloadDir,
             },
         }, // see wdio.*.conf.js
