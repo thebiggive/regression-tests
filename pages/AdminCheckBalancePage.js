@@ -34,6 +34,9 @@ export default class AdminCheckBalancePage {
         clickSelector('button=Manage Campaign');
         wait(3);
         clickSelector('a=Donations');
+        wait(2);
+        clickSelector('button=Download CSV data');
+        wait(5);
     }
 
     /**
