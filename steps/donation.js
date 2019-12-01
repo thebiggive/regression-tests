@@ -131,6 +131,7 @@ Then(
     /^I should download the donation csv file$/,
     () => {
         AdminCheckBalancePage.downloadCsvFile();
+        AdminCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
 

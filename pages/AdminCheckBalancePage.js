@@ -41,23 +41,14 @@ export default class AdminCheckBalancePage {
 
     /**
      * check if donation raised
+     * @param { donationCheck } donationCheck value to be checked
      */
-    static parseCsvFile() {
+    static parseCsvFile(donationCheck) {
+        console.log('Start parsing file', global.downloadDir);
         const fs = require('fs');
-        const csv = require('csv-parser');
-
-        fs.createReadStream('Campaign_Donations.csv')
-            .pipe(csv())
-            .on('data', (data) => {
-                try {
-                    console.log(`Row: ${data.Amount}`);
-                // perform the operation
-                } catch (err) {
-                // error handler
-                }
-            })
-            .on('end', () => {
-            // some final operation
-            });
+        const assert = require('assert');
+        const filePath = `${global.downloadDir}/Campaign_Donations.csv`;
+        const fileContents = fs.readFileSync(filePath, 'utf-8');
+        assert.ok(fileContents.includes(donationCheck));
     }
 }

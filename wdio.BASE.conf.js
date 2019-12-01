@@ -6,7 +6,7 @@ const fs = require('fs');
 
 // Store the directory path in a global,
 // which allows us to access this path inside our tests
-const downloadDir = path.join(__dirname, 'tempDownload');
+global.downloadDir = path.join(__dirname, 'tempDownload');
 
 /**
   Pulled from https://gist.github.com/tkihira/2367067
@@ -35,13 +35,13 @@ function rmdir(dir) {
 exports.config = {
     onPrepare() {
         // make sure download directory exists
-        if (!fs.existsSync(downloadDir)) {
+        if (!fs.existsSync(global.downloadDir)) {
         // if it doesn't exist, create it
-            fs.mkdirSync(downloadDir);
+            fs.mkdirSync(global.downloadDir);
         }
     },
     onComplete() {
-        rmdir(downloadDir);
+        rmdir(global.downloadDir);
     },
     runner: 'local',
     path: '/',
@@ -57,7 +57,7 @@ exports.config = {
                 directory_upgrade: true,
                 prompt_for_download: false,
                 'safebrowsing.enabled': false,
-                'download.default_directory': downloadDir,
+                'download.default_directory': global.downloadDir,
             },
         }, // see wdio.*.conf.js
     }],
