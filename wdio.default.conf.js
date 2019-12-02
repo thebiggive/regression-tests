@@ -23,7 +23,7 @@ config.dockerOptions = {
         init: true,
         shmSize: '2g',
     },
-    command: 'sudo docker run --workdir ~/app',
+    command: 'sudo docker run --workdir ~/app && ls',
 };
 
 exports.config = config;
