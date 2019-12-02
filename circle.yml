@@ -26,6 +26,7 @@ jobs:
       - run: nc -vz localhost 4444 # Check chromedriver/chrome has started
       - run: yarn lint
       - run: yarn test:ci
+      - run: ll ./
       - store_test_results:
           path: ~/app/build
       - store_artifacts:
