@@ -6,31 +6,7 @@ const fs = require('fs');
 
 // Store the directory path in a global,
 // which allows us to access this path inside our tests
-global.downloadDir = path.join(__dirname, 'tempDownload');
-
-/**
-  Pulled from https://gist.github.com/tkihira/2367067
-  this could be moved to a separate file if we wanted
-  @param {string} dir directory path
- */
-function rmdir(dir) {
-    const list = fs.readdirSync(dir);
-    for (let i = 0; i < list.length; i += 1) {
-        const filename = path.join(dir, list[i]);
-        const stat = fs.statSync(filename);
-
-        if (filename === '.' || filename === '..') {
-        // pass these files
-        } else if (stat.isDirectory()) {
-        // rmdir recursively
-            rmdir(filename);
-        } else {
-        // rm fiilename
-            fs.unlinkSync(filename);
-        }
-    }
-    fs.rmdirSync(dir);
-}
+global.downloadDir = path.join(__dirname, 'build/downloads');
 
 exports.config = {
     onPrepare() {
@@ -39,9 +15,6 @@ exports.config = {
         // if it doesn't exist, create it
             fs.mkdirSync(global.downloadDir);
         }
-    },
-    onComplete() {
-        rmdir(global.downloadDir);
     },
     runner: 'local',
     path: '/',
