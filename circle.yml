@@ -25,9 +25,9 @@ jobs:
             - ~/.cache
       - run: nc -vz localhost 4444 # Check chromedriver/chrome has started
       - run: yarn lint
+      - run: yarn test:ci
       - run: docker create -v /cfg --name configs alpine:3.4 /bin/true
       - run: docker cp ~/app/build/downloads configs:/cfg
-      - run: yarn test:ci
 
       - store_test_results:
           path: ~/app/build
