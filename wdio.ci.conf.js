@@ -9,6 +9,7 @@ config.capabilities[0]['goog:chromeOptions'].args = [
     '--disable-setuid-sandbox',
     '--disable-dev-shm-usage',
 ];
+config.dockerOptions.command = 'sudo docker run --workdir ~/app';
 config.reporters.push(['junit', {
     outputDir: './build/wdio',
     outputFileFormat(options) {
