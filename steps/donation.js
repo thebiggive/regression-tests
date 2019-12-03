@@ -145,7 +145,7 @@ When(
 
 
 Then(
-    /^I should check that donation count raised$/,
+    /^I should check that donation count has increased$/,
     () => {
         const currentCount = Number(AdminCheckBalancePage.DCount);
         const newCount = currentCount + Number(1);

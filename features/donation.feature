@@ -5,7 +5,7 @@ Feature: Make a matched donation
     So that I can support my chosen charity with a doubled donation
 
     Scenario: Match funds available and payment is processed successfully, before match fund reservation expires
-        When I login to my admin page
+        Given I login to my admin page
         Then I should check current donation count
         Given that I am on my chosen Donate page
         When I enter an amount between £5 and £25,000
@@ -17,7 +17,7 @@ Feature: Make a matched donation
         When my bank approves the charge and the payment steps took less than 15 minutes
         Then I should be redirected to a Thank You confirmation page
         Given I am on my admin page
-        Then I should check that donation count raised
+        Then I should check that donation count has increased
 #       Then I should download the donation csv file
 #       And I should see an initial message saying the donation succeeded
 #       When I wait 5 seconds
