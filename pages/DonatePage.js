@@ -22,8 +22,8 @@ const matchFundsNotAvailableSelector = '=Match funds not available';
 const pageHeadingSelector = 'h1';
 
 // checks
-const titleCheck = 'Donate to ChoraChori (regtest1)';
-const pageHeadingCheck = 'ChoraChori (regtest1)';
+const titleCheck = 'Donate to Regression Test Charity';
+const pageHeadingCheck = 'Regression Test Charity';
 
 /**
  * donate page object

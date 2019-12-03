@@ -1,4 +1,4 @@
-import { wait } from '../support/util';
+import { wait, generateIdentifier } from '../support/util';
 import {
     checkUrlMatch, checkTitle, checkSelectorContent, checkIfElementExists
 } from '../support/check';
@@ -22,14 +22,14 @@ const submitBtnSelector = '.js-next-button';
 
 // checks
 const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
-+ 'checkout';
+    + 'checkout';
 const titleCheck = 'You are donating to ChoraChori';
 const pageHeadingCheck = 'You are donating to ChoraChori';
 
 // inputs
 export const countryInput = 'string:GB';
 export const firstNameInput = 'Regression';
-export const lastNameInput = 'Test';
+export const lastNameInput = generateIdentifier('Lastname-');
 export const addressInput = 'WC2B 5LX';
 export const guestEmailInput = 'regression-test@example.org';
 
@@ -65,6 +65,8 @@ export default class CheckoutRegistrationPage {
      */
     static fillForm() {
         wait(5);
+        // workaround to prepare the form
+        clickSelector(submitBtnSelector);
         setSelectOption(countrySelector, countryInput);
         inputSelectorValue(firstNameSelector, firstNameInput);
         inputSelectorValue(lastNameSelector, lastNameInput);
@@ -82,7 +84,7 @@ export default class CheckoutRegistrationPage {
         browser.execute(() => {
             document.querySelector('[for="agree-check"]')
                 .innerHTML = 'I have read and agree to the Charity'
-            + 'Checkout terms & conditions and privacy policy.';
+                + 'Checkout terms & conditions and privacy policy.';
         });
         wait(3);
         clickSelector(agreeCheckboxSelector); // click left side
