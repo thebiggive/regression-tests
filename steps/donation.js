@@ -154,7 +154,7 @@ Then(
 );
 
 Then(
-    /^I should download the donation csv file$/,
+    /^I should check the donation CSV file to find my donation$/,
     () => {
         AdminCheckBalancePage.downloadCsvFile();
         AdminCheckBalancePage.parseCsvFile(lastNameInput);
