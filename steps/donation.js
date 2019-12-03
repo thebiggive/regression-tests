@@ -128,14 +128,6 @@ Then(
 );
 
 Then(
-    /^I should download the donation csv file$/,
-    () => {
-        AdminCheckBalancePage.downloadCsvFile();
-        AdminCheckBalancePage.parseCsvFile(lastNameInput);
-    }
-);
-
-Then(
     /^I should check that donation count raised$/,
     () => {
         AdminCheckBalancePage.checkDonationCount(19);
