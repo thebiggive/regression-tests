@@ -49,10 +49,10 @@ export default class AdminCheckBalancePage {
         const assert = require('assert');
         const filePath = `${global.downloadDir}/Campaign_Donations.csv`;
         const fileContents = fs.readFileSync(filePath, 'utf-8');
-        assert.ok(fileContents.includes(donationCheck));
         console.log(
             'CHECK: check if donation exist via last name unique value: ',
             donationCheck
         );
+        assert.ok(fileContents.includes(donationCheck));
     }
 }

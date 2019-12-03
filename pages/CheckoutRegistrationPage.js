@@ -22,18 +22,15 @@ const submitBtnSelector = '.js-next-button';
 
 // checks
 const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
-+ 'checkout';
+    + 'checkout';
 const titleCheck = 'You are donating to ChoraChori';
 const pageHeadingCheck = 'You are donating to ChoraChori';
 
 // inputs
 export const countryInput = 'string:GB';
 export const firstNameInput = 'Regression';
-const date = new Date();
-
-export const lastNameInput = `${date.toLocaleDateString()}:
-${date.getMilliseconds()}`;
-
+const d = new Date();
+export const lastNameInput = `${d.toLocaleDateString()}:${d.getMilliseconds()}`;
 export const addressInput = 'WC2B 5LX';
 export const guestEmailInput = 'regression-test@example.org';
 
@@ -88,7 +85,7 @@ export default class CheckoutRegistrationPage {
         browser.execute(() => {
             document.querySelector('[for="agree-check"]')
                 .innerHTML = 'I have read and agree to the Charity'
-            + 'Checkout terms & conditions and privacy policy.';
+                + 'Checkout terms & conditions and privacy policy.';
         });
         wait(3);
         clickSelector(agreeCheckboxSelector); // click left side
