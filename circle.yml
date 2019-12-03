@@ -2,9 +2,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: circleci/node
-      - image: blueimp/chromedriver
-        ## init: true # required: https://github.com/blueimp/chromedriver/issues/5
+      - image: circleci/node:lts-buster-browsers
     working_directory: ~/app
     steps:
       - checkout
