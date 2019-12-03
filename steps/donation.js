@@ -37,7 +37,7 @@ When(
 Then(
     /^I should check current donation count$/,
     () => {
-        AdminCheckBalancePage.DonationCount = AdminCheckBalancePage.checkDonationCount();
+        AdminCheckBalancePage.DCount = AdminCheckBalancePage.getDonationCount();
     }
 );
 
@@ -147,7 +147,9 @@ When(
 Then(
     /^I should check that donation count raised$/,
     () => {
-        AdminCheckBalancePage.checkDonationCountMatched(parseInt(AdminCheckBalancePage.DonationCount) + parseInt(1));
+        const currentCount = Number(AdminCheckBalancePage.DCount);
+        const newCount = currentCount + Number(1);
+        AdminCheckBalancePage.checkDonationCountMatched(newCount);
     }
 );
 

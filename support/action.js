@@ -68,12 +68,13 @@ export function sendKeys(value) {
  * @returns {strint} element text
  */
 export function getSelectorText(selector, seconds = WAIT_SECONDS) {
-
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
     const element = $(selector);
-    console.log(`GET: Element "${selector}" contains content "${element.getText()}"`);
+    console.log(
+        `GET: Element "${selector}" contains content "${element.getText()}"`
+    );
     return browser.waitUntil(
         () => element.getText(),
         (seconds * 1000),

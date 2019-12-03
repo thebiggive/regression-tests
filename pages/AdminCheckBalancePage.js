@@ -68,12 +68,13 @@ export default class AdminCheckBalancePage {
         );
     }
 
-
     /**
      * check donation count value
+     * @returns {int} current donation number
      */
-    static checkDonationCount() {
+    static getDonationCount() {
         return getSelectorText(
-            'div:nth-child(5) > div > div.lf-dash-number');
+            'div:nth-child(5) > div > div.lf-dash-number'
+        );
     }
 }
