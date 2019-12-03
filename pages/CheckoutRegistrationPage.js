@@ -1,4 +1,4 @@
-import { wait } from '../support/util';
+import { wait, generateIdentifier } from '../support/util';
 import {
     checkUrlMatch, checkTitle, checkSelectorContent, checkIfElementExists
 } from '../support/check';
@@ -29,8 +29,7 @@ const pageHeadingCheck = 'You are donating to ChoraChori';
 // inputs
 export const countryInput = 'string:GB';
 export const firstNameInput = 'Regression';
-const d = new Date();
-export const lastNameInput = `${d.toLocaleDateString()}:${d.getMilliseconds()}`;
+export const lastNameInput = generateIdentifier('Lastname-');
 export const addressInput = 'WC2B 5LX';
 export const guestEmailInput = 'regression-test@example.org';
 
