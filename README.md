@@ -1,5 +1,7 @@
 # regression-tests
 
+[![CircleCI](https://circleci.com/gh/thebiggive/regression-tests.svg?style=svg)](https://circleci.com/gh/thebiggive/regression-tests)
+
 ## Local Development
 
 ### Install project

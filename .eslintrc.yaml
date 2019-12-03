@@ -12,9 +12,11 @@ extends:
 globals:
   assert: true
   expect: true
+  document: false
+
 
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 8
 
 root: true
 

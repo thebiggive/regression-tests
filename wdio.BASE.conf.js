@@ -1,4 +1,5 @@
 require('dotenv').config(); // load process.env from ".env" file for local
+const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
 
 exports.config = {
     runner: 'local',
@@ -12,16 +13,26 @@ exports.config = {
         browserName: 'chrome',
         'goog:chromeOptions': {}, // see wdio.*.conf.js
     }],
-    logLevel: 'warn',
+    logLevel: process.env.LOG_LEVEL || 'warn',
     coloredLogs: true,
     screenshotPath: './build/screenshots/',
-    baseUrl: 'https://www.google.com',
+    baseUrl: process.env.BASE_URL,
     waitforTimeout: 10000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
-    services: [], // see wdio.*.conf.js
+    specFileRetries: 2,
+    services: [
+        [TimelineService],
+    ], // see wdio.*.conf.js for additional entries
     framework: 'cucumber',
-    reporters: ['spec'],
+    reporters: [
+        'spec',
+        ['timeline', {
+            outputDir: './build',
+            embedImages: true,
+            screenshotStrategy: 'before:click',
+        }],
+    ],
     cucumberOpts: {
         backtrace: false,
         requireModule: ['@babel/register'],
@@ -37,9 +48,9 @@ exports.config = {
         ],
         snippetSyntax: undefined,
         strict: true,
-        tagExpression: 'not @Pending',
+        tagExpression: 'not @ignore',
         tagsInTitle: false,
-        timeout: 20000,
+        timeout: 30000,
     },
     before: function before() {
         const chai = require('chai');

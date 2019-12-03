@@ -1,10 +1,10 @@
-version: 2
+version: 2.1
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node
       - image: blueimp/chromedriver
-        init: true # required: https://github.com/blueimp/chromedriver/issues/5
+        ## init: true # required: https://github.com/blueimp/chromedriver/issues/5
     working_directory: ~/app
     steps:
       - checkout
@@ -27,3 +27,30 @@ jobs:
           path: ~/app/build
       - store_artifacts:
           path: ~/app/build
+      - slack/status:
+          fail_only: true
+          only_for_branches: master
+          webhook: ${SLACK_WEBHOOK_ERROR}
+      - slack/status:
+          fail_only: false
+          only_for_branches: master
+          webhook: ${SLACK_WEBHOOK_SUCCESS}
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - test
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - test
+
+orbs:
+  slack: circleci/slack@3.4.1
