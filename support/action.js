@@ -1,4 +1,5 @@
 import { checkIfElementExists } from './check';
+import { WAIT_SECONDS } from './constants';
 
 /**
  * Click on element
@@ -56,4 +57,26 @@ export function setSelectOption(selector, value) {
 export function sendKeys(value) {
     console.log(`ACTION: Send keys "${value}"`);
     browser.keys(value);
+}
+
+
+/**
+ * get element text
+ *
+ * @param {string} selector of content
+ * @param {int} seconds to wait
+ * @returns {strint} element text
+ */
+export function getSelectorText(selector, seconds = WAIT_SECONDS) {
+
+    if (!checkIfElementExists(selector)) {
+        throw new Error(`Expected element "${selector}" to exist`);
+    }
+    const element = $(selector);
+    console.log(`GET: Element "${selector}" contains content "${element.getText()}"`);
+    return browser.waitUntil(
+        () => element.getText(),
+        (seconds * 1000),
+        `Element "${selector}" value contain "${element.getText()}"`
+    );
 }

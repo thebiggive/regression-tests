@@ -22,6 +22,25 @@ import sendCheckoutWebhook from '../support/checkout/webhook';
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
 
+
+When(
+    /^I login to my admin page$/,
+    () => {
+        AdminLoginPage.open();
+        AdminLoginPage.checkReady();
+        AdminLoginPage.fillForm();
+        AdminLoginPage.submitForm();
+        AdminCheckBalancePage.checkReady();
+    }
+);
+
+Then(
+    /^I should check current donation count$/,
+    () => {
+        AdminCheckBalancePage.DonationCount = AdminCheckBalancePage.checkDonationCount();
+    }
+);
+
 // Steps
 Given(
     /^that I am on my chosen Donate page$/,
@@ -117,20 +136,18 @@ Then(
 );
 
 When(
-    /^I login to my admin page$/,
+    /^I am on my admin page$/,
     () => {
         AdminLoginPage.open();
-        AdminLoginPage.checkReady();
-        AdminLoginPage.fillForm();
-        AdminLoginPage.submitForm();
         AdminCheckBalancePage.checkReady();
     }
 );
 
+
 Then(
     /^I should check that donation count raised$/,
     () => {
-        AdminCheckBalancePage.checkDonationCount(19);
+        AdminCheckBalancePage.checkDonationCountMatched(parseInt(AdminCheckBalancePage.DonationCount) + parseInt(1));
     }
 );
 

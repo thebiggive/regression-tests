@@ -1,7 +1,7 @@
 import {
     checkTitle, checkUrl, checkSelectorContent
 } from '../support/check';
-import { clickSelector } from '../support/action';
+import { clickSelector, getSelectorText } from '../support/action';
 import { wait } from '../support/util';
 
 // selectors
@@ -59,12 +59,21 @@ export default class AdminCheckBalancePage {
     }
 
     /**
-     * check if donation count raised
+     * check if donation count matched a given value
      * @param {int} donationCount to be checked
      */
-    static checkDonationCount(donationCount) {
+    static checkDonationCountMatched(donationCount) {
         checkSelectorContent(
             'div:nth-child(5) > div > div.lf-dash-number', donationCount
         );
+    }
+
+
+    /**
+     * check donation count value
+     */
+    static checkDonationCount() {
+        return getSelectorText(
+            'div:nth-child(5) > div > div.lf-dash-number');
     }
 }
