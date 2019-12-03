@@ -25,6 +25,7 @@
     "@wdio/local-runner": "^5.15.4",
     "@wdio/spec-reporter": "^5.15.2",
     "chai": "^4.2.0",
+    "chromedriver": "78.0.1",
     "crypto": "^1.0.1",
     "csv-parser": "^2.3.2",
     "del-cli": "^3.0.0",
@@ -35,11 +36,7 @@
     "eslint-plugin-wdio": "^5.13.2",
     "eslint-watch": "^6.0.1",
     "request-promise-native": "^1.0.8",
-    "wdio-docker-service": "^2.1.4",
+    "wdio-chromedriver-service": "^5.0.2",
     "wdio-timeline-reporter": "^5.1.1"
-  },
-  "devDependencies": {
-    "chromedriver": "78.0.1",
-    "wdio-chromedriver-service": "^5.0.2"
   }
 }
