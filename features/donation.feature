@@ -16,8 +16,8 @@ Feature: Make a matched donation
         Then I should be redirected to a Thank You confirmation page
         And I should see an initial message saying the donation succeeded
         Then I login to my admin page
-        Then I should download the donation csv file
         Then I should check that donation count raised
+        Then I should download the donation csv file
 #        When I wait 5 seconds
 #        Then I should see my Charity Checkout transaction ID
 #        And I should see my matched amount is the same as my donation amount

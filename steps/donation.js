@@ -136,17 +136,17 @@ Then(
 );
 
 Then(
-    /^I should download the donation csv file$/,
+    /^I should check that donation count raised$/,
     () => {
-        AdminCheckBalancePage.downloadCsvFile();
-        AdminCheckBalancePage.parseCsvFile(lastNameInput);
+        AdminCheckBalancePage.checkDonationCount(19);
     }
 );
 
 Then(
-    /^I should check that donation count raised$/,
+    /^I should download the donation csv file$/,
     () => {
-        AdminCheckBalancePage.checkDonationCount(19);
+        AdminCheckBalancePage.downloadCsvFile();
+        AdminCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
 
