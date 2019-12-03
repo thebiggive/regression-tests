@@ -14,11 +14,11 @@ Feature: Make a matched donation
         And enter my payment information
         When my bank approves the charge and the payment steps took less than 15 minutes
         Then I should be redirected to a Thank You confirmation page
-        And I should see an initial message saying the donation succeeded
-        Then I login to my admin page
+        When I login to my admin page
         Then I should check that donation count raised
         Then I should download the donation csv file
-#        When I wait 5 seconds
-#        Then I should see my Charity Checkout transaction ID
-#        And I should see my matched amount is the same as my donation amount
-#        And I should see the total value of my donation is double my donation amount, plus any Gift Aid
+#       And I should see an initial message saying the donation succeeded
+#       When I wait 5 seconds
+#       Then I should see my Charity Checkout transaction ID
+#       And I should see my matched amount is the same as my donation amount
+#       And I should see the total value of my donation is double my donation amount, plus any Gift Aid

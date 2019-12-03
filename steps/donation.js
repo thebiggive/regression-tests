@@ -116,7 +116,7 @@ Then(
     }
 );
 
-Then(
+When(
     /^I login to my admin page$/,
     () => {
         AdminLoginPage.open();
