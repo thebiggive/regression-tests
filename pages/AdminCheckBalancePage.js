@@ -50,7 +50,7 @@ export default class AdminCheckBalancePage {
         const filePath = `${global.downloadDir}/Campaign_Donations.csv`;
         const fileContents = fs.readFileSync(filePath, 'utf-8');
         console.log(
-            'CHECK: check if donation exist via last name unique value: ',
+            'CHECK: check if donation exist via last name unique value:',
             donationCheck
         );
         assert.ok(fileContents.includes(donationCheck));
