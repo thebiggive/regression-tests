@@ -1,4 +1,6 @@
-import { checkTitle, checkUrl } from '../support/check';
+import {
+    checkTitle, checkUrl, checkSelectorContent
+} from '../support/check';
 import { clickSelector } from '../support/action';
 import { wait } from '../support/util';
 
@@ -54,5 +56,15 @@ export default class AdminCheckBalancePage {
             donationCheck
         );
         assert.ok(fileContents.includes(donationCheck));
+    }
+
+    /**
+     * check if donation count raised
+     * @param {int} donationCount to be checked
+     */
+    static checkDonationCount(donationCount) {
+        checkSelectorContent(
+            'div:nth-child(5) > div > div.lf-dash-number', donationCount
+        );
     }
 }

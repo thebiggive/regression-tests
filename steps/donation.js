@@ -136,11 +136,26 @@ Then(
 );
 
 Then(
-    /^I should see an initial message saying the donation succeeded$/,
+    /^I should download the donation csv file$/,
     () => {
-        // CheckoutSuccessPage.checkBalance(randomDonationAmount);
+        AdminCheckBalancePage.downloadCsvFile();
+        AdminCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
+
+Then(
+    /^I should check that donation count raised$/,
+    () => {
+        AdminCheckBalancePage.checkDonationCount(19);
+    }
+);
+
+/* Then(
+    /^I should see an initial message saying the donation succeeded$/,
+    () => {
+        // TODO
+    }
+); */
 
 // When(
 //     /^I wait 5 seconds$/,
