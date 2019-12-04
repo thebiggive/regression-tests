@@ -23,17 +23,6 @@ import sendCheckoutWebhook from '../support/checkout/webhook';
 const randomDonationAmount = randomIntFromInterval(5, 100);
 
 
-When(
-    /^I login to my admin page$/,
-    () => {
-        AdminLoginPage.open();
-        AdminLoginPage.checkReady();
-        AdminLoginPage.fillForm();
-        AdminLoginPage.submitForm();
-        AdminCheckBalancePage.checkReady();
-    }
-);
-
 Then(
     /^I should check current donation count$/,
     () => {
@@ -136,20 +125,13 @@ Then(
 );
 
 When(
-    /^I am on my admin page$/,
+    /^I login to my admin page$/,
     () => {
         AdminLoginPage.open();
+        AdminLoginPage.checkReady();
+        AdminLoginPage.fillForm();
+        AdminLoginPage.submitForm();
         AdminCheckBalancePage.checkReady();
-    }
-);
-
-
-Then(
-    /^I should check that donation count has increased$/,
-    () => {
-        const currentCount = Number(AdminCheckBalancePage.DCount);
-        const newCount = currentCount + Number(1);
-        AdminCheckBalancePage.checkDonationCountMatched(newCount);
     }
 );
 
