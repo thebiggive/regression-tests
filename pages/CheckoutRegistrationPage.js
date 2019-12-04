@@ -64,7 +64,7 @@ export default class CheckoutRegistrationPage {
      * fill all form elements
      */
     static fillForm() {
-        wait(7);
+        wait(8);
         // workaround to prepare the form
         clickSelector(submitBtnSelector);
         setSelectOption(countrySelector, countryInput);
@@ -86,7 +86,7 @@ export default class CheckoutRegistrationPage {
                 .innerHTML = 'I have read and agree to the Charity'
                 + 'Checkout terms & conditions and privacy policy.';
         });
-        wait(3);
+        wait(2);
         clickSelector(agreeCheckboxSelector); // click left side
     }
 
