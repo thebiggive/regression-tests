@@ -12,13 +12,13 @@ const manageCampaignSelector = 'button=Manage Campaign';
 const donationSelector = 'a=Donations';
 const downloadCSVSelector = 'button=Download CSV data';
 
-// inputs
-const csvFileNameInput = '/Campaign_Donations.csv';
-const csvFileEncodingInput = 'utf-8';
-
 // checks
 const titleCheck = 'The Big Give - Dashboard';
 const urlCheck = 'charities/s/';
+
+// inputs
+const csvFileNameInput = '/Campaign_Donations.csv';
+const csvFileEncodingInput = 'utf-8';
 
 /**
  * Admin check balance
