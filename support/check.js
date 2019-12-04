@@ -11,7 +11,7 @@ export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.debug(`CHECK: Check "${selector}" exists`);
 
     return browser.waitUntil(
-        () => $(selector).isExisting(),
+        () => $(selector).isDisplayed(),
         (seconds * 1000),
         `Element "${selector}" is not displayed`
     );
