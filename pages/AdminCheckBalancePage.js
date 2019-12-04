@@ -6,6 +6,7 @@ import { wait } from '../support/util';
 
 // selectors
 const popUpSelector = 'button[title="Close this window"]';
+const balanceCountSelector = 'div:nth-child(5) > div > div.lf-dash-number';
 
 // checks
 const titleCheck = 'The Big Give - Dashboard';
@@ -27,7 +28,6 @@ export default class AdminCheckBalancePage {
 
     /**
      * Download Csv file
-     * TODO will move this method to a separate page object later
      */
     static downloadCsvFile() {
         wait(4);
@@ -64,7 +64,7 @@ export default class AdminCheckBalancePage {
      */
     static checkDonationCountMatched(donationCount) {
         checkSelectorContent(
-            'div:nth-child(5) > div > div.lf-dash-number', donationCount
+            balanceCountSelector, donationCount
         );
     }
 
@@ -73,8 +73,6 @@ export default class AdminCheckBalancePage {
      * @returns {int} current donation number
      */
     static getDonationCount() {
-        return getSelectorText(
-            'div:nth-child(5) > div > div.lf-dash-number'
-        );
+        return getSelectorText(balanceCountSelector);
     }
 }
