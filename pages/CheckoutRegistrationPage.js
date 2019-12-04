@@ -64,7 +64,7 @@ export default class CheckoutRegistrationPage {
      * fill all form elements
      */
     static fillForm() {
-        wait(8);
+        wait(5);
         // workaround to prepare the form
         clickSelector(submitBtnSelector);
         setSelectOption(countrySelector, countryInput);

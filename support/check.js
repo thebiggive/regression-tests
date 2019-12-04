@@ -10,8 +10,11 @@ import { WAIT_SECONDS } from './constants';
 export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.debug(`CHECK: Check "${selector}" exists`);
 
-    return $(selector).waitForDisplayed((1000 * seconds), false,
-        `Element "${selector}" is not displayed`);
+    return browser.waitUntil(
+        () => $(selector).isDisplayed(),
+        (seconds * 1000),
+        `Element "${selector}" is not displayed`
+    );
 }
 
 /**
