@@ -22,14 +22,6 @@ import sendCheckoutWebhook from '../support/checkout/webhook';
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
 
-
-Then(
-    /^I should check current donation count$/,
-    () => {
-        AdminCheckBalancePage.DCount = AdminCheckBalancePage.getDonationCount();
-    }
-);
-
 // Steps
 Given(
     /^that I am on my chosen Donate page$/,

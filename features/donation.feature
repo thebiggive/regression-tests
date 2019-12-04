@@ -5,7 +5,6 @@ Feature: Make a matched donation
     So that I can support my chosen charity with a doubled donation
 
     Scenario: Match funds available and payment is processed successfully, before match fund reservation expires
-        Then I should check current donation count
         Given that I am on my chosen Donate page
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid, charity comms and TBG comms
