@@ -1,7 +1,21 @@
 require('dotenv').config(); // load process.env from ".env" file for local
 const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
+// Load the libraries we need for path/filesystem manipulation
+const path = require('path');
+const fs = require('fs');
+
+// Store the directory path in a global,
+// which allows us to access this path inside our tests
+global.downloadDir = path.join(__dirname, 'build/downloads');
 
 exports.config = {
+    onPrepare() {
+        // make sure download directory exists
+        if (!fs.existsSync(global.downloadDir)) {
+        // if it doesn't exist, create it
+            fs.mkdirSync(global.downloadDir);
+        }
+    },
     runner: 'local',
     path: '/',
     specs: [
@@ -11,7 +25,14 @@ exports.config = {
     capabilities: [{
         maxInstances: 1,
         browserName: 'chrome',
-        'goog:chromeOptions': {}, // see wdio.*.conf.js
+        'goog:chromeOptions': {
+            prefs: {
+                directory_upgrade: true,
+                prompt_for_download: false,
+                'safebrowsing.enabled': false,
+                'download.default_directory': global.downloadDir,
+            },
+        }, // see wdio.*.conf.js
     }],
     logLevel: process.env.LOG_LEVEL || 'warn',
     coloredLogs: true,

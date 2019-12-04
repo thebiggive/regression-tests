@@ -22,6 +22,25 @@ import sendCheckoutWebhook from '../support/checkout/webhook';
 // Constants
 const randomDonationAmount = randomIntFromInterval(5, 100);
 
+
+When(
+    /^I login to my admin page$/,
+    () => {
+        AdminLoginPage.open();
+        AdminLoginPage.checkReady();
+        AdminLoginPage.fillForm();
+        AdminLoginPage.submitForm();
+        AdminCheckBalancePage.checkReady();
+    }
+);
+
+Then(
+    /^I should check current donation count$/,
+    () => {
+        AdminCheckBalancePage.DCount = AdminCheckBalancePage.getDonationCount();
+    }
+);
+
 // Steps
 Given(
     /^that I am on my chosen Donate page$/,
@@ -116,24 +135,38 @@ Then(
     }
 );
 
-Then(
-    /^I should see my admin page balance affected$/,
+When(
+    /^I am on my admin page$/,
     () => {
         AdminLoginPage.open();
-        AdminLoginPage.checkReady();
-        AdminLoginPage.fillForm();
-        AdminLoginPage.submitForm();
         AdminCheckBalancePage.checkReady();
-        AdminCheckBalancePage.checkBalance();
+    }
+);
+
+
+Then(
+    /^I should check that donation count has increased$/,
+    () => {
+        const currentCount = Number(AdminCheckBalancePage.DCount);
+        const newCount = currentCount + Number(1);
+        AdminCheckBalancePage.checkDonationCountMatched(newCount);
     }
 );
 
 Then(
-    /^I should see an initial message saying the donation succeeded$/,
+    /^I should download the donation csv file$/,
     () => {
-        // CheckoutSuccessPage.checkBalance(randomDonationAmount);
+        AdminCheckBalancePage.downloadCsvFile();
+        AdminCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
+
+/* Then(
+    /^I should see an initial message saying the donation succeeded$/,
+    () => {
+        // TODO
+    }
+); */
 
 // When(
 //     /^I wait 5 seconds$/,
