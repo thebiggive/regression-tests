@@ -92,7 +92,6 @@ export default class CheckoutRegistrationPage {
      * submit registration
      */
     static submitForm() {
-        wait(3);
-        clickSelector(submitBtnSelector);
+        clickSelector(submitBtnSelector, {}, 20);
     }
 }
