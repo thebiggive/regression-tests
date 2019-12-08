@@ -11,7 +11,10 @@ export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.debug(`CHECK: Check "${selector}" exists`);
 
     return browser.waitUntil(
-        () => $(selector).isDisplayed(),
+        async () => {
+            const isDisplayed = await $(selector).isDisplayed();
+            return isDisplayed;
+        },
         (seconds * 1000),
         `Element "${selector}" is not displayed`
     );
