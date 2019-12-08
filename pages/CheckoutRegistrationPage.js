@@ -85,8 +85,8 @@ export default class CheckoutRegistrationPage {
                 .innerHTML = 'I have read and agree to the Charity'
                 + 'Checkout terms & conditions and privacy policy.';
         });
-
-        clickSelector(agreeCheckboxSelector, {}, 20); // click left side
+        wait(2);
+        clickSelector(agreeCheckboxSelector); // click left side
     }
 
     /**
