@@ -2,6 +2,7 @@ import {
     checkTitle, checkUrl, checkSelectorContent
 } from '../support/check';
 import { clickSelector, getSelectorText } from '../support/action';
+import { wait } from '../support/util';
 
 // selectors
 const popUpSelector = 'button[title="Close this window"]';
@@ -27,7 +28,8 @@ export default class AdminCheckBalancePage {
      * check if page ready && close overlay modal
      */
     static checkReady() {
-        checkUrl(urlCheck, 20);
+        wait(3);
+        checkUrl(urlCheck);
         checkTitle(titleCheck);
         clickSelector(popUpSelector);
     }
@@ -36,10 +38,15 @@ export default class AdminCheckBalancePage {
      * Download Csv file
      */
     static downloadCsvFile() {
-        clickSelector(myCampaignSelector, {}, 25);
-        clickSelector(manageCampaignSelector, {}, 25);
-        clickSelector(donationSelector, {}, 25);
-        clickSelector(downloadCSVSelector, {}, 25);
+        wait(4);
+        clickSelector(myCampaignSelector);
+        wait(3);
+        clickSelector(manageCampaignSelector);
+        wait(3);
+        clickSelector(donationSelector);
+        wait(2);
+        clickSelector(downloadCSVSelector);
+        wait(5);
     }
 
     /**
