@@ -54,13 +54,6 @@ export default class CheckoutRegistrationPage {
     }
 
     /**
-     * register as guest
-     */
-    static proceedAsGuest() {
-        wait(5);
-    }
-
-    /**
      * fill all form elements
      */
     static fillForm() {
