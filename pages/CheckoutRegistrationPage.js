@@ -41,9 +41,9 @@ export default class CheckoutRegistrationPage {
      * check if page ready
      */
     static checkReady() {
-        wait(10);
         checkUrlMatch(
-            urlCheck
+            urlCheck,
+            20
         );
         checkTitle(titleCheck, 8);
         checkSelectorContent(
