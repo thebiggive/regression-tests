@@ -43,7 +43,7 @@ export default class CheckoutRegistrationPage {
     static checkReady() {
         checkUrlMatch(
             urlCheck,
-            20
+            25
         );
         checkTitle(titleCheck, 8);
         checkSelectorContent(
