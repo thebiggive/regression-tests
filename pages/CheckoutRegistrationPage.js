@@ -86,7 +86,7 @@ export default class CheckoutRegistrationPage {
                 + 'Checkout terms & conditions and privacy policy.';
         });
 
-        clickSelector(agreeCheckboxSelector, {}, 15); // click left side
+        clickSelector(agreeCheckboxSelector, {}, 20); // click left side
     }
 
     /**
