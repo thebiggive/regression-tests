@@ -1,4 +1,3 @@
-import { wait } from '../support/util';
 import {
     checkUrl,
     checkTitle,
