@@ -76,7 +76,7 @@ export default class CheckoutRegistrationPage {
         // workaround
         // the normal click will click on links of terms & privacy
         // inject js snippet to be able to click the checkbox
-        browser.execute(() => {
+        browser.execute(function() { // eslint-disable-line
             // document.querySelector('[for="agree-check"]')
             document.getElementsByClassName('agree-box')[0]
                 .getElementsByTagName('label')[0]
