@@ -45,7 +45,7 @@ export default class CheckoutRegistrationPage {
             urlCheck,
             25
         );
-        checkTitle(titleCheck, 8);
+        checkTitle(titleCheck);
         checkSelectorContent(
             headingSelector,
             pageHeadingCheck,
@@ -78,13 +78,13 @@ export default class CheckoutRegistrationPage {
                 .innerHTML = 'I have read and agree to the Charity'
                 + 'Checkout terms & conditions and privacy policy.';
         });
-        clickSelector(agreeCheckboxSelector, {}, 20); // click left side
+        clickSelector(agreeCheckboxSelector); // click left side
     }
 
     /**
      * submit registration
      */
     static submitForm() {
-        clickSelector(submitBtnSelector, {}, 20);
+        clickSelector(submitBtnSelector);
     }
 }
