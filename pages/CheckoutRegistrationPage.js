@@ -80,7 +80,9 @@ export default class CheckoutRegistrationPage {
         // the normal click will click on links of terms & privacy
         // inject js snippet to be able to click the checkbox
         browser.execute(() => {
-            document.querySelector('[for="agree-check"]')
+            // document.querySelector('[for="agree-check"]')
+            document.getElementsByClassName('agree-box')[0]
+                .getElementsByTagName('label')[0]
                 .innerHTML = 'I have read and agree to the Charity'
                 + 'Checkout terms & conditions and privacy policy.';
         });
