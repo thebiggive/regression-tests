@@ -44,7 +44,8 @@ export default class DonatePage {
         // window.getAngularTestability(document.
         //  querySelector('app-root')).isStable()
         // checkAngularV5Ready('app-root');
-        checkTitle(titleCheck, 30);
+        wait(3);
+        checkTitle(titleCheck);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
     }
 
