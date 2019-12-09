@@ -1,4 +1,4 @@
-import { goToUrl, wait } from '../support/util';
+import { goToUrl } from '../support/util';
 import {
     // checkAngularV5Ready,
     checkTitle,
@@ -44,7 +44,6 @@ export default class DonatePage {
         // window.getAngularTestability(document.
         //  querySelector('app-root')).isStable()
         // checkAngularV5Ready('app-root');
-        wait(3);
         checkTitle(titleCheck);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
     }
@@ -64,14 +63,11 @@ export default class DonatePage {
         // Claim Gift Aid? select NO
         clickSelector(claimGiftAidSelector);
 
-        wait(3);
         // Receive email from the charity? select NO
         clickSelector(receiveEmailFromCharitySelector);
 
-        wait(3);
         // Receive email from the Big Give? select NO
         clickSelector(receiveEmailFromTheBigGiveSelector);
-        wait(3);
     }
 
     /**
