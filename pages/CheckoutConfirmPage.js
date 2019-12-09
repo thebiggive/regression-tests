@@ -1,5 +1,4 @@
 import { checkSelectorContent } from '../support/check';
-// import { wait } from '../support/util';
 import { clickSelector } from '../support/action';
 
 // selectors
@@ -17,7 +16,6 @@ export default class CheckoutConfirmPage {
      * check if page ready
      */
     static checkReady() {
-        // wait(10);
         checkSelectorContent(
             pageHeadingSelector,
             pageHeadingCheck
@@ -28,8 +26,6 @@ export default class CheckoutConfirmPage {
      * press next button
      */
     static submitForm() {
-        // wait(1);
         clickSelector(submitBtnSelector);
-        // wait(3);
     }
 }

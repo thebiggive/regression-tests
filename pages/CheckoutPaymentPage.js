@@ -4,7 +4,6 @@ import {
     setSelectOption,
     clickSelector
 } from '../support/action';
-// import { wait } from '../support/util';
 
 // constants
 const pageHeadingSelector = '#js-payment-form h2';
@@ -54,7 +53,6 @@ export default class CheckoutPaymentPage {
      */
     static setPassword(skip = false) {
         if (skip) {
-            // wait(3);
             clickSelector('a=No thanks');
         }
     }
