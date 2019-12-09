@@ -11,6 +11,7 @@ import {
 
 // selectors
 const headingSelector = '#main h1';
+const subHeadingSelector = '#main h2';
 const emailInputSelector = '#email-field';
 const countrySelector = '#country-select';
 const firstNameSelector = '#first-name';
@@ -25,6 +26,7 @@ const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
     + 'checkout';
 const titleCheck = 'You are donating to ChoraChori';
 const pageHeadingCheck = 'You are donating to ChoraChori';
+const pageSubHeadingCheck = 'Donated before?';
 
 // inputs
 export const countryInput = 'string:GB';
@@ -41,15 +43,10 @@ export default class CheckoutRegistrationPage {
      * check if page ready
      */
     static checkReady() {
-        checkUrlMatch(
-            urlCheck
-        );
+        checkUrlMatch(urlCheck);
         checkTitle(titleCheck);
-        checkSelectorContent(
-            headingSelector,
-            pageHeadingCheck,
-            2
-        );
+        checkSelectorContent(headingSelector, pageHeadingCheck);
+        checkSelectorContent(subHeadingSelector, pageSubHeadingCheck);
     }
 
     /**
