@@ -14,10 +14,12 @@ export function goToUrl(url) {
  * @param {int} seconds to wait
  */
 export function wait(seconds) {
+    // 'WARNING: Fixed sleep being used - avoid unless absolutely necessary!'
     console.warn(
-        'WARNING: Fixed sleep being used - avoid unless absolutely necessary!'
+        `NOTE: FIXED SLEEP DISABLED! ${seconds} wait not applied.`
     );
-    browser.pause(seconds * 1000);
+    // DO NOTHING!
+    // browser.pause(seconds * 1000);
 }
 
 /**
