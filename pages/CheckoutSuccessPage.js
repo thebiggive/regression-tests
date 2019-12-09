@@ -26,9 +26,9 @@ export default class CheckoutSuccessPage {
      * check if page ready
      */
     static checkReady() {
-        wait(10);
-        checkUrl(urlCheck, 15);
-        checkTitle(pageTitleCheck, 3);
+        // wait(10);
+        checkUrl(urlCheck); // 15
+        checkTitle(pageTitleCheck); // 3
         // checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
     }
 

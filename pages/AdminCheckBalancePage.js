@@ -2,7 +2,7 @@ import {
     checkTitle, checkUrl, checkSelectorContent
 } from '../support/check';
 import { clickSelector, getSelectorText } from '../support/action';
-import { wait } from '../support/util';
+// import { wait } from '../support/util';
 
 // selectors
 const popUpSelector = 'button[title="Close this window"]';
@@ -19,7 +19,7 @@ export default class AdminCheckBalancePage {
      * check if page ready && close overlay modal
      */
     static checkReady() {
-        wait(3);
+        // wait(3);
         checkUrl(urlCheck);
         checkTitle(titleCheck);
         clickSelector(popUpSelector);
@@ -30,15 +30,15 @@ export default class AdminCheckBalancePage {
      * TODO will move this method to a separate page object later
      */
     static downloadCsvFile() {
-        wait(4);
+        // wait(4);
         clickSelector('a=My campaigns');
-        wait(3);
+        // wait(3);
         clickSelector('button=Manage Campaign');
-        wait(3);
+        // wait(3);
         clickSelector('a=Donations');
-        wait(2);
+        // wait(2);
         clickSelector('button=Download CSV data');
-        wait(5);
+        // wait(5);
     }
 
     /**
