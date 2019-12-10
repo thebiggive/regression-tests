@@ -8,10 +8,10 @@ import { WAIT_SECONDS } from './constants';
  * @param {object} options for example { button: 'right' }
  * @param {int} seconds wait seconds
  */
-export function clickSelector(selector, options = {}, seconds = WAIT_SECONDS) {
+export function clickSelector(selector, options = {}) {
     console.log(`ACTION: Click "${selector}"`);
 
-    if (!checkIfElementExists(selector, seconds)) {
+    if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
