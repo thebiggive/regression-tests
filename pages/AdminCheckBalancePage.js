@@ -38,11 +38,15 @@ export default class AdminCheckBalancePage {
      * Download Csv file
      */
     static downloadCsvFile() {
-        wait(3);
+        wait(4);
         clickSelector(myCampaignSelector);
+        wait(3);
         clickSelector(manageCampaignSelector);
+        wait(3);
         clickSelector(donationSelector);
+        wait(2);
         clickSelector(downloadCSVSelector);
+        wait(5);
     }
 
     /**
