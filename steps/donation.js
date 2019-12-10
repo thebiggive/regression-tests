@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cucumber';
 import {
-    randomIntFromInterval
+    randomIntFromInterval, wait
 } from '../support/util';
 import DonatePage from '../pages/DonatePage';
 import CheckoutRegistrationPage,
@@ -131,6 +131,7 @@ Then(
     /^I should download the donation csv file$/,
     () => {
         AdminCheckBalancePage.downloadCsvFile();
+        wait(5);
         AdminCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
