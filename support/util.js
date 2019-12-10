@@ -19,7 +19,7 @@ export function wait(seconds) {
         `NOTE: FIXED SLEEP DISABLED! ${seconds} wait not applied.`
     );
     // DO NOTHING!
-    // browser.pause(seconds * 1000);
+    browser.pause(seconds * 1000);
 }
 
 /**
