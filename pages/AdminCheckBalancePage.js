@@ -63,16 +63,6 @@ export default class AdminCheckBalancePage {
     }
 
     /**
-     * check if donation count matched a given value
-     * @param {int} donationCount to be checked
-     */
-    static checkDonationCountMatched(donationCount) {
-        checkSelectorContent(
-            balanceCountSelector, donationCount
-        );
-    }
-
-    /**
      * check donation count value
      * @returns {int} current donation number
      */
