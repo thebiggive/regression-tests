@@ -41,7 +41,6 @@ export default class AdminCheckBalancePage {
         clickSelector(myCampaignSelector); // workaround to click on nav link
         clickSelector(manageCampaignSelector);
         clickSelector(donationSelector);
-        wait(10);
         clickSelector(downloadCSVSelector);
     }
 
@@ -49,12 +48,12 @@ export default class AdminCheckBalancePage {
      * check if donation raised
      * @param { donationCheck } donationCheck value to be checked
      */
-    static parseCsvFile(donationCheck) {
+    static async parseCsvFile(donationCheck) {
         console.log('Start parsing file', global.downloadDir);
         const fs = require('fs');
         const assert = require('assert');
         const filePath = `${global.downloadDir}${csvFileNameInput}`;
-        const fileContents = fs.readFileSync(filePath, csvFileEncodingInput);
+        const fileContents = await fs.readFile(filePath, csvFileEncodingInput);
         console.log(
             'CHECK: check if donation exist via last name unique value:',
             donationCheck
