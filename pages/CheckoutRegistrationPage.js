@@ -45,7 +45,8 @@ export default class CheckoutRegistrationPage {
         checkTitle(titleCheck);
         checkSelectorContent(
             headingSelector,
-            pageHeadingCheck
+            pageHeadingCheck,
+            2
         );
     }
 
