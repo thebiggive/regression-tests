@@ -38,7 +38,7 @@ exports.config = {
     coloredLogs: true,
     screenshotPath: './build/screenshots/',
     baseUrl: process.env.BASE_URL,
-    waitforTimeout: 60000,
+    waitforTimeout: 30000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
     specFileRetries: 2,
