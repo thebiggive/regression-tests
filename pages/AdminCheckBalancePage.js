@@ -2,7 +2,6 @@ import {
     checkTitle, checkUrl
 } from '../support/check';
 import { clickSelector, getSelectorText } from '../support/action';
-import { wait } from '../support/util';
 
 // selectors
 const popUpSelector = 'button[title="Close this window"]';
