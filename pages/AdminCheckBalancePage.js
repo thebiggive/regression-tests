@@ -1,5 +1,5 @@
 import {
-    checkTitle, checkUrl, checkSelectorContent
+    checkTitle, checkUrl
 } from '../support/check';
 import { clickSelector, getSelectorText } from '../support/action';
 import { wait } from '../support/util';
