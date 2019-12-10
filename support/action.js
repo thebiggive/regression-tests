@@ -66,7 +66,7 @@ export function sendKeys(value) {
  *
  * @param {string} selector of content
  * @param {int} seconds to wait
- * @returns {strint} element text
+ * @returns {string} element text
  */
 export function getSelectorText(selector, seconds = WAIT_SECONDS) {
     if (!checkIfElementExists(selector)) {
@@ -76,8 +76,12 @@ export function getSelectorText(selector, seconds = WAIT_SECONDS) {
     console.log(
         `GET: Element "${selector}" contains content "${element.getText()}"`
     );
+
     return browser.waitUntil(
-        () => element.getText(),
+        async () => {
+            const text = await element.getText();
+            return text;
+        },
         (seconds * 1000),
         `Element "${selector}" value contain "${element.getText()}"`
     );
