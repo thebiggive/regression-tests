@@ -64,16 +64,15 @@ Then(
     () => {
         CheckoutRegistrationPage.fillForm();
         CheckoutRegistrationPage.submitForm();
+        // checkout confirm step
+        CheckoutConfirmPage.checkReady();
+        CheckoutConfirmPage.submitForm();
     }
 );
 
 Then(
     /^enter my payment information$/,
     () => {
-        // checkout confirm step
-        CheckoutConfirmPage.checkReady();
-        CheckoutConfirmPage.submitForm();
-
         // checkout payment step
         CheckoutPaymentPage.checkReady();
         CheckoutPaymentPage.checkout();
