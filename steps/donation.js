@@ -131,7 +131,7 @@ Then(
     /^I should download the donation csv file$/,
     () => {
         AdminCheckBalancePage.downloadCsvFile();
-        wait(5);
+        wait(10);
         AdminCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
