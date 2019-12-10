@@ -2,6 +2,7 @@ import {
     checkTitle, checkUrl, checkSelectorContent
 } from '../support/check';
 import { clickSelector, getSelectorText } from '../support/action';
+import { wait } from '../support/util';
 
 // selectors
 const popUpSelector = 'button[title="Close this window"]';
@@ -40,6 +41,7 @@ export default class AdminCheckBalancePage {
         clickSelector(myCampaignSelector); // workaround to click on nav link
         clickSelector(manageCampaignSelector);
         clickSelector(donationSelector);
+        wait(5);
         clickSelector(downloadCSVSelector);
     }
 
