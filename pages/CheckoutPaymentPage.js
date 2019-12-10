@@ -15,7 +15,7 @@ const submitBtnSelector = '#st-submit-btn';
 const noThanksSelector = 'a=No thanks';
 
 // checks
-const pageHeadingCheck = 'Please select a payment method';
+const pageHeadingCheck = 'Please select a payment method:';
 
 // inputs
 const cardNumberInput = '4111110000000211';
