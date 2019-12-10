@@ -38,7 +38,7 @@ export default class AdminCheckBalancePage {
      * Download Csv file
      */
     static downloadCsvFile() {
-        wait(4);
+        wait(5);
         clickSelector(myCampaignSelector);
         wait(3);
         clickSelector(manageCampaignSelector);
