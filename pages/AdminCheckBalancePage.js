@@ -41,7 +41,7 @@ export default class AdminCheckBalancePage {
         clickSelector(myCampaignSelector); // workaround to click on nav link
         clickSelector(manageCampaignSelector);
         clickSelector(donationSelector);
-        wait(8);
+        wait(10);
         clickSelector(downloadCSVSelector);
     }
 
