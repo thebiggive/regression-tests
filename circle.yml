@@ -22,7 +22,7 @@ jobs:
           paths:
             - ~/.cache
       - run: yarn lint
-      - run: yarn test:ci
+      - run: yarn test:testingbot-chrome78
       - store_test_results:
           path: ~/app/build
       - store_artifacts:
