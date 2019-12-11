@@ -6,6 +6,7 @@ import { WAIT_SECONDS } from './constants';
  *
  * @param {string} selector to be clicked
  * @param {object} options for example { button: 'right' }
+ * @param {int} seconds wait seconds
  */
 export function clickSelector(selector, options = {}) {
     console.log(`ACTION: Click "${selector}"`);
@@ -65,7 +66,7 @@ export function sendKeys(value) {
  *
  * @param {string} selector of content
  * @param {int} seconds to wait
- * @returns {strint} element text
+ * @returns {string} element text
  */
 export function getSelectorText(selector, seconds = WAIT_SECONDS) {
     if (!checkIfElementExists(selector)) {
@@ -75,8 +76,12 @@ export function getSelectorText(selector, seconds = WAIT_SECONDS) {
     console.log(
         `GET: Element "${selector}" contains content "${element.getText()}"`
     );
+
     return browser.waitUntil(
-        () => element.getText(),
+        async () => {
+            const text = await element.getText();
+            return text;
+        },
         (seconds * 1000),
         `Element "${selector}" value contain "${element.getText()}"`
     );

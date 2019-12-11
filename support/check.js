@@ -10,8 +10,14 @@ import { WAIT_SECONDS } from './constants';
 export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.debug(`CHECK: Check "${selector}" exists`);
 
-    return $(selector).waitForDisplayed((1000 * seconds), false,
-        `Element "${selector}" is not displayed`);
+    return browser.waitUntil(
+        async () => {
+            const isDisplayed = await $(selector).isDisplayed();
+            return isDisplayed;
+        },
+        (seconds * 1000),
+        `Element "${selector}" is not displayed`
+    );
 }
 
 /**
@@ -19,12 +25,16 @@ export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
  *
  * @param {string} url to be asserted
  * @param {int} seconds to wait
+ * @return {boolean} return if url matched
  */
 export function checkUrl(url, seconds = WAIT_SECONDS) {
     console.log(`CHECK: URL contains "${url}"`);
 
-    browser.waitUntil(
-        () => browser.getUrl().includes(url),
+    return browser.waitUntil(
+        async () => {
+            const isIncluded = await browser.getUrl().includes(url);
+            return isIncluded;
+        },
         (seconds * 1000),
         `Expected URL "${browser.getUrl()}" to contain "${url}"`
     );
@@ -35,13 +45,16 @@ export function checkUrl(url, seconds = WAIT_SECONDS) {
  *
  * @param {string} url to be asserted
  * @param {int} seconds to wait
+ * @return {boolean} return if url match regex
  */
 export function checkUrlMatch(url, seconds = WAIT_SECONDS) {
     console.log(`CHECK: URL matches "${url}"`);
-
     const regex = new RegExp(url);
-    browser.waitUntil(
-        () => regex.test(browser.getUrl()),
+    return browser.waitUntil(
+        async () => {
+            const isIncluded = await regex.test(browser.getUrl());
+            return isIncluded;
+        },
         (seconds * 1000),
         `Expected URL "${browser.getUrl()}" to match regex "${url}"`
     );
@@ -52,12 +65,16 @@ export function checkUrlMatch(url, seconds = WAIT_SECONDS) {
  *
  * @param {string} title of webpage
  * @param {int} seconds to wait
+ * @return {boolean} return if title matched
  */
 export function checkTitle(title, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Title contains "${title}"`);
 
-    browser.waitUntil(
-        () => browser.getTitle().includes(title),
+    return browser.waitUntil(
+        async () => {
+            const isIncluded = await browser.getTitle().includes(title);
+            return isIncluded;
+        },
         (seconds * 1000),
         `Expected title "${browser.getTitle()}" to contain "${title}"`
     );
@@ -69,6 +86,7 @@ export function checkTitle(title, seconds = WAIT_SECONDS) {
  * @param {string} selector of content
  * @param {string} content text
  * @param {int} seconds to wait
+ * @return {boolean} return if text exist
  */
 export function checkSelectorContent(selector, content,
     seconds = WAIT_SECONDS) {
@@ -78,8 +96,11 @@ export function checkSelectorContent(selector, content,
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    browser.waitUntil(
-        () => $(selector).getText().includes(content),
+    return browser.waitUntil(
+        async () => {
+            const isMatched = await $(selector).getText().includes(content);
+            return isMatched;
+        },
         (seconds * 1000),
         `Expected element "${selector}" to contain "${content}"`
     );
@@ -91,12 +112,16 @@ export function checkSelectorContent(selector, content,
  * @param {string} selector to be asserted
  * @param {string} value to be asserted
  * @param {int} seconds to wait
+ * @return {boolean} return if input value matched
  */
 export function checkInputValue(selector, value, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Input "${selector}" contains value "${value}"`);
 
-    browser.waitUntil(
-        () => selector.getValue() === value,
+    return browser.waitUntil(
+        async () => {
+            const isMatched = await selector.getValue() === value;
+            return isMatched;
+        },
         (seconds * 1000),
         `Expected Input "${selector}" to contain "${value}"`
     );

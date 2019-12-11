@@ -41,22 +41,12 @@ export default class CheckoutRegistrationPage {
      * check if page ready
      */
     static checkReady() {
-        checkUrlMatch(
-            urlCheck
-        );
+        checkUrlMatch(urlCheck);
         checkTitle(titleCheck);
         checkSelectorContent(
             headingSelector,
-            pageHeadingCheck,
-            2
+            pageHeadingCheck
         );
-    }
-
-    /**
-     * register as guest
-     */
-    static proceedAsGuest() {
-        wait(5);
     }
 
     /**
@@ -75,7 +65,7 @@ export default class CheckoutRegistrationPage {
         );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        wait(3);
+        wait(2);
         // workaround
         // the normal click will click on links of terms & privacy
         // inject js snippet to be able to click the checkbox

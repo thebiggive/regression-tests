@@ -12,9 +12,10 @@ const cardExpireMonthSelector = '#st-month';
 const cardExpireYearSelector = '#st-year';
 const cardCvcSelector = 'input#stSc';
 const submitBtnSelector = '#st-submit-btn';
+const noThanksSelector = 'a=No thanks';
 
 // checks
-const pageHeadingCheck = 'Please select a payment method';
+const pageHeadingCheck = 'Please select a payment method:';
 
 // inputs
 const cardNumberInput = '4111110000000211';
@@ -53,7 +54,7 @@ export default class CheckoutPaymentPage {
      */
     static setPassword(skip = false) {
         if (skip) {
-            clickSelector('a=No thanks');
+            clickSelector(noThanksSelector);
         }
     }
 }
