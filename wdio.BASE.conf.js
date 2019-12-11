@@ -38,8 +38,8 @@ exports.config = {
     coloredLogs: true,
     screenshotPath: './build/screenshots/',
     baseUrl: process.env.BASE_URL,
-    waitforTimeout: 90000,
-    connectionRetryTimeout: 120000,
+    waitforTimeout: 60000,
+    connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
     specFileRetries: 2,
     services: [
@@ -71,7 +71,7 @@ exports.config = {
         strict: true,
         tagExpression: 'not @ignore',
         tagsInTitle: false,
-        timeout: 90000,
+        timeout: 60000,
     },
     before: function before() {
         const chai = require('chai');
