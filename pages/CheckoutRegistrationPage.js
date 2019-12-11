@@ -11,6 +11,7 @@ import {
 
 // selectors
 const headingSelector = '#main h1';
+const subHeadingSelector = '#main h2';
 const emailInputSelector = '#email-field';
 const countrySelector = '#country-select';
 const firstNameSelector = '#first-name';
@@ -25,6 +26,7 @@ const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
     + 'checkout';
 const titleCheck = 'You are donating to ChoraChori';
 const pageHeadingCheck = 'You are donating to ChoraChori';
+const pageSubHeadingCheck = 'Donated before?';
 
 // inputs
 export const countryInput = 'string:GB';
@@ -43,10 +45,9 @@ export default class CheckoutRegistrationPage {
     static checkReady() {
         checkUrlMatch(urlCheck);
         checkTitle(titleCheck);
-        checkSelectorContent(
-            headingSelector,
-            pageHeadingCheck
-        );
+        checkSelectorContent(headingSelector, pageHeadingCheck);
+        wait(10);
+        checkSelectorContent(subHeadingSelector, pageSubHeadingCheck, 45);
     }
 
     /**
@@ -69,8 +70,10 @@ export default class CheckoutRegistrationPage {
         // workaround
         // the normal click will click on links of terms & privacy
         // inject js snippet to be able to click the checkbox
-        browser.execute(() => {
-            document.querySelector('[for="agree-check"]')
+        browser.execute(function() { // eslint-disable-line
+            // document.querySelector('[for="agree-check"]')
+            document.getElementsByClassName('agree-box')[0]
+                .getElementsByTagName('label')[0]
                 .innerHTML = 'I have read and agree to the Charity'
                 + 'Checkout terms & conditions and privacy policy.';
         });

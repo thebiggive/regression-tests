@@ -53,6 +53,12 @@ exports.config = {
             embedImages: true,
             screenshotStrategy: 'before:click',
         }],
+        ['junit', {
+            outputDir: './build/wdio',
+            outputFileFormat(options) {
+                return `results-${options.cid}.${options.capabilities}.xml`;
+            },
+        }],
     ],
     cucumberOpts: {
         backtrace: false,
