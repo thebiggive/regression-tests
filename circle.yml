@@ -23,6 +23,7 @@ jobs:
             - ~/.cache
       - run: yarn lint
       - run: yarn test:testingbot-chrome78
+      - run: yarn test:testingbot-ie11
       - store_test_results:
           path: ~/app/build
       - store_artifacts:
