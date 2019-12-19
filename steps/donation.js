@@ -83,11 +83,11 @@ Then(
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
-        const donationID = browser.getUrl()
+        const tbgDonationId = browser.getUrl()
             .split('/')[4]; // Donation ID
         browser.call(async () => {
             await sendCheckoutWebhook(
-                donationID,
+                tbgDonationId,
                 {
                     charityId: process.env.CHECKOUT_CHARITY_ID,
                     projectId: process.env.CHECKOUT_PROJECT_ID,

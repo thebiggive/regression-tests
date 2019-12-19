@@ -52,7 +52,9 @@ export default class AdminCheckBalancePage {
         const fs = require('fs');
         const assert = require('assert');
         const filePath = `${global.downloadDir}${csvFileNameInput}`;
-        const fileContents = await fs.readFile(filePath, csvFileEncodingInput);
+        const fileContents = await fs.readFileSync(
+            filePath, csvFileEncodingInput
+        );
         console.log(
             'CHECK: check if donation exist via last name unique value:',
             donationCheck
