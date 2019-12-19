@@ -46,7 +46,6 @@ export default class CheckoutRegistrationPage {
         checkUrlMatch(urlCheck);
         checkTitle(titleCheck);
         checkSelectorContent(headingSelector, pageHeadingCheck);
-        wait(10);
         checkSelectorContent(subHeadingSelector, pageSubHeadingCheck);
     }
 
