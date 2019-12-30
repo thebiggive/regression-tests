@@ -32,7 +32,7 @@ export default class CheckoutPaymentPage {
      * check if page ready
      */
     static checkReady() {
-        wait(5); // try to fix Element "#js-payment-form h2" is not displayed CI
+        wait(10); // fix for Element "#main h2" is not displayed in CI
         checkSelectorContent(
             pageHeadingSelector,
             pageHeadingCheck
