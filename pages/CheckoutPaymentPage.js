@@ -4,6 +4,7 @@ import {
     setSelectOption,
     clickSelector
 } from '../support/action';
+import { wait } from '../support/util';
 
 // constants
 const pageHeadingSelector = '#js-payment-form h2';
@@ -31,6 +32,7 @@ export default class CheckoutPaymentPage {
      * check if page ready
      */
     static checkReady() {
+        wait(5); // try to fix Element "#js-payment-form h2" is not displayed CI
         checkSelectorContent(
             pageHeadingSelector,
             pageHeadingCheck
