@@ -101,7 +101,7 @@ When(
                     billingPostalAddress: addressInput,
                     // using slice to remove string: text
                     countryCode: countryInput.slice(7),
-                    status: 'Paid',
+                    status: 'Collected',
                 }
             );
         });
