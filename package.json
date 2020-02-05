@@ -27,7 +27,7 @@
     "@wdio/spec-reporter": "^5.15.2",
     "@wdio/testingbot-service": "^5.16.10",
     "chai": "^4.2.0",
-    "chromedriver": "78.0.1",
+    "chromedriver": "79.0.0",
     "crypto": "^1.0.1",
     "csv-parser": "^2.3.2",
     "del-cli": "^3.0.0",
