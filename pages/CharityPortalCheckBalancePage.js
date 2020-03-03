@@ -20,9 +20,9 @@ const csvFileNameInput = '/Campaign_Donations.csv';
 const csvFileEncodingInput = 'utf-8';
 
 /**
- * Admin check balance
+ * Charity portal user: check balance
  */
-export default class AdminCheckBalancePage {
+export default class CharityPortalCheckBalancePage {
     /**
      * check if page ready && close overlay modal
      */
