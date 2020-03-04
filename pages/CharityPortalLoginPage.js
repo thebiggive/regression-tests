@@ -3,7 +3,7 @@ import { inputSelectorValue, clickSelector } from '../support/action';
 import { checkTitle } from '../support/check';
 
 // routes
-const adminPage = process.env.ADMIN_URL;
+const charityPortalUrl = process.env.CHARITY_PORTAL_URL;
 
 // selectors
 const emailSelector = 'input[placeholder=Email]';
@@ -14,18 +14,18 @@ const loginBtnSelector = 'button=Log in';
 const titleCheck = 'The Big Give – Charity Login';
 
 // inputs
-const emailInput = process.env.ADMIN_EMAIL;
-const passwordInput = process.env.ADMIN_PASSWORD;
+const emailInput = process.env.CHARITY_PORTAL_EMAIL;
+const passwordInput = process.env.CHARITY_PORTAL_PASSWORD;
 
 /**
- * Charity Admin Page
+ * Login page for charity portal / Community users
  */
-export default class AdminPage {
+export default class CharityPortalLoginPage {
     /**
      * open login page
      */
     static open() {
-        goToUrl(adminPage);
+        goToUrl(charityPortalUrl);
     }
 
     /**

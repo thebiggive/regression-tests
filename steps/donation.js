@@ -14,8 +14,9 @@ import CheckoutRegistrationPage,
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
-import AdminLoginPage from '../pages/AdminLoginPage';
-import AdminCheckBalancePage from '../pages/AdminCheckBalancePage';
+import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
+import CharityPortalCheckBalancePage
+    from '../pages/CharityPortalCheckBalancePage';
 import sendCheckoutWebhook from '../support/checkout/webhook';
 
 
@@ -116,21 +117,21 @@ Then(
 );
 
 When(
-    /^I login to my admin page$/,
+    /^I login to my charity portal page$/,
     () => {
-        AdminLoginPage.open();
-        AdminLoginPage.checkReady();
-        AdminLoginPage.fillForm();
-        AdminLoginPage.submitForm();
-        AdminCheckBalancePage.checkReady();
+        CharityPortalLoginPage.open();
+        CharityPortalLoginPage.checkReady();
+        CharityPortalLoginPage.fillForm();
+        CharityPortalLoginPage.submitForm();
+        CharityPortalCheckBalancePage.checkReady();
     }
 );
 
 Then(
     /^I should download the donation csv file$/,
     () => {
-        AdminCheckBalancePage.downloadCsvFile();
-        AdminCheckBalancePage.parseCsvFile(lastNameInput);
+        CharityPortalCheckBalancePage.downloadCsvFile();
+        CharityPortalCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
 
