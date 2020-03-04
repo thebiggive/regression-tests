@@ -15,7 +15,8 @@ import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
 import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
-import CharityPortalCheckBalancePage from '../pages/CharityPortalCheckBalancePage';
+import CharityPortalCheckBalancePage
+    from '../pages/CharityPortalCheckBalancePage';
 import sendCheckoutWebhook from '../support/checkout/webhook';
 
 
