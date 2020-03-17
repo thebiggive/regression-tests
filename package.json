@@ -38,6 +38,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-wdio": "^5.13.2",
     "eslint-watch": "^6.0.1",
+    "minimist": "^1.2.5",
     "request-promise-native": "^1.0.8",
     "wdio-chromedriver-service": "^5.0.2",
     "wdio-timeline-reporter": "^5.1.1"
