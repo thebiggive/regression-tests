@@ -6,6 +6,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:watch": "esw . --watch --fix",
+    "test:testingbot-all": "wdio run wdio.testingbot-all.conf.js",
     "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.js",
     "test:testingbot-ie11": "wdio run wdio.testingbot-ie11.conf.js",
     "test:local": "wdio run wdio.local.conf.js",

@@ -13,11 +13,11 @@ import CheckoutRegistrationPage,
 } from '../pages/CheckoutRegistrationPage';
 import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
 import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
+import CheckoutWebhookPage from '../pages/CheckoutWebhookPage';
 import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
 import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
-import sendCheckoutWebhook from '../support/checkout/webhook';
 
 
 // Constants
@@ -78,34 +78,21 @@ Then(
         CheckoutPaymentPage.checkReady();
         CheckoutPaymentPage.checkout();
         CheckoutPaymentPage.setPassword(true); // skip
+        CheckoutSuccessPage.checkReady(); // need to check before webhook call
     }
 );
 
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
-        const donationID = browser.getUrl()
-            .split('/')[4]; // Donation ID
-        browser.call(async () => {
-            await sendCheckoutWebhook(
-                donationID,
-                {
-                    charityId: process.env.CHECKOUT_CHARITY_ID,
-                    projectId: process.env.CHECKOUT_PROJECT_ID,
-                    donationAmount: randomDonationAmount,
-                    donationMatched: false,
-                    giftAid: false,
-                    optInTbgEmail: false,
-                    firstName: firstNameInput,
-                    lastName: lastNameInput,
-                    emailAddress: guestEmailInput,
-                    billingPostalAddress: addressInput,
-                    // using slice to remove string: text
-                    countryCode: countryInput.slice(7),
-                    status: 'Collected',
-                }
-            );
-        });
+        CheckoutWebhookPage.triggerWebhook(
+            randomDonationAmount,
+            firstNameInput,
+            lastNameInput,
+            guestEmailInput,
+            addressInput,
+            countryInput,
+        );
     }
 );
 
