@@ -3,3 +3,6 @@ build/*
 !build/.gitkeep
 .env
 *.cid
+
+# IDEs
+.idea/
