@@ -5,19 +5,25 @@
 ## Local Development
 
 ### Install project
+
 ```
 yarn install
 ```
 
-### Run tests
-#### With Docker
-Using Docker ensures correct Chrome version is used.
-```
-yarn test
-```
+### Configure env
 
-#### With your local Chrome
+* `cp .env.dist .env`
+* Populate needed variables in `.env`
+
+### Run locally
+
 Make sure you have the correct `Chromedriver` version for your Chrome installed.
 ```
 yarn test:local
 ```
+
+## Test runs on CI
+
+These are configured and scheduled [with CircleCI](./circle.yml).
+
+The runner is now TestingBot where we have an open source plan. For now we are running against a recent stable Chrome version only.

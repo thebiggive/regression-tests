@@ -6,9 +6,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:watch": "esw . --watch --fix",
-    "test": "wdio run wdio.default.conf.js",
+    "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.js",
     "test:testingbot-ie11": "wdio run wdio.testingbot-ie11.conf.js",
-    "test:testingbot-chrome78": "wdio run wdio.testingbot-chrome78.conf.js",
     "test:local": "wdio run wdio.local.conf.js",
     "clean": "del-cli build/* !build/.gitkeep"
   },

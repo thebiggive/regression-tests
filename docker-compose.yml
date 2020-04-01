@@ -4,7 +4,7 @@ services:
   tests:
     image: circleci/node:lts-buster-browsers
     working_dir: /app
-    command: yarn test
+    command: yarn test:testingbot-chrome
     user: root
     volumes:
       - .:/app
