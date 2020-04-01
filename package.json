@@ -6,14 +6,14 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:watch": "esw . --watch --fix",
-    "test": "wdio run wdio.default.conf.js",
+    "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.js",
     "test:testingbot-ie11": "wdio run wdio.testingbot-ie11.conf.js",
-    "test:testingbot-chrome78": "wdio run wdio.testingbot-chrome78.conf.js",
     "test:local": "wdio run wdio.local.conf.js",
     "clean": "del-cli build/* !build/.gitkeep"
   },
   "engines": {
-    "node": "10 || ^12.0.0 || 13.2.0"
+    "node": ">=12",
+    "yarn": ">=1"
   },
   "dependencies": {
     "@babel/core": "^7.6.4",
@@ -27,7 +27,7 @@
     "@wdio/spec-reporter": "^5.15.2",
     "@wdio/testingbot-service": "^5.16.10",
     "chai": "^4.2.0",
-    "chromedriver": "78.0.1",
+    "chromedriver": "^79.0.0",
     "crypto": "^1.0.1",
     "csv-parser": "^2.3.2",
     "del-cli": "^3.0.0",
@@ -37,6 +37,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-wdio": "^5.13.2",
     "eslint-watch": "^6.0.1",
+    "minimist": "^1.2.5",
     "request-promise-native": "^1.0.8",
     "wdio-chromedriver-service": "^5.0.2",
     "wdio-timeline-reporter": "^5.1.1"

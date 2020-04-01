@@ -3,7 +3,7 @@ const { config } = require('./wdio.BASE.conf.js');
 config.capabilities = [{
     browserName: 'chrome',
     platform: 'WIN10',
-    version: '78',
+    version: '79',
 }];
 config.services.push('testingbot');
 

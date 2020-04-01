@@ -1,5 +1,6 @@
 import request from 'request-promise-native';
 import crypto from 'crypto';
+import { generateIdentifier } from '../util';
 
 /**
  * Get a verify hash for the given content, using the secret in the env-var
@@ -37,18 +38,26 @@ function getVerifyHash(data) {
  *   "optInTbgEmail": true,
  *   "projectId": "01I400000009Sds3e2",
  *   "amountMatchedByChampionFunds": 40,
- *   "amountMatchedByPledges": 60
+ *   "amountMatchedByPledges": 60,
+ *   "transactionId": "PSP-ID-123456"
  * }
  */
 export default async function sendCheckoutWebhook(id, data) {
-    console.log(`WEBHOOK: Send checkout webhook - Donation ID "${id}"`);
+    const dataIncPspId = data;
+    dataIncPspId.transactionId = generateIdentifier('PSP-ID-');
+
+    console.log(
+        `WEBHOOK: Send checkout webhook - Donation ID "${id}",
+        PSP ID "${dataIncPspId.transactionId}"`
+    );
+
     const hash = getVerifyHash(data);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
     await request({
         method: 'PUT',
         path: id,
         uri: url,
-        body: data,
+        body: dataIncPspId,
         json: true,
         headers: {
             'content-type': 'application/json',

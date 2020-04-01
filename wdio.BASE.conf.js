@@ -77,7 +77,7 @@ exports.config = {
         strict: true,
         tagExpression: 'not @ignore',
         tagsInTitle: false,
-        timeout: 60000,
+        timeout: 90000,
     },
     before: function before() {
         const chai = require('chai');
