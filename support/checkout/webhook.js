@@ -48,13 +48,11 @@ export default async function sendCheckoutWebhook(id, data) {
 
     console.log(
         `WEBHOOK: Send checkout webhook - Donation ID "${id}",
-        PSP ID "${dataIncPspId.transactionId}"
-        DATA: ${JSON.stringify(dataIncPspId)}`
+        PSP ID "${dataIncPspId.transactionId}"`
     );
 
     const hash = getVerifyHash(data);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
-    console.log(`Calling: PUT ${url}`);
     await request({
         method: 'PUT',
         path: id,
@@ -66,7 +64,7 @@ export default async function sendCheckoutWebhook(id, data) {
             'X-Webhook-Verify-Hash': hash,
         },
     }, (error) => {
-        console.log(`Response: PUT ${url}`);
+        console.log('WEBHOOK: Response...');
         if (error) {
             console.error(`WEBHOOK: Error - "${error}"`);
             throw new Error(error);
