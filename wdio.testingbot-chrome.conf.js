@@ -4,6 +4,7 @@ config.capabilities = [{
     browserName: 'chrome',
     platform: 'WIN10',
     version: '79',
+    build: `${process.env.CIRCLE_BRANCH}-${process.env.CIRCLE_BUILD_NUM}`,
 }];
 config.services.push('testingbot');
 
