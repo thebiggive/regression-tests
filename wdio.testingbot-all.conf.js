@@ -12,6 +12,7 @@ config.capabilities = [{
     version: '11',
     build: config.build,
 }];
+config.maxInstances = 2;
 config.services.push('testingbot');
 
 config.path = '/wd/hub';
