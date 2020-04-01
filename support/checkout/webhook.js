@@ -48,7 +48,8 @@ export default async function sendCheckoutWebhook(id, data) {
 
     console.log(
         `WEBHOOK: Send checkout webhook - Donation ID "${id}",
-        PSP ID "${dataIncPspId.transactionId}"`
+        PSP ID "${dataIncPspId.transactionId}"
+        DATA: ${JSON.stringify(dataIncPspId)}`
     );
 
     const hash = getVerifyHash(data);
