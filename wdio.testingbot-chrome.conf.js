@@ -4,6 +4,7 @@ config.capabilities = [{
     browserName: 'chrome',
     platform: 'WIN10',
     version: '79',
+    build: config.build,
 }];
 config.services.push('testingbot');
 

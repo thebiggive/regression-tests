@@ -8,6 +8,11 @@ const fs = require('fs');
 // which allows us to access this path inside our tests
 global.downloadDir = path.join(__dirname, 'build/downloads');
 
+let build = 'local';
+if (process.env.CIRCLE_BUILD_NUM && process.env.CIRCLE_BUILD_NUM) {
+    build = `${process.env.CIRCLE_BRANCH}-${process.env.CIRCLE_BUILD_NUM}`;
+}
+
 exports.config = {
     onPrepare() {
         // make sure download directory exists
@@ -34,6 +39,7 @@ exports.config = {
             },
         }, // see wdio.*.conf.js
     }],
+    build,
     logLevel: process.env.LOG_LEVEL || 'warn',
     coloredLogs: true,
     screenshotPath: './build/screenshots/',

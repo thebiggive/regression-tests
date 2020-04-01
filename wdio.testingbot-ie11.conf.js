@@ -4,6 +4,7 @@ config.capabilities = [{
     browserName: 'internet explorer',
     platform: 'WIN10',
     version: '11',
+    build: config.build,
 }];
 config.services.push('testingbot');
 
