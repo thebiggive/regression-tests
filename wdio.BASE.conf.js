@@ -47,7 +47,7 @@ exports.config = {
     waitforTimeout: 60000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
-    // specFileRetries: 2,
+    specFileRetries: 2,
     services: [
         [TimelineService],
     ], // see wdio.*.conf.js for additional entries
