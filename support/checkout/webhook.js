@@ -53,6 +53,7 @@ export default async function sendCheckoutWebhook(id, data) {
 
     const hash = getVerifyHash(data);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
+    console.log(`Calling: PUT ${url}`);
     await request({
         method: 'PUT',
         path: id,
@@ -64,6 +65,7 @@ export default async function sendCheckoutWebhook(id, data) {
             'X-Webhook-Verify-Hash': hash,
         },
     }, (error) => {
+        console.log(`Response: PUT ${url}`);
         if (error) {
             console.error(`WEBHOOK: Error - "${error}"`);
             throw new Error(error);
