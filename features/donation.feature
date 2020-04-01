@@ -14,7 +14,7 @@ Feature: Make a matched donation
         And enter my payment information
         When my bank approves the charge and the payment steps took less than 15 minutes
         Then I should be redirected to a Thank You confirmation page
-        Given I login to my admin page
+        Given I login to my charity portal page
 #       Then I should download the donation csv file
 #       And I should see an initial message saying the donation succeeded
 #       When I wait 5 seconds
