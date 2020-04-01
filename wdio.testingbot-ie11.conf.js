@@ -4,7 +4,7 @@ config.capabilities = [{
     browserName: 'internet explorer',
     platform: 'WIN10',
     version: '11',
-    build: `${process.env.CIRCLE_BRANCH}-${process.env.CIRCLE_BUILD_NUM}`,
+    build: config.build,
 }];
 config.services.push('testingbot');
 
