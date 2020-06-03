@@ -5,7 +5,6 @@ import {
 } from '../support/check';
 
 // selectors
-// const pageHeadingSelector = 'h2';
 const balanceStatusSelector = '.ng-star-inserted p';
 const balanceTextSelector = '.ng-star-inserted p:nth-child(2)';
 
@@ -13,7 +12,6 @@ const balanceTextSelector = '.ng-star-inserted p:nth-child(2)';
 // checks
 const urlCheck = 'thanks';
 const pageTitleCheck = 'The Big Give';
-// const pageHeadingCheck = 'Thank you!';
 const balanceStatusCheck = 'Your donation status: Reserved';
 const balanceTextCheck = 'You donated £';
 
@@ -27,7 +25,6 @@ export default class CheckoutSuccessPage {
     static checkReady() {
         checkUrl(urlCheck);
         checkTitle(pageTitleCheck);
-        // checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
     }
 
     /**

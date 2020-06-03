@@ -13,11 +13,17 @@ export default class CheckoutWebhookPage {
      * @param {string} address donor address
      * @param {string} country donor country
      */
-    static triggerWebhook(amount, firstName, lastName, guestEmail, address,
-        country) {
+    static async triggerWebhook(
+        amount,
+        firstName,
+        lastName,
+        guestEmail,
+        address,
+        country,
+    ) {
         console.log(`Donation Check URL: ${browser.getUrl()}`);
 
-        const donationID = browser.getUrl()
+        const donationID = (await browser.getUrl())
             .split('/')[4]; // Donation ID
         browser.call(async () => {
             await sendCheckoutWebhook(

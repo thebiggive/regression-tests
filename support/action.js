@@ -8,14 +8,14 @@ import { WAIT_SECONDS } from './constants';
  * @param {object} options for example { button: 'right' }
  * @param {int} seconds wait seconds
  */
-export function clickSelector(selector, options = {}) {
+export async function clickSelector(selector, options = {}) {
     console.log(`ACTION: Click "${selector}"`);
 
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    $(selector).click(options);
+    (await $(selector)).click(options);
 }
 
 /**
@@ -24,14 +24,14 @@ export function clickSelector(selector, options = {}) {
  * @param {string} selector to be filled
  * @param {string} value to be inserted
  */
-export function inputSelectorValue(selector, value) {
+export async function inputSelectorValue(selector, value) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
 
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    $(selector).setValue(value);
+    (await $(selector)).setValue(value);
 }
 
 /**
@@ -40,14 +40,14 @@ export function inputSelectorValue(selector, value) {
  * @param {string} selector select input
  * @param {string} value value
  */
-export function setSelectOption(selector, value) {
+export async function setSelectOption(selector, value) {
     console.log(`ACTION: Set select option "${selector}" value "${value}"`);
 
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    $(selector).selectByAttribute('value', value);
+    (await $(selector)).selectByAttribute('value', value);
 }
 
 /**

@@ -19,7 +19,7 @@ const receiveEmailFromCharitySelector = '#mat-radio-6';
 const receiveEmailFromTheBigGiveSelector = '#mat-radio-9';
 const proceedAnyWayBtnSelector = 'button*=Proceed anyway';
 const matchFundsNotAvailableSelector = '=Match funds not available';
-const pageHeadingSelector = 'h1';
+const pageHeadingSelector = 'h3'; // Contains charity name on the page
 
 // checks
 const titleCheck = 'Donate to Regression Test Charity';
@@ -74,10 +74,10 @@ export default class DonatePage {
      * press donate button
      * @param {boolean} skipMatchFundsCheck ignore check if true
      */
-    static submitForm(skipMatchFundsCheck = true) {
+    static async submitForm(skipMatchFundsCheck = true) {
         clickSelector(submitBtnSelector);
         if (skipMatchFundsCheck === true
-            && $(matchFundsNotAvailableSelector).isExisting()
+            && (await $(matchFundsNotAvailableSelector)).isExisting()
             && checkIfElementExists(proceedAnyWayBtnSelector)) {
             clickSelector(proceedAnyWayBtnSelector);
         }
