@@ -31,9 +31,6 @@ export async function inputSelectorValue(selector, value) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    console.log('checking el load....................');
-    console.log(await $(selector));
-
     (await $(selector)).setValue(value);
 }
 
