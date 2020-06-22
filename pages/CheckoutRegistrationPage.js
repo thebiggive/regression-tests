@@ -18,6 +18,9 @@ const firstNameSelector = '#first-name';
 const lastNameSelector = "input[name='last-name']";
 const addressSelector = '#paf_addr';
 const addressAutoCompleteSelector = 'li[title*="WC2B 5LX, Reed Online,"';
+
+// Use the T&Cs label. The checkbox is not directly interactable because of the
+// use of a hidden native element + visible psuedo-element.
 const agreeCheckboxSelector = 'label[for=agree-check]';
 const submitBtnSelector = '.js-next-button';
 
@@ -66,15 +69,10 @@ export default class CheckoutRegistrationPage {
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
 
-        // Work around an issue clicking the label when it has links in, by
-        // hacking the label to replace its copy with plain text.
-        browser.execute(() => {
-            document.getElementsByClassName('agree-box')[0]
-                .getElementsByTagName('label')[0]
-                .innerHTML = 'native terms label e2e test replacement copy';
-        });
-
-        clickSelector(agreeCheckboxSelector);
+        // Clicking the label at an arbitrary position breaks (at least
+        // sometimes) because it contains links we don't want to click.
+        // So set (10, 10) coords relative to top left.
+        clickSelector(agreeCheckboxSelector, { x: 10, y: 10 });
     }
 
     /**
