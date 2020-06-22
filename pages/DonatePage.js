@@ -1,6 +1,5 @@
 import { goToUrl } from '../support/util';
 import {
-    // checkAngularV5Ready,
     checkTitle,
     checkSelectorContent,
     checkIfElementExists
@@ -40,10 +39,6 @@ export default class DonatePage {
      * check if page ready
      */
     static checkReady() {
-        // The following check no longer passes - replacing with fixed wait...
-        // window.getAngularTestability(document.
-        //  querySelector('app-root')).isStable()
-        // checkAngularV5Ready('app-root');
         checkTitle(titleCheck);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
     }
@@ -74,11 +69,14 @@ export default class DonatePage {
      * press donate button
      * @param {boolean} skipMatchFundsCheck ignore check if true
      */
-    static async submitForm(skipMatchFundsCheck = true) {
+    static submitForm(skipMatchFundsCheck = true) {
         clickSelector(submitBtnSelector);
-        if (skipMatchFundsCheck === true
-            && (await $(matchFundsNotAvailableSelector)).isExisting()
-            && checkIfElementExists(proceedAnyWayBtnSelector)) {
+
+        if (
+            skipMatchFundsCheck === true
+            && $(matchFundsNotAvailableSelector).isExisting()
+            && checkIfElementExists(proceedAnyWayBtnSelector)
+        ) {
             clickSelector(proceedAnyWayBtnSelector);
         }
     }

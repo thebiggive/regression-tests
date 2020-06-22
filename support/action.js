@@ -1,21 +1,19 @@
 import { checkIfElementExists } from './check';
-import { WAIT_SECONDS } from './constants';
 
 /**
  * Click on element
  *
  * @param {string} selector to be clicked
  * @param {object} options for example { button: 'right' }
- * @param {int} seconds wait seconds
  */
-export async function clickSelector(selector, options = {}) {
+export function clickSelector(selector, options = {}) {
     console.log(`ACTION: Click "${selector}"`);
 
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    (await $(selector)).click(options);
+    $(selector).click(options);
 }
 
 /**
@@ -24,14 +22,14 @@ export async function clickSelector(selector, options = {}) {
  * @param {string} selector to be filled
  * @param {string} value to be inserted
  */
-export async function inputSelectorValue(selector, value) {
+export function inputSelectorValue(selector, value) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
 
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    (await $(selector)).setValue(value);
+    $(selector).setValue(value);
 }
 
 /**
@@ -40,14 +38,14 @@ export async function inputSelectorValue(selector, value) {
  * @param {string} selector select input
  * @param {string} value value
  */
-export async function setSelectOption(selector, value) {
+export function setSelectOption(selector, value) {
     console.log(`ACTION: Set select option "${selector}" value "${value}"`);
 
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    (await $(selector)).selectByAttribute('value', value);
+    $(selector).selectByAttribute('value', value);
 }
 
 /**
@@ -60,29 +58,21 @@ export function sendKeys(value) {
     browser.keys(value);
 }
 
-
 /**
  * get element text
  *
  * @param {string} selector of content
- * @param {int} seconds to wait
  * @returns {string} element text
  */
-export function getSelectorText(selector, seconds = WAIT_SECONDS) {
+export function getSelectorText(selector) {
     if (!checkIfElementExists(selector)) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
     const element = $(selector);
+    const text = element.getText();
     console.log(
-        `GET: Element "${selector}" contains content "${element.getText()}"`
+        `GET: Element "${selector}" contains content "${text}"`
     );
 
-    return browser.waitUntil(
-        async () => {
-            const text = await element.getText();
-            return text;
-        },
-        (seconds * 1000),
-        `Element "${selector}" value contain "${element.getText()}"`
-    );
+    return text;
 }

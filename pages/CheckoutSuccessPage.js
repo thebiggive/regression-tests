@@ -5,15 +5,12 @@ import {
 } from '../support/check';
 
 // selectors
-const balanceStatusSelector = '.ng-star-inserted p';
-const balanceTextSelector = '.ng-star-inserted p:nth-child(2)';
-
+const statusSelector = '.c-main .b-rh-2:first-child .b-bold';
 
 // checks
 const urlCheck = 'thanks';
 const pageTitleCheck = 'The Big Give';
-const balanceStatusCheck = 'Your donation status: Reserved';
-const balanceTextCheck = 'You donated £';
+const balanceTextPreCheck = '£';
 
 /**
  * Checkout success page
@@ -33,12 +30,8 @@ export default class CheckoutSuccessPage {
      */
     static checkBalance(donationAmount) {
         checkSelectorContent(
-            balanceStatusSelector,
-            balanceStatusCheck
-        );
-        checkSelectorContent(
-            balanceTextSelector,
-            balanceTextCheck + donationAmount
+            statusSelector,
+            `${balanceTextPreCheck}${donationAmount}`,
         );
     }
 }

@@ -21,7 +21,7 @@ import CharityPortalCheckBalancePage
 
 
 // Constants
-const randomDonationAmount = randomIntFromInterval(5, 100);
+const donationAmount = randomIntFromInterval(5, 100);
 
 // Steps
 Given(
@@ -35,7 +35,7 @@ Given(
 When(
     /^I enter an amount between £5 and £25,000$/,
     () => {
-        DonatePage.setDonationAmount(randomDonationAmount);
+        DonatePage.setDonationAmount(donationAmount);
     }
 );
 
@@ -85,14 +85,19 @@ Then(
 When(
     /^my bank approves the charge and the payment steps took less than 15 minutes$/,
     () => {
-        CheckoutWebhookPage.triggerWebhook(
-            randomDonationAmount,
-            firstNameInput,
-            lastNameInput,
-            guestEmailInput,
-            addressInput,
-            countryInput,
-        );
+        const url = browser.getUrl();
+
+        browser.call(() => {
+            CheckoutWebhookPage.triggerWebhook(
+                url,
+                donationAmount,
+                firstNameInput,
+                lastNameInput,
+                guestEmailInput,
+                addressInput,
+                countryInput,
+            );
+        });
     }
 );
 
@@ -100,6 +105,7 @@ Then(
     /^I should be redirected to a Thank You confirmation page$/,
     () => {
         CheckoutSuccessPage.checkReady();
+        CheckoutSuccessPage.checkBalance(donationAmount);
     }
 );
 
@@ -121,38 +127,3 @@ Then(
         CharityPortalCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
-
-/* Then(
-    /^I should see an initial message saying the donation succeeded$/,
-    () => {
-        // TODO
-    }
-); */
-
-// When(
-//     /^I wait 5 seconds$/,
-//     () => {
-//         // TODO
-//     }
-// );
-
-// Then(
-//     /^I should see my Charity Checkout transaction ID$/,
-//     () => {
-//         // TODO
-//     }
-// );
-
-// Then(
-//     /^I should see my matched amount is the same as my donation amount$/,
-//     () => {
-//         // TODO
-//     }
-// );
-
-// Then(
-//     /^I should see the total value of my donation is double my donation amount, plus any Gift Aid$/,
-//     () => {
-//         // TODO
-//     }
-// );
