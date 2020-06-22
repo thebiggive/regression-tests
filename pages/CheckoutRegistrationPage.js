@@ -69,10 +69,10 @@ export default class CheckoutRegistrationPage {
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
 
-        // Clicking the label at an arbitrary position breaks (at least
+        // Clicking the label at the default position breaks (at least
         // sometimes) because it contains links we don't want to click.
-        // So set (10, 10) coords relative to top left.
-        clickSelector(agreeCheckboxSelector, { x: 10, y: 10 });
+        // These coords seem to work in both Chrome + IE11.
+        clickSelector(agreeCheckboxSelector, { x: -250, y: 0 });
     }
 
     /**
