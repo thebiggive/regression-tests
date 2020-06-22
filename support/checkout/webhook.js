@@ -21,10 +21,10 @@ function getVerifyHash(data) {
 }
 
 /**
- * Send checkout webhook
+ * Send checkout webhook.
  *
- * @param {string} id transaction id
- * @param {object} data transaction data
+ * Sample body:
+ * ```
  * {
  *   "charityId": "01I400000009Sds3e2",
  *   "donationAmount": 100,
@@ -41,8 +41,16 @@ function getVerifyHash(data) {
  *   "amountMatchedByPledges": 60,
  *   "transactionId": "PSP-ID-123456"
  * }
+ * ```
+ *
+ * Wrap in `browser.call(...)` callable to work with Webdriver.io sync mode.
+ * @link https://webdriver.io/docs/sync-vs-async.html
+ *
+ * @param {string} id   transaction id
+ * @param {object} data transaction data
+ * @returns {Promise} Hook result
  */
-export default async function sendCheckoutWebhook(id, data) {
+export default function sendCheckoutWebhook(id, data) {
     const dataIncPspId = data;
     dataIncPspId.transactionId = generateIdentifier('PSP-ID-');
 
@@ -51,9 +59,9 @@ export default async function sendCheckoutWebhook(id, data) {
         PSP ID "${dataIncPspId.transactionId}"`
     );
 
-    const hash = getVerifyHash(data);
+    const hash = getVerifyHash(dataIncPspId);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
-    await request({
+    return request({
         method: 'PUT',
         path: id,
         uri: url,
@@ -63,11 +71,10 @@ export default async function sendCheckoutWebhook(id, data) {
             'content-type': 'application/json',
             'X-Webhook-Verify-Hash': hash,
         },
-    }, (error) => {
-        console.log('WEBHOOK: Response...');
-        if (error) {
-            console.error(`WEBHOOK: Error - "${error}"`);
-            throw new Error(error);
-        }
+    }).then(
+        console.log('WEBHOOK: sent'),
+    ).catch((reason) => {
+        console.log(`WEBHOOK: error from ${url} – ${reason}`);
+        throw new Error('Webhook error');
     });
 }

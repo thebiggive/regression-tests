@@ -1,4 +1,4 @@
-import { wait, generateIdentifier } from '../support/util';
+import { generateIdentifier } from '../support/util';
 import {
     checkUrlMatch, checkTitle, checkSelectorContent, checkIfElementExists
 } from '../support/check';
@@ -33,7 +33,7 @@ export const countryInput = 'string:GB';
 export const firstNameInput = 'Regression';
 export const lastNameInput = generateIdentifier('Lastname-');
 export const addressInput = 'WC2B 5LX';
-export const guestEmailInput = 'regression-test@example.org';
+export const guestEmailInput = 'tech+regression+tests@thebiggive.org.uk';
 
 /**
  * checkout Registration page
@@ -46,7 +46,6 @@ export default class CheckoutRegistrationPage {
         checkUrlMatch(urlCheck);
         checkTitle(titleCheck);
         checkSelectorContent(headingSelector, pageHeadingCheck);
-        wait(10);
         checkSelectorContent(subHeadingSelector, pageSubHeadingCheck, 45);
     }
 
@@ -66,18 +65,16 @@ export default class CheckoutRegistrationPage {
         );
         sendKeys('\ue015'); // ARROW_DOWN
         sendKeys('\uE007'); // press enter to select address
-        wait(2);
-        // workaround
-        // the normal click will click on links of terms & privacy
-        // inject js snippet to be able to click the checkbox
-        browser.execute(function() { // eslint-disable-line
-            // document.querySelector('[for="agree-check"]')
+
+        // Work around an issue clicking the label when it has links in, by
+        // hacking the label to replace its copy with plain text.
+        browser.execute(() => {
             document.getElementsByClassName('agree-box')[0]
                 .getElementsByTagName('label')[0]
-                .innerHTML = 'I have read and agree to the Charity'
-                + 'Checkout terms & conditions and privacy policy.';
+                .innerHTML = 'native terms label e2e test replacement copy';
         });
-        clickSelector(agreeCheckboxSelector); // click left side
+
+        clickSelector(agreeCheckboxSelector);
     }
 
     /**

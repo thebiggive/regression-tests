@@ -47,17 +47,21 @@ export default class CharityPortalCheckBalancePage {
      * check if donation raised
      * @param { donationCheck } donationCheck value to be checked
      */
-    static async parseCsvFile(donationCheck) {
+    static parseCsvFile(donationCheck) {
         console.log('Start parsing file', global.downloadDir);
         const fs = require('fs');
         const assert = require('assert');
         const filePath = `${global.downloadDir}${csvFileNameInput}`;
-        const fileContents = await fs.readFile(filePath, csvFileEncodingInput);
-        console.log(
-            'CHECK: check if donation exist via last name unique value:',
-            donationCheck
-        );
-        assert.ok(fileContents.includes(donationCheck));
+        fs.readFile(filePath, csvFileEncodingInput).then((fileContents) => {
+            console.log(
+                'CHECK: check if donation exist via last name unique value:',
+                donationCheck
+            );
+            assert.ok(fileContents.includes(donationCheck));
+        }, (reason) => {
+            console.log(`CSV file read failed: ${reason}`);
+            throw new Error('CSV read failed');
+        });
     }
 
     /**

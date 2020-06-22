@@ -9,18 +9,6 @@ export function goToUrl(url) {
 }
 
 /**
- * Wait x seconds
- *
- * @param {int} seconds to wait
- */
-export function wait(seconds) {
-    console.warn(
-        'WARNING: Fixed sleep being used - avoid unless absolutely necessary!'
-    );
-    browser.pause(seconds * 1000);
-}
-
-/**
  * Generate number between minimum and maximum fixed numbers
  *
  * @param {int} min number
