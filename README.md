@@ -4,6 +4,13 @@
 
 ## Local Development
 
+### Framework
+
+These tests use [Webdriver.io](https://webdriver.io/) in
+[sync mode](https://webdriver.io/docs/sync-vs-async.html). This means
+browser-native promises are awaited automatically – please check the docs
+if you've not used it before.
+
 ### Install project
 
 ```
