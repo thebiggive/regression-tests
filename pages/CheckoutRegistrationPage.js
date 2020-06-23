@@ -71,8 +71,11 @@ export default class CheckoutRegistrationPage {
 
         // Clicking the label at the default position breaks (at least
         // sometimes) because it contains links we don't want to click.
-        // These coords seem to work in both Chrome + IE11.
-        clickSelector(agreeCheckboxSelector, { x: -250, y: 0 });
+        // (-250, 0) seemed to work in both Chrome + IE11 with the
+        // Charity Checkout brand in the copy.
+        // (-300, 0) passes locally in Chrome with the Enthuse brand
+        // but has not yet been tested cross-browser.
+        clickSelector(agreeCheckboxSelector, { x: -300, y: 0 });
     }
 
     /**
