@@ -19,7 +19,6 @@ import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
 
-
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
 
