@@ -19,6 +19,7 @@ const receiveEmailFromTheBigGiveSelector = '#mat-radio-9';
 const proceedAnyWayBtnSelector = 'button*=Proceed anyway';
 const matchFundsNotAvailableSelector = '=Match funds not available';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
+const nextButtonSelector = 'button*=Next';
 
 // checks
 const titleCheck = 'Donate to Regression Test Charity';
@@ -29,35 +30,57 @@ const pageHeadingCheck = 'Regression Test Charity';
  */
 export default class DonatePage {
     /**
+     * Set up page with the expectation of starting with the first step and its
+     * "Next" button, at array index 0.
+     */
+    constructor() {
+        this.nextStepIndex = 0;
+    }
+
+    /**
      * open the donate page
      */
-    static open() {
+    open() {
         goToUrl(donatePage);
     }
 
     /**
      * check if page ready
      */
-    static checkReady() {
+    checkReady() {
         checkTitle(titleCheck);
         checkSelectorContent(pageHeadingSelector, pageHeadingCheck);
+    }
+
+    /**
+     * Click the Stepper's currently visible "Next" button.
+     */
+    progressToNextStep() {
+        const steps = $$(nextButtonSelector);
+        steps[this.nextStepIndex].click();
+        this.nextStepIndex += 1;
     }
 
     /**
      * set amount value
      * @param {int} amount number
      */
-    static setDonationAmount(amount) {
+    setDonationAmount(amount) {
         inputSelectorValue(donationAmountSelector, amount);
     }
 
     /**
-     * choose charity preferences
+     * Choose Gift Aid preference.
      */
-    static choosePreference() {
+    setGiftAidChoice() {
         // Claim Gift Aid? select NO
         clickSelector(claimGiftAidSelector);
+    }
 
+    /**
+     * Choose email communication preferences.
+     */
+    setCommsPreferences() {
         // Receive email from the charity? select NO
         clickSelector(receiveEmailFromCharitySelector);
 
@@ -69,7 +92,7 @@ export default class DonatePage {
      * press donate button
      * @param {boolean} skipMatchFundsCheck ignore check if true
      */
-    static submitForm(skipMatchFundsCheck = true) {
+    submitForm(skipMatchFundsCheck = true) {
         clickSelector(submitBtnSelector);
 
         if (

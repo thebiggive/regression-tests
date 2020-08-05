@@ -1,4 +1,6 @@
-import { Given, When, Then } from 'cucumber';
+import {
+    BeforeAll, Given, Then, When
+} from 'cucumber';
 import {
     randomIntFromInterval
 } from '../support/util';
@@ -22,45 +24,57 @@ import CharityPortalCheckBalancePage
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
 
+let page;
+// eslint-disable-next-line new-cap
+BeforeAll(() => {
+    page = new DonatePage();
+});
+
 // Steps
 Given(
     /^that I am on my chosen Donate page$/,
     () => {
-        DonatePage.open();
-        DonatePage.checkReady();
+        page.open();
+        page.checkReady();
     }
 );
 
 When(
-    /^I enter an amount between £5 and £25,000$/,
+    'I enter an amount between £5 and £25,000',
     () => {
-        DonatePage.setDonationAmount(donationAmount);
+        page.setDonationAmount(donationAmount);
+        page.progressToNextStep();
     }
 );
 
-Then(
-    /^I choose a preference for Gift Aid, charity comms and TBG comms$/,
+When(
+    'I choose a preference for Gift Aid',
     () => {
-        DonatePage.choosePreference();
+        page.setGiftAidChoice();
+        page.progressToNextStep();
     }
 );
 
-Then(
-    /^I press Donate$/,
+When(
+    'I choose a preference for charity and TBG communications',
     () => {
-        DonatePage.submitForm();
+        page.setCommsPreferences();
+        page.progressToNextStep();
     }
 );
 
-Then(
-    /^I am taken to Charity Checkout pages$/,
-    () => {
-        CheckoutRegistrationPage.checkReady();
-    }
+When(
+    'I press Donate',
+    () => page.submitForm(),
 );
 
 Then(
-    /^I complete my donation as a guest$/,
+    'I am taken to the Enthuse pages',
+    CheckoutRegistrationPage.checkReady,
+);
+
+Then(
+    'I complete my donation as a guest',
     () => {
         CheckoutRegistrationPage.fillForm();
         CheckoutRegistrationPage.submitForm();
