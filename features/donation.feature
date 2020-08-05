@@ -7,9 +7,10 @@ Feature: Make a matched donation
     Scenario: Match funds available and payment is processed successfully, before match fund reservation expires
         Given that I am on my chosen Donate page
         When I enter an amount between £5 and £25,000
-        And I choose a preference for Gift Aid, charity comms and TBG comms
+        And I choose a preference for Gift Aid
+        And I choose a preference for charity and TBG communications
         And I press Donate
-        Then I am taken to Charity Checkout pages
+        Then I am taken to the Enthuse pages
         And I complete my donation as a guest
         And enter my payment information
         When my bank approves the charge and the payment steps took less than 15 minutes
