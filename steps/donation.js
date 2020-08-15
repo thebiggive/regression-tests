@@ -27,7 +27,7 @@ const donationAmount = randomIntFromInterval(5, 100);
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
-    page = new DonatePage();
+    page = new DonatePage(browser);
 });
 
 // Steps
