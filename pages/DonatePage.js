@@ -21,19 +21,20 @@ const matchFundsNotAvailableSelector = '=Match funds not available';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
 
-// checks
 const titleCheck = 'Donate to Regression Test Charity';
 const pageHeadingCheck = 'Regression Test Charity';
 
 /**
- * donate page object
+ * Donate page class
  */
 export default class DonatePage {
     /**
      * Set up page with the expectation of starting with the first step and its
      * "Next" button, at array index 0.
+     * @param {WebdriverIO.BrowserObject} browser   Global object for pauses.
      */
-    constructor() {
+    constructor(browser) {
+        this.browser = browser;
         this.nextStepIndex = 0;
     }
 
@@ -59,6 +60,9 @@ export default class DonatePage {
         const steps = $$(nextButtonSelector);
         steps[this.nextStepIndex].click();
         this.nextStepIndex += 1;
+        // Wait for animation and scrolling to fully complete.
+        // Test passing was intermittent without this fixed wait.
+        this.browser.pause(250);
     }
 
     /**
