@@ -90,13 +90,12 @@ export default class DonatePage {
 
     /**
      * press donate button
-     * @param {boolean} skipMatchFundsCheck ignore check if true
      */
-    submitForm(skipMatchFundsCheck = true) {
+    submitForm() {
         clickSelector(submitBtnSelector);
 
         if (
-            skipMatchFundsCheck === true
+            $(matchFundsNotAvailableSelector)
             && $(matchFundsNotAvailableSelector).isExisting()
             && checkIfElementExists(proceedAnyWayBtnSelector)
         ) {
