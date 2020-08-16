@@ -26,7 +26,7 @@ const titleCheck = 'Donate to Regression Test Charity';
 const pageHeadingCheck = 'Regression Test Charity';
 
 /**
- * donate page object
+ * Donate page class
  */
 export default class DonatePage {
     /**
