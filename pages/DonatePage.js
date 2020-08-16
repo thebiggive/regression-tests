@@ -95,9 +95,9 @@ export default class DonatePage {
         clickSelector(submitBtnSelector);
 
         if (
-            $(matchFundsNotAvailableSelector)
+            checkIfElementExists(matchFundsNotAvailableSelector, 1)
+            && checkIfElementExists(proceedAnyWayBtnSelector, 1)
             && $(matchFundsNotAvailableSelector).isExisting()
-            && checkIfElementExists(proceedAnyWayBtnSelector)
         ) {
             clickSelector(proceedAnyWayBtnSelector);
         }
