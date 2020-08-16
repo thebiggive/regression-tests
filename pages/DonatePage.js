@@ -96,7 +96,7 @@ export default class DonatePage {
      * press donate button
      */
     submitForm() {
-        clickSelector(submitBtnSelector);
+        clickSelector(submitBtnSelector, { x: 37, y: 37 });
 
         if (
             $(matchFundsNotAvailableSelector)
