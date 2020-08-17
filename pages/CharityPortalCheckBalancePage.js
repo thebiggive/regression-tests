@@ -50,7 +50,6 @@ export default class CharityPortalCheckBalancePage {
     static parseCsvFile(donationCheck) {
         console.log('Start parsing file', global.downloadDir);
         const fs = require('fs');
-        const assert = require('assert');
         const filePath = `${global.downloadDir}${csvFileNameInput}`;
         fs.readFile(filePath, csvFileEncodingInput).then((fileContents) => {
             console.log(
