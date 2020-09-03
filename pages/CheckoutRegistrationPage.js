@@ -27,8 +27,8 @@ const submitBtnSelector = '.js-next-button';
 // checks
 const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
     + 'checkout';
-const titleCheck = 'You are donating to ChoraChori';
-const pageHeadingCheck = 'You are donating to ChoraChori';
+const titleCheck = 'You are donating to Regression Test Charity';
+const pageHeadingCheck = 'You are donating to Regression Test Charity';
 const pageSubHeadingCheck = 'Donated before?';
 
 // inputs
