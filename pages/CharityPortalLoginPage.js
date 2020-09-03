@@ -6,7 +6,7 @@ import { checkTitle } from '../support/check';
 const charityPortalUrl = process.env.CHARITY_PORTAL_URL;
 
 // selectors
-const emailSelector = 'input[placeholder=Email]';
+const usernameSelector = 'input[placeholder=Username]';
 const passwordSelector = 'input[placeholder=Password]';
 const loginBtnSelector = 'button=Log in';
 
@@ -40,7 +40,7 @@ export default class CharityPortalLoginPage {
      */
     static fillForm() {
         inputSelectorValue(
-            emailSelector,
+            usernameSelector,
             emailInput
         );
         inputSelectorValue(passwordSelector, passwordInput);
