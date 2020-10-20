@@ -3,6 +3,9 @@ jobs:
   test:
     docker:
       - image: circleci/node:lts-buster-browsers
+        auth:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_ACCESS_TOKEN
     working_directory: ~/app
     steps:
       - checkout
@@ -43,7 +46,9 @@ workflows:
   commit:
     jobs:
       - test
-  nightly:
+  scheduled:
+    context:
+      - docker-hub-creds
     triggers:
       - schedule:
           cron: "0 * * * *"
