@@ -28,7 +28,7 @@
     "@wdio/spec-reporter": "^6.4.0",
     "@wdio/sync": "^6.4.0",
     "@wdio/testingbot-service": "^6.4.0",
-    "chromedriver": "^83.0.1",
+    "chromedriver": "^86.0.0",
     "crypto": "^1.0.1",
     "csv-parser": "^2.3.3",
     "del-cli": "^3.0.1",
@@ -41,7 +41,7 @@
     "minimist": "^1.2.5",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
-    "wdio-chromedriver-service": "^6.0.3",
+    "wdio-chromedriver-service": "^6.0.4",
     "wdio-timeline-reporter": "^5.1.3"
   }
 }

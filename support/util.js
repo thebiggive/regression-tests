@@ -26,8 +26,5 @@ export function randomIntFromInterval(min, max) { // min and max included
  * @returns {string} generated identifier
  */
 export function generateIdentifier(prefix = '') {
-    const d = new Date();
-    const identifier = `${prefix}${d.toISOString()}`;
-    console.log(`IDENTIFIER: "${identifier}"`);
-    return identifier;
+    return `${prefix}${(new Date()).toISOString()}`;
 }
