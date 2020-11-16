@@ -33,7 +33,7 @@ const pageSubHeadingCheck = 'Donated before?';
 
 // inputs
 export const countryInput = 'string:GB';
-export const firstNameInput = 'Regression';
+export const firstNameInput = generateIdentifier('Firstname-');
 export const lastNameInput = generateIdentifier('Lastname-');
 export const addressInput = 'WC2B 5LX';
 export const guestEmailInput = 'tech+regression+tests@thebiggive.org.uk';
