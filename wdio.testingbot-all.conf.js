@@ -1,17 +1,19 @@
 const { config } = require('./wdio.BASE.conf.js');
 
-config.capabilities = [{
-    browserName: 'chrome',
-    platform: 'WIN10',
-    version: '83',
-    build: config.build,
-},
-{
-    browserName: 'internet explorer',
-    platform: 'WIN10',
-    version: '11',
-    build: config.build,
-}];
+config.capabilities = [
+    {
+        browserName: 'chrome',
+        platform: 'WIN10',
+        version: '87',
+        build: config.build,
+    },
+    {
+        browserName: 'internet explorer',
+        platform: 'WIN10',
+        version: '11',
+        build: config.build,
+    },
+];
 config.maxInstances = 2;
 config.services.push('testingbot');
 
