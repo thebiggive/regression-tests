@@ -4,19 +4,19 @@ import {
 import {
     randomIntFromInterval
 } from '../support/util';
-import DonatePage from '../pages/DonatePage';
-import CheckoutRegistrationPage,
+import DonateStartPage from '../pages/DonateStartPage';
+import EnthuseRegistrationPage,
 {
     firstNameInput,
     lastNameInput,
     countryInput,
     addressInput,
     guestEmailInput
-} from '../pages/CheckoutRegistrationPage';
-import CheckoutConfirmPage from '../pages/CheckoutConfirmPage';
-import CheckoutPaymentPage from '../pages/CheckoutPaymentPage';
-import CheckoutWebhookPage from '../pages/CheckoutWebhookPage';
-import CheckoutSuccessPage from '../pages/CheckoutSuccessPage';
+} from '../pages/EnthuseRegistrationPage';
+import EnthuseConfirmPage from '../pages/EnthuseConfirmPage';
+import EnthusePaymentPage from '../pages/EnthusePaymentPage';
+import EnthuseAsync from '../pages/EnthuseAsync';
+import DonateSuccessPage from '../pages/DonateSuccessPage';
 import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
@@ -27,14 +27,14 @@ const donationAmount = randomIntFromInterval(5, 100);
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
-    page = new DonatePage(browser);
+    page = new DonateStartPage(browser);
 });
 
 // Steps
 Given(
-    /^that I am on my chosen Donate page$/,
-    () => {
-        page.open();
+    /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
+    (psp) => {
+        page.open(psp);
         page.checkReady();
     }
 );
@@ -56,6 +56,20 @@ When(
 );
 
 When(
+    'I enter my name and email address',
+    () => {
+        page.populateNameAndEmail();
+    }
+);
+
+When(
+    'I enter Stripe payment details',
+    () => {
+        page.populateStripePaymentDetails();
+    }
+);
+
+When(
     'I choose a preference for charity and TBG communications',
     () => {
         page.setCommsPreferences();
@@ -70,17 +84,17 @@ When(
 
 Then(
     'I am taken to the Enthuse pages',
-    CheckoutRegistrationPage.checkReady,
+    EnthuseRegistrationPage.checkReady,
 );
 
 Then(
     'I complete my donation as a guest',
     () => {
-        CheckoutRegistrationPage.fillForm();
-        CheckoutRegistrationPage.submitForm();
+        EnthuseRegistrationPage.fillForm();
+        EnthuseRegistrationPage.submitForm();
         // checkout confirm step
-        CheckoutConfirmPage.checkReady();
-        CheckoutConfirmPage.submitForm();
+        EnthuseConfirmPage.checkReady();
+        EnthuseConfirmPage.submitForm();
     }
 );
 
@@ -88,10 +102,10 @@ Then(
     /^enter my payment information$/,
     () => {
         // checkout payment step
-        CheckoutPaymentPage.checkReady();
-        CheckoutPaymentPage.checkout();
-        CheckoutPaymentPage.setPassword(true); // skip
-        CheckoutSuccessPage.checkReady(); // need to check before webhook call
+        EnthusePaymentPage.checkReady();
+        EnthusePaymentPage.checkout();
+        EnthusePaymentPage.setPassword(true); // skip
+        DonateSuccessPage.checkReady(); // need to check before webhook call
     }
 );
 
@@ -101,7 +115,7 @@ When(
         const url = browser.getUrl();
 
         browser.call(() => {
-            CheckoutWebhookPage.triggerWebhook(
+            EnthuseAsync.triggerWebhook(
                 url,
                 donationAmount,
                 firstNameInput,
@@ -115,10 +129,10 @@ When(
 );
 
 Then(
-    /^I should be redirected to a Thank You confirmation page$/,
+    /^I should be redirected to a Thank You confirmation page with the correct amount$/,
     () => {
-        CheckoutSuccessPage.checkReady();
-        CheckoutSuccessPage.checkBalance(donationAmount);
+        DonateSuccessPage.checkReady();
+        DonateSuccessPage.checkBalance(donationAmount);
     }
 );
 

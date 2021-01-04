@@ -41,7 +41,7 @@ export const guestEmailInput = 'tech+regression+tests@thebiggive.org.uk';
 /**
  * checkout Registration page
  */
-export default class CheckoutRegistrationPage {
+export default class EnthuseRegistrationPage {
     /**
      * check if page ready
      */

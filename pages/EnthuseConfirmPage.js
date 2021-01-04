@@ -11,7 +11,7 @@ const pageHeadingCheck = 'Confirm your donation';
 /**
  * confirm step page object
  */
-export default class CheckoutConfirmPage {
+export default class EnthuseConfirmPage {
     /**
      * check if page ready
      */

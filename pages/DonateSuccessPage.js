@@ -1,6 +1,5 @@
 import {
     checkUrl,
-    checkTitle,
     checkSelectorContent
 } from '../support/check';
 
@@ -9,19 +8,17 @@ const statusSelector = '.c-main .b-rh-2:first-child .b-bold';
 
 // checks
 const urlCheck = 'thanks';
-const pageTitleCheck = 'The Big Give';
 const balanceTextPreCheck = '£';
 
 /**
  * Checkout success page
  */
-export default class CheckoutSuccessPage {
+export default class DonateSuccessPage {
     /**
      * check if page ready
      */
     static checkReady() {
         checkUrl(urlCheck);
-        checkTitle(pageTitleCheck);
     }
 
     /**

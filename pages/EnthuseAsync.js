@@ -1,9 +1,9 @@
-import sendCheckoutWebhook from '../support/checkout/webhook';
+import simulateEnthuseWebhook from '../support/enthuse/webhook';
 
 /**
  * checkout webhook page object
  */
-export default class CheckoutWebhookPage {
+export default class EnthuseAsync {
     /**
      * trigger webhook
      * @param {string} url  Webhook URL. Get from `browser`.
@@ -28,7 +28,7 @@ export default class CheckoutWebhookPage {
 
         const donationID = url.split('/')[4]; // Donation ID
 
-        return sendCheckoutWebhook(
+        return simulateEnthuseWebhook(
             donationID,
             {
                 charityId: process.env.CHECKOUT_CHARITY_ID,
