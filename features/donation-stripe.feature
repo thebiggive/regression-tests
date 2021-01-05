@@ -13,7 +13,6 @@ Feature: Make a matched donation to a Stripe charity
         And I enter Stripe payment details
         And I press Donate
         Then I should be redirected to a Thank You confirmation page with the correct amount
-        # REG-9 TODO: implement thank you email checks
-        # When I check my email after 5 seconds
-        # Then I should have a message with the correct amounts
-        # And it should contain the charity's custom thank you message.
+        When I check my email after 5 seconds
+        Then my last email should contain the correct amounts
+        And my last email should contain the charity's custom thank you message

@@ -1,9 +1,8 @@
 import {
     BeforeAll, Given, Then, When
 } from 'cucumber';
-import {
-    randomIntFromInterval
-} from '../support/util';
+import { checkEmailBodyContainsText, getLatestEmailBody } from '../support/mailtrap';
+import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import EnthuseRegistrationPage,
 {
@@ -24,6 +23,7 @@ import CharityPortalCheckBalancePage
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
 
+let lastEmailBody;
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
@@ -152,5 +152,34 @@ Then(
     () => {
         CharityPortalCheckBalancePage.downloadCsvFile();
         CharityPortalCheckBalancePage.parseCsvFile(lastNameInput);
+    }
+);
+
+When(
+    'I check my email after 5 seconds',
+    async () => {
+        browser.pause(5000);
+        lastEmailBody = await getLatestEmailBody();
+        if (!lastEmailBody) {
+            throw new Error('No Mailtrap emails found');
+        }
+    }
+);
+
+Then(
+    'my last email should contain the correct amounts',
+    () => {
+        if (!checkEmailBodyContainsText(`Donation: £${donationAmount}`, lastEmailBody)) {
+            throw new Error('Donation amount not found in email');
+        }
+    }
+);
+
+Then(
+    'my last email should contain the charity\'s custom thank you message',
+    () => {
+        if (!checkEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS, lastEmailBody)) {
+            throw new Error('Charity thank you message not found in email');
+        }
     }
 );

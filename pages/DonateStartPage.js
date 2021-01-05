@@ -103,7 +103,8 @@ export default class DonateStartPage {
     populateNameAndEmail() {
         inputSelectorValue(firstNameSelector, generateIdentifier('Firstname-'));
         inputSelectorValue(lastNameSelector, generateIdentifier('Lastname-'));
-        // TODO use Mailtrap addresses so we can check what's sent later.
+        // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
+        // fake SMTP server, regardless of the donor's given email address.
         inputSelectorValue(emailAddressSelector, 'tech+regression+tests@thebiggive.org.uk');
     }
 
