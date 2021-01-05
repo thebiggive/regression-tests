@@ -156,7 +156,7 @@ Then(
 );
 
 When(
-    'I check my email after 60 seconds',
+    'I check my email after 15 seconds',
     async () => {
         browser.pause(15000);
         lastEmailBody = await getLatestEmailBody();
