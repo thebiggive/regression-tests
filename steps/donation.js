@@ -156,9 +156,9 @@ Then(
 );
 
 When(
-    'I check my email after 5 seconds',
+    'I check my email after 60 seconds',
     async () => {
-        browser.pause(5000);
+        browser.pause(15000);
         lastEmailBody = await getLatestEmailBody();
         if (!lastEmailBody) {
             throw new Error('No Mailtrap emails found');
@@ -169,8 +169,13 @@ When(
 Then(
     'my last email should contain the correct amounts',
     () => {
-        if (!checkEmailBodyContainsText(`Donation: £${donationAmount}`, lastEmailBody)) {
-            throw new Error('Donation amount not found in email');
+        if (checkEmailBodyContainsText(
+            `Donation: <strong>£${donationAmount}.00</strong>`,
+            lastEmailBody
+        )) {
+            console.log(`CHECK: Email refers to donation amount £${donationAmount}`);
+        } else {
+            throw new Error(`Donation amount £${donationAmount} not found in email`);
         }
     }
 );

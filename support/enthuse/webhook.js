@@ -61,6 +61,7 @@ export default function simulateEnthuseWebhook(id, data) {
 
     const hash = getVerifyHash(dataIncPspId);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
+    // TODO use a non-deprecated lib to send this
     return request({
         method: 'PUT',
         path: id,

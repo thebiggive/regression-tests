@@ -1,4 +1,22 @@
-const request = require('request');
+const axios = require('axios').default;
+
+const mailtrapClient = axios.create({
+    baseURL: 'https://mailtrap.io',
+    headers: {
+        'Api-Token': process.env.MAILTRAP_API_TOKEN,
+    },
+});
+
+/**
+ * Makes an authenticated GET call to Mailtrap.io's API.
+ *
+ * @param {string} path           Request path
+ * @param {string} responseType json or document
+ */
+async function mailtrapGet(path, responseType) {
+    const response = await mailtrapClient.get(path, { responseType });
+    return response.data;
+}
 
 /**
  * Gets the most recent Mailtrap.io-received email's body text.
@@ -6,26 +24,19 @@ const request = require('request');
  * @returns {string|null} Body HTML if message found; otherwise null.
  */
 export async function getLatestEmailBody() {
-    const baseUri = 'https://mailtrap.io';
-    const uri = `${baseUri}/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}`
-      + '/messages?search=&page=&last_id=';
+    const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?search=&page=&last_id=`;
+    const messages = await mailtrapGet(path, 'json');
+
     let bodyHtmlPath;
-    await request(uri, (error, response, body) => {
-        if (body.length > 0) {
-            bodyHtmlPath = body[0].html_path;
-        }
-    });
+    if (messages.length > 0) {
+        bodyHtmlPath = messages[0].html_path;
+    }
 
     if (!bodyHtmlPath) {
         return null;
     }
 
-    let latestMessageBody;
-    await request(`${baseUri}${bodyHtmlPath}`, (error, response, body) => {
-        latestMessageBody = body;
-    });
-
-    return latestMessageBody;
+    return mailtrapGet(bodyHtmlPath, 'document');
 }
 
 /**
