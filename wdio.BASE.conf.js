@@ -1,5 +1,4 @@
 require('dotenv').config(); // load process.env from ".env" file for local
-const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
 // Load the libraries we need for path/filesystem manipulation
 const path = require('path');
 const fs = require('fs');
@@ -49,16 +48,10 @@ exports.config = {
     connectionRetryCount: 3,
     specFileRetries: 2,
     services: [
-        [TimelineService],
     ], // see wdio.*.conf.js for additional entries
     framework: 'cucumber',
     reporters: [
         'spec',
-        ['timeline', {
-            outputDir: './build',
-            embedImages: true,
-            screenshotStrategy: 'before:click',
-        }],
         ['junit', {
             outputDir: './build/wdio',
             outputFileFormat(options) {
