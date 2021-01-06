@@ -50,7 +50,7 @@ function getVerifyHash(data) {
  * @param {object} data transaction data
  * @returns {Promise} Hook result
  */
-export default function sendCheckoutWebhook(id, data) {
+export default function simulateEnthuseWebhook(id, data) {
     const dataIncPspId = data;
     dataIncPspId.transactionId = generateIdentifier('PSP-ID-');
 
@@ -61,6 +61,7 @@ export default function sendCheckoutWebhook(id, data) {
 
     const hash = getVerifyHash(dataIncPspId);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
+    // TODO use a non-deprecated lib to send this
     return request({
         method: 'PUT',
         path: id,

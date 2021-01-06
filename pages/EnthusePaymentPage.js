@@ -26,7 +26,7 @@ const cardCvcInput = '456';
 /**
  * checkout payment page
  */
-export default class CheckoutPaymentPage {
+export default class EnthusePaymentPage {
     /**
      * check if page ready
      */

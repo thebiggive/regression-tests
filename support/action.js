@@ -59,6 +59,21 @@ export function sendKeys(value) {
 }
 
 /**
+ * Move focus into the embedded Stripe iframe input fields.
+ */
+export function enterStripeIframe() {
+    // https://webdriver.io/docs/api/webdriver.html#switchtoframe
+    browser.switchToFrame($('iframe[title$="Secure card payment input frame"]'));
+}
+
+/**
+ * Move focus back to the outer page for main form interaction.
+ */
+export function leaveStripeIframe() {
+    browser.switchToParentFrame();
+}
+
+/**
  * get element text
  *
  * @param {string} selector of content
