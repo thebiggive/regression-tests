@@ -156,9 +156,9 @@ Then(
 );
 
 When(
-    'I check my email after 15 seconds',
+    'I check my email after 30 seconds',
     async () => {
-        browser.pause(15000);
+        browser.pause(30000);
         lastEmailBody = await getLatestEmailBody();
         if (!lastEmailBody) {
             throw new Error('No Mailtrap emails found');

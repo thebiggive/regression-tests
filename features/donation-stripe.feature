@@ -13,6 +13,6 @@ Feature: Make a matched donation to a Stripe charity
         And I enter Stripe payment details
         And I press Donate
         Then I should be redirected to a Thank You confirmation page with the correct amount
-        When I check my email after 15 seconds
+        When I check my email after 30 seconds
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
