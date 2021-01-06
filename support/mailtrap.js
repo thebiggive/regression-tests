@@ -30,8 +30,6 @@ async function getLatestMessage() {
         return undefined;
     }
 
-    console.log(`MESSAGES LENGTH: ${messages.length}`);
-
     return messages[0];
 }
 
