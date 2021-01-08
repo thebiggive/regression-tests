@@ -30,7 +30,7 @@ const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const proceedAnyWayBtnSelector = 'button*=Proceed anyway';
-const matchFundsNotAvailableSelector = '=Match funds not available';
+const dialogSelector = '.mat-dialog-container';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
 
@@ -70,8 +70,11 @@ export default class DonateStartPage {
 
     /**
      * Click the Stepper's currently visible "Next" button.
+     *
+     * @param {boolean} waitForMatchWarning Whether to anticipate a possible match
+     *                                              funds depleted warning.
      */
-    progressToNextStep() {
+    progressToNextStep(waitForMatchWarning) {
         // todo clickable check? if mobile needs it
         const steps = $$(nextButtonSelector);
         steps[this.nextStepIndex].click();
@@ -79,6 +82,19 @@ export default class DonateStartPage {
         // Wait for animation and scrolling to fully complete.
         // Test passing was intermittent without this fixed wait.
         this.browser.pause(250);
+
+        if (waitForMatchWarning) {
+            this.browser.pause(2750); // Allow 3s total for donation setup + MatchBot response
+
+            const dialogCopy = 'There are no match funds currently available for this campaign';
+            if (
+                $(dialogSelector) && $(dialogSelector).isExisting()
+                && checkSelectorContent(dialogSelector, dialogCopy)
+                && checkIfElementExists(proceedAnyWayBtnSelector, 1)
+            ) {
+                clickSelector(proceedAnyWayBtnSelector);
+            }
+        }
     }
 
     /**
@@ -139,13 +155,5 @@ export default class DonateStartPage {
      */
     submitForm() {
         clickSelector(submitBtnSelector);
-
-        if (
-            $(matchFundsNotAvailableSelector)
-            && $(matchFundsNotAvailableSelector).isExisting()
-            && checkIfElementExists(proceedAnyWayBtnSelector, 1)
-        ) {
-            clickSelector(proceedAnyWayBtnSelector);
-        }
     }
 }
