@@ -42,7 +42,7 @@ When(
     'I enter an amount between £5 and £25,000',
     () => {
         page.setDonationAmount(donationAmount);
-        page.progressToNextStep();
+        page.progressToNextStep(true);
     }
 );
 
@@ -50,7 +50,7 @@ When(
     'I choose a preference for Gift Aid',
     () => {
         page.setGiftAidChoice();
-        page.progressToNextStep();
+        page.progressToNextStep(false);
     }
 );
 
@@ -72,7 +72,7 @@ When(
     'I choose a preference for charity and TBG communications',
     () => {
         page.setCommsPreferences();
-        page.progressToNextStep();
+        page.progressToNextStep(false);
     }
 );
 
