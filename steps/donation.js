@@ -1,7 +1,7 @@
 import {
     BeforeAll, Given, Then, When
 } from 'cucumber';
-import { checkEmailBodyContainsText, getLatestEmailBody } from '../support/mailtrap';
+import { checkLatestEmailBodyContainsText } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import EnthuseRegistrationPage,
@@ -23,7 +23,6 @@ import CharityPortalCheckBalancePage
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
 
-let lastEmailBody;
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
@@ -156,22 +155,16 @@ Then(
 );
 
 When(
-    'I check my email after 15 seconds',
-    async () => {
-        browser.pause(15000);
-        lastEmailBody = await getLatestEmailBody();
-        if (!lastEmailBody) {
-            throw new Error('No Mailtrap emails found');
-        }
-    }
+    'I wait a few seconds for email processing',
+    // 30s to allow SF + Mailtrap time to process everything
+    async () => browser.pause(30000)
 );
 
 Then(
     'my last email should contain the correct amounts',
     () => {
-        if (checkEmailBodyContainsText(
+        if (checkLatestEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
-            lastEmailBody
         )) {
             console.log(`CHECK: Email refers to donation amount £${donationAmount}`);
         } else {
@@ -183,7 +176,7 @@ Then(
 Then(
     'my last email should contain the charity\'s custom thank you message',
     () => {
-        if (!checkEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS, lastEmailBody)) {
+        if (!checkLatestEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS)) {
             throw new Error('Charity thank you message not found in email');
         }
     }

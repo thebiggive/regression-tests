@@ -13,7 +13,7 @@ import {
 } from '../support/action';
 
 // routes
-const startPageEnthuse = process.env.DONATE_PAGE_ENTHUSE || process.env.DONATE_PAGE;
+const startPageEnthuse = process.env.DONATE_PAGE_ENTHUSE;
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
 
 // selectors
@@ -72,6 +72,7 @@ export default class DonateStartPage {
      * Click the Stepper's currently visible "Next" button.
      */
     progressToNextStep() {
+        // todo clickable check? if mobile needs it
         const steps = $$(nextButtonSelector);
         steps[this.nextStepIndex].click();
         this.nextStepIndex += 1;

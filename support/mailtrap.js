@@ -19,33 +19,55 @@ async function mailtrapGet(path, responseType) {
 }
 
 /**
+ * Get the latest Mailtrap inbox message, if any.
+ *
+ * @returns {object|undefined}  Message if available.
+ */
+async function getLatestMessage() {
+    const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?search=&page=&last_id=`;
+    const messages = await mailtrapGet(path, 'json');
+    if (messages.length === 0) {
+        return undefined;
+    }
+
+    return messages[0];
+}
+
+/**
  * Gets the most recent Mailtrap.io-received email's body text.
  *
  * @returns {string|null} Body HTML if message found; otherwise null.
  */
-export async function getLatestEmailBody() {
-    const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?search=&page=&last_id=`;
-    const messages = await mailtrapGet(path, 'json');
-
-    let bodyHtmlPath;
-    if (messages.length > 0) {
-        bodyHtmlPath = messages[0].html_path;
-    }
-
-    if (!bodyHtmlPath) {
+async function getLatestEmailBody() {
+    const message = await getLatestMessage();
+    if (!message) {
         return null;
     }
 
-    return mailtrapGet(bodyHtmlPath, 'document');
+    return mailtrapGet(message.html_path, 'document');
 }
 
 /**
  * Checks whether expected text was in an email HTML body.
  *
  * @param {string} needle   Expected text to find anywhere in HTML
- * @param {string} haystack Email body HTML
  * @returns {boolean} Whether the expected text was found.
  */
-export function checkEmailBodyContainsText(needle, haystack) {
-    return haystack.includes(needle);
+export async function checkLatestEmailBodyContainsText(needle) {
+    const body = await getLatestEmailBody();
+    return body.includes(needle);
+}
+
+/**
+ * Checks that the latest email's subject line contains the expected text.
+ * @param {string} needle   Text to expect in latest subject line.
+ * @returns {boolean}   Whether the text was found.
+ */
+export async function checkLatestEmailSubjectContainsText(needle) {
+    const message = await getLatestMessage();
+    if (!message) {
+        return false;
+    }
+
+    return message.subject.includes(needle);
 }

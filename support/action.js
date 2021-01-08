@@ -13,6 +13,10 @@ export function clickSelector(selector, options = {}) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
+    if (!$(selector).isClickable()) {
+        $(selector).scrollIntoView();
+    }
+
     $(selector).click(options);
 }
 
