@@ -11,6 +11,9 @@ These tests use [Webdriver.io](https://webdriver.io/) in
 browser-native promises are awaited automatically – please check the docs
 if you've not used it before.
 
+### Prerequisite setup
+Make sure you have latest Yarn and Node installed and follow the detailed instructions for your OS [here](https://github.com/nodejs/node-gyp) 
+
 ### Install project
 
 ```
