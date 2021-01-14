@@ -58,7 +58,7 @@ export default class ChampionPortalAllocateFunds {
      */
     clickCampaignsNavItem() {
         // eslint-disable-next-line max-len
-        clickSelector("//a[@class='slds-container_fluid slds-truncate']//span[contains(text(), 'Campaigns')]");
+        clickSelector("//community_navigation-global-navigation-item[@class='comm-navigation__item']//a//span[contains(text(), 'Campaigns')]");
     }
 
     /**
