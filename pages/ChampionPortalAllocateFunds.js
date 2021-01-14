@@ -18,9 +18,9 @@ const emailInput = process.env.CHAMPION_PORTAL_EMAIL;
 const passwordInput = process.env.CHAMPION_PORTAL_PASSWORD;
 
 /**
- * Login page for Champion users
+ * Champion Portal allocation of funds class
  */
-export default class ChampionPortalLoginPage {
+export default class ChampionPortalAllocateFunds {
     /**
      * Set up page with browser object.
      * @param {WebdriverIO.BrowserObject} browser   Global object for pauses.
@@ -38,7 +38,6 @@ export default class ChampionPortalLoginPage {
             "//div[@class='uiOutputRichText']//p//b",
             'Welcome to The Big Give Champion portal'
         );
-        this.browser.pause(500);
     }
 
     /**
@@ -48,7 +47,6 @@ export default class ChampionPortalLoginPage {
         inputSelectorValue(usernameSelector, emailInput);
         inputSelectorValue(passwordSelector, passwordInput);
         clickSelector(loginBtnSelector);
-        this.browser.pause(500); // Wait for successful login redirect
         checkSelectorContent(
             "//div[@class='uiOutputRichText']//h1",
             'Dashboard'
@@ -56,20 +54,20 @@ export default class ChampionPortalLoginPage {
     }
 
     /**
-     * Navigate to campaigns using nav item
+     * Navigate to campaigns using navigation bar
      */
-    clickNavItem() {
+    clickCampaignsNavItem() {
         // eslint-disable-next-line max-len
         clickSelector("//a[@class='slds-container_fluid slds-truncate']//span[contains(text(), 'Campaigns')]");
     }
 
     /**
-     * Check the correct master campaign is showing
+     * Check 'Match funding campaigns' page has loaded correctly
      */
     checkListOfFundedCampaigns() {
         checkSelectorContent(
-            "//div[@class='slds-truncate']//lightning-base-formatted-text",
-            'Regression Test Master Campaign'
+            "//div[@class='uiOutputRichText']//h1",
+            'Match funding campaigns'
         );
     }
 
@@ -78,26 +76,24 @@ export default class ChampionPortalLoginPage {
      */
     clickContinueDraft() {
         clickSelector(continueDraftBtnSelector);
-        this.browser.pause(500); // Wait for portfolio page to finish loading
     }
 
     /**
-     * Check the list of charities within the data table
+     * Check Build Portfolio page has loaded successfully
      */
     checkListOfCharities() {
         checkSelectorContent(
-            // eslint-disable-next-line max-len
-            "//div[@class='slds-hyphenate']//lightning-formatted-url//a",
-            'Regression Test Charity'
+            "//div[@class='uiOutputRichText']//h1",
+            'Build Portfolio'
         );
     }
 
     /**
-     * Click pencil edit icon
+     * Click pencil edit icon next to the first row in the data table,
+     * this test assumes only 1 charity is assigned to this champion.
      */
     clickPencilIcon() {
-        // eslint-disable-next-line max-len
-        clickSelector("//td[@class='slds-color__background_gray-5']//lightning-primitive-cell-factory//span/button");
+        clickSelector("//td[@data-label = 'Offer Funds?']//span//button");
     }
 
     /**
@@ -109,41 +105,30 @@ export default class ChampionPortalLoginPage {
 
     /**
      * Hack to unfocus from checkbox selection,
-     * switchToParentFrame() and elementSendKeys() doesn't seem to unfocus correctly
+     * this ensures the 'handleOnCellChange' event is triggered after the checkbox has been selected
      */
     unfocusFromSelection() {
-        // eslint-disable-next-line max-len
         clickSelector('//html');
-    }
-
-    /**
-     * Check save button appearance
-     */
-    checkSaveButton() {
-        checkSelectorContent(
-            "//button[@class='slds-button slds-button_brand save-btn']",
-            'Save'
-        );
     }
 
     /**
      * Click save button
      */
     clickSaveButton() {
+        checkSelectorContent(
+            "//button[@class='slds-button slds-button_brand save-btn']",
+            'Save'
+        );
+        this.browser.pause(500); // Wait for submission to succeed
         // eslint-disable-next-line max-len
         clickSelector("//button[@class='slds-button slds-button_brand save-btn'][contains(text(), 'Save')]");
-        this.browser.pause(500); // Wait for submission to succeed
     }
 
     /**
      * Check allocated amount after successfully saving allocation
      */
     checkAllocatedAmount() {
-        checkSelectorContent(
-            '//lightning-formatted-number',
-            '£12,500.00'
-        );
-        this.browser.pause(300); // Wait for everything to finish processing
+        this.checkChampionFundingAmount('£12,500.00');
     }
 
     /**
@@ -166,15 +151,26 @@ export default class ChampionPortalLoginPage {
     }
 
     /**
-     * Reset funding
+     * De-allocate the funding the test just made,
+     * so the next regression run can start from the beginning
      */
-    resetFunding() {
+    deallocateFunding() {
         // eslint-disable-next-line max-len
         clickSelector(cancelBtnSelector);
         this.clickPencilIcon();
-        this.setOfferFundsCheckbox();
+        this.setOfferFundsCheckbox(); // In this transaction, this will set checkbox to false
         this.unfocusFromSelection();
-        this.checkSaveButton();
         this.clickSaveButton();
+    }
+
+    /**
+     * Check the current amount of funding against a charity
+     * @param {string} amount Value to check against
+     */
+    checkChampionFundingAmount(amount) {
+        checkSelectorContent(
+            "//td[@data-label = 'Championed']",
+            amount
+        );
     }
 }

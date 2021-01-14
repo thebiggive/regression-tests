@@ -2,7 +2,7 @@ import {
     BeforeAll, Given, Then, When
 } from 'cucumber';
 
-import ChampionPortalLoginPage from '../pages/ChampionPortalLoginPage';
+import ChampionPortalLoginPage from '../pages/ChampionPortalAllocateFunds';
 
 let page;
 
@@ -23,7 +23,7 @@ Then(
 
 When(
     'I click on Campaigns',
-    () => page.clickNavItem()
+    () => page.clickCampaignsNavItem()
 );
 
 Then(
@@ -56,11 +56,6 @@ When(
     () => page.unfocusFromSelection()
 );
 
-Then(
-    'I should see a "Save" button appear',
-    () => page.checkSaveButton()
-);
-
 When(
     'I click on the save button',
     () => page.clickSaveButton()
@@ -81,7 +76,12 @@ Then(
     () => page.checkModalData()
 );
 
+When(
+    'I de-allocate the funding I have just made',
+    () => page.deallocateFunding()
+);
+
 Then(
-    'I would like to de-allocate the funding',
-    () => page.resetFunding()
+    'I should see £0.00 allocated against the charity',
+    () => page.checkChampionFundingAmount('£0.00')
 );

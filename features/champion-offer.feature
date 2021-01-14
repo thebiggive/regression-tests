@@ -15,9 +15,9 @@ Feature: Log in as a Champion user and distribute funds to a charity
     When I click on the pencil icon
     And I tick the "Offer Funds?" checkbox
     And I unfocus from this selection
-    Then I should see a "Save" button appear
-    When I click on the save button
+    And I click on the save button
     Then I should see the full amount allocated to the selected charity
     And I click the "Confirm Offers" button
     Then I should see a modal with a breakdown of my current funding
-    Then I would like to de-allocate the funding
+    When I de-allocate the funding I have just made
+    Then I should see £0.00 allocated against the charity
