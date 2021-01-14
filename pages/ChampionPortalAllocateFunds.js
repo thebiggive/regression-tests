@@ -4,6 +4,7 @@ import { checkSelectorContent } from '../support/check';
 
 // Routes
 const championPortalUrl = process.env.CHAMPION_PORTAL_URL;
+const campaignsPage = `${process.env.CHAMPION_PORTAL_URL}campaigns`;
 
 // Selectors
 const usernameSelector = 'input[placeholder=Username]';
@@ -56,9 +57,9 @@ export default class ChampionPortalAllocateFunds {
     /**
      * Navigate to campaigns using navigation bar
      */
-    clickCampaignsNavItem() {
+    navigateToCampaignsPage() {
         // eslint-disable-next-line max-len
-        clickSelector("//community_navigation-global-navigation-item[@class='comm-navigation__item']//a//span[contains(text(), 'Campaigns')]");
+        goToUrl(campaignsPage);
     }
 
     /**
@@ -121,9 +122,9 @@ export default class ChampionPortalAllocateFunds {
             "//button[@class='slds-button slds-button_brand save-btn']",
             'Save'
         );
-        this.browser.pause(500); // Wait for submission to succeed
         // eslint-disable-next-line max-len
         clickSelector("//button[@class='slds-button slds-button_brand save-btn'][contains(text(), 'Save')]");
+        this.browser.pause(500); // Wait for submission to succeed
     }
 
     /**

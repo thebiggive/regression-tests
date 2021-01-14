@@ -8,7 +8,7 @@ Feature: Log in as a Champion user and distribute funds to a charity
   Scenario: Master Campaign portfolio deadline is in the future and successfully allocating funds to a charity
     Given I open the Champion Portal log in page successfully
     Then I should be able to fill in my log in credentials and successfully log in
-    When I click on Campaigns
+    When I navigate to campaigns page
     Then I should see a list of Master Campaigns I have intended to fund
     When I click Continue Draft next to a campaign
     Then I should see a list of charities I am able to fund

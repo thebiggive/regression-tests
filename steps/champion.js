@@ -22,8 +22,8 @@ Then(
 );
 
 When(
-    'I click on Campaigns',
-    () => page.clickCampaignsNavItem()
+    'I navigate to campaigns page',
+    () => page.navigateToCampaignsPage()
 );
 
 Then(
