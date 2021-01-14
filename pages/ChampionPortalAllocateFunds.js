@@ -4,7 +4,7 @@ import { checkSelectorContent } from '../support/check';
 
 // Routes
 const championPortalUrl = process.env.CHAMPION_PORTAL_URL;
-const campaignsPage = `${process.env.CHAMPION_PORTAL_URL}campaigns`;
+const campaignsPage = `${championPortalUrl}campaigns`;
 
 // Selectors
 const usernameSelector = 'input[placeholder=Username]';
