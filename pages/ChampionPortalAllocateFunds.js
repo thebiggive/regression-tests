@@ -62,12 +62,13 @@ export default class ChampionPortalAllocateFunds {
     }
 
     /**
-     * Check 'Match funding campaigns' page has loaded correctly
+     * Check 'Regression Test Master Campaign' exists in the data table
      */
     checkListOfFundedCampaigns() {
         checkSelectorContent(
-            "//div[@class='uiOutputRichText']//h1",
-            'Match funding campaigns'
+            // eslint-disable-next-line max-len
+            "//th[@data-label = 'Campaign Title']//lightning-primitive-cell-factory//span//div//lightning-base-formatted-text",
+            'Regression Test Master Campaign'
         );
     }
 
@@ -79,12 +80,13 @@ export default class ChampionPortalAllocateFunds {
     }
 
     /**
-     * Check Build Portfolio page has loaded successfully
+     * Check 'Regression Test Child Campaign' exists in the data table
      */
     checkListOfCharities() {
         checkSelectorContent(
-            "//div[@class='uiOutputRichText']//h1",
-            'Build Portfolio'
+            // eslint-disable-next-line max-len
+            "//td[@data-label = 'Title']//lightning-primitive-cell-factory//span//div//lightning-base-formatted-text",
+            'Regression Test Child Campaign'
         );
     }
 
