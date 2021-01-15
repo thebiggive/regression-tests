@@ -50,6 +50,8 @@ async function getLatestEmailBody() {
 /**
  * Checks whether expected text was in an email HTML body.
  *
+ * Be sure to `await` any results that should impact test pass/fail status!
+ *
  * @param {string} needle   Expected text to find anywhere in HTML
  * @returns {boolean} Whether the expected text was found.
  */
@@ -60,6 +62,9 @@ export async function checkLatestEmailBodyContainsText(needle) {
 
 /**
  * Checks that the latest email's subject line contains the expected text.
+ *
+ * Be sure to `await` any results that should impact test pass/fail status!
+ *
  * @param {string} needle   Text to expect in latest subject line.
  * @returns {boolean}   Whether the text was found.
  */

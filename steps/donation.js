@@ -162,8 +162,8 @@ When(
 
 Then(
     'my last email should contain the correct amounts',
-    () => {
-        if (checkLatestEmailBodyContainsText(
+    async () => {
+        if (await checkLatestEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
         )) {
             console.log(`CHECK: Email refers to donation amount £${donationAmount}`);
@@ -175,8 +175,8 @@ Then(
 
 Then(
     'my last email should contain the charity\'s custom thank you message',
-    () => {
-        if (!checkLatestEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS)) {
+    async () => {
+        if (!(await checkLatestEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS))) {
             throw new Error('Charity thank you message not found in email');
         }
     }
