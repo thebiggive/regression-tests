@@ -55,11 +55,10 @@ export default class ChampionPortalAllocateFunds {
     }
 
     /**
-     * Navigate to campaigns using navigation bar
+     * Navigate to campaigns page
      */
     navigateToCampaignsPage() {
-        // eslint-disable-next-line max-len
-        goToUrl(campaignsPage);
+        clickSelector("//a[@class='slds-button slds-button_brand'][contains(text(), 'Campaigns')]");
     }
 
     /**
@@ -68,7 +67,7 @@ export default class ChampionPortalAllocateFunds {
     checkListOfFundedCampaigns() {
         checkSelectorContent(
             // eslint-disable-next-line max-len
-            "//th[@data-label = 'Campaign Title']//lightning-primitive-cell-factory//span//div//lightning-base-formatted-text",
+            "//th[@data-label='Campaign Title']//lightning-primitive-cell-factory//span//div//lightning-base-formatted-text",
             'Regression Test Master Campaign'
         );
     }
@@ -107,8 +106,9 @@ export default class ChampionPortalAllocateFunds {
     }
 
     /**
-     * Hack to unfocus from checkbox selection,
-     * this ensures the 'handleOnCellChange' event is triggered after the checkbox has been selected
+     * Hack to unfocus from checkbox selection.
+     * A mini modal with a checkbox inside appears,
+     * this ensures 'handleOnCellChange' event is triggered after the checkbox has been selected.
      */
     unfocusFromSelection() {
         clickSelector('//html');

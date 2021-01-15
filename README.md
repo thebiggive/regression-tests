@@ -12,7 +12,9 @@ browser-native promises are awaited automatically – please check the docs
 if you've not used it before.
 
 ### Prerequisite setup
-Make sure you have latest Yarn and Node installed and follow the detailed instructions for your OS [here](https://github.com/nodejs/node-gyp) 
+Make sure you have the latest Yarn and Node installed.
+In some OS cases, when running the test for the first time, you may be prompted with further instructions to get
+this set up correctly, in which case follow the detailed instructions for your OS [here](https://github.com/nodejs/node-gyp)
 
 ### Install project
 
