@@ -124,7 +124,7 @@ Then(
 );
 
 Then(
-    /^my last email subject should contain (.+)$/,
+    /^my last email subject should contain "(.+)"$/,
     async (subjectText) => {
         if (!(await checkLatestEmailSubjectContainsText(subjectText))) {
             throw new Error(`"${subjectText}" not found in email subject`);
