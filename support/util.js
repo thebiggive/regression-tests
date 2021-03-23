@@ -20,11 +20,13 @@ export function randomIntFromInterval(min, max) { // min and max included
 }
 
 /**
- * Generate identifier
+ * Generate identifier - date based but with : and . converted
+ * to - to keep e.g. QuickBooks happy when the putative data
+ * is a name.
  *
  * @param {string} prefix (optional) prefix string
  * @returns {string} generated identifier
  */
 export function generateIdentifier(prefix = '') {
-    return `${prefix}${(new Date()).toISOString()}`;
+    return `${prefix}${(new Date()).toISOString().replaceAll(new RegExp('[.:]+'), '-')}`;
 }
