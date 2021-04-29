@@ -62,7 +62,7 @@ export default class PledgeFormPage {
      * @param {string}  amount  Whole number of pounds
      */
     setPledgeAmount(amount) {
-        inputSelectorValue(this.getCommunitiesInputForLabel('Pledge amount (£)'), amount);
+        inputSelectorValue(this.getCommunitiesInputForLabel('Pledge amount'), amount);
     }
 
     /**

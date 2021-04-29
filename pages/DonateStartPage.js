@@ -19,12 +19,17 @@ const startPageStripe = process.env.DONATE_PAGE_STRIPE;
 // selectors
 const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
-const claimGiftAidSelector = '#mat-radio-3';
+// Now we show the Gift Aid section conditionally, this is mounted last
+// and the ratio gets the highest ID.
+// TODO avoid these hacks for radio selectors! We should be checking copy
+// ideally, although we also need to maintain IE11 support for this journey
+// so can't necessarily use standard Xpath. :/
+const claimGiftAidSelector = '#mat-radio-9';
 const firstNameSelector = '#firstName';
 const lastNameSelector = '#lastName';
 const emailAddressSelector = '#emailAddress';
-const receiveEmailFromCharitySelector = '#mat-radio-6';
-const receiveEmailFromTheBigGiveSelector = '#mat-radio-9';
+const receiveEmailFromCharitySelector = '#mat-radio-3';
+const receiveEmailFromTheBigGiveSelector = '#mat-radio-6';
 const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
