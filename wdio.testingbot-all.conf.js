@@ -4,7 +4,7 @@ config.capabilities = [
     {
         browserName: 'chrome',
         platform: 'WIN10',
-        version: '87',
+        version: '90',
         build: config.build,
     },
     {
