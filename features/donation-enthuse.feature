@@ -1,4 +1,4 @@
-@skip
+@skip()
 Feature: Make a matched donation to an Enthuse charity
 
     As a donor
