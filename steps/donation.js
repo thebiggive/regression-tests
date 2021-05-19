@@ -55,16 +55,11 @@ When(
 );
 
 When(
-    'I enter my name and email address',
+    'I enter my name, email address and Stripe payment details',
     () => {
         page.populateNameAndEmail();
-    }
-);
-
-When(
-    'I enter Stripe payment details',
-    () => {
         page.populateStripePaymentDetails();
+        page.progressToNextStep(false);
     }
 );
 
