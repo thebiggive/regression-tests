@@ -1,4 +1,4 @@
-const { config } = require('./wdio.BASE.conf.js');
+const { config } = require('./wdio.BASE.conf.ts');
 
 config.capabilities = [{
     browserName: 'internet explorer',
