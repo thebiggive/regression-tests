@@ -1786,7 +1786,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axios@^0.21.2:
+axios@^0.21.1:
   version "0.21.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
   integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
@@ -2057,16 +2057,17 @@ chrome-launcher@^0.14.0:
     is-wsl "^2.2.0"
     lighthouse-logger "^1.0.0"
 
-chromedriver@^93.0.0:
-  version "93.0.1"
-  resolved "https://registry.yarnpkg.com/chromedriver/-/chromedriver-93.0.1.tgz#3ed1f7baa98a754fc1788c42ac8e4bb1ab27db32"
-  integrity sha512-KDzbW34CvQLF5aTkm3b5VdlTrvdIt4wEpCzT2p4XJIQWQZEPco5pNce7Lu9UqZQGkhQ4mpZt4Ky6NKVyIS2N8A==
+chromedriver@^89.0.0:
+  version "89.0.0"
+  resolved "https://registry.yarnpkg.com/chromedriver/-/chromedriver-89.0.0.tgz#a6f27aa306400651a20dc04976fe5b2c4e65d61a"
+  integrity sha512-+DVYp3+m6tZUYTMl9fEgCZIDk9YBTcHws82nIV1JYwusu51zRITA0oeNzuPyFhuK7ageFnnKCDviH2BL5I4M0w==
   dependencies:
     "@testim/chrome-version" "^1.0.7"
-    axios "^0.21.2"
+    axios "^0.21.1"
     del "^6.0.0"
     extract-zip "^2.0.1"
     https-proxy-agent "^5.0.0"
+    mkdirp "^1.0.4"
     proxy-from-env "^1.1.0"
     tcp-port-used "^1.0.1"
 

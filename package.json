@@ -29,7 +29,7 @@
     "@wdio/spec-reporter": "^7.12.5",
     "@wdio/sync": "^7.12.5",
     "@wdio/testingbot-service": "^7.12.5",
-    "chromedriver": "^93.0.0",
+    "chromedriver": "^89.0.0",
     "crypto": "^1.0.1",
     "csv-parser": "^2.3.5",
     "del-cli": "^3.0.1",
