@@ -94,7 +94,7 @@ export default class ChampionPortalAllocateFunds {
      * this test assumes only 1 charity is assigned to this champion.
      */
     clickPencilIcon() {
-        clickSelector("//td[@data-label = 'Offer Funds?']//span//button");
+        clickSelector("//td[@data-label = 'Fund this Charity?']//span//button");
     }
 
     /**
