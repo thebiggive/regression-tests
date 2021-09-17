@@ -70,13 +70,17 @@ export async function checkAnEmailBodyContainsText(searchText) {
 export async function checkAnEmailSubjectContainsText(searchText) {
     const messages = getLatestMessages(5);
     if (messages.length === 0) {
+        console.log('DEBUG: Subject check failed because there were no msgs');
+
         return false;
     }
 
     for (let ii = 0; ii < messages.length; ii += 1) {
         if (messages[ii].subject.includes(searchText)) {
+            console.log(`DEBUG: Should return as a match for: ${searchText}`);
             return true;
         }
+        console.log(`DEBUG: No match in: ${messages[ii].subject}`);
     }
 
     return false;
