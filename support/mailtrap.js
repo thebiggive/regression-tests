@@ -49,7 +49,7 @@ export async function checkAnEmailBodyContainsText(searchText) {
     }
 
     let body;
-    for (let ii = 0; ii < messages.length; ii++) {
+    for (let ii = 0; ii < messages.length; ii += 1) {
         body = mailtrapGet(messages[ii].html_path, 'document');
         if (body.includes(searchText)) {
             return true;
@@ -73,7 +73,7 @@ export async function checkAnEmailSubjectContainsText(searchText) {
         return false;
     }
 
-    for (let ii = 0; ii < messages.length; ii++) {
+    for (let ii = 0; ii < messages.length; ii += 1) {
         if (messages[ii].subject.includes(searchText)) {
             return true;
         }
