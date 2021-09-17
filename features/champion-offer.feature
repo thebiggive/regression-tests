@@ -1,4 +1,4 @@
-@skip(browserName="internet explorer")
+@skip(browserName=["i.*explorer"])
 Feature: Log in as a Champion user and distribute funds to a charity
 
   As a Champion
