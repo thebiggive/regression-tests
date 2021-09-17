@@ -1,6 +1,6 @@
 import {
     BeforeAll, Given, Then, When
-} from 'cucumber';
+} from '@cucumber/cucumber';
 
 import ChampionPortalLoginPage from '../pages/ChampionPortalAllocateFunds';
 
