@@ -24,7 +24,7 @@ async function mailtrapGet(path, responseType) {
  * @param {int} count  Number of recent emails to get.
  * @returns {array}     Up to {{count}} messages, if available.
  */
-async function getLatestMessages(count) {
+async function getLatestMessages(count = 3) {
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?search=&page=&last_id=`;
     const messages = await mailtrapGet(path, 'json');
     if (messages.length === 0) {
@@ -43,14 +43,18 @@ async function getLatestMessages(count) {
  * @returns {boolean}       Whether the expected text was found.
  */
 export async function checkAnEmailBodyContainsText(searchText) {
-    const messages = getLatestMessages(5);
+    const messages = await getLatestMessages();
     if (messages.length === 0) {
         return false;
     }
 
     let body;
     for (let ii = 0; ii < messages.length; ii += 1) {
-        body = mailtrapGet(messages[ii].html_path, 'document');
+        // Seems like we need await with the current approach to get the content. A refactor
+        // where all bodies are got in one go would be slightly better, but is not a big
+        // optimisation. For now, let's skip the eslint check for this line.
+        // eslint-disable-next-line no-await-in-loop
+        body = await mailtrapGet(messages[ii].html_path, 'document');
         if (body.includes(searchText)) {
             return true;
         }
@@ -68,7 +72,7 @@ export async function checkAnEmailBodyContainsText(searchText) {
  * @returns {boolean}           Whether the text was found.
  */
 export async function checkAnEmailSubjectContainsText(searchText) {
-    const messages = getLatestMessages(5);
+    const messages = await getLatestMessages();
     if (messages.length === 0) {
         console.log('DEBUG: Subject check failed because there were no msgs');
 
