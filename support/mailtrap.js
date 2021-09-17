@@ -10,8 +10,8 @@ const mailtrapClient = axios.create({
 /**
  * Makes an authenticated GET call to Mailtrap.io's API.
  *
- * @param {string} path           Request path
- * @param {string} responseType json or document
+ * @param {string} path         Request path
+ * @param {array} responseType  Deserialised response data
  */
 async function mailtrapGet(path, responseType) {
     const response = await mailtrapClient.get(path, { responseType });
@@ -21,58 +21,63 @@ async function mailtrapGet(path, responseType) {
 /**
  * Get the latest Mailtrap inbox message, if any.
  *
- * @returns {object|undefined}  Message if available.
+ * @param {int} count  Number of recent emails to get.
+ * @returns {array}     Up to {{count}} messages, if available.
  */
-async function getLatestMessage() {
+async function getLatestMessages(count = 3) {
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?search=&page=&last_id=`;
     const messages = await mailtrapGet(path, 'json');
     if (messages.length === 0) {
-        return undefined;
+        return [];
     }
 
-    return messages[0];
+    return messages.slice(0, count); // Latest e.g. 3 emails.
 }
 
 /**
- * Gets the most recent Mailtrap.io-received email's body text.
- *
- * @returns {string|null} Body HTML if message found; otherwise null.
- */
-async function getLatestEmailBody() {
-    const message = await getLatestMessage();
-    if (!message) {
-        return null;
-    }
-
-    return mailtrapGet(message.html_path, 'document');
-}
-
-/**
- * Checks whether expected text was in an email HTML body.
+ * Checks whether expected text was in a recent email HTML body.
  *
  * Be sure to `await` any results that should impact test pass/fail status!
  *
- * @param {string} needle   Expected text to find anywhere in HTML
- * @returns {boolean} Whether the expected text was found.
+ * @param {string} searchText   Expected text to find anywhere in HTML
+ * @returns {boolean}       Whether the expected text was found.
  */
-export async function checkLatestEmailBodyContainsText(needle) {
-    const body = await getLatestEmailBody();
-    return body.includes(needle);
-}
-
-/**
- * Checks that the latest email's subject line contains the expected text.
- *
- * Be sure to `await` any results that should impact test pass/fail status!
- *
- * @param {string} needle   Text to expect in latest subject line.
- * @returns {boolean}   Whether the text was found.
- */
-export async function checkLatestEmailSubjectContainsText(needle) {
-    const message = await getLatestMessage();
-    if (!message) {
+export async function checkAnEmailBodyContainsText(searchText) {
+    const messages = getLatestMessages();
+    if (messages.length === 0) {
         return false;
     }
 
-    return message.subject.includes(needle);
+    let body;
+    for (let ii = 0; ii < messages.length; ii++) {
+        body = mailtrapGet(messages[ii].html_path, 'document');
+        if (body.includes(searchText)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Checks one of the latest emails' subject line contains the expected text.
+ *
+ * Be sure to `await` any results that should impact test pass/fail status!
+ *
+ * @param {string} searchText   Text to expect in latest subject line.
+ * @returns {boolean}           Whether the text was found.
+ */
+export async function checkAnEmailSubjectContainsText(searchText) {
+    const messages = getLatestMessages();
+    if (messages.length === 0) {
+        return false;
+    }
+
+    for (let ii = 0; ii < messages.length; ii++) {
+        if (messages[ii].subject.includes(searchText)) {
+            return true;
+        }
+    }
+
+    return false;
 }

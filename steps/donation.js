@@ -1,7 +1,7 @@
 import {
     BeforeAll, Given, Then, When
 } from 'cucumber';
-import { checkLatestEmailBodyContainsText } from '../support/mailtrap';
+import { checkAnEmailBodyContainsText } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import EnthuseRegistrationPage,
@@ -158,7 +158,7 @@ When(
 Then(
     'my last email should contain the correct amounts',
     async () => {
-        if (await checkLatestEmailBodyContainsText(
+        if (await checkAnEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
         )) {
             console.log(`CHECK: Email refers to donation amount £${donationAmount}`);
@@ -171,7 +171,7 @@ Then(
 Then(
     'my last email should contain the charity\'s custom thank you message',
     async () => {
-        if (!(await checkLatestEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS))) {
+        if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS))) {
             throw new Error('Charity thank you message not found in email');
         }
     }
