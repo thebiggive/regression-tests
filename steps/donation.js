@@ -1,6 +1,6 @@
 import {
     BeforeAll, Given, Then, When
-} from '@cucumber/cucumber';
+} from 'cucumber';
 import { checkLatestEmailBodyContainsText } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';

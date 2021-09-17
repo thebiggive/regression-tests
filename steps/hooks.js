@@ -1,4 +1,4 @@
-import { Before as before, After as after } from '@cucumber/cucumber';
+import { Before as before, After as after } from 'cucumber';
 
 before((scenario) => {
     console.log(`INFO: Starting scenario "${scenario.pickle.name}"`);
