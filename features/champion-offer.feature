@@ -1,4 +1,4 @@
-@skip(browserName="internet explorer")
+@skip(browserName='internet explorer')
 Feature: Log in as a Champion user and distribute funds to a charity
 
   As a Champion
@@ -13,7 +13,7 @@ Feature: Log in as a Champion user and distribute funds to a charity
     When I click Continue Draft next to a campaign
     Then I should see a list of charities I am able to fund
     When I click on the pencil icon
-    And I tick the "Offer Funds?" checkbox
+    And I tick the "Fund this Charity?" checkbox
     And I unfocus from this selection
     And I click on the save button
     Then I should see the full amount allocated to the selected charity

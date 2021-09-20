@@ -47,7 +47,7 @@ When(
 );
 
 When(
-    'I tick the "Offer Funds?" checkbox',
+    'I tick the "Fund this Charity?" checkbox',
     () => page.setOfferFundsCheckbox()
 );
 

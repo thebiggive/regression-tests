@@ -4,8 +4,8 @@ import {
 
 import PledgeFormPage from '../pages/PledgeFormPage';
 import {
-    checkLatestEmailBodyContainsText,
-    checkLatestEmailSubjectContainsText
+    checkAnEmailBodyContainsText,
+    checkAnEmailSubjectContainsText
 } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
 
@@ -115,7 +115,7 @@ Then(
         const expectedBody = 'Thank you for your generous match funding pledge of '
             + `£${pledgeAmount}.00 to `
             + 'Exempt Stripe Test Charity for the campaign: Regression pledge testing campaign';
-        if (await checkLatestEmailBodyContainsText(expectedBody)) {
+        if (await checkAnEmailBodyContainsText(expectedBody)) {
             console.log(`CHECK: Email refers to £${pledgeAmount} pledge and correct campaign`);
         } else {
             throw new Error(`Pledge amount £${pledgeAmount} or details not found in email`);
@@ -126,7 +126,7 @@ Then(
 Then(
     /^my last email subject should contain "(.+)"$/,
     async (subjectText) => {
-        if (!(await checkLatestEmailSubjectContainsText(subjectText))) {
+        if (!(await checkAnEmailSubjectContainsText(subjectText))) {
             throw new Error(`"${subjectText}" not found in email subject`);
         }
     }
