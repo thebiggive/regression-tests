@@ -34,7 +34,7 @@ const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
-const proceedAnyWayBtnSelector = 'button*=Proceed anyway';
+const continueBtnSelector = 'button*=Continue donation';
 const dialogSelector = '.mat-dialog-container';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
@@ -91,13 +91,13 @@ export default class DonateStartPage {
         if (waitForMatchWarning) {
             this.browser.pause(2750); // Allow 3s total for donation setup + MatchBot response
 
-            const dialogCopy = 'There are no match funds currently available for this campaign';
+            const dialogCopy = 'There are no match funds currently available for this charity.';
             if (
                 $(dialogSelector) && $(dialogSelector).isExisting()
                 && checkSelectorContent(dialogSelector, dialogCopy)
-                && checkIfElementExists(proceedAnyWayBtnSelector, 1)
+                && checkIfElementExists(continueBtnSelector, 1)
             ) {
-                clickSelector(proceedAnyWayBtnSelector);
+                clickSelector(continueBtnSelector);
             }
         }
     }
