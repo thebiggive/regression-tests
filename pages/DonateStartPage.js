@@ -91,7 +91,7 @@ export default class DonateStartPage {
         if (waitForMatchWarning) {
             this.browser.pause(2750); // Allow 3s total for donation setup + MatchBot response
 
-            const dialogCopy = 'There are no match funds currently available for this campaign';
+            const dialogCopy = 'There are no match funds currently available for this charity.';
             if (
                 $(dialogSelector) && $(dialogSelector).isExisting()
                 && checkSelectorContent(dialogSelector, dialogCopy)
