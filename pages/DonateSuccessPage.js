@@ -4,7 +4,7 @@ import {
 } from '../support/check';
 
 // selectors
-const statusSelector = '.c-main .b-rh-2:first-child .b-bold';
+const statusSelector = '.c-main .b-rt-0:first-child .b-bold';
 
 // checks
 const urlCheck = 'thanks';
