@@ -21,6 +21,16 @@ export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
 }
 
 /**
+ * Checks whether a non-required selector is already present on the page.
+ *
+ * @param {string} selector DOM selector to seek
+ * @return {boolean} Whether element exists
+ */
+export function elementExists(selector) {
+    return $(selector).isDisplayed();
+}
+
+/**
  * Assert URL
  *
  * @param {string} url to be asserted

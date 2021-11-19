@@ -1,5 +1,5 @@
 import { clickSelector } from './action';
-import { checkIfElementExists } from './check';
+import { elementExists } from './check';
 
 /**
  * Go to URL
@@ -18,7 +18,7 @@ export function goToUrl(url) {
 export function closeCookieNotice() {
     const selector = 'w-div > span:last-child'; // Cookie banner close button
 
-    if (!checkIfElementExists(selector)) {
+    if (!elementExists(selector)) {
         console.log('No cookie notice to close');
         return;
     }
