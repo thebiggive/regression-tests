@@ -83,7 +83,9 @@ When(
 
 Then(
     'I am taken to the Enthuse pages',
-    EnthuseRegistrationPage.checkReady,
+    () => {
+        EnthuseRegistrationPage.checkReady();
+    }
 );
 
 Then(
@@ -103,7 +105,7 @@ Then(
         // checkout payment step
         EnthusePaymentPage.checkReady();
         EnthusePaymentPage.checkout();
-        EnthusePaymentPage.setPassword(true); // skip
+        EnthusePaymentPage.skipPassword();
         DonateSuccessPage.checkReady(); // need to check before webhook call
     }
 );
