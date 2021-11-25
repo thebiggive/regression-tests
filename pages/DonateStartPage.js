@@ -17,7 +17,7 @@ const startPageEnthuse = process.env.DONATE_PAGE_ENTHUSE;
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
 
 // selectors
-const submitBtnSelector = 'button[type="submit"]';
+const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
 // Now we show the Gift Aid section conditionally, this is mounted last
 // and the ratio gets the highest ID.
