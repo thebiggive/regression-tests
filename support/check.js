@@ -10,7 +10,7 @@ import { WAIT_SECONDS } from './constants';
 export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Check "${selector}" exists`);
 
-    return $(selector).waitForExist({timeout: seconds * 1000});
+    return $(selector).waitForExist({ timeout: seconds * 1000 });
 }
 
 /**

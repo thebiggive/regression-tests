@@ -35,7 +35,7 @@ export default class DonateSuccessPage {
 
     /**
      * check thank you message
-     * For now we check the message is 'Your donation was nor processed immediately'
+     * For now we check the message is 'Your donation was not processed immediately'
      * because we don't have a working Regressions Enthuse webhook, so this message is
      * expected. See REG-12.
      */
