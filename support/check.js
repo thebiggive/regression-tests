@@ -10,14 +10,17 @@ import { WAIT_SECONDS } from './constants';
 export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Check "${selector}" exists`);
 
-    return browser.waitUntil(
-        () => $(selector).isDisplayed(),
-        {
-            // Keep default 0.5s interval between checks.
-            timeout: seconds * 1000,
-            timeoutMsg: `Element "${selector}" is not displayed`,
-        },
-    );
+    return $(selector).waitForExist({ timeout: seconds * 1000 });
+}
+
+/**
+ * Checks whether a non-required selector is already present on the page.
+ *
+ * @param {string} selector DOM selector to seek
+ * @return {boolean} Whether element exists
+ */
+export function elementExists(selector) {
+    return $(selector).isDisplayed();
 }
 
 /**
