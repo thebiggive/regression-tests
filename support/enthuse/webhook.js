@@ -1,4 +1,4 @@
-import request from 'request-promise-native';
+import axios from 'axios';
 import crypto from 'crypto';
 import { generateIdentifier } from '../util';
 
@@ -61,15 +61,10 @@ export default function simulateEnthuseWebhook(id, data) {
 
     const hash = getVerifyHash(dataIncPspId);
     const url = process.env.CHECKOUT_WEBHOOK_URL + id;
-    // TODO use a non-deprecated lib to send this
-    return request({
-        method: 'PUT',
-        path: id,
-        uri: url,
-        body: dataIncPspId,
-        json: true,
+    return axios.put(url, dataIncPspId, {
         headers: {
-            'content-type': 'application/json',
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
             'X-Webhook-Verify-Hash': hash,
         },
     }).then(
