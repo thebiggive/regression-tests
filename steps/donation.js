@@ -133,12 +133,7 @@ Then(
     /^I should be redirected to a Thank You confirmation page with the correct amount$/,
     () => {
         DonateSuccessPage.checkReady();
-        // We only have one Enthuse test webhook, which we use for Full staging environment,
-        // not for regressions. Therefore, the thank you page gets stuck on the 'Your donation was
-        // not processed immediately' message. But this is expected given no successful regressions
-        // webhook. This is why the method below is commented out (the balance won't show).
-        // DonateSuccessPage.checkBalance(donationAmount);
-        DonateSuccessPage.checkThankYouMessage();
+        DonateSuccessPage.checkBalance(donationAmount);
     }
 );
 
