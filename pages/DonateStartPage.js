@@ -61,7 +61,7 @@ export default class DonateStartPage {
     open(psp) {
         this.charity = psp === 'Stripe'
             ? 'Exempt Stripe Test Charity'
-            : 'Regression Test Charity';
+            : 'Unlock - for people with criminal records';
         goToUrl(psp === 'Stripe' ? startPageStripe : startPageEnthuse);
     }
 

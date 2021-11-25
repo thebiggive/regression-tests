@@ -7,6 +7,7 @@ Feature: Submit a pledge of funds for a charity's planned standalone matched cam
 
   Scenario: Campaign is in the future and pledge form is submitted successfully
     Given I open the pledge campaign's pledge form
+    And I close the cookie notice if shown
     Then I should see a Communities hero banner saying "Thank you for choosing to pledge to Exempt Stripe Test Charity"
     When I enter a pledge amount between £100 and £110
     And I choose to pay my pledge by Bank Transfer

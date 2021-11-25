@@ -2,7 +2,7 @@ import {
     BeforeAll, Given, Then, When
 } from 'cucumber';
 import { checkAnEmailBodyContainsText } from '../support/mailtrap';
-import { randomIntFromInterval } from '../support/util';
+import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import EnthuseRegistrationPage,
 {
@@ -36,6 +36,11 @@ Given(
         page.open(psp);
         page.checkReady();
     }
+);
+
+When(
+    'I close the cookie notice if shown',
+    closeCookieNotice,
 );
 
 When(
@@ -78,7 +83,9 @@ When(
 
 Then(
     'I am taken to the Enthuse pages',
-    EnthuseRegistrationPage.checkReady,
+    () => {
+        EnthuseRegistrationPage.checkReady();
+    }
 );
 
 Then(
@@ -98,7 +105,7 @@ Then(
         // checkout payment step
         EnthusePaymentPage.checkReady();
         EnthusePaymentPage.checkout();
-        EnthusePaymentPage.setPassword(true); // skip
+        EnthusePaymentPage.skipPassword();
         DonateSuccessPage.checkReady(); // need to check before webhook call
     }
 );

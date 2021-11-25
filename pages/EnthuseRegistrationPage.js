@@ -27,8 +27,8 @@ const submitBtnSelector = '.js-next-button';
 // checks
 const urlCheck = 'payments-.*\\.thebiggivetest\\.org\\.uk\\/api\\/.*\\/'
     + 'checkout';
-const titleCheck = 'You are donating to Regression Test Charity';
-const pageHeadingCheck = 'You are donating to Regression Test Charity';
+const titleCheck = 'You are donating to Unlock - for people with criminal records';
+const pageHeadingCheck = 'You are donating to Unlock - for people with criminal records';
 const pageSubHeadingCheck = 'Donated before?';
 
 // inputs

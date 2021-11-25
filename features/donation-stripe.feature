@@ -6,6 +6,7 @@ Feature: Make a matched donation to a Stripe charity
 
     Scenario: Match funds available and payment is processed successfully, before match fund reservation expires
         Given that I am on my chosen Stripe-enabled charity's Donate page
+        And I close the cookie notice if shown
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid
         And I enter my name, email address and Stripe payment details
