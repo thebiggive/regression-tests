@@ -13,7 +13,6 @@ import {
 } from '../support/action';
 
 // routes
-const startPageEnthuse = process.env.DONATE_PAGE_ENTHUSE;
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
 
 // selectors
@@ -50,18 +49,15 @@ export default class DonateStartPage {
     constructor(browser) {
         this.browser = browser;
         this.nextStepIndex = 0;
-        this.charity = 'Enthuse';
+        this.charity = null;
     }
 
     /**
      * open the donate page
-     * @param {string} psp  Payment Service Provider: Enthuse or Stripe.
      */
-    open(psp) {
-        this.charity = psp === 'Stripe'
-            ? 'Exempt Stripe Test Charity'
-            : 'Unlock - for people with criminal records';
-        goToUrl(psp === 'Stripe' ? startPageStripe : startPageEnthuse);
+    open() {
+        this.charity = 'Exempt Stripe Test Charity';
+        goToUrl(startPageStripe);
     }
 
     /**
