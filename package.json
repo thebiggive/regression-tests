@@ -30,7 +30,6 @@
     "@wdio/testingbot-service": "^6.10.10",
     "axios": "^0.24.0",
     "chromedriver": "^96.0.0",
-    "crypto": "^1.0.1",
     "del-cli": "^3.0.1",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
