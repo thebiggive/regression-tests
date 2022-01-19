@@ -22,8 +22,7 @@ const donationAmountSelector = '#donationAmount';
 // Now we show the Gift Aid section conditionally, this is mounted last
 // and the ratio gets the highest ID.
 // TODO avoid these hacks for radio selectors! We should be checking copy
-// ideally, although we also need to maintain IE11 support for this journey
-// so can't necessarily use standard Xpath. :/
+// ideally. Now we don't support IE for any journey we can hopefully use standard Xpath.
 const claimGiftAidSelector = '#mat-radio-9';
 const firstNameSelector = '#firstName';
 const lastNameSelector = '#lastName';
