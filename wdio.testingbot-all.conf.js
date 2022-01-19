@@ -12,6 +12,10 @@ config.capabilities = [
         platform: 'WIN10',
         version: '79',
         build: config.build,
+        // MS Edge, like IE, seems to also have problems with scroll mgmt behaviour.
+        // https://stackoverflow.com/questions/52276194
+        // Modifying this flag resolved wrong elements getting some clicks in IE11.
+        elementScrollBehavior: 1, // from bottom.
     },
 ];
 config.maxInstances = 2;
