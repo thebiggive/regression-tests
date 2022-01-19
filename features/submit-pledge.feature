@@ -1,4 +1,3 @@
-@skip(browserName='internet explorer')
 Feature: Submit a pledge of funds for a charity's planned standalone matched campaign
 
   As a pledger
