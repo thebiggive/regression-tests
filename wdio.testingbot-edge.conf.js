@@ -3,7 +3,7 @@ const { config } = require('./wdio.BASE.conf.ts');
 config.capabilities = [{
     browserName: 'microsoftedge',
     platform: 'WIN10',
-    version: '79',
+    version: '96',
     build: config.build,
     // MS Edge, like IE, seems to also have problems with scroll mgmt behaviour.
     // https://stackoverflow.com/questions/52276194
