@@ -89,14 +89,6 @@ When(
     }
 );
 
-Then(
-    /^I should download the donation csv file$/,
-    () => {
-        CharityPortalCheckBalancePage.downloadCsvFile();
-        CharityPortalCheckBalancePage.parseCsvFile(lastNameInput);
-    }
-);
-
 When(
     'I wait a few seconds for email processing',
     // 30s to allow SF + Mailtrap time to process everything
