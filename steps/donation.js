@@ -4,17 +4,6 @@ import {
 import { checkAnEmailBodyContainsText } from '../support/mailtrap';
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
-import EnthuseRegistrationPage,
-{
-    firstNameInput,
-    lastNameInput,
-    countryInput,
-    addressInput,
-    guestEmailInput
-} from '../pages/EnthuseRegistrationPage';
-import EnthuseConfirmPage from '../pages/EnthuseConfirmPage';
-import EnthusePaymentPage from '../pages/EnthusePaymentPage';
-import EnthuseAsync from '../pages/EnthuseAsync';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
@@ -82,54 +71,6 @@ When(
 );
 
 Then(
-    'I am taken to the Enthuse pages',
-    () => {
-        EnthuseRegistrationPage.checkReady();
-    }
-);
-
-Then(
-    'I complete my donation as a guest',
-    () => {
-        EnthuseRegistrationPage.fillForm();
-        EnthuseRegistrationPage.submitForm();
-        // checkout confirm step
-        EnthuseConfirmPage.checkReady();
-        EnthuseConfirmPage.submitForm();
-    }
-);
-
-Then(
-    /^enter my payment information$/,
-    () => {
-        // checkout payment step
-        EnthusePaymentPage.checkReady();
-        EnthusePaymentPage.checkout();
-        EnthusePaymentPage.skipPassword();
-        DonateSuccessPage.checkReady(); // need to check before webhook call
-    }
-);
-
-When(
-    /^my bank approves the charge and the payment steps took less than 15 minutes$/,
-    () => {
-        const url = browser.getUrl();
-
-        browser.call(() => {
-            EnthuseAsync.triggerWebhook(
-                url,
-                donationAmount,
-                firstNameInput,
-                lastNameInput,
-                guestEmailInput,
-                addressInput,
-                countryInput,
-            );
-        });
-    }
-);
-
-Then(
     /^I should be redirected to a Thank You confirmation page with the correct amount$/,
     () => {
         DonateSuccessPage.checkReady();
@@ -145,14 +86,6 @@ When(
         CharityPortalLoginPage.fillForm();
         CharityPortalLoginPage.submitForm();
         CharityPortalCheckBalancePage.checkReady();
-    }
-);
-
-Then(
-    /^I should download the donation csv file$/,
-    () => {
-        CharityPortalCheckBalancePage.downloadCsvFile();
-        CharityPortalCheckBalancePage.parseCsvFile(lastNameInput);
     }
 );
 

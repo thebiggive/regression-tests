@@ -1,15 +1,14 @@
 const { config } = require('./wdio.BASE.conf.ts');
 
 config.capabilities = [{
-    browserName: 'internet explorer',
+    browserName: 'microsoftedge',
     platform: 'WIN10',
-    version: '11',
-    // Default scroll behaviour led IE11 to get super confused and despite it supposedly
-    // scrolling to where an element was clickable, we would hit cases where it was 'behind' the nav
-    // bar (which is fixed position), leading the test to click a link and navigate to
-    // an unrelated page. Modifying this flag seems to resolve this so far.
-    elementScrollBehavior: 1, // from bottom.
+    version: '96',
     build: config.build,
+    // MS Edge, like IE, seems to also have problems with scroll mgmt behaviour.
+    // https://stackoverflow.com/questions/52276194
+    // Modifying this flag resolved wrong elements getting some clicks in IE11.
+    elementScrollBehavior: 1, // from bottom.
 }];
 config.services.push('testingbot');
 
