@@ -13,7 +13,7 @@
     "clean": "del-cli build/* !build/.gitkeep"
   },
   "engines": {
-    "node": ">=14,<16",
+    "node": ">=14 <16",
     "yarn": ">=1"
   },
   "dependencies": {
