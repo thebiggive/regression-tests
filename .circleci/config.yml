@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: cimg/node:lts-browsers
+      - image: cimg/node:14-browsers
         auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_ACCESS_TOKEN
@@ -11,9 +11,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - node16-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - node16-deps-{{ .Branch }}
-            - node16-deps
+            - node14-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - node14-deps-{{ .Branch }}
+            - node14-deps
       - run:
           name: Create Download Directory
           command: mkdir ~/app/build/downloads && chmod 0777 ~/app/build/downloads
@@ -21,7 +21,7 @@ jobs:
           name: Install Dependencies
           command: yarn install --ignore-engines --frozen-lockfile --prod
       - save_cache:
-          key: node16-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: node14-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache
       - run: yarn lint
