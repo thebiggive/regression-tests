@@ -11,9 +11,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - v1-deps-{{ .Branch }}
-            - v1-deps
+            - node16-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - node16-deps-{{ .Branch }}
+            - node16-deps
       - run:
           name: Create Download Directory
           command: mkdir ~/app/build/downloads && chmod 0777 ~/app/build/downloads
@@ -21,7 +21,7 @@ jobs:
           name: Install Dependencies
           command: yarn install --ignore-engines --frozen-lockfile --prod
       - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: node16-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache
       - run: yarn lint
