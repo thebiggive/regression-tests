@@ -114,7 +114,7 @@ Then(
     async () => {
         const expectedBody = 'Thank you for your generous match funding pledge of '
             + `£${pledgeAmount}.00 to `
-            + 'Exempt Stripe Test Charity for the campaign: Regression pledge testing campaign';
+            + 'Exempt Stripe Test Charity for the campaign: Submit a pledge of funds';
         if (await checkAnEmailBodyContainsText(expectedBody)) {
             console.log(`CHECK: Email refers to £${pledgeAmount} pledge and correct campaign`);
         } else {
