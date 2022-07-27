@@ -61,13 +61,13 @@ export default class ChampionPortalAllocateFunds {
     }
 
     /**
-     * Check 'Regression Test IMF Master Campaign' exists in the data table
+     * Check 'Regression Test Master Campaign' exists in the data table
      */
     checkListOfFundedCampaigns() {
         checkSelectorContent(
             // eslint-disable-next-line max-len
             "//th[@data-label='Campaign Title']//lightning-primitive-cell-factory//span//div//lightning-base-formatted-text",
-            'Regression Test IMF Master Campaign'
+            'Regression Test Master Campaign'
         );
     }
 
