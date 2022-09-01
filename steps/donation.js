@@ -91,7 +91,7 @@ When(
 
 When(
     'I wait a few seconds for email processing',
-    // 30s to allow SF + Mailtrap time to process everything
+    // 45s to allow SF + Mailtrap time to process everything
     async () => browser.pause(45000)
 );
 
