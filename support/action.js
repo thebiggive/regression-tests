@@ -6,18 +6,18 @@ import { checkIfElementExists } from './check';
  * @param {string} selector to be clicked
  * @param {object} options for example { button: 'right' }
  */
-export function clickSelector(selector, options = {}) {
+export async function clickSelector(selector, options = {}) {
     console.log(`ACTION: Click "${selector}"`);
 
-    if (!checkIfElementExists(selector)) {
+    if (!(await checkIfElementExists(selector))) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    if (!$(selector).isClickable()) {
-        $(selector).scrollIntoView();
+    if (!(await $(selector).isClickable())) {
+        await $(selector).scrollIntoView();
     }
 
-    $(selector).click(options);
+    await $(selector).click(options);
 }
 
 /**
@@ -26,14 +26,14 @@ export function clickSelector(selector, options = {}) {
  * @param {string} selector to be filled
  * @param {string} value to be inserted
  */
-export function inputSelectorValue(selector, value) {
+export async function inputSelectorValue(selector, value) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
 
-    if (!checkIfElementExists(selector)) {
+    if (!(await checkIfElementExists(selector))) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    $(selector).setValue(value);
+    await $(selector).setValue(value);
 }
 
 /**
@@ -42,14 +42,14 @@ export function inputSelectorValue(selector, value) {
  * @param {string} selector select input
  * @param {string} value value
  */
-export function setSelectOption(selector, value) {
+export async function setSelectOption(selector, value) {
     console.log(`ACTION: Set select option "${selector}" value "${value}"`);
 
-    if (!checkIfElementExists(selector)) {
+    if (!(await checkIfElementExists(selector))) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    $(selector).selectByAttribute('value', value);
+    await $(selector).selectByAttribute('value', value);
 }
 
 /**
@@ -57,24 +57,24 @@ export function setSelectOption(selector, value) {
  *
  * @param {string} value to be typed
  */
-export function sendKeys(value) {
+export async function sendKeys(value) {
     console.log(`ACTION: Send keys "${value}"`);
-    browser.keys(value);
+    await browser.keys(value);
 }
 
 /**
  * Move focus into the embedded Stripe iframe input fields.
  */
-export function enterStripeIframe() {
+export async function enterStripeIframe() {
     // https://webdriver.io/docs/api/webdriver.html#switchtoframe
-    browser.switchToFrame($('iframe[title$="Secure card payment input frame"]'));
+    await browser.switchToFrame(await $('iframe[title$="Secure card payment input frame"]'));
 }
 
 /**
  * Move focus back to the outer page for main form interaction.
  */
-export function leaveStripeIframe() {
-    browser.switchToParentFrame();
+export async function leaveStripeIframe() {
+    await browser.switchToParentFrame();
 }
 
 /**
@@ -83,12 +83,12 @@ export function leaveStripeIframe() {
  * @param {string} selector of content
  * @returns {string} element text
  */
-export function getSelectorText(selector) {
-    if (!checkIfElementExists(selector)) {
+export async function getSelectorText(selector) {
+    if (!(await checkIfElementExists(selector))) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
     const element = $(selector);
-    const text = element.getText();
+    const text = await element.getText();
     console.log(
         `GET: Element "${selector}" contains content "${text}"`
     );

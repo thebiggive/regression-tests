@@ -1,6 +1,10 @@
 import {
-    BeforeAll, Given, Then, When
-} from 'cucumber';
+    BeforeAll,
+    Given,
+    Then,
+    When
+} from '@cucumber/cucumber';
+
 import { checkAnEmailBodyContainsText } from '../support/mailtrap';
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
@@ -21,9 +25,9 @@ BeforeAll(() => {
 // Steps
 Given(
     /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
-    (psp) => {
-        page.open(psp);
-        page.checkReady();
+    async (psp) => {
+        await page.open(psp);
+        await page.checkReady();
     }
 );
 
@@ -34,58 +38,58 @@ When(
 
 When(
     'I enter an amount between £5 and £25,000',
-    () => {
-        page.setDonationAmount(donationAmount);
-        page.progressToNextStep(true);
+    async () => {
+        await page.setDonationAmount(donationAmount);
+        await page.progressToNextStep(true);
     }
 );
 
 When(
     'I choose a preference for Gift Aid',
-    () => {
-        page.setGiftAidChoice();
-        page.progressToNextStep(false);
+    async () => {
+        await page.setGiftAidChoice();
+        await page.progressToNextStep(false);
     }
 );
 
 When(
     'I enter my name, email address and Stripe payment details',
-    () => {
-        page.populateNameAndEmail();
-        page.populateStripePaymentDetails();
-        page.progressToNextStep(false);
+    async () => {
+        await page.populateNameAndEmail();
+        await page.populateStripePaymentDetails();
+        await page.progressToNextStep(false);
     }
 );
 
 When(
     'I choose a preference for charity and TBG communications',
-    () => {
-        page.setCommsPreferences();
-        page.progressToNextStep(false);
+    async () => {
+        await page.setCommsPreferences();
+        await page.progressToNextStep(false);
     }
 );
 
 When(
     'I press Donate',
-    () => page.submitForm(),
+    async () => page.submitForm(),
 );
 
 Then(
     /^I should be redirected to a Thank You confirmation page with the correct amount$/,
-    () => {
-        DonateSuccessPage.checkReady();
-        DonateSuccessPage.checkBalance(donationAmount);
+    async () => {
+        await DonateSuccessPage.checkReady();
+        await DonateSuccessPage.checkBalance(donationAmount);
     }
 );
 
 When(
     /^I login to my charity portal page$/,
-    () => {
-        CharityPortalLoginPage.open();
-        CharityPortalLoginPage.checkReady();
-        CharityPortalLoginPage.fillForm();
-        CharityPortalLoginPage.submitForm();
-        CharityPortalCheckBalancePage.checkReady();
+    async () => {
+        await CharityPortalLoginPage.open();
+        await CharityPortalLoginPage.checkReady();
+        await CharityPortalLoginPage.fillForm();
+        await CharityPortalLoginPage.submitForm();
+        await CharityPortalCheckBalancePage.checkReady();
     }
 );
 

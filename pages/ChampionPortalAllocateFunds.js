@@ -32,9 +32,9 @@ export default class ChampionPortalAllocateFunds {
     /**
      * Open Champion Portal log in page
      */
-    open() {
-        goToUrl(championPortalUrl);
-        checkSelectorContent(
+    async open() {
+        await goToUrl(championPortalUrl);
+        await checkSelectorContent(
             "//div[@class='uiOutputRichText']//p//b",
             'Welcome to The Big Give Champion portal'
         );
@@ -43,11 +43,11 @@ export default class ChampionPortalAllocateFunds {
     /**
      * Fill in credentials and log in
      */
-    fillInFormAndLogin() {
-        inputSelectorValue(usernameSelector, emailInput);
-        inputSelectorValue(passwordSelector, passwordInput);
-        clickSelector(loginBtnSelector);
-        checkSelectorContent(
+    async fillInFormAndLogin() {
+        await inputSelectorValue(usernameSelector, emailInput);
+        await inputSelectorValue(passwordSelector, passwordInput);
+        await clickSelector(loginBtnSelector);
+        await checkSelectorContent(
             "//div[@class='uiOutputRichText']//h1",
             'Dashboard'
         );
@@ -56,15 +56,17 @@ export default class ChampionPortalAllocateFunds {
     /**
      * Navigate to campaigns page
      */
-    navigateToCampaignsPage() {
-        clickSelector("//a[@class='slds-button slds-button_brand'][contains(text(), 'Campaigns')]");
+    async navigateToCampaignsPage() {
+        await clickSelector(
+            "//a[@class='slds-button slds-button_brand'][contains(text(), 'Campaigns')]",
+        );
     }
 
     /**
      * Check 'Regression Test Master Campaign' exists in the data table
      */
-    checkListOfFundedCampaigns() {
-        checkSelectorContent(
+    async checkListOfFundedCampaigns() {
+        await checkSelectorContent(
             // eslint-disable-next-line max-len
             "//th[@data-label='Campaign Title']//lightning-primitive-cell-factory//span//div//lightning-base-formatted-text",
             'Regression Test Master Campaign'
@@ -74,15 +76,15 @@ export default class ChampionPortalAllocateFunds {
     /**
      * Click 'Continue Draft' button
      */
-    clickContinueDraft() {
-        clickSelector(continueDraftBtnSelector);
+    async clickContinueDraft() {
+        await clickSelector(continueDraftBtnSelector);
     }
 
     /**
      * Check 'Regression Test Child Campaign' exists in the data table
      */
-    checkListOfCharities() {
-        checkSelectorContent(
+    async checkListOfCharities() {
+        await checkSelectorContent(
             // eslint-disable-next-line max-len
             "//td[@data-label = 'Title']//lightning-primitive-cell-factory//span//div//lightning-base-formatted-text",
             'Regression Test Child Campaign'
@@ -93,15 +95,17 @@ export default class ChampionPortalAllocateFunds {
      * Click pencil edit icon next to the first row in the data table,
      * this test assumes only 1 charity is assigned to this champion.
      */
-    clickPencilIcon() {
-        clickSelector("//td[@data-label = 'Fund this Charity?']//span//button");
+    async clickPencilIcon() {
+        await clickSelector("//td[@data-label = 'Fund this Charity?']//span//button");
     }
 
     /**
      * Set offer funds checkbox
      */
-    setOfferFundsCheckbox() {
-        clickSelector("//label[@class='slds-checkbox__label']//span[@class='slds-checkbox_faux']");
+    async setOfferFundsCheckbox() {
+        await clickSelector(
+            "//label[@class='slds-checkbox__label']//span[@class='slds-checkbox_faux']",
+        );
     }
 
     /**
@@ -109,43 +113,43 @@ export default class ChampionPortalAllocateFunds {
      * A mini modal with a checkbox inside appears,
      * this ensures 'handleOnCellChange' event is triggered after the checkbox has been selected.
      */
-    unfocusFromSelection() {
-        clickSelector('//html');
+    async unfocusFromSelection() {
+        await clickSelector('//html');
     }
 
     /**
      * Click save button
      */
-    clickSaveButton() {
-        checkSelectorContent(
+    async clickSaveButton() {
+        await checkSelectorContent(
             "//button[@class='slds-button slds-button_brand save-btn']",
             'Save'
         );
         // eslint-disable-next-line max-len
-        clickSelector("//button[@class='slds-button slds-button_brand save-btn'][contains(text(), 'Save')]");
-        this.browser.pause(500); // Wait for submission to succeed
+        await clickSelector("//button[@class='slds-button slds-button_brand save-btn'][contains(text(), 'Save')]");
+        await this.browser.pause(500); // Wait for submission to succeed
     }
 
     /**
      * Check allocated amount after successfully saving allocation
      */
-    checkAllocatedAmount() {
-        this.checkChampionFundingAmount('£12,500.00');
+    async checkAllocatedAmount() {
+        await this.checkChampionFundingAmount('£12,500.00');
     }
 
     /**
      * Click confirm offers button appearance
      */
-    clickConfirmOffersButton() {
+    async clickConfirmOffersButton() {
         // eslint-disable-next-line max-len
-        clickSelector(confirmOffersBtnSelector);
+        await clickSelector(confirmOffersBtnSelector);
     }
 
     /**
      * Check data shown in modal pop up
      */
-    checkModalData() {
-        checkSelectorContent(
+    async checkModalData() {
+        await checkSelectorContent(
             // eslint-disable-next-line max-len
             "//div[@class='slds-p-around_medium slds-border_bottom']//h3//lightning-formatted-number",
             '£12,500.00'
@@ -156,21 +160,21 @@ export default class ChampionPortalAllocateFunds {
      * De-allocate the funding the test just made,
      * so the next regression run can start from the beginning
      */
-    deallocateFunding() {
+    async deallocateFunding() {
         // eslint-disable-next-line max-len
-        clickSelector(cancelBtnSelector);
-        this.clickPencilIcon();
-        this.setOfferFundsCheckbox(); // In this transaction, this will set checkbox to false
-        this.unfocusFromSelection();
-        this.clickSaveButton();
+        await clickSelector(cancelBtnSelector);
+        await this.clickPencilIcon();
+        await this.setOfferFundsCheckbox(); // In this transaction, this will set checkbox to false
+        await this.unfocusFromSelection();
+        await this.clickSaveButton();
     }
 
     /**
      * Check the current amount of funding against a charity
      * @param {string} amount Value to check against
      */
-    checkChampionFundingAmount(amount) {
-        checkSelectorContent(
+    async checkChampionFundingAmount(amount) {
+        await checkSelectorContent(
             "//td[@data-label = 'Championed']",
             amount
         );

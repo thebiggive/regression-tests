@@ -18,17 +18,17 @@ export default class CharityPortalCheckBalancePage {
     /**
      * check if page ready && close overlay modal
      */
-    static checkReady() {
-        checkUrl(urlCheck);
-        checkTitle(titleCheck);
-        clickSelector(popUpSelector);
+    static async checkReady() {
+        await checkUrl(urlCheck);
+        await checkTitle(titleCheck);
+        await clickSelector(popUpSelector);
     }
 
     /**
      * check donation count value
      * @returns {int} current donation number
      */
-    static getDonationCount() {
+    static async getDonationCount() {
         return getSelectorText(balanceCountSelector);
     }
 }

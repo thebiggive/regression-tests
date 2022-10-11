@@ -17,16 +17,16 @@ export default class DonateSuccessPage {
     /**
      * check if page ready
      */
-    static checkReady() {
-        checkUrl(urlCheck);
+    static async checkReady() {
+        await checkUrl(urlCheck);
     }
 
     /**
      * check if balance updated
      * @param {int} donationAmount to check
      */
-    static checkBalance(donationAmount) {
-        checkSelectorContent(
+    static async checkBalance(donationAmount) {
+        await checkSelectorContent(
             statusSelector,
             `${balanceTextPreCheck}${donationAmount}`,
         );

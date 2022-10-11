@@ -7,7 +7,7 @@ import { WAIT_SECONDS } from './constants';
  * @param {int} seconds to wait
  * @returns {Promise<boolean>} True if element exists or false if element doesn't exist
  */
-export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
+export async function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Check "${selector}" exists`);
 
     return $(selector).waitForExist({ timeout: seconds * 1000 });
@@ -19,7 +19,7 @@ export function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
  * @param {string} selector DOM selector to seek
  * @return {boolean} Whether element exists
  */
-export function elementExists(selector) {
+export async function elementExists(selector) {
     return $(selector).isDisplayed();
 }
 
@@ -30,14 +30,14 @@ export function elementExists(selector) {
  * @param {int} seconds to wait
  * @return {Promise<boolean>} return if url matched
  */
-export function checkUrl(url, seconds = WAIT_SECONDS) {
+export async function checkUrl(url, seconds = WAIT_SECONDS) {
     console.log(`CHECK: URL contains "${url}"`);
 
     return browser.waitUntil(
-        () => browser.getUrl().includes(url),
+        async () => (await browser.getUrl()).includes(url),
         {
             timeout: seconds * 1000,
-            timeoutMsg: `Expected URL "${browser.getUrl()}" to contain "${url}"`,
+            timeoutMsg: `Expected URL "${await browser.getUrl()}" to contain "${url}"`,
         },
     );
 }
@@ -49,14 +49,14 @@ export function checkUrl(url, seconds = WAIT_SECONDS) {
  * @param {int} seconds to wait
  * @return {Promise<boolean>} return if url match regex
  */
-export function checkUrlMatch(url, seconds = WAIT_SECONDS) {
+export async function checkUrlMatch(url, seconds = WAIT_SECONDS) {
     console.log(`CHECK: URL matches "${url}"`);
     const regex = new RegExp(url);
     return browser.waitUntil(
-        () => regex.test(browser.getUrl()),
+        async () => regex.test(await browser.getUrl()),
         {
             timeout: seconds * 1000,
-            timeoutMsg: `Expected URL "${browser.getUrl()}" to match regex "${url}"`,
+            timeoutMsg: `Expected URL "${await browser.getUrl()}" to match regex "${url}"`,
         },
     );
 }
@@ -68,14 +68,14 @@ export function checkUrlMatch(url, seconds = WAIT_SECONDS) {
  * @param {int} seconds to wait
  * @return {Promise<boolean>} return if title matched
  */
-export function checkTitle(title, seconds = WAIT_SECONDS) {
+export async function checkTitle(title, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Title contains "${title}"`);
 
     return browser.waitUntil(
-        () => browser.getTitle().includes(title),
+        async () => (await browser.getTitle()).includes(title),
         {
             timeout: seconds * 1000,
-            timeoutMsg: `Expected title "${browser.getTitle()}" to contain "${title}"`,
+            timeoutMsg: `Expected title "${await browser.getTitle()}" to contain "${title}"`,
         },
     );
 }
@@ -88,16 +88,15 @@ export function checkTitle(title, seconds = WAIT_SECONDS) {
  * @param {int} seconds to wait
  * @return {Promise<boolean>} return if text exist
  */
-export function checkSelectorContent(selector, content,
-    seconds = WAIT_SECONDS) {
+export async function checkSelectorContent(selector, content, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Element "${selector}" contains content "${content}"`);
 
-    if (!checkIfElementExists(selector)) {
+    if (!(await checkIfElementExists(selector))) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
     return browser.waitUntil(
-        () => $(selector).getText().includes(content),
+        async () => (await $(selector).getText()).includes(content),
         {
             timeout: seconds * 1000,
             timeoutMsg: `Expected element "${selector}" to contain "${content}"`,

@@ -61,7 +61,7 @@ exports.config = {
     ],
     cucumberOpts: {
         backtrace: false,
-        requireModule: ['@babel/register'],
+        requireModule: [],
         failAmbiguousDefinitions: true,
         failFast: false,
         ignoreUndefinedDefinitions: false,
@@ -69,9 +69,7 @@ exports.config = {
         snippets: true,
         source: true,
         profile: [],
-        require: [
-            './steps/**/*.js',
-        ],
+        require: ['./steps/**/*.js'],
         snippetSyntax: undefined,
         strict: true,
         tagExpression: 'not @ignore',

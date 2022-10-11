@@ -6,24 +6,24 @@ import { elementExists } from './check';
  *
  * @param {string} url to go
  */
-export function goToUrl(url) {
+export async function goToUrl(url) {
     console.log(`ACTION: Change URL to "${url}"`);
-    browser.url(url);
+    await browser.url(url);
 }
 
 /**
  * Close cookie notice if it's shown, so it doesn't steal focus by being fixed on top of
  * other elements.
  */
-export function closeCookieNotice() {
+export async function closeCookieNotice() {
     const selector = 'w-div > span:last-child'; // Cookie banner close button
 
-    if (!elementExists(selector)) {
+    if (!(await elementExists(selector))) {
         console.log('No cookie notice to close');
         return;
     }
 
-    clickSelector(selector);
+    await clickSelector(selector);
     console.log('Closed cookie notice');
 }
 
