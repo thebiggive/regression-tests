@@ -127,6 +127,8 @@ export async function checkSelectorContent(selector, content, seconds = WAIT_SEC
  * @returns {any} `waitUntil()` result, assuming 1+ elements visible.
  */
 export async function checkVisibleSelectorContent(selector, content, seconds = WAIT_SECONDS) {
+    console.log(`CHECK: First visible element "${selector}" contains content "${content}"`);
+
     let firstVisibleElement;
     await $$(selector).forEach((element) => {
         if (element.isDisplayed()) {
