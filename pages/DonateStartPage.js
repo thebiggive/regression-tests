@@ -55,17 +55,17 @@ export default class DonateStartPage {
     /**
      * open the donate page
      */
-    open() {
+    async open() {
         this.charity = 'Exempt Stripe Test Charity';
-        goToUrl(startPageStripe);
+        await goToUrl(startPageStripe);
     }
 
     /**
      * check if page ready
      */
-    checkReady() {
-        checkTitle(`Donate to ${this.charity}`);
-        checkSelectorContent(pageHeadingSelector, this.charity);
+    async checkReady() {
+        await checkTitle(`Donate to ${this.charity}`);
+        await checkSelectorContent(pageHeadingSelector, this.charity);
     }
 
     /**
@@ -74,25 +74,25 @@ export default class DonateStartPage {
      * @param {boolean} waitForMatchWarning Whether to anticipate a possible match
      *                                              funds depleted warning.
      */
-    progressToNextStep(waitForMatchWarning) {
+    async progressToNextStep(waitForMatchWarning) {
         // todo clickable check? if mobile needs it
-        const steps = $$(nextButtonSelector);
-        steps[this.nextStepIndex].click();
+        const steps = await $$(nextButtonSelector);
+        await steps[this.nextStepIndex].click();
         this.nextStepIndex += 1;
         // Wait for animation and scrolling to fully complete.
         // Test passing was intermittent without this fixed wait.
-        this.browser.pause(250);
+        await this.browser.pause(250);
 
         if (waitForMatchWarning) {
-            this.browser.pause(2750); // Allow 3s total for donation setup + MatchBot response
+            await this.browser.pause(2750); // Allow 3s total for donation setup + MatchBot response
 
             const dialogCopy = 'There are no match funds currently available for this charity.';
             if (
-                $(dialogSelector) && $(dialogSelector).isExisting()
-                && checkSelectorContent(dialogSelector, dialogCopy)
-                && checkIfElementExists(continueBtnSelector, 1)
+                $(dialogSelector) && (await $(dialogSelector).isExisting())
+                && (await checkSelectorContent(dialogSelector, dialogCopy))
+                && (await checkIfElementExists(continueBtnSelector, 1))
             ) {
-                clickSelector(continueBtnSelector);
+                await clickSelector(continueBtnSelector);
             }
         }
     }
@@ -101,59 +101,59 @@ export default class DonateStartPage {
      * set amount value
      * @param {int} amount number
      */
-    setDonationAmount(amount) {
-        inputSelectorValue(donationAmountSelector, amount);
+    async setDonationAmount(amount) {
+        await inputSelectorValue(donationAmountSelector, amount);
         // Leave tip at select dropdown's default if in Stripe mode and that field exists.
     }
 
     /**
      * Choose Gift Aid preference.
      */
-    setGiftAidChoice() {
+    async setGiftAidChoice() {
         // Claim Gift Aid? select NO. This means no additional Stripe mode fields for now.
-        clickSelector(claimGiftAidSelector);
+        await clickSelector(claimGiftAidSelector);
     }
 
     /**
      * Enter first & last name and email address, in Stripe mode.
      */
-    populateNameAndEmail() {
-        inputSelectorValue(firstNameSelector, generateIdentifier('Firstname-'));
-        inputSelectorValue(lastNameSelector, generateIdentifier('Lastname-'));
+    async populateNameAndEmail() {
+        await inputSelectorValue(firstNameSelector, generateIdentifier('Firstname-'));
+        await inputSelectorValue(lastNameSelector, generateIdentifier('Lastname-'));
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
         // fake SMTP server, regardless of the donor's given email address.
-        inputSelectorValue(emailAddressSelector, 'tech+regression+tests@thebiggive.org.uk');
+        await inputSelectorValue(emailAddressSelector, 'tech+regression+tests@thebiggive.org.uk');
     }
 
     /**
      * Enter a dummy postcode and standard successful Stripe test card number.
      * @link https://stripe.com/docs/testing#international-cards
      */
-    populateStripePaymentDetails() {
-        inputSelectorValue(billingPostcodeSelector, 'N1 1AA');
+    async populateStripePaymentDetails() {
+        await inputSelectorValue(billingPostcodeSelector, 'N1 1AA');
 
-        enterStripeIframe();
-        inputSelectorValue(stripeCardNumberSelector, '4000008260000000');
-        inputSelectorValue(stripeExpiryDateSelector, '01/25');
-        inputSelectorValue(stripeCvcSelector, '123');
-        leaveStripeIframe();
+        await enterStripeIframe();
+        await inputSelectorValue(stripeCardNumberSelector, '4000008260000000');
+        await inputSelectorValue(stripeExpiryDateSelector, '01/25');
+        await inputSelectorValue(stripeCvcSelector, '123');
+        await leaveStripeIframe();
     }
 
     /**
      * Choose email communication preferences.
      */
-    setCommsPreferences() {
+    async setCommsPreferences() {
         // Receive email from the charity? select NO
-        clickSelector(receiveEmailFromCharitySelector);
+        await clickSelector(receiveEmailFromCharitySelector);
 
         // Receive email from the Big Give? select NO
-        clickSelector(receiveEmailFromTheBigGiveSelector);
+        await clickSelector(receiveEmailFromTheBigGiveSelector);
     }
 
     /**
      * press donate button
      */
-    submitForm() {
-        clickSelector(submitBtnSelector);
+    async submitForm() {
+        await clickSelector(submitBtnSelector);
     }
 }

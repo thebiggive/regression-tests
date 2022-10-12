@@ -24,32 +24,32 @@ export default class CharityPortalLoginPage {
     /**
      * open login page
      */
-    static open() {
-        goToUrl(charityPortalUrl);
+    static async open() {
+        await goToUrl(charityPortalUrl);
     }
 
     /**
      * check if page ready
      */
-    static checkReady() {
-        checkTitle(titleCheck);
+    static async checkReady() {
+        await checkTitle(titleCheck);
     }
 
     /**
      * fill login credentials
      */
-    static fillForm() {
-        inputSelectorValue(
+    static async fillForm() {
+        await inputSelectorValue(
             usernameSelector,
             emailInput
         );
-        inputSelectorValue(passwordSelector, passwordInput);
+        await inputSelectorValue(passwordSelector, passwordInput);
     }
 
     /**
      * submit login form
      */
-    static submitForm() {
-        clickSelector(loginBtnSelector);
+    static async submitForm() {
+        await clickSelector(loginBtnSelector);
     }
 }

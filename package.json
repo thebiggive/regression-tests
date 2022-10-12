@@ -13,7 +13,7 @@
     "clean": "del-cli build/* !build/.gitkeep"
   },
   "engines": {
-    "node": ">=14 <16",
+    "node": ">=14",
     "yarn": ">=1"
   },
   "dependencies": {
@@ -21,15 +21,14 @@
     "@babel/plugin-proposal-export-default-from": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "@babel/register": "^7.12.10",
-    "@wdio/cli": "^6.10.11",
-    "@wdio/cucumber-framework": "^6.10.11",
-    "@wdio/junit-reporter": "^6.10.6",
-    "@wdio/local-runner": "^6.10.13",
-    "@wdio/spec-reporter": "^6.10.6",
-    "@wdio/sync": "^6.10.11",
-    "@wdio/testingbot-service": "^6.10.10",
-    "axios": "^0.24.0",
-    "chromedriver": "^96.0.0",
+    "@wdio/cli": "^7.25.1",
+    "@wdio/cucumber-framework": "^7.25.1",
+    "@wdio/junit-reporter": "^7.25.1",
+    "@wdio/local-runner": "^7.25.1",
+    "@wdio/spec-reporter": "^7.25.1",
+    "@wdio/testingbot-service": "^7.25.1",
+    "axios": "^1.1.2",
+    "chromedriver": "^105.0.0",
     "del-cli": "^3.0.1",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
@@ -38,6 +37,6 @@
     "eslint-plugin-wdio": "^6.6.0",
     "eslint-watch": "^6.0.1",
     "minimist": "^1.2.5",
-    "wdio-chromedriver-service": "^6.0.4"
+    "wdio-chromedriver-service": "^8.0.0"
   }
 }
