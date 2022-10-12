@@ -36,6 +36,37 @@ When(
     closeCookieNotice,
 );
 
+When(/I click the "([^"]+)" button/, async (buttonText) => {
+    await page.clickActiveSelector(`button*=${buttonText}`);
+});
+
+When(
+    /I enter the ID account test ([a-z\s]+) for "[^"]+"/,
+    async (dataPoint) => {
+        let elementId;
+        let value;
+        switch (dataPoint) {
+            case 'email address':
+                elementId = 'loginEmailAddress';
+                value = process.env.DONOR_ID_REGISTERED_EMAIL;
+                break;
+            case 'password':
+                elementId = 'loginPassword';
+                value = process.env.DONOR_ID_REGISTERED_PASSWORD;
+                break;
+            default:
+                throw new Error('Unknown value');
+        }
+
+        await page.inputSelectorValue(`#${elementId}`, value);
+    },
+);
+
+When(
+    /I should see "([^"]+)" in the ID info box/,
+    async (expectedText) => page.checkIdInfo(expectedText),
+);
+
 When(
     'I enter an amount between £5 and £25,000',
     async () => {
@@ -59,6 +90,21 @@ When(
         await page.populateStripePaymentDetails();
         await page.progressToNextStep(false);
     }
+);
+
+When(
+    'I should see my name and email address already populated',
+    async () => page.checkExistingNameAndEmail(),
+);
+
+When(
+    /I should see an existing card ending ([0-9]+) already pre-selected/,
+    async (expectedLastFour) => page.checkSavedCardIsSelected(expectedLastFour),
+);
+
+When(
+    'I continue through this step with no changes',
+    async () => page.progressToNextStep(false),
 );
 
 When(

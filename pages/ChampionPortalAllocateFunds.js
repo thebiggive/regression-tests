@@ -10,7 +10,6 @@ const usernameSelector = 'input[placeholder=Username]';
 const passwordSelector = 'input[placeholder=Password]';
 const loginBtnSelector = 'button=Log in';
 const continueDraftBtnSelector = 'button=Continue Draft';
-const confirmOffersBtnSelector = 'button=Confirm Offers';
 const cancelBtnSelector = 'button=Cancel';
 
 // Inputs
@@ -125,8 +124,10 @@ export default class ChampionPortalAllocateFunds {
             "//button[@class='slds-button slds-button_brand save-btn']",
             'Save'
         );
-        // eslint-disable-next-line max-len
-        await clickSelector("//button[@class='slds-button slds-button_brand save-btn'][contains(text(), 'Save')]");
+
+        await clickSelector(
+            "//button[@class='slds-button slds-button_brand save-btn'][contains(text(), 'Save')]"
+        );
         await this.browser.pause(500); // Wait for submission to succeed
     }
 
@@ -135,14 +136,6 @@ export default class ChampionPortalAllocateFunds {
      */
     async checkAllocatedAmount() {
         await this.checkChampionFundingAmount('£12,500.00');
-    }
-
-    /**
-     * Click confirm offers button appearance
-     */
-    async clickConfirmOffersButton() {
-        // eslint-disable-next-line max-len
-        await clickSelector(confirmOffersBtnSelector);
     }
 
     /**
@@ -161,7 +154,6 @@ export default class ChampionPortalAllocateFunds {
      * so the next regression run can start from the beginning
      */
     async deallocateFunding() {
-        // eslint-disable-next-line max-len
         await clickSelector(cancelBtnSelector);
         await this.clickPencilIcon();
         await this.setOfferFundsCheckbox(); // In this transaction, this will set checkbox to false

@@ -21,6 +21,17 @@ export async function clickSelector(selector, options = {}) {
 }
 
 /**
+ * Click an element that we have already tested for existence and clickability.
+ *
+ * @param {Element} element The element.
+ * @param {string} originalSelector Text used to look it up, for info log.
+ */
+export async function clickElement(element, originalSelector) {
+    console.log(`ACTION: Click already-checked element from selector ${originalSelector}`);
+    await element.click();
+}
+
+/**
  * Set value inside input
  *
  * @param {string} selector to be filled

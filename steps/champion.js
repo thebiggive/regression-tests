@@ -69,11 +69,6 @@ Then(
     async () => page.checkAllocatedAmount()
 );
 
-When(
-    'I click the "Confirm Offers" button',
-    async () => page.clickConfirmOffersButton()
-);
-
 Then(
     'I should see a modal with a breakdown of my current funding',
     async () => page.checkModalData()
