@@ -2,10 +2,12 @@ import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
     checkSelectorContent,
-    checkIfElementExists
+    checkIfElementExists,
+    checkVisibleSelectorContent
 }
     from '../support/check';
 import {
+    clickElement,
     clickSelector,
     enterStripeIframe,
     inputSelectorValue,
@@ -16,6 +18,7 @@ import {
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
 
 // selectors
+const idInfoSelector = '.id-info';
 const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
 // Now we show the Gift Aid section conditionally, this is mounted last
@@ -32,6 +35,7 @@ const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
+const stripeSavedCardInputSelector = '#useSavedCard';
 const continueBtnSelector = 'button*=Continue donation';
 const dialogSelector = '.mat-dialog-container';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
@@ -53,6 +57,46 @@ export default class DonateStartPage {
     }
 
     /**
+     * Click anything selectable. Accounts for the possibilty that there's 1+ match
+     * but only 1 is clickable, such as when "Log in" is on the page main page *and*
+     * inside a modal.
+     *
+     * For now, comes with a 1s pause after click to give APIs etc. time to run
+     * while keeping the step definitions simple.
+     *
+     * @param {string} selector Element selector.
+     * @returns {any} click() result on success.
+     */
+    async clickActiveSelector(selector) {
+        let bestButton;
+
+        await $$(selector).forEach(async (thisButton) => {
+            if (await thisButton.isClickable()) {
+                bestButton = thisButton;
+            }
+        });
+
+        if (bestButton === undefined) {
+            throw new Error(`Could not find any clickable "${selector}" selector.`);
+        }
+
+        await clickElement(bestButton, selector);
+
+        await this.browser.pause(1000); // Give modal state change and ID service 1s grace.
+    }
+
+    /**
+     * Input into any selectable field.
+     *
+     * @param {string} selector Element selector.
+     * @param {string} inputValue The new value.
+     * @returns {any} setValue() result on success.
+     */
+    async inputSelectorValue(selector, inputValue) {
+        return inputSelectorValue(selector, inputValue);
+    }
+
+    /**
      * open the donate page
      */
     async open() {
@@ -66,6 +110,16 @@ export default class DonateStartPage {
     async checkReady() {
         await checkTitle(`Donate to ${this.charity}`);
         await checkSelectorContent(pageHeadingSelector, this.charity);
+    }
+
+    /**
+     * Check the Identity service info box above the stepper contains
+     * the given text.
+     *
+     * @param {string} expectedText  Text anticipated somewhere in the box.
+     */
+    async checkIdInfo(expectedText) {
+        await checkVisibleSelectorContent(idInfoSelector, expectedText);
     }
 
     /**
@@ -123,6 +177,49 @@ export default class DonateStartPage {
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
         // fake SMTP server, regardless of the donor's given email address.
         await inputSelectorValue(emailAddressSelector, 'tech+regression+tests@thebiggive.org.uk');
+    }
+
+    /**
+     * Verify that name & email fields match the Stripe test Customer's for the donor with an
+     * existing account.
+     */
+    async checkExistingNameAndEmail() {
+        const firstName = await $(firstNameSelector).getValue();
+        const lastName = await $(lastNameSelector).getValue();
+        const emailAddress = await $(emailAddressSelector).getValue();
+
+        if (firstName !== 'RegressionTest') {
+            throw new Error('First name value not as expected.');
+        }
+
+        if (lastName !== 'RegisteredDonor') {
+            throw new Error('Last name value not as expected.');
+        }
+
+        if (emailAddress !== 'tech+regression+donor@thebiggive.org.uk') {
+            throw new Error('Email address value not as expected');
+        }
+    }
+
+    /**
+     * Check a Stripe saved card is available and active.
+     *
+     * @param {string} lastFour The last 4 digits of the card number.
+     */
+    async checkSavedCardIsSelected(lastFour) {
+        if (!(await checkIfElementExists(stripeSavedCardInputSelector))) {
+            throw new Error('Saved card input checkbox not detected.');
+        }
+
+        const checkboxInput = await $(stripeSavedCardInputSelector);
+        if (!(await (await checkboxInput.$('input')).getProperty('checked'))) {
+            throw new Error('Saved card is not auto-selected.');
+        }
+
+        await checkSelectorContent(
+            stripeSavedCardInputSelector,
+            `Use saved card ending ${lastFour}.`,
+        );
     }
 
     /**

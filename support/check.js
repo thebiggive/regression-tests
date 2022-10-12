@@ -81,6 +81,24 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
 }
 
 /**
+ * Check a specific element contains certain text.
+ *
+ * @param {Element} element Already-located element.
+ * @param {string} content Expected content.
+ * @param {int} seconds Number of seconds to wait.
+ * @returns {any} `waitUntil()` result.
+ */
+async function checkText(element, content, seconds = WAIT_SECONDS) {
+    return browser.waitUntil(
+        async () => (await element.getText()).includes(content),
+        {
+            timeout: seconds * 1000,
+            timeoutMsg: `Expected element to contain "${content}"`,
+        },
+    );
+}
+
+/**
  * Assert content exists
  *
  * @param {string} selector of content
@@ -95,11 +113,32 @@ export async function checkSelectorContent(selector, content, seconds = WAIT_SEC
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    return browser.waitUntil(
-        async () => (await $(selector).getText()).includes(content),
-        {
-            timeout: seconds * 1000,
-            timeoutMsg: `Expected element "${selector}" to contain "${content}"`,
-        },
-    );
+    return checkText(await $(selector), content, seconds);
+}
+
+/**
+ * Checks content is in _an_ element that's visible. Takes an arbitrary such element, so
+ * you should design tests using selectors you expect multiple of on the page but *only
+ * one visible* at a time.
+ *
+ * @param {string} selector DOM element selector.
+ * @param {string} content text
+ * @param {int} seconds to wait
+ * @returns {any} `waitUntil()` result, assuming 1+ elements visible.
+ */
+export async function checkVisibleSelectorContent(selector, content, seconds = WAIT_SECONDS) {
+    console.log(`CHECK: First visible element "${selector}" contains content "${content}"`);
+
+    let firstVisibleElement;
+    await $$(selector).forEach((element) => {
+        if (element.isDisplayed()) {
+            firstVisibleElement = element;
+        }
+    });
+
+    if (firstVisibleElement === undefined) {
+        throw new Error(`No element with selector "${selector}" is visible`);
+    }
+
+    return checkText(firstVisibleElement, content, seconds);
 }

@@ -2,8 +2,9 @@ import { generateIdentifier, goToUrl } from '../support/util';
 import { clickSelector, inputSelectorValue, setSelectOption } from '../support/action';
 import { checkSelectorContent, checkTitle } from '../support/check';
 
-// eslint-disable-next-line max-len
-const startUrl = `${process.env.WEBSITE_COMMUNITY_URL}pledge?campaignId=${process.env.PLEDGE_CAMPAIGN_ID}`;
+const startUrl = `${
+    process.env.WEBSITE_COMMUNITY_URL
+}pledge?campaignId=${process.env.PLEDGE_CAMPAIGN_ID}`;
 
 /**
  * Unauthentiacted pledge submission form page for charity to share.
