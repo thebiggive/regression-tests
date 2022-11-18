@@ -150,7 +150,9 @@ export default class DonateStartPage {
              *      'this charity has reached their target';
              */
             if (
-                $(dialogSelector) && (await checkIfElementExists(continueBtnSelector, 1))
+                $(dialogSelector)
+                && $(continueBtnSelector)
+                && (await checkIfElementExists(continueBtnSelector, 1))
             ) {
                 await clickSelector(continueBtnSelector);
             }
