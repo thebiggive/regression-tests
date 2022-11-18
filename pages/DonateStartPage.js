@@ -36,7 +36,7 @@ const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
-const continueBtnSelector = 'button*=Continue donation';
+const continueBtnSelector = '.mat-dialog-container button.mat-focus-indicator';
 const dialogSelector = '.mat-dialog-container';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
@@ -140,11 +140,17 @@ export default class DonateStartPage {
         if (waitForMatchWarning) {
             await this.browser.pause(2750); // Allow 3s total for donation setup + MatchBot response
 
-            const dialogCopy = 'There are no match funds currently available for this charity.';
+            /**
+             * We might like to check for specific copy in the dialog, perhaps using something like
+             * the following strings to check, but for now we just blindly click through any dialog.
+             *
+             * const noMatchFundsCopy =
+             *  'There are no match funds currently available for this charity.';
+             *  *const reachedTargetCopy =
+             *      'this charity has reached their target';
+             */
             if (
-                $(dialogSelector) && (await $(dialogSelector).isExisting())
-                && (await checkSelectorContent(dialogSelector, dialogCopy))
-                && (await checkIfElementExists(continueBtnSelector, 1))
+                $(dialogSelector) && (await checkIfElementExists(continueBtnSelector, 1))
             ) {
                 await clickSelector(continueBtnSelector);
             }
