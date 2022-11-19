@@ -36,8 +36,8 @@ const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
-const continueBtnSelector = 'button*=Continue donation';
-const dialogSelector = '.mat-dialog-container';
+const continueBtnSelector = '>>>#proceed-with-donation';
+const dialogSelector = '>>>.mat-dialog-container';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
 

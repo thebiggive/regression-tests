@@ -79,7 +79,7 @@ When(
     'I choose a preference for Gift Aid',
     async () => {
         await page.setGiftAidChoice();
-        await page.progressToNextStep(false);
+        await page.progressToNextStep(true);
     }
 );
 
