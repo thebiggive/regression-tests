@@ -56,11 +56,6 @@ When(/I click the "([^"]+)" button/, async (buttonText) => {
 When(
     /I enter the ID account test ([a-z\s]+) for "[^"]+"/,
     async (dataPoint) => {
-        // Give modal state change a second before targetting with deep query selector.
-        await browser.pause(500);
-
-        await browser.keys(['Tab', 'a', 'bc']);
-
         let elementId;
         let value;
         switch (dataPoint) {
