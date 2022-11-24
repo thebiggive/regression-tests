@@ -36,10 +36,23 @@ When(
     closeCookieNotice,
 );
 
+When("I click the popup's login button", async () => {
+    // We use an ID here as we can't combine deep and text selectors.
+    await page.clickActiveSelector('>>>#login-modal-submit');
+});
+
 When(/I click the "([^"]+)" button/, async (buttonText) => {
     await page.clickActiveSelector(`button*=${buttonText}`);
 });
 
+/**
+ * Currently unused because we had trouble targeting inputs in the target DOM
+ * correctly. For now, we work around this using `keys()` inside the login modal.
+ *
+ * See next fn for that implemenation.
+ *
+ * {@link https://github.com/webdriverio/webdriverio/issues/4509
+ */
 When(
     /I enter the ID account test ([a-z\s]+) for "[^"]+"/,
     async (dataPoint) => {
@@ -62,6 +75,11 @@ When(
     },
 );
 
+When('I enter the ID account test email and password', async () => {
+    await browser.keys(['Tab', process.env.DONOR_ID_REGISTERED_EMAIL]);
+    await browser.keys(['Tab', process.env.DONOR_ID_REGISTERED_PASSWORD]);
+});
+
 When(
     /I should see "([^"]+)" in the ID info box/,
     async (expectedText) => page.checkIdInfo(expectedText),
@@ -79,7 +97,7 @@ When(
     'I choose a preference for Gift Aid',
     async () => {
         await page.setGiftAidChoice();
-        await page.progressToNextStep(false);
+        await page.progressToNextStep(true);
     }
 );
 

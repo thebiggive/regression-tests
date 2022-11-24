@@ -8,9 +8,8 @@ Feature: Make a matched donation to a Stripe charity – returning donor with ID
         Given that I am on my chosen Stripe-enabled charity's Donate page
         And I close the cookie notice if shown
         And I click the "Log in" button
-        And I enter the ID account test email address for "Email address"
-        And I enter the ID account test password for "Password"
-        And I click the "Log in" button
+        And I enter the ID account test email and password
+        And I click the popup's login button
         Then I should see "Logged in as tech+regression+donor@thebiggive.org.uk" in the ID info box
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid
