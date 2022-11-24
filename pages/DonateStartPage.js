@@ -192,7 +192,7 @@ export default class DonateStartPage {
             throw new Error('First name value not as expected.');
         }
 
-        if (lastName !== 'RegisteredDonor') {
+        if (lastName !== 'User') {
             throw new Error('Last name value not as expected.');
         }
 
