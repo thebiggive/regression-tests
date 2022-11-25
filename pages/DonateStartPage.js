@@ -36,8 +36,8 @@ const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
-const continueBtnSelector = '.mat-dialog-container button.mat-focus-indicator';
-const dialogSelector = '.mat-dialog-container';
+const continueBtnSelector = '>>>.mat-dialog-container button.mat-focus-indicator';
+const dialogSelector = '>>>.mat-dialog-container';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
 
@@ -200,7 +200,7 @@ export default class DonateStartPage {
             throw new Error('First name value not as expected.');
         }
 
-        if (lastName !== 'RegisteredDonor') {
+        if (lastName !== 'User') {
             throw new Error('Last name value not as expected.');
         }
 
