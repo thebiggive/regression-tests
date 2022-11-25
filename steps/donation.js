@@ -158,6 +158,12 @@ When(
 );
 
 When(
+    'I wait hours to inspect browser manually',
+    // 45s to allow SF + Mailtrap time to process everything
+    async () => browser.pause(2 * 60 * 60 * 1000)
+);
+
+When(
     'I wait a few seconds for email processing',
     // 45s to allow SF + Mailtrap time to process everything
     async () => browser.pause(45000)
@@ -184,3 +190,13 @@ Then(
         }
     }
 );
+When(/^I press Set a password$/,
+    async () => {
+        browser.pause(5 * 1000);
+        const elementReference = browser.findElement(
+            'xpath',
+            "//*[contains(text(), 'Set a password')]"
+        );
+        console.log({ elementReference });
+        elementReference.click();
+    });
