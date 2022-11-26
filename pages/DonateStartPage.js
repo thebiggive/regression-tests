@@ -3,7 +3,8 @@ import {
     checkTitle,
     checkSelectorContent,
     checkIfElementExists,
-    checkVisibleSelectorContent
+    checkVisibleSelectorContent,
+    elementExists
 }
     from '../support/check';
 import {
@@ -37,7 +38,6 @@ const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
 const continueBtnSelector = '>>>#proceed-with-donation';
-const dialogSelector = '>>>.mat-dialog-container';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
 
@@ -138,15 +138,12 @@ export default class DonateStartPage {
         await this.browser.pause(250);
 
         if (waitForMatchWarning) {
-            await this.browser.pause(2750); // Allow 3s total for donation setup + MatchBot response
+            await this.browser.pause(4750); // Allow 5s total for donation setup + MatchBot response
 
-            const dialogCopy = 'There are no match funds currently available for this charity.';
-            if (
-                $(dialogSelector) && (await $(dialogSelector).isExisting())
-                && (await checkSelectorContent(dialogSelector, dialogCopy))
-                && (await checkIfElementExists(continueBtnSelector, 1))
-            ) {
+            if (await elementExists(continueBtnSelector)) {
                 await clickSelector(continueBtnSelector);
+                // Allow for close animation so as not to interrupt subsequent input.
+                await this.browser.pause(250);
             }
         }
     }
