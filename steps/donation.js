@@ -6,13 +6,13 @@ import {
 } from '@cucumber/cucumber';
 
 import { checkAnEmailBodyContainsText } from '../support/mailtrap';
-import {closeCookieNotice, generateIdentifier, randomIntFromInterval} from '../support/util';
+import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
-import {clickSelector, inputSelectorValue} from "../support/action";
+import { clickSelector, inputSelectorValue } from '../support/action';
 
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
