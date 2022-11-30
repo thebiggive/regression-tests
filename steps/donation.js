@@ -6,12 +6,13 @@ import {
 } from '@cucumber/cucumber';
 
 import { checkAnEmailBodyContainsText } from '../support/mailtrap';
-import { closeCookieNotice, randomIntFromInterval } from '../support/util';
+import {closeCookieNotice, generateIdentifier, randomIntFromInterval} from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
+import {clickSelector, inputSelectorValue} from "../support/action";
 
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
@@ -160,7 +161,10 @@ When(
 When(
     'I wait hours to inspect browser manually',
     // 45s to allow SF + Mailtrap time to process everything
-    async () => browser.pause(2 * 60 * 60 * 1000)
+    async () => {
+        console.log('waiting');
+        return browser.pause(2 * 60 * 60 * 1000);
+    }
 );
 
 When(
@@ -192,11 +196,9 @@ Then(
 );
 When(/^I press Set a password$/,
     async () => {
-        browser.pause(5 * 1000);
-        const elementReference = browser.findElement(
-            'xpath',
-            "//*[contains(text(), 'Set a password')]"
-        );
-        console.log({ elementReference });
-        elementReference.click();
+        // would rather have a more specific selector, maybe add ID to button in component?
+        await clickSelector('button.mat-raised-button');
     });
+When(/^I enter the password "([^"]*)";$/, async (password) => {
+    await inputSelectorValue('input#password', password);
+});

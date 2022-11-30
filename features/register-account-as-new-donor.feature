@@ -13,8 +13,10 @@ Feature: Register an account to allow quicker donations in future – new donor
         And I choose a preference for charity and TBG communications
         And I press Donate
         And I should be redirected to a Thank You confirmation page with the correct amount
-#        And I wait hours to inspect browser manually
         And I press Set a password
+        And I enter the password "password";
         And I wait hours to inspect browser manually
-        Then my last email should contain the correct amounts
-        And my last email should contain the charity's custom thank you message
+
+#        And I wait hours to inspect browser manually
+#        Then my last email should contain the correct amounts
+#        And my last email should contain the charity's custom thank you message
