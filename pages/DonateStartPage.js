@@ -274,7 +274,7 @@ export default class DonateStartPage {
             console.error('Axe check error', err);
         }
 
-        if (result.violations.length > 0) {
+        if (result && result.violations.length > 0) {
             console.log(`${result.violations.length} accessibility violations`);
 
             result.violations.forEach((violation) => {
@@ -288,7 +288,7 @@ export default class DonateStartPage {
             // throw new Error('Accessibility check failed before donate button click');
         }
 
-        if (result.incomplete.length > 0) {
+        if (result && result.incomplete.length > 0) {
             console.log(`${result.incomplete.length} accessibility incomplete items`);
 
             result.incomplete.forEach((incompleteItem) => {
