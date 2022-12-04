@@ -262,7 +262,17 @@ export default class DonateStartPage {
      */
     async checkNoAccessibilityViolations() {
         const builder = new AxeBuilder({ client: browser });
-        const result = await builder.analyze();
+        let result;
+        try {
+            result = await builder.analyze();
+        } catch (err) {
+            // TODO If possible, figure out how to avoid `Error: client.createWindow is not a
+            // function`. Although if it only happens on errors, it might have the same end result
+            // as throwing our own Error. See also
+            // eslint-disable-next-line max-len
+            // https://github.com/dequelabs/axe-core-npm/blob/develop/packages/webdriverio/error-handling.md
+            console.error('Axe check error', err);
+        }
 
         if (result.violations.length > 0) {
             console.log(`${result.violations.length} accessibility violations`);
