@@ -13,7 +13,7 @@ import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
 import { clickSelector, inputSelectorValue } from '../support/action';
-import {checkVisibleSelectorContent} from "../support/check";
+import { checkVisibleSelectorContent } from '../support/check';
 
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
