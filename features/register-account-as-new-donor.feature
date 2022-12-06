@@ -10,13 +10,14 @@ Feature: Register an account to allow quicker donations in future – new donor
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid
         And I enter my name, email address and Stripe payment details
-        And I choose a preference for charity and TBG communications
+        And I choose a preference for charity and TBG communications, waiting for match warning
         And I press Donate
+#        And I wait hours to inspect browser manually
         And I should be redirected to a Thank You confirmation page with the correct amount
         And I press Set a password
         And I enter the password "password";
-        And I wait hours to inspect browser manually
-
+        And I press Create Account
 #        And I wait hours to inspect browser manually
 #        Then my last email should contain the correct amounts
-#        And my last email should contain the charity's custom thank you message
+        And my last email should contain the charity's custom thank you message
+        Then I should see "<string>" in the ID info box

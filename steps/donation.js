@@ -135,6 +135,15 @@ When(
 );
 
 When(
+    'I choose a preference for charity and TBG communications, waiting for match warning',
+    async () => {
+        await page.setCommsPreferences();
+        await page.progressToNextStep(true);
+        await page.setCommsPreferences();
+    }
+);
+
+When(
     'I press Donate',
     async () => page.submitForm(),
 );
@@ -201,4 +210,7 @@ When(/^I press Set a password$/,
     });
 When(/^I enter the password "([^"]*)";$/, async (password) => {
     await inputSelectorValue('input#password', password);
+});
+When(/^I press Create Account$/, async () => {
+    await clickSelector('button.mat-focus-indicator');
 });
