@@ -221,4 +221,5 @@ When(/^I enter the password "([^"]*)";$/, async (password) => {
 });
 When(/^I press Create Account$/, async () => {
     await clickSelector('button.mat-focus-indicator');
+    await browser.pause(5000);
 });

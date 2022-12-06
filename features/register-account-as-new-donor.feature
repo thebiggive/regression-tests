@@ -12,7 +12,6 @@ Feature: Register an account to allow quicker donations in future – new donor
         And I enter my name, email address and Stripe payment details
         And I choose a preference for charity and TBG communications, waiting for match warning
         And I press Donate
-#        And I wait hours to inspect browser manually
         And I should be redirected to a Thank You confirmation page with the correct amount
         And I press Set a password
         And I enter the password "somePassword";
