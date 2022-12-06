@@ -23,7 +23,7 @@ exports.config = {
     runner: 'local',
     path: '/',
     specs: [
-        './features/**/*.feature',
+        './features/register-account-as-new-donor.feature',
     ],
     maxInstances: 1,
     capabilities: [{
@@ -46,7 +46,7 @@ exports.config = {
     waitforTimeout: 90000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
-    specFileRetries: 2,
+    specFileRetries: 0,
     services: [
     ], // see wdio.*.conf.js for additional entries
     framework: 'cucumber',
@@ -63,7 +63,7 @@ exports.config = {
         backtrace: false,
         requireModule: [],
         failAmbiguousDefinitions: true,
-        failFast: false,
+        failFast: true,
         ignoreUndefinedDefinitions: false,
         name: [],
         snippets: true,
