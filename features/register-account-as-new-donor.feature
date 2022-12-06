@@ -15,7 +15,7 @@ Feature: Register an account to allow quicker donations in future – new donor
 #        And I wait hours to inspect browser manually
         And I should be redirected to a Thank You confirmation page with the correct amount
         And I press Set a password
-        And I enter the password "password";
+        And I enter the password "somePassword";
         And I press Create Account
 #        And I wait hours to inspect browser manually
 #        Then my last email should contain the correct amounts
