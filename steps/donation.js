@@ -13,6 +13,7 @@ import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
 import { clickSelector, inputSelectorValue } from '../support/action';
+import {checkVisibleSelectorContent} from "../support/check";
 
 // Constants
 const donationAmount = randomIntFromInterval(5, 100);
@@ -114,6 +115,13 @@ When(
 When(
     'I should see my name and email address already populated',
     async () => page.checkExistingNameAndEmail(),
+);
+
+When(
+    /^I see "([^"]*)";$/,
+    async (expectedText) => {
+        await checkVisibleSelectorContent('body', expectedText);
+    }
 );
 
 When(
