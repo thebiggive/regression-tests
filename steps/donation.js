@@ -80,6 +80,11 @@ When('I enter the ID account test email and password', async () => {
     await browser.keys(['Tab', process.env.DONOR_ID_REGISTERED_PASSWORD]);
 });
 
+When('I enter the ID credit-funded account test email and password', async () => {
+    await browser.keys(['Tab', process.env.CREDIT_EMAIL]);
+    await browser.keys(['Tab', process.env.CREDIT_PASSWORD]);
+});
+
 When(
     /I should see "([^"]+)" in the ID info box/,
     async (expectedText) => page.checkIdInfo(expectedText),
@@ -113,6 +118,26 @@ When(
 When(
     'I should see my name and email address already populated',
     async () => page.checkExistingNameAndEmail(),
+);
+
+When(
+    /I should see my populated first name is "([^"]+)"/,
+    async (expectedFirstName) => page.checkDonorFirstName(expectedFirstName),
+);
+
+When(
+    /I should see my populated surname is "([^"]+)"/,
+    async (expectedSurname) => page.checkDonorSurname(expectedSurname),
+);
+
+When(
+    /I should see my populated email is "([^"]+)"/,
+    async (expectedEmail) => page.checkDonorEmail(expectedEmail),
+);
+
+When(
+    /I should see "([^"]+)" instead of asking for my bank details./,
+    async (expectedCreditMessage) => page.checkCreditMessageDisplayed(expectedCreditMessage),
 );
 
 When(

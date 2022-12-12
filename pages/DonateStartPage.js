@@ -37,6 +37,7 @@ const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
+const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
@@ -196,6 +197,67 @@ export default class DonateStartPage {
         if (emailAddress !== 'tech+regression+donor@thebiggive.org.uk') {
             throw new Error('Email address value not as expected');
         }
+    }
+
+    /**
+     * Verify that the name matches the Stripe test Customer's for the donor with an
+     * existing ID account.
+     *
+     * @param {string} expectedFirstName - stores the expected first name as per the user story
+     *
+     */
+    async checkDonorFirstName(expectedFirstName) {
+        const firstName = await $(firstNameSelector).getValue();
+        if (firstName !== expectedFirstName) {
+            throw new Error('First name value not as expected.');
+        }
+    }
+
+    /**
+     * Verify that the surname matches the Stripe test Customer's for the donor with an
+     * existing ID account.
+     *
+     * @param {string} expectedSurname - stores the expected first name as per the user story
+     *
+     */
+    async checkDonorSurname(expectedSurname) {
+        const surname = await $(lastNameSelector).getValue();
+        if (surname !== expectedSurname) {
+            throw new Error('Surname value not as expected.');
+        }
+    }
+
+    /**
+     * Verify that the email matches the Stripe test Customer's for the donor with an
+     * existing ID account.
+     *
+     * @param {string} expectedEmail - stores the expected first name as per the user story
+     *
+     */
+    async checkDonorEmail(expectedEmail) {
+        const surname = await $(emailAddressSelector).getValue();
+        if (surname !== expectedEmail) {
+            throw new Error('Email value not as expected.');
+        }
+    }
+
+    /**
+     * Verify that the donation form doesn't ask for bank details, but shows a message
+     * telling the donor that their credit balance will be used.
+     *
+     * @param {string} expectedCreditMessage - stores the expected message telling the
+     * user that their credit balance will be used.
+     *
+     */
+    async checkCreditMessageDisplayed(expectedCreditMessage) {
+        if (!(await checkIfElementExists(stripeUseCreditsMessageSelector))) {
+            throw new Error(`Message not shown: ${expectedCreditMessage}`);
+        }
+
+        await checkSelectorContent(
+            stripeUseCreditsMessageSelector,
+            `${expectedCreditMessage}`,
+        );
     }
 
     /**
