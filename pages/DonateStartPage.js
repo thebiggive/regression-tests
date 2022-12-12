@@ -26,6 +26,7 @@ const donationAmountSelector = '#donationAmount';
 // and the ratio gets the highest ID.
 // TODO avoid these hacks for radio selectors! We should be checking copy
 // ideally. Now we don't support IE for any journey we can hopefully use standard Xpath.
+const firstStepSelector = '#cdk-step-label-0-0';
 const claimGiftAidSelector = '#mat-radio-9';
 const firstNameSelector = '#firstName';
 const lastNameSelector = '#lastName';
@@ -299,15 +300,28 @@ export default class DonateStartPage {
      * Choose email communication preferences.
      */
     async setCommsPreferences() {
+        // Add some grace pause to allow enough time for the checkboxes to render
+        await this.browser.pause(1000);
+
         // Receive email from the charity? select NO
         await clickSelector(receiveEmailFromCharitySelector);
+
+        // await this.browser.pause(2000);
 
         // Receive email from the Big Give? select NO
         await clickSelector(receiveEmailFromTheBigGiveSelector);
     }
 
     /**
-     * press donate button
+     * Click on the first mat-stepper to jump back to the first step
+     */
+    async jumpBackToFirstStep() {
+        await clickSelector(firstStepSelector);
+        this.nextStepIndex = 0;
+    }
+
+    /**
+     * Press donate button
      */
     async submitForm() {
         await clickSelector(submitBtnSelector);

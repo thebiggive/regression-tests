@@ -13,8 +13,13 @@ import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
 
-// Constants
-const donationAmount = randomIntFromInterval(5, 100);
+/**
+ * Note: donationAmount is changable in the `restart-donation` test, whereby the bot changes the
+ * donation amount after cancelling the first. Hence, it's not a constant variable.
+ * See `When('I re-enter an amount between £5 and £25,000', ...)` method.
+ * See REG-21
+ */
+let donationAmount = randomIntFromInterval(5, 100);
 
 let page;
 // eslint-disable-next-line new-cap
@@ -99,6 +104,18 @@ When(
 );
 
 When(
+    'I re-enter an amount between £5 and £25,000',
+    async () => {
+        // Update donation amount by -1, relative to its itinial value.
+        // Re-store new value in same variable so that the following check passes later:
+        // `DonateSuccessPage.checkBalance(donationAmount);`
+        donationAmount -= 1;
+        await page.setDonationAmount(donationAmount);
+        await page.progressToNextStep(true);
+    }
+);
+
+When(
     'I choose a preference for Gift Aid',
     async () => {
         await page.setGiftAidChoice();
@@ -159,6 +176,11 @@ When(
 );
 
 When(
+    'I navigate back to the first step',
+    async () => page.jumpBackToFirstStep(),
+);
+
+When(
     'I press Donate',
     async () => page.submitForm(),
 );
@@ -167,6 +189,8 @@ Then(
     /^I should be redirected to a Thank You confirmation page with the correct amount$/,
     async () => {
         await DonateSuccessPage.checkReady();
+
+        // 
         await DonateSuccessPage.checkBalance(donationAmount);
     }
 );
