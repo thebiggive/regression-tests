@@ -306,8 +306,6 @@ export default class DonateStartPage {
         // Receive email from the charity? select NO
         await clickSelector(receiveEmailFromCharitySelector);
 
-        // await this.browser.pause(2000);
-
         // Receive email from the Big Give? select NO
         await clickSelector(receiveEmailFromTheBigGiveSelector);
     }

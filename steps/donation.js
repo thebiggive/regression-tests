@@ -189,8 +189,6 @@ Then(
     /^I should be redirected to a Thank You confirmation page with the correct amount$/,
     async () => {
         await DonateSuccessPage.checkReady();
-
-        // 
         await DonateSuccessPage.checkBalance(donationAmount);
     }
 );
