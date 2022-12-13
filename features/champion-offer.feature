@@ -1,4 +1,4 @@
-Feature: Log in as a Champion user and distribute funds to a charity
+Feature: Allocate champion funds to a charity successfully
 
   As a Champion
   I want to be able to log in successfully to the champion portal

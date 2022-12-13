@@ -1,4 +1,4 @@
-Feature: Make a matched donation to a Stripe charity using credits
+Feature: Existing donor: credit donation completes successfully
 
     As a donor who doesn't have access to a card that can be used to donate via Big Give's platform
     I want payment to be taken for a match campaign for a Stripe charity using my donation credits (Stripe cash balance)

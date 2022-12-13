@@ -1,4 +1,4 @@
-Feature: Make a matched donation to a Stripe charity – returning donor with ID login
+Feature: Existing donor: saved payment method donation completes successfully
 
     As a returning donor
     I want payment to be taken for a match campaign for a Stripe charity with less manual input by me

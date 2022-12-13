@@ -1,4 +1,4 @@
-Feature: Make a matched donation to a Stripe charity as a new donor
+Feature: New donor: donation completes successfully
 
     As a new donor
     I want payment to be taken for a match campaign for a Stripe charity

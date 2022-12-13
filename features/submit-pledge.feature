@@ -1,4 +1,4 @@
-Feature: Submit a pledge of funds for a charity's planned standalone matched campaign
+Feature: Pledge form is submitted successfully
 
   As a pledger
   I want to be able to commit funds for a future matched campaign
