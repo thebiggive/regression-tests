@@ -140,7 +140,8 @@ export default class DonateStartPage {
         await this.browser.pause(3000);
 
         if (waitForMatchWarning) {
-            await this.browser.pause(5000); // Allow another 5s for donation setup + MatchBot response
+            // Allow another 5s for donation setup + MatchBot response
+            await this.browser.pause(5000);
 
             if (await elementExists(continueBtnSelector)) {
                 await clickSelector(continueBtnSelector);
