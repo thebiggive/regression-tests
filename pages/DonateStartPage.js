@@ -171,11 +171,21 @@ export default class DonateStartPage {
      * Enter first & last name and email address, in Stripe mode.
      */
     async populateNameAndEmail() {
-        await inputSelectorValue(firstNameSelector, generateIdentifier('Firstname-'));
-        await inputSelectorValue(lastNameSelector, generateIdentifier('Lastname-'));
+        const firstName = generateIdentifier('Firstname-');
+        const lastName = generateIdentifier('Lastname-');
+        const email = 'tech+regression+tests@thebiggive.org.uk';
+
+        await inputSelectorValue(firstNameSelector, firstName);
+        await inputSelectorValue(lastNameSelector, lastName);
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
         // fake SMTP server, regardless of the donor's given email address.
-        await inputSelectorValue(emailAddressSelector, 'tech+regression+tests@thebiggive.org.uk');
+        await inputSelectorValue(emailAddressSelector, email);
+
+        return {
+            firstName,
+            lastName,
+            email,
+        };
     }
 
     /**

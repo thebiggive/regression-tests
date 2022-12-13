@@ -21,6 +21,8 @@ import CharityPortalCheckBalancePage
  */
 let donationAmount = randomIntFromInterval(5, 100);
 
+let donor;
+
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
@@ -126,7 +128,7 @@ When(
 When(
     'I enter my name, email address and Stripe payment details',
     async () => {
-        await page.populateNameAndEmail();
+        donor = await page.populateNameAndEmail();
         await page.populateStripePaymentDetails();
         await page.progressToNextStep(false);
     }
@@ -213,11 +215,9 @@ When(
 Then(
     'my last email should contain the correct amounts',
     async () => {
-        if (await checkAnEmailBodyContainsText(
+        if (!(await checkAnEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
-        )) {
-            console.log(`CHECK: Email refers to donation amount £${donationAmount}`);
-        } else {
+        ))) {
             throw new Error(`Donation amount £${donationAmount} not found in email`);
         }
     }
@@ -228,6 +228,17 @@ Then(
     async () => {
         if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS))) {
             throw new Error('Charity thank you message not found in email');
+        }
+    }
+);
+
+Then(
+    'my last email should contain the correct name',
+    async () => {
+        if (!(await checkAnEmailBodyContainsText(
+            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`,
+        ))) {
+            throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
         }
     }
 );
