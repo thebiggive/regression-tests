@@ -140,8 +140,11 @@ export default class DonateStartPage {
         await this.browser.pause(3000);
 
         if (waitForMatchWarning) {
-            // Allow another 5s for donation setup + MatchBot response
-            await this.browser.pause(5000);
+            // Allow another 20s for donation setup + MatchBot response + identity callout + SF call
+            // eslint-disable-next-line max-len
+            // See: https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
+            // See ticket REG-21
+            await this.browser.pause(20000);
 
             if (await elementExists(continueBtnSelector)) {
                 await clickSelector(continueBtnSelector);
