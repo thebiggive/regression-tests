@@ -135,23 +135,31 @@ When(
 );
 
 When(
-    'I should see my name and email address already populated',
-    async () => page.checkExistingNameAndEmail(),
-);
-
-When(
     /I should see my populated first name is "([^"]+)"/,
-    async (expectedFirstName) => page.checkDonorFirstName(expectedFirstName),
+    async (expectedFirstName) => {
+        page.checkDonorFirstName(expectedFirstName);
+        // set donor.firstName so the test titled 'my last email
+        // should contain the correct name' works correctly
+        donor.firstName = expectedFirstName;
+    },
 );
 
 When(
     /I should see my populated surname is "([^"]+)"/,
-    async (expectedSurname) => page.checkDonorSurname(expectedSurname),
+    async (expectedSurname) => {
+        page.checkDonorSurname(expectedSurname);
+        // set donor.lastName so the test titled 'my last email
+        // should contain the correct name' works correctly
+        donor.lastName = expectedSurname;
+    },
 );
 
 When(
     /I should see my populated email is "([^"]+)"/,
-    async (expectedEmail) => page.checkDonorEmail(expectedEmail),
+    async (expectedEmail) => {
+        page.checkDonorEmail(expectedEmail);
+        donor.email = expectedEmail;
+    },
 );
 
 When(

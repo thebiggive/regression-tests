@@ -25,3 +25,4 @@ Feature: Make a matched donation to a Stripe charity using credits
         When I wait a few seconds for email processing
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
+        And my last email should contain the correct name

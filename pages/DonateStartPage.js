@@ -189,28 +189,6 @@ export default class DonateStartPage {
     }
 
     /**
-     * Verify that name & email fields match the Stripe test Customer's for the donor with an
-     * existing account.
-     */
-    async checkExistingNameAndEmail() {
-        const firstName = await $(firstNameSelector).getValue();
-        const lastName = await $(lastNameSelector).getValue();
-        const emailAddress = await $(emailAddressSelector).getValue();
-
-        if (firstName !== 'RegressionTest') {
-            throw new Error('First name value not as expected.');
-        }
-
-        if (lastName !== 'User') {
-            throw new Error('Last name value not as expected.');
-        }
-
-        if (emailAddress !== 'tech+regression+donor@thebiggive.org.uk') {
-            throw new Error('Email address value not as expected');
-        }
-    }
-
-    /**
      * Verify that the name matches the Stripe test Customer's for the donor with an
      * existing ID account.
      *

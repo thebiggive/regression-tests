@@ -13,7 +13,9 @@ Feature: Make a matched donation to a Stripe charity – returning donor with ID
         Then I should see "Logged in as tech+regression+donor@thebiggive.org.uk" in the ID info box
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid
-        Then I should see my name and email address already populated
+        Then I should see my populated first name is "RegressionTest"
+        And I should see my populated surname is "User"
+        And I should see my populated email is "tech+regression+donor@thebiggive.org.uk"
         And I should see an existing card ending 4242 already pre-selected
         When I continue through this step with no changes
         And I choose a preference for charity and TBG communications
@@ -22,3 +24,4 @@ Feature: Make a matched donation to a Stripe charity – returning donor with ID
         When I wait a few seconds for email processing
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
+        And my last email should contain the correct name
