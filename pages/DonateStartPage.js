@@ -288,7 +288,7 @@ export default class DonateStartPage {
      * Choose email communication preferences.
      */
     async setCommsPreferences() {
-        // Add some grace pause to allow enough time for the checkboxes to render
+        // Allow enough time for the checkboxes to render
         await this.browser.pause(1000);
 
         // Receive email from the charity? select NO
