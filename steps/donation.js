@@ -113,6 +113,12 @@ When(
         // `DonateSuccessPage.checkBalance(donationAmount);`
         donationAmount -= 1;
         await page.setDonationAmount(donationAmount);
+
+        // Wait about 20 seconds for new donation + person + SF callouts
+        // eslint-disable-next-line max-len
+        // See: https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
+        // See ticket REG-21
+        await browser.pause(20000);
         await page.progressToNextStep(true);
     }
 );
