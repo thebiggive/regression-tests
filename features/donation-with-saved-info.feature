@@ -4,7 +4,7 @@ Feature: Make a matched donation to a Stripe charity – returning donor with ID
     I want payment to be taken for a match campaign for a Stripe charity with less manual input by me
     So that I can support my chosen charity with a doubled donation
 
-    Scenario: Match funds available and payment for existing Stripe Customer with saved Payment Method is processed successfully, before match fund reservation expires
+    Scenario: Existing donor: saved payment method donation completes successfully
         Given that I am on my chosen Stripe-enabled charity's Donate page
         And I close the cookie notice if shown
         And I click the "Log in" button

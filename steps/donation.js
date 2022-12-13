@@ -21,7 +21,7 @@ import CharityPortalCheckBalancePage
  */
 let donationAmount = randomIntFromInterval(5, 100);
 
-let donor;
+let donor = {};
 
 let page;
 // eslint-disable-next-line new-cap

@@ -1,10 +1,10 @@
-Feature: Make a matched donation to a Stripe charity – new donor - edge case of restarting donation
+Feature: Make a matched donation to a Stripe charity as a new donor, but restart donation half way.
 
     As a new donor
     I want payment to be taken for a match campaign for a Stripe charity even if I change the amounts after initial selection
     So that I can support my chosen charity with a doubled donation
 
-    Scenario: Re-starting donation as Match funds available and payment for a new Stripe Customer is processed successfully, before match fund reservation expires
+    Scenario: New donor: re-starting donation completes successfully
         Given that I am on my chosen Stripe-enabled charity's Donate page
         And I close the cookie notice if shown
         When I enter an amount between £5 and £25,000

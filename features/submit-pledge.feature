@@ -4,7 +4,7 @@ Feature: Submit a pledge of funds for a charity's planned standalone matched cam
   I want to be able to commit funds for a future matched campaign
   So that the charity can set an achievable target and promote public donations effectively
 
-  Scenario: Campaign is in the future and pledge form is submitted successfully
+  Scenario: Pledge form is submitted successfully
     Given I open the pledge campaign's pledge form
     And I close the cookie notice if shown
     Then I should see a Communities hero banner saying "Thank you for choosing to pledge to Exempt Stripe Test Charity"

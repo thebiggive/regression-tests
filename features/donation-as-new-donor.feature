@@ -1,10 +1,10 @@
-Feature: Make a matched donation to a Stripe charity – new donor
+Feature: Make a matched donation to a Stripe charity as a new donor
 
     As a new donor
     I want payment to be taken for a match campaign for a Stripe charity
     So that I can support my chosen charity with a doubled donation
 
-    Scenario: Match funds available and payment for a new Stripe Customer is processed successfully, before match fund reservation expires
+    Scenario: New donor: donation completes successfully
         Given that I am on my chosen Stripe-enabled charity's Donate page
         And I close the cookie notice if shown
         When I enter an amount between £5 and £25,000

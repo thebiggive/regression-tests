@@ -4,7 +4,7 @@ Feature: Log in as a Champion user and distribute funds to a charity
   I want to be able to log in successfully to the champion portal
   So that I allocate funds to charities that have been shortlisted against my funding
 
-  Scenario: Master Campaign portfolio deadline is in the future and successfully allocating funds to a charity
+  Scenario: Allocate champion funds to a charity successfully
     Given I open the Champion Portal log in page successfully
     And I close the cookie notice if shown
     Then I should be able to fill in my log in credentials and successfully log in
