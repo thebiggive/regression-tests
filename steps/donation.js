@@ -13,8 +13,15 @@ import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
 import CharityPortalCheckBalancePage
     from '../pages/CharityPortalCheckBalancePage';
 
-// Constants
-const donationAmount = randomIntFromInterval(5, 100);
+/**
+ * Note: donationAmount is changable in the `restart-donation` test, whereby the bot changes the
+ * donation amount after cancelling the first. Hence, it's not a constant variable.
+ * See `When('I re-enter an amount between £5 and £25,000', ...)` method.
+ * See REG-21
+ */
+let donationAmount = randomIntFromInterval(5, 100);
+
+let donor = {};
 
 let page;
 // eslint-disable-next-line new-cap
@@ -99,6 +106,28 @@ When(
 );
 
 When(
+    'I re-enter an amount between £5 and £25,000',
+    async () => {
+        // Update donation amount by -1, relative to its itinial value.
+        // Re-store new value in same variable so that the following check passes later:
+        // `DonateSuccessPage.checkBalance(donationAmount);`
+        donationAmount -= 1;
+        await page.setDonationAmount(donationAmount);
+        await page.progressToNextStep(true);
+
+        // The page will likely jump over the Gift Aid step, see this thread to understand why:
+        // eslint-disable-next-line max-len
+        // https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
+        // See ticket REG-21
+        // Wait 20 seconds for donation setup & MatchBot & identity & SF callouts
+        await browser.pause(20000);
+
+        // Explicitly call the Gift Aid step, in case the browser skipped it.
+        await page.clickOnGiftAidTab();
+    }
+);
+
+When(
     'I choose a preference for Gift Aid',
     async () => {
         await page.setGiftAidChoice();
@@ -109,30 +138,38 @@ When(
 When(
     'I enter my name, email address and Stripe payment details',
     async () => {
-        await page.populateNameAndEmail();
+        donor = await page.populateNameAndEmail();
         await page.populateStripePaymentDetails();
         await page.progressToNextStep(false);
     }
 );
 
 When(
-    'I should see my name and email address already populated',
-    async () => page.checkExistingNameAndEmail(),
-);
-
-When(
     /I should see my populated first name is "([^"]+)"/,
-    async (expectedFirstName) => page.checkDonorFirstName(expectedFirstName),
+    async (expectedFirstName) => {
+        page.checkDonorFirstName(expectedFirstName);
+        // set donor.firstName so the test titled 'my last email
+        // should contain the correct name' works correctly
+        donor.firstName = expectedFirstName;
+    },
 );
 
 When(
     /I should see my populated surname is "([^"]+)"/,
-    async (expectedSurname) => page.checkDonorSurname(expectedSurname),
+    async (expectedSurname) => {
+        page.checkDonorSurname(expectedSurname);
+        // set donor.lastName so the test titled 'my last email
+        // should contain the correct name' works correctly
+        donor.lastName = expectedSurname;
+    },
 );
 
 When(
     /I should see my populated email is "([^"]+)"/,
-    async (expectedEmail) => page.checkDonorEmail(expectedEmail),
+    async (expectedEmail) => {
+        page.checkDonorEmail(expectedEmail);
+        donor.email = expectedEmail;
+    },
 );
 
 When(
@@ -156,6 +193,11 @@ When(
         await page.setCommsPreferences();
         await page.progressToNextStep(false);
     }
+);
+
+When(
+    'I navigate back to the first step',
+    async () => page.jumpBackToFirstStep(),
 );
 
 When(
@@ -191,11 +233,9 @@ When(
 Then(
     'my last email should contain the correct amounts',
     async () => {
-        if (await checkAnEmailBodyContainsText(
+        if (!(await checkAnEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
-        )) {
-            console.log(`CHECK: Email refers to donation amount £${donationAmount}`);
-        } else {
+        ))) {
             throw new Error(`Donation amount £${donationAmount} not found in email`);
         }
     }
@@ -206,6 +246,17 @@ Then(
     async () => {
         if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS))) {
             throw new Error('Charity thank you message not found in email');
+        }
+    }
+);
+
+Then(
+    'my last email should contain the correct name',
+    async () => {
+        if (!(await checkAnEmailBodyContainsText(
+            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`,
+        ))) {
+            throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
         }
     }
 );

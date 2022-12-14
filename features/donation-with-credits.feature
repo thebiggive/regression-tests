@@ -1,10 +1,10 @@
-Feature: Make a matched donation to a Stripe charity using credits
+Feature: Existing donor: credit donation completes successfully
 
     As a donor who doesn't have access to a card that can be used to donate via Big Give's platform
     I want payment to be taken for a match campaign for a Stripe charity using my donation credits (Stripe cash balance)
     So that I can support my chosen charity with a doubled donation
 
-    Scenario: Match funds available and payment for existing Stripe Customer with credits is processed successfully, before match fund reservation expires
+    Scenario: Existing donor: credit donation completes successfully
         Given that I am on my chosen Stripe-enabled charity's Donate page
         And I close the cookie notice if shown
         And I click the "Log in" button
@@ -25,3 +25,4 @@ Feature: Make a matched donation to a Stripe charity using credits
         When I wait a few seconds for email processing
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
+        And my last email should contain the correct name
