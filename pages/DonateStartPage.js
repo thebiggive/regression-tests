@@ -26,7 +26,8 @@ const donationAmountSelector = '#donationAmount';
 // and the ratio gets the highest ID.
 // TODO avoid these hacks for radio selectors! We should be checking copy
 // ideally. Now we don't support IE for any journey we can hopefully use standard Xpath.
-const firstStepSelector = '#cdk-step-label-0-0';
+const yourDonationStepSelector = '#cdk-step-label-0-0';
+const giftAidStepSelector = '#cdk-step-label-0-1';
 const claimGiftAidSelector = '#mat-radio-9';
 const firstNameSelector = '#firstName';
 const lastNameSelector = '#lastName';
@@ -137,19 +138,16 @@ export default class DonateStartPage {
         this.nextStepIndex += 1;
         // Wait for animation and scrolling to fully complete.
         // Test passing was intermittent without this fixed wait.
-        await this.browser.pause(3000);
+        await this.browser.pause(250);
 
         if (waitForMatchWarning) {
-            // Allow another 20s for donation setup + MatchBot response + identity callout + SF call
-            // eslint-disable-next-line max-len
-            // See: https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
-            // See ticket REG-21
-            await this.browser.pause(20000);
+            // Allow another 4.75s for donation setup & MatchBot & identity & SF callouts
+            await this.browser.pause(4750);
 
             if (await elementExists(continueBtnSelector)) {
                 await clickSelector(continueBtnSelector);
                 // Allow for close animation so as not to interrupt subsequent input.
-                await this.browser.pause(3000);
+                await this.browser.pause(250);
             }
         }
     }
@@ -305,11 +303,19 @@ export default class DonateStartPage {
     }
 
     /**
-     * Click on the first mat-stepper to jump back to the first step
+     * Click on the first mat-stepper to jump back to the 'your donation' step
      */
     async jumpBackToFirstStep() {
-        await clickSelector(firstStepSelector);
+        await clickSelector(yourDonationStepSelector);
         this.nextStepIndex = 0;
+    }
+
+    /**
+     * Click on the second mat-stepper to jump back to the gift aid step
+     */
+    async clickOnGiftAidTab() {
+        await clickSelector(giftAidStepSelector);
+        this.nextStepIndex = 1;
     }
 
     /**

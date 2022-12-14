@@ -120,7 +120,17 @@ When(
 When(
     'I choose a preference for Gift Aid',
     async () => {
-        await page.setGiftAidChoice();
+        try {
+            await page.setGiftAidChoice();
+        } catch (e) {
+            // eslint-disable-next-line max-len
+            // See: https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
+            // See ticket REG-21
+            // Wait 20 seconds for donation setup & MatchBot & identity & SF callouts
+            await browser.pause(20000);
+            await page.clickOnGiftAidTab();
+            await page.setGiftAidChoice();
+        }
         await page.progressToNextStep(true);
     }
 );
