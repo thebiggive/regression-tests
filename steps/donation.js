@@ -114,6 +114,16 @@ When(
         donationAmount -= 1;
         await page.setDonationAmount(donationAmount);
         await page.progressToNextStep(true);
+
+        // The page will likely jump over the Gift Aid step, see this thread:
+        // eslint-disable-next-line max-len
+        // See: https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
+        // See ticket REG-21
+        // Wait 20 seconds for donation setup & MatchBot & identity & SF callouts
+        await browser.pause(20000);
+
+        // Explicitly call the Gift Aid step, in case the browser skipped it.
+        await page.clickOnGiftAidTab();
     }
 );
 
