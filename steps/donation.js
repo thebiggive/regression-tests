@@ -20,9 +20,7 @@ import CharityPortalCheckBalancePage
  * See REG-21
  */
 let donationAmount = randomIntFromInterval(5, 100);
-
 let donor = {};
-
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
@@ -258,5 +256,40 @@ Then(
         ))) {
             throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
         }
+    }
+);
+
+When(
+    /^I press on the button to set a password$/,
+    async () => {
+        await DonateSuccessPage.clickOnSetPasswordButton();
+    }
+);
+
+When(
+    /^I enter my new password$/,
+    async () => {
+        await DonateSuccessPage.populatePassword();
+    }
+);
+
+When(
+    /^I press on the button to create an account$/,
+    async () => {
+        await DonateSuccessPage.clickOnCreateAccountButton();
+    }
+);
+
+Then(
+    /^the page should update to say I'm registered$/,
+    async () => {
+        // await DonateSuccessPage.checkCopySaysImRegistered();
+    }
+);
+
+Then(
+    /^I should recieve a registration success email with the email I donated with$/,
+    async () => {
+        // await DonateSuccessPage.checkRegistrationEmailRecievedSuccessfully();
     }
 );
