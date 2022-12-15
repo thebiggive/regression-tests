@@ -231,9 +231,9 @@ When(
 Then(
     'my last email should contain the correct amounts',
     async () => {
-        if (!(await checkAnEmailBodyContainsText(
-            `Donation: <strong>£${donationAmount}.00</strong>`,
-        ))) {
+        if (!checkAnEmailBodyContainsText(
+            `Donation: <strong>£${donationAmount}.00</strong>`
+        )) {
             throw new Error(`Donation amount £${donationAmount} not found in email`);
         }
     }
@@ -242,7 +242,7 @@ Then(
 Then(
     'my last email should contain the charity\'s custom thank you message',
     async () => {
-        if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS))) {
+        if (!checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS)) {
             throw new Error('Charity thank you message not found in email');
         }
     }
@@ -251,9 +251,9 @@ Then(
 Then(
     'my last email should contain the correct name',
     async () => {
-        if (!(await checkAnEmailBodyContainsText(
-            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`,
-        ))) {
+        if (!checkAnEmailBodyContainsText(
+            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`
+        )) {
             throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
         }
     }
@@ -290,6 +290,11 @@ Then(
 Then(
     /^I should recieve a registration success email with the email I donated with$/,
     async () => {
-        // await DonateSuccessPage.checkRegistrationEmailRecievedSuccessfully();
+        if (!checkAnEmailBodyContainsText(
+            `You are now <span class="il">registered</span> for Big Give with the email address: 
+            <a href="mailto:${donor.email}" target="_blank">${donor.email}</a>`
+        )) {
+            throw new Error('Registration email with expected copy not found.');
+        }
     }
 );
