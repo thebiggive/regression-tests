@@ -28,6 +28,8 @@ const donationAmountSelector = '#donationAmount';
 // and the ratio gets the highest ID.
 // TODO avoid these hacks for radio selectors! We should be checking copy
 // ideally. Now we don't support IE for any journey we can hopefully use standard Xpath.
+const yourDonationStepSelector = '#cdk-step-label-0-0';
+const giftAidStepSelector = '#cdk-step-label-0-1';
 const claimGiftAidSelector = '#mat-radio-9';
 const firstNameSelector = '#firstName';
 const lastNameSelector = '#lastName';
@@ -39,6 +41,7 @@ const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
+const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
@@ -140,7 +143,8 @@ export default class DonateStartPage {
         await this.browser.pause(250);
 
         if (waitForMatchWarning) {
-            await this.browser.pause(4750); // Allow 5s total for donation setup + MatchBot response
+            // Allow another 4.75s for donation setup & MatchBot & identity & SF callouts
+            await this.browser.pause(4750);
 
             if (await elementExists(continueBtnSelector)) {
                 await clickSelector(continueBtnSelector);
@@ -163,6 +167,8 @@ export default class DonateStartPage {
      * Choose Gift Aid preference.
      */
     async setGiftAidChoice() {
+        // Pause for 2 secs
+        await this.browser.pause(2000);
         // Claim Gift Aid? select NO. This means no additional Stripe mode fields for now.
         await clickSelector(claimGiftAidSelector);
     }
@@ -171,33 +177,82 @@ export default class DonateStartPage {
      * Enter first & last name and email address, in Stripe mode.
      */
     async populateNameAndEmail() {
-        await inputSelectorValue(firstNameSelector, generateIdentifier('Firstname-'));
-        await inputSelectorValue(lastNameSelector, generateIdentifier('Lastname-'));
+        const firstName = generateIdentifier('Firstname-');
+        const lastName = generateIdentifier('Lastname-');
+        const email = 'tech+regression+tests@thebiggive.org.uk';
+
+        await inputSelectorValue(firstNameSelector, firstName);
+        await inputSelectorValue(lastNameSelector, lastName);
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
         // fake SMTP server, regardless of the donor's given email address.
-        await inputSelectorValue(emailAddressSelector, 'tech+regression+tests@thebiggive.org.uk');
+        await inputSelectorValue(emailAddressSelector, email);
+
+        return {
+            firstName,
+            lastName,
+            email,
+        };
     }
 
     /**
-     * Verify that name & email fields match the Stripe test Customer's for the donor with an
-     * existing account.
+     * Verify that the name matches the Stripe test Customer's for the donor with an
+     * existing ID account.
+     *
+     * @param {string} expectedFirstName - stores the expected first name as per the user story
+     *
      */
-    async checkExistingNameAndEmail() {
+    async checkDonorFirstName(expectedFirstName) {
         const firstName = await $(firstNameSelector).getValue();
-        const lastName = await $(lastNameSelector).getValue();
-        const emailAddress = await $(emailAddressSelector).getValue();
-
-        if (firstName !== 'RegressionTest') {
+        if (firstName !== expectedFirstName) {
             throw new Error('First name value not as expected.');
         }
+    }
 
-        if (lastName !== 'User') {
-            throw new Error('Last name value not as expected.');
+    /**
+     * Verify that the surname matches the Stripe test Customer's for the donor with an
+     * existing ID account.
+     *
+     * @param {string} expectedSurname - stores the expected first name as per the user story
+     *
+     */
+    async checkDonorSurname(expectedSurname) {
+        const surname = await $(lastNameSelector).getValue();
+        if (surname !== expectedSurname) {
+            throw new Error('Surname value not as expected.');
+        }
+    }
+
+    /**
+     * Verify that the email matches the Stripe test Customer's for the donor with an
+     * existing ID account.
+     *
+     * @param {string} expectedEmail - stores the expected first name as per the user story
+     *
+     */
+    async checkDonorEmail(expectedEmail) {
+        const surname = await $(emailAddressSelector).getValue();
+        if (surname !== expectedEmail) {
+            throw new Error('Email value not as expected.');
+        }
+    }
+
+    /**
+     * Verify that the donation form doesn't ask for bank details, but shows a message
+     * telling the donor that their credit balance will be used.
+     *
+     * @param {string} expectedCreditMessage - stores the expected message telling the
+     * user that their credit balance will be used.
+     *
+     */
+    async checkCreditMessageDisplayed(expectedCreditMessage) {
+        if (!(await checkIfElementExists(stripeUseCreditsMessageSelector))) {
+            throw new Error(`Message not shown: ${expectedCreditMessage}`);
         }
 
-        if (emailAddress !== 'tech+regression+donor@thebiggive.org.uk') {
-            throw new Error('Email address value not as expected');
-        }
+        await checkSelectorContent(
+            stripeUseCreditsMessageSelector,
+            `${expectedCreditMessage}`,
+        );
     }
 
     /**
@@ -239,6 +294,9 @@ export default class DonateStartPage {
      * Choose email communication preferences.
      */
     async setCommsPreferences() {
+        // Allow enough time for the checkboxes to render
+        await this.browser.pause(1000);
+
         // Receive email from the charity? select NO
         await clickSelector(receiveEmailFromCharitySelector);
 
@@ -247,7 +305,23 @@ export default class DonateStartPage {
     }
 
     /**
-     * press donate button
+     * Click on the first mat-stepper to jump back to the 'your donation' step
+     */
+    async jumpBackToFirstStep() {
+        await clickSelector(yourDonationStepSelector);
+        this.nextStepIndex = 0;
+    }
+
+    /**
+     * Click on the second mat-stepper to jump back to the gift aid step
+     */
+    async clickOnGiftAidTab() {
+        await clickSelector(giftAidStepSelector);
+        this.nextStepIndex = 1;
+    }
+
+    /**
+     * Press donate button
      */
     async submitForm() {
         // Experimental Axe check just before hitting donate.
