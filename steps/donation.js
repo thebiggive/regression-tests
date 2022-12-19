@@ -5,7 +5,7 @@ import {
     When
 } from '@cucumber/cucumber';
 
-import { checkAnEmailBodyContainsText } from '../support/mailtrap';
+import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
@@ -290,6 +290,12 @@ Then(
 Then(
     /^I should recieve a registration success email with the email I donated with$/,
     async () => {
+        if (!(await checkAnEmailSubjectContainsText(
+            'You are registered with Big Give'
+        ))) {
+            throw new Error('Registration email subject not found.');
+        }
+
         if (!(await checkAnEmailBodyContainsText(
             `You are now <span class="il">registered</span> for Big Give with the email address: 
             <a href="mailto:${donor.email}" target="_blank">${donor.email}</a>`
