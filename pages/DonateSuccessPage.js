@@ -12,6 +12,7 @@ const createAccountButtonSelector = '#createAccountButton';
 const setPasswordButtonSelector = '#setPasswordButton';
 const statusSelector = '.c-main .b-rt-0:first-of-type .b-bold';
 const passwordSelector = '#password';
+const registrationTextSelector = '#registrationCompleteText';
 
 // checks
 const balanceTextPreCheck = '£';
@@ -58,5 +59,12 @@ export default class DonateSuccessPage {
      */
     static async clickOnCreateAccountButton() {
         await clickSelector(createAccountButtonSelector);
+    }
+
+    /**
+     * Checks that the donation-success page says 'You are now registered'
+     */
+    static async checkCopySaysImRegistered() {
+        await checkSelectorContent(registrationTextSelector, 'You are now registered');
     }
 }

@@ -283,7 +283,7 @@ When(
 Then(
     /^the page should update to say I'm registered$/,
     async () => {
-        // await DonateSuccessPage.checkCopySaysImRegistered();
+        await DonateSuccessPage.checkCopySaysImRegistered();
     }
 );
 
