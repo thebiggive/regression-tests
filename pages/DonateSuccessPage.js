@@ -23,14 +23,14 @@ const urlCheck = 'thanks';
  */
 export default class DonateSuccessPage {
     /**
-     * check if page ready
+     * Checks if page is ready
      */
     static async checkReady() {
         await checkUrl(urlCheck);
     }
 
     /**
-     * check if balance updated
+     * Checks if balance has updated
      * @param {int} donationAmount to check
      */
     static async checkBalance(donationAmount) {
@@ -48,7 +48,7 @@ export default class DonateSuccessPage {
     }
 
     /**
-     * Clicks on the 'Set a password' button
+     * Populates password field
      */
     static async populatePassword() {
         await inputSelectorValue(passwordSelector, '0123456789');
