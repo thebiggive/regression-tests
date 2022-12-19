@@ -5,7 +5,7 @@ import {
     When
 } from '@cucumber/cucumber';
 
-import { checkAnEmailBodyContainsText } from '../support/mailtrap';
+import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
@@ -20,9 +20,7 @@ import CharityPortalCheckBalancePage
  * See REG-21
  */
 let donationAmount = randomIntFromInterval(5, 100);
-
 let donor = {};
-
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
@@ -234,7 +232,7 @@ Then(
     'my last email should contain the correct amounts',
     async () => {
         if (!(await checkAnEmailBodyContainsText(
-            `Donation: <strong>£${donationAmount}.00</strong>`,
+            `Donation: <strong>£${donationAmount}.00</strong>`
         ))) {
             throw new Error(`Donation amount £${donationAmount} not found in email`);
         }
@@ -254,9 +252,58 @@ Then(
     'my last email should contain the correct name',
     async () => {
         if (!(await checkAnEmailBodyContainsText(
-            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`,
+            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`
         ))) {
             throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
+        }
+    }
+);
+
+When(
+    /^I press on the button to set a password$/,
+    async () => {
+        await DonateSuccessPage.clickOnSetPasswordButton();
+    }
+);
+
+When(
+    /^I enter my new password$/,
+    async () => {
+        await DonateSuccessPage.populatePassword();
+    }
+);
+
+When(
+    /^I press on the button to create an account$/,
+    async () => {
+        await DonateSuccessPage.clickOnCreateAccountButton();
+    }
+);
+
+Then(
+    /^the page should update to say I'm registered$/,
+    async () => {
+        await DonateSuccessPage.checkCopySaysImRegistered();
+    }
+);
+
+Then(
+    /^I should recieve a registration success email with the email I donated with$/,
+    async () => {
+        if (!(await checkAnEmailSubjectContainsText(
+            'You are registered with Big Give'
+        ))) {
+            throw new Error('Registration email subject not found.');
+        }
+
+        // eslint-disable-next-line max-len
+        const expectedCopy = `You are now registered for Big Give with the email address: ${donor.email}`;
+
+        if (!(await checkAnEmailBodyContainsText(
+            expectedCopy
+        ))) {
+            throw new Error(`Registration email with expected copy not found.
+            Expected: ${expectedCopy}`);
         }
     }
 );

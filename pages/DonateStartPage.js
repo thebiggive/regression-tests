@@ -177,7 +177,9 @@ export default class DonateStartPage {
     async populateNameAndEmail() {
         const firstName = generateIdentifier('Firstname-');
         const lastName = generateIdentifier('Lastname-');
-        const email = 'tech+regression+tests@thebiggive.org.uk';
+        // This enforces the email to always be unique, so the test to create an account works
+        // because we never hit the error of the email already being used by another used. REG-26.
+        const email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
 
         await inputSelectorValue(firstNameSelector, firstName);
         await inputSelectorValue(lastNameSelector, lastName);
@@ -228,8 +230,8 @@ export default class DonateStartPage {
      *
      */
     async checkDonorEmail(expectedEmail) {
-        const surname = await $(emailAddressSelector).getValue();
-        if (surname !== expectedEmail) {
+        const email = await $(emailAddressSelector).getValue();
+        if (email !== expectedEmail) {
             throw new Error('Email value not as expected.');
         }
     }
