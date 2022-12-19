@@ -297,8 +297,7 @@ Then(
         }
 
         if (!(await checkAnEmailBodyContainsText(
-            `You are now <span class="il">registered</span> for Big Give with the email address: 
-            <a href="mailto:${donor.email}" target="_blank">${donor.email}</a>`
+            `You are now registered for Big Give with the email address: ${donor.email}`
         ))) {
             throw new Error('Registration email with expected copy not found.');
         }
