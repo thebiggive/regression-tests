@@ -296,10 +296,14 @@ Then(
             throw new Error('Registration email subject not found.');
         }
 
+        // eslint-disable-next-line max-len
+        const expectedCopy = `You are now registered for Big Give with the email address: ${donor.email}`;
+
         if (!(await checkAnEmailBodyContainsText(
-            `You are now registered for Big Give with the email address: ${donor.email}`
+            expectedCopy
         ))) {
-            throw new Error('Registration email with expected copy not found.');
+            throw new Error(`Registration email with expected copy not found.
+            Expected: ${expectedCopy}`);
         }
     }
 );
