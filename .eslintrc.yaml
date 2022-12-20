@@ -46,12 +46,6 @@ rules:
         - 'Given'
         - 'When'
         - 'Then'
-  require-jsdoc:
-    - 'error'
-    - require:
-        FunctionDeclaration: true
-        MethodDefinition: true
-        ClassDeclaration: true
   strict: 'off'
   valid-jsdoc:
     - 'error'
