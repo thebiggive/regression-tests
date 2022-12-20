@@ -15,6 +15,8 @@ import {
     leaveStripeIframe
 } from '../support/action';
 
+const AxeBuilder = require('@axe-core/webdriverio').default;
+
 // routes
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
 
@@ -324,6 +326,53 @@ export default class DonateStartPage {
      * Press donate button
      */
     async submitForm() {
+        // Experimental Axe check just before hitting donate.
+        this.checkNoAccessibilityViolations();
+
         await clickSelector(submitBtnSelector);
+    }
+
+    /**
+     * Run Axe on the current page. Fail tests if there are violations (todo). Log violations
+     * and incompletes.
+     */
+    async checkNoAccessibilityViolations() {
+        const builder = new AxeBuilder({ client: browser });
+        let result;
+        try {
+            result = await builder.analyze();
+        } catch (err) {
+            // TODO If possible, figure out how to avoid `Error: client.createWindow is not a
+            // function`. Although if it only happens on errors, it might have the same end result
+            // as throwing our own Error. See also
+            // eslint-disable-next-line max-len
+            // https://github.com/dequelabs/axe-core-npm/blob/develop/packages/webdriverio/error-handling.md
+            console.error('Axe check error', err);
+        }
+
+        if (result && result.violations.length > 0) {
+            console.log(`${result.violations.length} accessibility violations`);
+
+            result.violations.forEach((violation) => {
+                console.log(violation.description);
+                violation.nodes.forEach((node) => {
+                    console.log(node.html);
+                });
+            });
+
+            // TODO Throw an error once the frontend is in a known good state.
+            // throw new Error('Accessibility check failed before donate button click');
+        }
+
+        if (result && result.incomplete.length > 0) {
+            console.log(`${result.incomplete.length} accessibility incomplete items`);
+
+            result.incomplete.forEach((incompleteItem) => {
+                console.log(incompleteItem.description);
+                incompleteItem.nodes.forEach((node) => {
+                    console.log(node.html);
+                });
+            });
+        }
     }
 }
