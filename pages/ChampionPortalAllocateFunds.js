@@ -16,9 +16,6 @@ const cancelBtnSelector = 'button=Cancel';
 const emailInput = process.env.CHAMPION_PORTAL_EMAIL;
 const passwordInput = process.env.CHAMPION_PORTAL_PASSWORD;
 
-/**
- * Champion Portal allocation of funds class
- */
 export default class ChampionPortalAllocateFunds {
     /**
      * Set up page with browser object.
@@ -52,9 +49,6 @@ export default class ChampionPortalAllocateFunds {
         );
     }
 
-    /**
-     * Navigate to campaigns page
-     */
     async navigateToCampaignsPage() {
         await clickSelector(
             "//a[@class='slds-button slds-button_brand'][contains(text(), 'Campaigns')]",
@@ -72,9 +66,6 @@ export default class ChampionPortalAllocateFunds {
         );
     }
 
-    /**
-     * Click 'Continue Draft' button
-     */
     async clickContinueDraft() {
         await clickSelector(continueDraftBtnSelector);
     }
@@ -98,9 +89,6 @@ export default class ChampionPortalAllocateFunds {
         await clickSelector("//td[@data-label = 'Fund this Charity?']//span//button");
     }
 
-    /**
-     * Set offer funds checkbox
-     */
     async setOfferFundsCheckbox() {
         await clickSelector(
             "//label[@class='slds-checkbox__label']//span[@class='slds-checkbox_faux']",
@@ -116,9 +104,6 @@ export default class ChampionPortalAllocateFunds {
         await clickSelector('//html');
     }
 
-    /**
-     * Click save button
-     */
     async clickSaveButton() {
         await checkSelectorContent(
             "//button[@class='slds-button slds-button_brand save-btn']",
@@ -138,9 +123,6 @@ export default class ChampionPortalAllocateFunds {
         await this.checkChampionFundingAmount('£12,500.00');
     }
 
-    /**
-     * Check data shown in modal pop up
-     */
     async checkModalData() {
         await checkSelectorContent(
             // eslint-disable-next-line max-len

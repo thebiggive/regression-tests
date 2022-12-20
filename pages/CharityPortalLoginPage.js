@@ -21,16 +21,10 @@ const passwordInput = process.env.CHARITY_PORTAL_PASSWORD;
  * Login page for charity portal / Community users
  */
 export default class CharityPortalLoginPage {
-    /**
-     * open login page
-     */
     static async open() {
         await goToUrl(charityPortalUrl);
     }
 
-    /**
-     * check if page ready
-     */
     static async checkReady() {
         await checkTitle(titleCheck);
     }
@@ -46,9 +40,6 @@ export default class CharityPortalLoginPage {
         await inputSelectorValue(passwordSelector, passwordInput);
     }
 
-    /**
-     * submit login form
-     */
     static async submitForm() {
         await clickSelector(loginBtnSelector);
     }

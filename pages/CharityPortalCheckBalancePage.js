@@ -11,9 +11,6 @@ const balanceCountSelector = 'div:nth-child(5) > div > div.lf-dash-number';
 const titleCheck = 'The Big Give - Dashboard';
 const urlCheck = 'charities/s/';
 
-/**
- * Charity portal user: check balance
- */
 export default class CharityPortalCheckBalancePage {
     /**
      * check if page ready && close overlay modal

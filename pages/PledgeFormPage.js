@@ -38,9 +38,6 @@ export default class PledgeFormPage {
         return `//span[contains(text(), '${label}')]//..//..//select`;
     }
 
-    /**
-     * Open pledge form.
-     */
     async open() {
         await goToUrl(startUrl);
         await checkTitle('Pledge');
@@ -77,9 +74,6 @@ export default class PledgeFormPage {
         );
     }
 
-    /**
-     * Check the T&Cs box.
-     */
     async acceptTerms() {
         // Hack for now as the input isn't properly labelled. We should fix this for a11y too.
         await clickSelector("//span[@class='slds-checkbox']//span[@class='slds-checkbox_faux']");
@@ -104,16 +98,10 @@ export default class PledgeFormPage {
         );
     }
 
-    /**
-     * Clicks the Gift Aid radio button labelled 'Yes'.
-     */
     async setGiftAidToYes() {
         await clickSelector("//span[@class='slds-radio']//span[contains(text(), 'Yes')]");
     }
 
-    /**
-     * Populates 'Title'.
-     */
     async setPledgerTitle() {
         await inputSelectorValue(
             await this.getCommunitiesInputForLabel('Title'),
@@ -121,9 +109,6 @@ export default class PledgeFormPage {
         );
     }
 
-    /**
-     * Populates 'First name'.
-     */
     async setPledgerFirstName() {
         await inputSelectorValue(
             await this.getCommunitiesInputForLabel('First name'),
@@ -131,9 +116,6 @@ export default class PledgeFormPage {
         );
     }
 
-    /**
-     * Populates 'Last name'.
-     */
     async setPledgerLastName() {
         await inputSelectorValue(
             await this.getCommunitiesInputForLabel('Last name'),
