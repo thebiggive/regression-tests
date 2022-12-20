@@ -14,8 +14,8 @@ Feature: Existing donor: credit donation completes successfully
         And I should see "Your credit balance will be used and the donation value capped at £" in the ID info box
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid
-        Then I should see my populated first name is "Regression"
-        And I should see my populated surname is "Credits"
+        Then I should see my populated first name is "RegressionTest"
+        And I should see my populated surname is "User"
         And I should see my populated email is "tech+regression+credits@thebiggive.org.uk"
         And I should see "Your credit balance will be applied against this donation. No further funds will be taken." instead of asking for my bank details.
         When I continue through this step with no changes
