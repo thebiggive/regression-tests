@@ -46,9 +46,6 @@ const continueBtnSelector = '>>>#proceed-with-donation';
 const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
 
-/**
- * Donate page class
- */
 export default class DonateStartPage {
     /**
      * Set up page with the expectation of starting with the first step and its
@@ -101,17 +98,11 @@ export default class DonateStartPage {
         return inputSelectorValue(selector, inputValue);
     }
 
-    /**
-     * open the donate page
-     */
     async open() {
         this.charity = 'Exempt Stripe Test Charity';
         await goToUrl(startPageStripe);
     }
 
-    /**
-     * check if page ready
-     */
     async checkReady() {
         await checkTitle(`Donate to ${this.charity}`);
         await checkSelectorContent(pageHeadingSelector, this.charity);
@@ -163,9 +154,6 @@ export default class DonateStartPage {
         // Leave tip at select dropdown's default if in Stripe mode and that field exists.
     }
 
-    /**
-     * Choose Gift Aid preference.
-     */
     async setGiftAidChoice() {
         // Pause for 2 secs
         await this.browser.pause(2000);

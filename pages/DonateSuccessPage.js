@@ -18,13 +18,7 @@ const registrationTextSelector = '#registrationCompleteText';
 const balanceTextPreCheck = '£';
 const urlCheck = 'thanks';
 
-/**
- * Checkout success page
- */
 export default class DonateSuccessPage {
-    /**
-     * Checks if page is ready
-     */
     static async checkReady() {
         await checkUrl(urlCheck);
     }
@@ -40,30 +34,18 @@ export default class DonateSuccessPage {
         );
     }
 
-    /**
-     * Clicks on the 'Set a password' button
-     */
     static async clickOnSetPasswordButton() {
         await clickSelector(setPasswordButtonSelector);
     }
 
-    /**
-     * Populates password field
-     */
     static async populatePassword() {
         await inputSelectorValue(passwordSelector, '0123456789');
     }
 
-    /**
-     * Clicks on the 'Create account' button
-     */
     static async clickOnCreateAccountButton() {
         await clickSelector(createAccountButtonSelector);
     }
 
-    /**
-     * Checks that the donation-success page says 'You are now registered'
-     */
     static async checkCopySaysImRegistered() {
         await checkSelectorContent(registrationTextSelector, 'You are now registered');
     }
