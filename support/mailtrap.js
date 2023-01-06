@@ -66,22 +66,24 @@ export async function checkAnEmailBodyContainsText(searchText) {
 /**
  * Checks one of the latest emails' subject line contains the expected text.
  *
- * Be sure to `await` any results that should impact test pass/fail status!
+ * Throws if the subject was not found.
  *
  * @param {string} searchText   Text to expect in latest subject line.
- * @returns {boolean}           Whether the text was found.
+ * @returns {void}
  */
 export async function checkAnEmailSubjectContainsText(searchText) {
     const messages = await getLatestMessages();
     if (messages.length === 0) {
-        return false;
+        throw new Error('No email messages found');
     }
 
     for (let ii = 0; ii < messages.length; ii += 1) {
         if (messages[ii].subject.includes(searchText)) {
-            return true;
+            return;
         }
     }
 
-    return false;
+    const joinedSubjects = messages.map((m) => m.subject).join(', ');
+
+    throw new Error(`"${searchText}" not found in email subjects: "${joinedSubjects}"`);
 }
