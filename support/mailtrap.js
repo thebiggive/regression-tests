@@ -26,6 +26,10 @@ async function mailtrapGet(path, responseType) {
  * @returns {array}     Up to {{count}} messages, if available.
  */
 async function getLatestMessages(count = 5, toEmailAddress) {
+    if (typeof toEmailAddress !== 'string') {
+        throw new Error(`Expected toEmailAddress to be string, was ${typeof toEmailAddress}: ${toEmailAddress}`);
+    }
+
     const params = new URLSearchParams({ search: toEmailAddress, page: '', last_id: '' });
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?${params.toString()}`;
     const messages = await mailtrapGet(path, 'json');
