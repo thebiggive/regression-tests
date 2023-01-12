@@ -83,8 +83,8 @@ When(
 When(
     'I give a valid pledger email address',
     async () => {
-        emailAddress = `pledger+${randomIntFromInterval(1, 9999999)}@thebiggivetest.org.uk`;
-        await page.setPledgerEmail('Email', emailAddress);
+        page.emailAddress = `pledger+${randomIntFromInterval(1, 9999999)}@thebiggivetest.org.uk`;
+        await page.setPledgerEmail('Email', page.emailAddress);
     }
 );
 
@@ -119,7 +119,7 @@ Then(
         const expectedBody = 'Thank you for your generous match funding pledge of '
             + `£${pledgeAmount}.00 to `
             + 'Exempt Stripe Test Charity for the campaign: Submit a pledge of funds';
-        if (await checkAnEmailBodyContainsText(expectedBody, emailAddress)) {
+        if (await checkAnEmailBodyContainsText(expectedBody, page.email)) {
             console.log(`CHECK: Email refers to £${pledgeAmount} pledge and correct campaign`);
         } else {
             throw new Error(`Pledge amount £${pledgeAmount} or details not found in email`);
