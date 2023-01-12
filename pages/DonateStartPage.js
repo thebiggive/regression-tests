@@ -56,12 +56,6 @@ export default class DonateStartPage {
         this.browser = browser;
         this.nextStepIndex = 0;
         this.charity = null;
-
-        this.firstName = generateIdentifier('Firstname-');
-        this.lastName = generateIdentifier('Lastname-');
-        // This enforces the email to always be unique, so the test to create an account works
-        // because we never hit the error of the email already being used by another used. REG-26.
-        this.email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
     }
 
     /**
@@ -171,12 +165,16 @@ export default class DonateStartPage {
      * Enter first & last name and email address, in Stripe mode.
      */
     async populateNameAndEmail() {
-        const { firstName, lastName, email } = this;
+        const firstName = generateIdentifier('Firstname-');
+        const lastName = generateIdentifier('Lastname-');
+        // This enforces the email to always be unique, so the test to create an account works
+        // because we never hit the error of the email already being used by another used. REG-26.
+        const email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
+
         await inputSelectorValue(firstNameSelector, firstName);
         await inputSelectorValue(lastNameSelector, lastName);
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
         // fake SMTP server, regardless of the donor's given email address.
-
         await inputSelectorValue(emailAddressSelector, email);
 
         return {
