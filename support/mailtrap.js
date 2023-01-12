@@ -22,10 +22,12 @@ async function mailtrapGet(path, responseType) {
  * Get the latest Mailtrap inbox message, if any.
  *
  * @param {int} count  Number of recent emails to get.
+ * @param {string} toEmailAddress Only find emails addressed to this account
  * @returns {array}     Up to {{count}} messages, if available.
  */
-async function getLatestMessages(count = 5) {
-    const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?search=&page=&last_id=`;
+async function getLatestMessages(count = 5, toEmailAddress) {
+    const params = new URLSearchParams({ search: toEmailAddress, page: '', last_id: '' });
+    const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?${params.toString()}`;
     const messages = await mailtrapGet(path, 'json');
     if (messages.length === 0) {
         return [];
@@ -40,10 +42,12 @@ async function getLatestMessages(count = 5) {
  * Be sure to `await` any results that should impact test pass/fail status!
  *
  * @param {string} searchText   Expected text to find anywhere in HTML
+ * @param {string} toEmailAddress Only find emails addressed to this account
+ *              (or an account that starts with this)
  * @returns {boolean}       Whether the expected text was found.
  */
-export async function checkAnEmailBodyContainsText(searchText) {
-    const messages = await getLatestMessages();
+export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
+    const messages = await getLatestMessages(toEmailAddress);
     if (messages.length === 0) {
         return false;
     }
@@ -69,10 +73,11 @@ export async function checkAnEmailBodyContainsText(searchText) {
  * Throws if the subject was not found.
  *
  * @param {string} searchText   Text to expect in latest subject line.
+ * @param {string} toEmailAddress Only find emails addressed to this account
  * @returns {void}
  */
-export async function checkAnEmailSubjectContainsText(searchText) {
-    const messages = await getLatestMessages();
+export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress) {
+    const messages = await getLatestMessages(toEmailAddress);
     if (messages.length === 0) {
         throw new Error('No email messages found');
     }

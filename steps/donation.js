@@ -232,7 +232,8 @@ Then(
     'my last email should contain the correct amounts',
     async () => {
         if (!(await checkAnEmailBodyContainsText(
-            `Donation: <strong>£${donationAmount}.00</strong>`
+            `Donation: <strong>£${donationAmount}.00</strong>`,
+            donor.email
         ))) {
             throw new Error(`Donation amount £${donationAmount} not found in email`);
         }
@@ -242,7 +243,7 @@ Then(
 Then(
     'my last email should contain the charity\'s custom thank you message',
     async () => {
-        if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS))) {
+        if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS, donor.email))) {
             throw new Error('Charity thank you message not found in email');
         }
     }
@@ -252,7 +253,8 @@ Then(
     'my last email should contain the correct name',
     async () => {
         if (!(await checkAnEmailBodyContainsText(
-            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`
+            `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`,
+            donor.email,
         ))) {
             throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
         }
@@ -296,7 +298,8 @@ Then(
         const expectedCopy = `You are now registered for Big Give with the email address: ${donor.email}`;
 
         if (!(await checkAnEmailBodyContainsText(
-            expectedCopy
+            expectedCopy,
+            donor.email
         ))) {
             throw new Error(`Registration email with expected copy not found.
             Expected: ${expectedCopy}`);
