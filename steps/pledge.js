@@ -35,6 +35,7 @@ When(
     /^I enter a pledge amount between £([0-9]+) and £([0-9]+)$/,
     async (minAmount, maxAmount) => {
         pledgeAmount = randomIntFromInterval(Number(minAmount), Number(maxAmount));
+        console.log(`Randomly selected ${pledgeAmount} as between ${minAmount} and ${maxAmount}`);
         await page.setPledgeAmount(pledgeAmount);
     }
 );
