@@ -21,11 +21,10 @@ async function mailtrapGet(path, responseType) {
 /**
  * Get the latest Mailtrap inbox message, if any.
  *
- * @param {int} count  Number of recent emails to get.
  * @param {string} toEmailAddress Only find emails addressed to this account
  * @returns {array}     Up to {{count}} messages, if available.
  */
-async function getLatestMessages(count = 5, toEmailAddress) {
+async function getLatestMessages(toEmailAddress) {
     if (typeof toEmailAddress !== 'string') {
         throw new Error(`Expected toEmailAddress to be string, was ${typeof toEmailAddress}: ${toEmailAddress}`);
     }
@@ -40,7 +39,8 @@ async function getLatestMessages(count = 5, toEmailAddress) {
         return [];
     }
 
-    return messages.slice(0, count); // Latest e.g. 5 emails.
+    const count = 5;
+    return messages.slice(0, count); // Latest emails.
 }
 
 /**
