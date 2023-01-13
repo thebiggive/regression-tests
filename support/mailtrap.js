@@ -29,10 +29,9 @@ async function getLatestMessages(toEmailAddress) {
         throw new Error(`Expected toEmailAddress to be string, was ${typeof toEmailAddress}: ${toEmailAddress}`);
     }
 
-    const params = new URLSearchParams({ search: toEmailAddress, page: '', last_id: '' });
+    const params = new URLSearchParams({ search: toEmailAddress });
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?${params.toString()}`;
     const messages = await mailtrapGet(path, 'json');
-
     console.log(`got ${messages.length} message(s) from mailtrap at path ${path}`);
 
     if (messages.length === 0) {
