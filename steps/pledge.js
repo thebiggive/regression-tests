@@ -35,6 +35,7 @@ When(
     /^I enter a pledge amount between £([0-9]+) and £([0-9]+)$/,
     async (minAmount, maxAmount) => {
         pledgeAmount = randomIntFromInterval(Number(minAmount), Number(maxAmount));
+        console.log(`Randomly selected ${pledgeAmount} as between ${minAmount} and ${maxAmount}`);
         await page.setPledgeAmount(pledgeAmount);
     }
 );
@@ -118,7 +119,7 @@ Then(
         const expectedBody = 'Thank you for your generous match funding pledge of '
             + `£${pledgeAmount}.00 to `
             + 'Exempt Stripe Test Charity for the campaign: Submit a pledge of funds';
-        if (await checkAnEmailBodyContainsText(expectedBody)) {
+        if (await checkAnEmailBodyContainsText(expectedBody, emailAddress)) {
             console.log(`CHECK: Email refers to £${pledgeAmount} pledge and correct campaign`);
         } else {
             throw new Error(`Pledge amount £${pledgeAmount} or details not found in email`);
@@ -129,6 +130,6 @@ Then(
 Then(
     /^my last email subject should contain "(.+)"$/,
     async (subjectText) => {
-        checkAnEmailSubjectContainsText(subjectText);
+        checkAnEmailSubjectContainsText(subjectText, emailAddress);
     }
 );
