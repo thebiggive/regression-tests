@@ -9,9 +9,6 @@ import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '.
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
-import CharityPortalLoginPage from '../pages/CharityPortalLoginPage';
-import CharityPortalCheckBalancePage
-    from '../pages/CharityPortalCheckBalancePage';
 
 /**
  * Note: donationAmount is changable in the `restart-donation` test, whereby the bot changes the
@@ -208,17 +205,6 @@ Then(
     async () => {
         await DonateSuccessPage.checkReady();
         await DonateSuccessPage.checkBalance(donationAmount);
-    }
-);
-
-When(
-    /^I login to my charity portal page$/,
-    async () => {
-        await CharityPortalLoginPage.open();
-        await CharityPortalLoginPage.checkReady();
-        await CharityPortalLoginPage.fillForm();
-        await CharityPortalLoginPage.submitForm();
-        await CharityPortalCheckBalancePage.checkReady();
     }
 );
 
