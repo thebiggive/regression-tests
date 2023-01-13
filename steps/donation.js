@@ -233,7 +233,7 @@ Then(
     async () => {
         if (!(await checkAnEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
-            page.email
+            donor.email
         ))) {
             throw new Error(`Donation amount £${donationAmount} not found in email`);
         }
@@ -243,7 +243,7 @@ Then(
 Then(
     'my last email should contain the charity\'s custom thank you message',
     async () => {
-        if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS, page.email))) {
+        if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS, donor.email))) {
             throw new Error('Charity thank you message not found in email');
         }
     }
@@ -254,7 +254,7 @@ Then(
     async () => {
         if (!(await checkAnEmailBodyContainsText(
             `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`,
-            page.email,
+            donor.email,
         ))) {
             throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
         }
@@ -299,7 +299,7 @@ Then(
 
         if (!(await checkAnEmailBodyContainsText(
             expectedCopy,
-            page.email
+            donor.email
         ))) {
             throw new Error(`Registration email with expected copy not found.
             Expected: ${expectedCopy}`);
