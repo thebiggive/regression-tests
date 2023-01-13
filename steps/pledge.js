@@ -130,6 +130,6 @@ Then(
 Then(
     /^my last email subject should contain "(.+)"$/,
     async (subjectText) => {
-        checkAnEmailSubjectContainsText(subjectText);
+        checkAnEmailSubjectContainsText(subjectText, emailAddress);
     }
 );
