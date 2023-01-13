@@ -292,7 +292,7 @@ Then(
 Then(
     /^I should recieve a registration success email with the email I donated with$/,
     async () => {
-        checkAnEmailSubjectContainsText('You are registered with Big Give');
+        checkAnEmailSubjectContainsText('You are registered with Big Give', donor.email);
 
         // eslint-disable-next-line max-len
         const expectedCopy = `You are now registered for Big Give with the email address: ${donor.email}`;
