@@ -41,3 +41,8 @@ yarn test:local
 These are configured and scheduled [with CircleCI](./circle.yml).
 
 The runner is now TestingBot where we have an open source plan. For now we are running against a recent stable Chrome version only.
+
+## Future development notes
+
+We may want to add tests for the charity login page. We had some dead code relating to this,
+which may or may not be useful for reference - see commit 6d1477f which removed CharityPortalLoginPage.
