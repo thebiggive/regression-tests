@@ -90,7 +90,14 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
  */
 async function checkText(element, content, seconds = WAIT_SECONDS) {
     return browser.waitUntil(
-        async () => (await element.getText()).includes(content),
+        async () => {
+            const text = element.getText();
+            if (!(await text).includes(content)) {
+                console.error(`Expected content ${content} not found in text ${(await text)}`);
+                return false;
+            }
+            return true;
+        },
         {
             timeout: seconds * 1000,
             timeoutMsg: `Expected element to contain "${content}"`,

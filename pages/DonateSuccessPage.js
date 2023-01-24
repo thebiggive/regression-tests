@@ -9,8 +9,8 @@ import {
 
 // selectors
 const createAccountButtonSelector = '#createAccountButton';
-const setPasswordButtonSelector = '#setPasswordButton';
-const statusSelector = '.c-main .b-rt-0:first-of-type .b-bold';
+const setPasswordButtonSelector = '>>>a.button';
+const receiptSelector = 'div.receipt';
 const passwordSelector = '#password';
 const registrationTextSelector = '#registrationCompleteText';
 
@@ -29,8 +29,8 @@ export default class DonateSuccessPage {
      */
     static async checkBalance(donationAmount) {
         await checkSelectorContent(
-            statusSelector,
-            `${balanceTextPreCheck}${donationAmount}`,
+            receiptSelector,
+            `Your donation ${balanceTextPreCheck}${donationAmount}`,
         );
     }
 
