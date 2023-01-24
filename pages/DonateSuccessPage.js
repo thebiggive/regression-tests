@@ -9,7 +9,7 @@ import {
 
 // selectors
 const createAccountButtonSelector = '#createAccountButton';
-const setPasswordButtonSelector = '#setPasswordButton';
+const setPasswordButtonSelector = '#save-my-details-cta .button';
 const receiptSelector = 'div.receipt';
 const passwordSelector = '#password';
 const registrationTextSelector = '#registrationCompleteText';
