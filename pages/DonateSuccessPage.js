@@ -30,7 +30,7 @@ export default class DonateSuccessPage {
     static async checkBalance(donationAmount) {
         await checkSelectorContent(
             receiptSelector,
-            `${balanceTextPreCheck}${donationAmount}`,
+            `Your donation ${balanceTextPreCheck}${donationAmount}`,
         );
     }
 
