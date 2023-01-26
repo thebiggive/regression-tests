@@ -348,8 +348,7 @@ export default class DonateStartPage {
                 });
             });
 
-            // TODO Throw an error once the frontend is in a known good state.
-            // throw new Error('Accessibility check failed before donate button click');
+            throw new Error('Accessibility check failed before donate button click');
         }
 
         if (result && result.incomplete.length > 0) {
