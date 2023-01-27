@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/webdriverio';
 import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
@@ -14,8 +15,6 @@ import {
     inputSelectorValue,
     leaveStripeIframe
 } from '../support/action';
-
-const AxeBuilder = require('@axe-core/webdriverio').default;
 
 // routes
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
