@@ -343,6 +343,7 @@ export default class DonateStartPage {
             });
 
             throw new Error(
+                // eslint-disable-next-line max-len
                 `Accessibility check failed before donate button click:\n\n${JSON.stringify(result.violations, null, '  ')}`
             );
         }
