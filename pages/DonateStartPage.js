@@ -1,3 +1,5 @@
+import AxeBuilder from '@axe-core/webdriverio';
+
 import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
@@ -14,8 +16,6 @@ import {
     inputSelectorValue,
     leaveStripeIframe
 } from '../support/action';
-
-const AxeBuilder = require('@axe-core/webdriverio').default;
 
 // routes
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
@@ -321,25 +321,24 @@ export default class DonateStartPage {
     }
 
     /**
-     * Run Axe on the current page. Fail tests if there are violations (todo). Log violations
-     * and incompletes.
+     * Run Axe on the current page. Fail tests if there are unexpected violations. Log
+     * incompletes.
      */
     async checkNoAccessibilityViolations() {
         const builder = new AxeBuilder({ client: browser });
-        let result;
-        try {
-            result = await builder.analyze();
-        } catch (err) {
-            // TODO If possible, figure out how to avoid `Error: client.createWindow is not a
-            // function`. Although if it only happens on errors, it might have the same end result
-            // as throwing our own Error. See also
-            // eslint-disable-next-line max-len
-            // https://github.com/dequelabs/axe-core-npm/blob/develop/packages/webdriverio/error-handling.md
-            console.error('Axe check error', err);
-        }
 
-        if (result && result.violations.length > 0) {
-            console.log(`${result.violations.length} accessibility violations`);
+        // We accept that the contrast is not good enough on the twitter floating share link
+        builder.exclude('[data-tag="twitter"]');
+
+        // the follow rules are currently known to fail - see issue REG-23
+        builder.disableRules(['landmark-unique', 'page-has-heading-one', 'region']);
+        builder.setLegacyMode(); // avoids Error: client.createWindow is not a function
+
+        const result = await builder.analyze();
+
+        const violationCount = result.violations.length;
+        if (violationCount > 0) {
+            console.log(`${violationCount} accessibility violations`);
 
             result.violations.forEach((violation) => {
                 console.log(violation.description);
@@ -348,8 +347,10 @@ export default class DonateStartPage {
                 });
             });
 
-            // TODO Throw an error once the frontend is in a known good state.
-            // throw new Error('Accessibility check failed before donate button click');
+            throw new Error(
+                // eslint-disable-next-line max-len
+                `Accessibility check failed before donate button click, ${violationCount} issues:\n\n${JSON.stringify(result.violations, null, '  ')}`
+            );
         }
 
         if (result && result.incomplete.length > 0) {
