@@ -342,7 +342,9 @@ export default class DonateStartPage {
                 });
             });
 
-            throw new Error('Accessibility check failed before donate button click');
+            throw new Error(
+                `Accessibility check failed before donate button click:\n\n${JSON.stringify(result.violations, null, '  ')}`
+            );
         }
 
         if (result && result.incomplete.length > 0) {
