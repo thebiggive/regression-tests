@@ -328,6 +328,7 @@ export default class DonateStartPage {
 
         // We accept that the contrast is not good enough on the twitter floating share link
         builder.exclude('[data-tag="twitter"]');
+        builder.setLegacyMode(); // trying to avoid client.createWindow error
 
         let result;
         try {
