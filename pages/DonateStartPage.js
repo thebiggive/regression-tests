@@ -330,19 +330,9 @@ export default class DonateStartPage {
         builder.exclude('[data-tag="twitter"]');
         builder.setLegacyMode(); // trying to avoid client.createWindow error
 
-        let result;
-        try {
-            result = await builder.analyze();
-        } catch (err) {
-            // TODO If possible, figure out how to avoid `Error: client.createWindow is not a
-            // function`. Although if it only happens on errors, it might have the same end result
-            // as throwing our own Error. See also
-            // eslint-disable-next-line max-len
-            // https://github.com/dequelabs/axe-core-npm/blob/develop/packages/webdriverio/error-handling.md
-            console.error('Axe check error', err);
-        }
+        const result = await builder.analyze();
 
-        if (result && result.violations.length > 0) {
+        if (result.violations.length > 0) {
             console.log(`${result.violations.length} accessibility violations`);
 
             result.violations.forEach((violation) => {
