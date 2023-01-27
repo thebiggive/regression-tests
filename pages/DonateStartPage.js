@@ -1,4 +1,5 @@
 import AxeBuilder from '@axe-core/webdriverio';
+
 import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
@@ -332,8 +333,9 @@ export default class DonateStartPage {
 
         const result = await builder.analyze();
 
-        if (result.violations.length > 0) {
-            console.log(`${result.violations.length} accessibility violations`);
+        const violationCount = result.violations.length;
+        if (violationCount > 0) {
+            console.log(`${violationCount} accessibility violations`);
 
             result.violations.forEach((violation) => {
                 console.log(violation.description);
@@ -344,7 +346,7 @@ export default class DonateStartPage {
 
             throw new Error(
                 // eslint-disable-next-line max-len
-                `Accessibility check failed before donate button click:\n\n${JSON.stringify(result.violations, null, '  ')}`
+                `Accessibility check failed before donate button click, ${violationCount} issues:\n\n${JSON.stringify(result.violations, null, '  ')}`
             );
         }
 
