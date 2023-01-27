@@ -321,8 +321,8 @@ export default class DonateStartPage {
     }
 
     /**
-     * Run Axe on the current page. Fail tests if there are violations (todo). Log violations
-     * and incompletes.
+     * Run Axe on the current page. Fail tests if there are unexpected violations. Log
+     * incompletes.
      */
     async checkNoAccessibilityViolations() {
         const builder = new AxeBuilder({ client: browser });
@@ -332,7 +332,7 @@ export default class DonateStartPage {
 
         // the follow rules are currently known to fail - see issue REG-23
         builder.disableRules(['landmark-unique', 'page-has-heading-one', 'region']);
-        builder.setLegacyMode(); // trying to avoid client.createWindow error
+        builder.setLegacyMode(); // avoids Error: client.createWindow is not a function
 
         const result = await builder.analyze();
 
