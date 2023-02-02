@@ -331,7 +331,7 @@ export default class DonateStartPage {
         builder.exclude('[data-tag="twitter"]');
 
         // the follow rules are currently known to fail - see issue REG-23
-        builder.disableRules(['landmark-unique', 'page-has-heading-one', 'region']);
+        // builder.disableRules(['landmark-unique', 'page-has-heading-one', 'region']);
         builder.setLegacyMode(); // avoids Error: client.createWindow is not a function
 
         const result = await builder.analyze();
