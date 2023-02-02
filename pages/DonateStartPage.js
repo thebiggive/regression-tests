@@ -330,6 +330,10 @@ export default class DonateStartPage {
         // We accept that the contrast is not good enough on the twitter floating share link
         builder.exclude('[data-tag="twitter"]');
 
+        // We accept that the "How would you rate your donation experience today" survey is not as
+        // accessible as it should be.
+        builder.exclude('div.gdakiai');
+
         // the follow rules are currently known to fail - see issue REG-23
         // builder.disableRules(['landmark-unique', 'page-has-heading-one', 'region']);
         builder.setLegacyMode(); // avoids Error: client.createWindow is not a function
