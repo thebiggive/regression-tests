@@ -39,7 +39,7 @@ export default class DonateSuccessPage {
     }
 
     static async populatePassword() {
-        await inputSelectorValue(passwordSelector, '0123456789');
+        await inputSelectorValue(passwordSelector, this.generateRandomPassword());
     }
 
     static async clickOnCreateAccountButton() {
@@ -48,5 +48,10 @@ export default class DonateSuccessPage {
 
     static async checkCopySaysImRegistered() {
         await checkSelectorContent(registrationTextSelector, 'You are now registered');
+    }
+
+    generateRandomPassword() {
+        // From https://stackoverflow.com/a/48087112/2526181
+        return Array(20).fill(0).map((x) => Math.random().toString(36).charAt(2)).join('');
     }
 }
