@@ -52,6 +52,6 @@ export default class DonateSuccessPage {
 
     generateRandomPassword() {
         // From https://stackoverflow.com/a/48087112/2526181
-        return Array(20).fill(0).map((x) => Math.random().toString(36).charAt(2)).join('');
+        return Array(20).fill(0).map(() => Math.random().toString(36).charAt(2)).join('');
     }
 }
