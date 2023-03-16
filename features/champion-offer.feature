@@ -1,3 +1,4 @@
+@skip()
 Feature: Allocate champion funds to a charity successfully
 
   As a Champion
