@@ -86,7 +86,7 @@ export default class ChampionPortalAllocateFunds {
      * this test assumes only 1 charity is assigned to this champion.
      */
     async clickPencilIcon() {
-        await clickSelector("//td[@data-label = 'Fund this Charity?']//span//button");
+        await clickSelector("[data-label='Fund this Charity?'] button");
     }
 
     async setOfferFundsCheckbox() {
