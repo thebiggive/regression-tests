@@ -5,7 +5,7 @@ Feature: Allocate champion funds to a charity successfully
   So that I allocate funds to charities that have been shortlisted against my funding
 
   Scenario: Allocate champion funds to a charity successfully
-    Given I open the Champion Portal log in page successfully
+    Given I open the Champion Portal log in page
     And I close the cookie notice if shown
     Then I should be able to fill in my log in credentials and successfully log in
     When I navigate to campaigns page

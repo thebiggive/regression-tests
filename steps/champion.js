@@ -15,7 +15,7 @@ BeforeAll(() => {
 });
 
 Given(
-    'I open the Champion Portal log in page successfully',
+    'I open the Champion Portal log in page',
     async () => page.open()
 );
 
