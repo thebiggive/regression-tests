@@ -30,12 +30,12 @@ const donationAmountSelector = '#donationAmount';
 // ideally. Now we don't support IE for any journey we can hopefully use standard Xpath.
 const yourDonationStepSelector = '#cdk-step-label-0-0';
 const giftAidStepSelector = '#cdk-step-label-0-1';
-const claimGiftAidSelector = '#mat-radio-9';
+const claimGiftAidSelector = '#mat-radio-9 label';
 const firstNameSelector = '#firstName';
 const lastNameSelector = '#lastName';
 const emailAddressSelector = '#emailAddress';
-const receiveEmailFromCharitySelector = '#mat-radio-3';
-const receiveEmailFromTheBigGiveSelector = '#mat-radio-6';
+const receiveEmailFromCharitySelector = '#mat-radio-3 label';
+const receiveEmailFromTheBigGiveSelector = '#mat-radio-6 label';
 const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="cardnumber"]';
 const stripeExpiryDateSelector = 'input[name$="exp-date"]';
