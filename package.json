@@ -31,7 +31,7 @@
     "@wdio/spec-reporter": "^7.25.1",
     "@wdio/testingbot-service": "^7.25.1",
     "axios": "^1.1.2",
-    "chromedriver": "^107.0.3",
+    "chromedriver": "^111.0.0",
     "del-cli": "^3.0.1",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
