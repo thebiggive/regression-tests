@@ -213,7 +213,7 @@ Then(
 
 When(
     'I wait a few seconds',
-    async () => browser.pause(4.5 * 1000)
+    async () => browser.pause(45 * 1000)
 );
 
 When(
@@ -225,7 +225,6 @@ When(
 Then(
     'my last email should contain the correct amounts',
     async () => {
-        await sleep(45 * 1000);
         if (!(await checkAnEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
             donor.email
@@ -287,8 +286,6 @@ Then(
 Then(
     /^I should recieve a registration success email with the email I donated with$/,
     async () => {
-        await browser.pause(45 * 1000);
-
         checkAnEmailSubjectContainsText('You are registered with Big Give', donor.email);
 
         // eslint-disable-next-line max-len
