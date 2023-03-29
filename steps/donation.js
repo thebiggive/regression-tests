@@ -215,6 +215,11 @@ When(
     async () => browser.pause(4.5 * 1000)
 );
 
+When(
+    'I wait ([^"]+) seconds',
+    async (seconds) => browser.pause(seconds * 1000)
+);
+
 Then(
     'my last email should contain the correct amounts',
     async () => {
