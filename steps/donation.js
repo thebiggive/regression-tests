@@ -5,8 +5,6 @@ import {
     When
 } from '@cucumber/cucumber';
 
-import { setTimeout as sleep } from 'timers/promises';
-
 import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
