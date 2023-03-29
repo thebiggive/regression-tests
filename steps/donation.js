@@ -5,6 +5,8 @@ import {
     When
 } from '@cucumber/cucumber';
 
+import { setTimeout as sleep } from 'timers/promises';
+
 import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
@@ -223,8 +225,7 @@ When(
 Then(
     'my last email should contain the correct amounts',
     async () => {
-        await browser.pause(45 * 1000);
-
+        await sleep(45 * 1000);
         if (!(await checkAnEmailBodyContainsText(
             `Donation: <strong>£${donationAmount}.00</strong>`,
             donor.email
