@@ -216,7 +216,7 @@ When(
 );
 
 When(
-    'I wait ([^"]+) seconds',
+    'I wait "([^"]+)" seconds',
     async (seconds) => browser.pause(seconds * 1000)
 );
 

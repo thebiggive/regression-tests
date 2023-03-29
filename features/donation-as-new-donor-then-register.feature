@@ -21,5 +21,5 @@ Feature: New donor: donation completes successfully and donor registers
         And I enter my new password
         And I press on the button to create an account
         Then the page should update to say I'm registered
-        When I wait 45 seconds
+        When I wait "45" seconds
         Then I should recieve a registration success email with the email I donated with
