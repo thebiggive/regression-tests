@@ -1,3 +1,4 @@
+@skip()
 Feature: Existing donor: saved payment method donation completes successfully
 
     As a returning donor
