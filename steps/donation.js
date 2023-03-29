@@ -211,7 +211,7 @@ Then(
 When(
     'I wait a few seconds',
     // 45s to allow SF + Mailtrap time to process everything
-    async () => browser.pause(45 * 1000)
+    async () => browser.pause(4.5 * 1000)
 );
 
 Then(
