@@ -23,7 +23,7 @@ Feature: Existing donor: credit donation completes successfully
         And I choose a preference for charity and TBG communications
         And I press Donate
         Then I should be redirected to a Thank You confirmation page with the correct amount
-        When I wait a few seconds for email processing
+        When I wait a few seconds
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name

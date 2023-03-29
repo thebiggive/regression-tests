@@ -12,8 +12,8 @@ Feature: New donor: donation completes successfully and donor registers
         And I enter my name, email address and Stripe payment details
         And I choose a preference for charity and TBG communications
         And I press Donate
+        When I wait a few seconds
         Then I should be redirected to a Thank You confirmation page with the correct amount
-        When I wait a few seconds for email processing
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name
@@ -21,5 +21,5 @@ Feature: New donor: donation completes successfully and donor registers
         And I enter my new password
         And I press on the button to create an account
         Then the page should update to say I'm registered
-        When I wait a few seconds for email processing
+        When I wait a few seconds
         Then I should recieve a registration success email with the email I donated with
