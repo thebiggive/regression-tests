@@ -8,8 +8,10 @@ import {
 } from '../support/action';
 
 // selectors
+// todo add ID to wrapper in frontend to select the following more specifically:
+const setPasswordButtonSelector = '.cta biggive-button';
+
 const createAccountButtonSelector = '#createAccountButton';
-const setPasswordButtonSelector = '#save-details-button';
 const receiptSelector = 'div.receipt';
 const passwordSelector = '#password';
 const registrationTextSelector = '#registrationCompleteText';
