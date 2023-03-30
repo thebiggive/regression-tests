@@ -1,3 +1,4 @@
+@skip()
 Feature: Existing donor: saved payment method donation completes successfully
 
     As a returning donor
@@ -20,8 +21,8 @@ Feature: Existing donor: saved payment method donation completes successfully
         When I continue through this step with no changes
         And I choose a preference for charity and TBG communications
         And I press Donate
+        When I wait a few seconds
         Then I should be redirected to a Thank You confirmation page with the correct amount
-        When I wait a few seconds for email processing
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name

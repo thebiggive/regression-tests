@@ -70,6 +70,8 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         }
     }
 
+    console.error(`Expected "${searchText}" not found in email body:\n\n${body}`);
+
     return false;
 }
 

@@ -204,14 +204,20 @@ Then(
     /^I should be redirected to a Thank You confirmation page with the correct amount$/,
     async () => {
         await DonateSuccessPage.checkReady();
+        await browser.refresh(); // not sure if this will fix a test failure, shouldn't be needed. See REG-33
         await DonateSuccessPage.checkBalance(donationAmount);
     }
 );
 
 When(
-    'I wait a few seconds for email processing',
+    'I wait a few seconds',
+    async () => browser.pause(45 * 1000)
+);
+
+When(
+    'I wait 45 seconds',
     // 45s to allow SF + Mailtrap time to process everything
-    async () => browser.pause(45000)
+    async () => browser.pause(45 * 1000)
 );
 
 Then(
