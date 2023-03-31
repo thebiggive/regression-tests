@@ -63,7 +63,7 @@ exports.config = {
         backtrace: false,
         requireModule: [],
         failAmbiguousDefinitions: true,
-        failFast: false,
+        failFast: true, // temp for fast feedback while expecting failures
         ignoreUndefinedDefinitions: false,
         name: [],
         snippets: true,
