@@ -39,7 +39,8 @@ When(
 );
 
 When("I click the popup's login button", async () => {
-    await page.clickActiveSelector('#login-modal-submit .mat-mdc-button-touch-target');
+    const loginButton = await $('#login-modal-submit');
+    loginButton.click();
 });
 
 When(/I click the "([^"]+)" button/, async (buttonText) => {
