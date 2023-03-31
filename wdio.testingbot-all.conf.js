@@ -20,6 +20,9 @@ config.capabilities = [
 ];
 config.maxInstances = 2;
 config.services.push('testingbot');
+config.services.push((browser) => {
+    console.log(`Test record at Testingbot: https://testingbot.com/members/tests/${browser.sessionId}`);
+});
 
 config.path = '/wd/hub';
 config.user = process.env.TESTINGBOT_KEY;
