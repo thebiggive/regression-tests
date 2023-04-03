@@ -39,7 +39,7 @@ export default class DonateSuccessPage {
     }
 
     static async clickOnSetPasswordButton() {
-        browser.$('//*[text()="              Save my details              "]').click();
+        await clickSelector('button');
     }
 
     static async populatePassword() {
