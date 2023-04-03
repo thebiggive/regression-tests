@@ -22,8 +22,8 @@ Feature: New donor: donation completes successfully and donor registers
 #         building it up again. Seems like the click on the previous line isn't opeing the modal for some reason
 #         so entering the new password fails right now.
 
-#        And I enter my new password
-#        And I press on the button to create an account
-#        Then the page should update to say I'm registered
-#        When I wait a few seconds
-#        Then I should recieve a registration success email with the email I donated with
+        And I enter my new password
+        And I press on the button to create an account
+        Then the page should update to say I'm registered
+        When I wait a few seconds
+        Then I should recieve a registration success email with the email I donated with
