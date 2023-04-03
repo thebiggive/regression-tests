@@ -21,6 +21,10 @@ const balanceTextPreCheck = '£';
 const urlCheck = 'thanks';
 
 export default class DonateSuccessPage {
+    constructor(browser) {
+        this.browser = browser;
+    }
+
     static async checkReady() {
         await checkUrl(urlCheck);
     }
@@ -37,7 +41,9 @@ export default class DonateSuccessPage {
     }
 
     static async clickOnSetPasswordButton() {
-        await clickSelector(setPasswordButtonSelector);
+        await browser.executeAsync(() => {
+            document.querySelectorAll(setPasswordButtonSelector)[0].click();
+        });
     }
 
     static async populatePassword() {
