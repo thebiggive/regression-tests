@@ -8,8 +8,6 @@ import {
 } from '../support/action';
 
 // selectors
-// todo add ID to wrapper in frontend to select the following more specifically:
-const setPasswordButtonSelector = '.cta biggive-button';
 
 const createAccountButtonSelector = '#createAccountButton';
 const receiptSelector = 'div.receipt';
@@ -41,9 +39,7 @@ export default class DonateSuccessPage {
     }
 
     static async clickOnSetPasswordButton() {
-        await browser.executeAsync(() => {
-            document.querySelectorAll(setPasswordButtonSelector)[0].click();
-        });
+        browser.$('//*[text()="              Save my details              "]').click();
     }
 
     static async populatePassword() {
