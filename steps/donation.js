@@ -39,7 +39,8 @@ When(
 );
 
 When("I click the popup's login button", async () => {
-    await page.clickLoginButton();
+    // We use an ID here as we can't combine deep and text selectors.
+    await page.clickActiveSelector('>>>#login-modal-submit');
 });
 
 When(/I click the "([^"]+)" button/, async (buttonText) => {

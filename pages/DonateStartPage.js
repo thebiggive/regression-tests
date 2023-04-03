@@ -58,12 +58,6 @@ export default class DonateStartPage {
         this.charity = null;
     }
 
-    async clickLoginButton() {
-        await browser.executeAsync(() => {
-            document.querySelectorAll('#login-modal-submit')[0].click();
-        });
-    }
-
     /**
      * Click anything selectable. Accounts for the possibilty that there's 1+ match
      * but only 1 is clickable, such as when "Log in" is on the page main page *and*

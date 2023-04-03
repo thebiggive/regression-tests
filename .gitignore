@@ -3,7 +3,6 @@ build/*
 !build/.gitkeep
 .env
 *.cid
-package-lock.json
 
 # IDEs
 .idea/
