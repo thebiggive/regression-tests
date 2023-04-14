@@ -13,9 +13,13 @@ export async function clickSelector(selector, options = {}) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    if (!(await $(selector).isClickable())) {
-        await $(selector).scrollIntoView();
-    }
+    // commented out as scrollIntoView() was throwing
+    // "TypeError: browser.getElementRect is not a function"
+    // Not sure why.
+    //
+    // if (!(await $(selector).isClickable())) {
+    //     await $(selector).scrollIntoView();
+    // }
 
     await $(selector).click(options);
 }
