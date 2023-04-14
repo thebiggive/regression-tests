@@ -39,7 +39,7 @@ export default class DonateSuccessPage {
     }
 
     static async clickOnSetPasswordButton() {
-        await clickSelector('#save-details-button');
+        await clickSelector('button');
     }
 
     static async populatePassword() {
