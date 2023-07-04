@@ -40,7 +40,8 @@ yarn test:local
 
 These are configured and scheduled [with CircleCI](./circle.yml).
 
-The runner is now TestingBot where we have an open source plan. For now we are running against a recent stable Chrome version only.
+The runner is now TestingBot where we have an open source plan. We are running against recent stable Chrome and
+Edge versions, once per hour.
 
 ## Future development notes
 
