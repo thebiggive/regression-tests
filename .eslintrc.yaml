@@ -50,5 +50,4 @@ rules:
   valid-jsdoc:
     - 'error'
     - requireReturn: false
-      matchDescription: '.+'
   no-console: 'off'

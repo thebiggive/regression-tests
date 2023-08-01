@@ -18,6 +18,8 @@ import DonateSuccessPage from '../pages/DonateSuccessPage';
  */
 let donationAmount = randomIntFromInterval(5, 100);
 let donor = {};
+
+/** @type DonateStartPage * */
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
@@ -26,9 +28,10 @@ BeforeAll(() => {
 
 // Steps
 Given(
-    /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
-    async (psp) => {
-        await page.open(psp);
+    /^that I am on my chosen ([a-zA-Z]+)-enabled charity's ([a-zA-Z]+) Donate page$/,
+    async (psp, stepperVersion) => {
+        page.nextStepIndex = 0;
+        await page.open(psp, stepperVersion);
         await page.checkReady();
     }
 );

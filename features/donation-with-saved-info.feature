@@ -5,8 +5,8 @@ Feature: Existing donor: saved payment method donation completes successfully
     I want payment to be taken for a match campaign for a Stripe charity with less manual input by me
     So that I can support my chosen charity with a doubled donation
 
-    Scenario: Existing donor: saved payment method donation completes successfully
-        Given that I am on my chosen Stripe-enabled charity's Donate page
+    Scenario Outline: Existing donor: saved payment method donation completes successfully
+        Given that I am on my chosen Stripe-enabled charity's <stepper-version> Donate page
         And I close the cookie notice if shown
         And I click the "Log in" button
         And I enter the ID account test email and password
@@ -26,3 +26,7 @@ Feature: Existing donor: saved payment method donation completes successfully
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name
+        Examples:
+            | stepper-version |
+            | new             |
+            | old             |
