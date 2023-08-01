@@ -43,7 +43,7 @@ export function randomIntFromInterval(min, max) { // min and max included
  * to - to keep e.g. QuickBooks happy when the putative data
  * is a name.
  *
- * @param {number} prefix (optional) prefix string
+ * @param {string} prefix (optional) prefix string
  * @returns {string} generated identifier
  */
 export function generateIdentifier(prefix = '') {
