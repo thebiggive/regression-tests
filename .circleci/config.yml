@@ -25,6 +25,7 @@ jobs:
           paths:
             - ~/.cache
       - run: yarn lint
+      - run: yarn tsc || true
       - run: yarn test:testingbot-all
       # - run: yarn test:testingbot-chrome
       # - run: yarn test:testingbot-edge
