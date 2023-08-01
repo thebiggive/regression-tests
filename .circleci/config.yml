@@ -25,7 +25,7 @@ jobs:
           paths:
             - ~/.cache
       - run: yarn lint
-      - run: yarn tsc || true
+      - run: diff -u typescript-errors.txt <(yarn tsc | grep "error TS")
       - run: yarn test:testingbot-all
       # - run: yarn test:testingbot-chrome
       # - run: yarn test:testingbot-edge

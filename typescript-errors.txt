@@ -1,0 +1,74 @@
+pages/DonateStartPage.js(53,28): error TS2694: Namespace 'global.WebdriverIO' has no exported member 'BrowserObject'.
+pages/DonateStartPage.js(70,18): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<any>'?
+pages/DonateStartPage.js(75,15): error TS2304: Cannot find name '$$'.
+pages/DonateStartPage.js(95,18): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<any>'?
+pages/DonateStartPage.js(129,29): error TS2304: Cannot find name '$$'.
+pages/DonateStartPage.js(150,16): error TS2304: Cannot find name 'int'.
+pages/DonateStartPage.js(195,33): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+pages/DonateStartPage.js(209,31): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+pages/DonateStartPage.js(223,29): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+pages/DonateStartPage.js(258,37): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+pages/DonateStartPage.js(328,50): error TS2663: Cannot find name 'browser'. Did you mean the instance member 'this.browser'?
+pages/DonateSuccessPage.js(30,16): error TS2304: Cannot find name 'int'.
+pages/PledgeFormPage.js(15,28): error TS2694: Namespace 'global.WebdriverIO' has no exported member 'BrowserObject'.
+pages/PledgeFormPage.js(24,18): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<string>'?
+pages/PledgeFormPage.js(35,18): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<string>'?
+steps/donation.js(24,32): error TS2304: Cannot find name 'browser'.
+steps/donation.js(81,11): error TS2304: Cannot find name 'browser'.
+steps/donation.js(82,11): error TS2304: Cannot find name 'browser'.
+steps/donation.js(86,11): error TS2304: Cannot find name 'browser'.
+steps/donation.js(87,11): error TS2304: Cannot find name 'browser'.
+steps/donation.js(118,15): error TS2304: Cannot find name 'browser'.
+steps/donation.js(213,17): error TS2304: Cannot find name 'browser'.
+steps/donation.js(219,17): error TS2304: Cannot find name 'browser'.
+steps/hooks.js(10,9): error TS2367: This comparison appears to be unintentional because the types 'TestStepResultStatus' and '"passed"' have no overlap.
+steps/hooks.js(16,15): error TS2304: Cannot find name 'browser'.
+steps/hooks.js(18,27): error TS2339: Property 'status' does not exist on type 'ITestCaseHookParameter'.
+steps/pledge.js(21,31): error TS2304: Cannot find name 'browser'.
+support/action.js(16,17): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/action.js(17,15): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/action.js(20,11): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/action.js(31,19): error TS2339: Property 'click' does not exist on type 'Element'.
+support/action.js(47,11): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/action.js(63,11): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/action.js(73,11): error TS2304: Cannot find name 'browser'.
+support/action.js(81,11): error TS2304: Cannot find name 'browser'.
+support/action.js(81,39): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/action.js(88,11): error TS2304: Cannot find name 'browser'.
+support/action.js(95,14): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<string>'?
+support/action.js(101,21): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/check.js(7,12): error TS2552: Cannot find name 'int'. Did you mean 'Intl'?
+support/check.js(13,12): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/check.js(20,13): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<boolean>'?
+support/check.js(23,12): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/check.js(30,12): error TS2552: Cannot find name 'int'. Did you mean 'Intl'?
+support/check.js(36,12): error TS2304: Cannot find name 'browser'.
+support/check.js(37,28): error TS2304: Cannot find name 'browser'.
+support/check.js(40,48): error TS2304: Cannot find name 'browser'.
+support/check.js(49,12): error TS2552: Cannot find name 'int'. Did you mean 'Intl'?
+support/check.js(55,12): error TS2304: Cannot find name 'browser'.
+support/check.js(56,38): error TS2304: Cannot find name 'browser'.
+support/check.js(59,48): error TS2304: Cannot find name 'browser'.
+support/check.js(68,12): error TS2552: Cannot find name 'int'. Did you mean 'Intl'?
+support/check.js(74,12): error TS2304: Cannot find name 'browser'.
+support/check.js(75,28): error TS2304: Cannot find name 'browser'.
+support/check.js(78,50): error TS2304: Cannot find name 'browser'.
+support/check.js(88,12): error TS2304: Cannot find name 'int'.
+support/check.js(89,14): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<any>'?
+support/check.js(92,12): error TS2304: Cannot find name 'browser'.
+support/check.js(94,34): error TS2339: Property 'getText' does not exist on type 'Element'.
+support/check.js(113,12): error TS2304: Cannot find name 'int'.
+support/check.js(123,28): error TS2581: Cannot find name '$'. Do you need to install type definitions for jQuery? Try `npm i --save-dev @types/jquery`.
+support/check.js(133,12): error TS2304: Cannot find name 'int'.
+support/check.js(134,14): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<any>'?
+support/check.js(140,11): error TS2304: Cannot find name '$$'.
+support/mailtrap.js(3,30): error TS2339: Property 'create' does not exist on type 'typeof import("/home/circleci/app/node_modules/axios/index")'.
+support/mailtrap.js(25,14): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<any[]>'?
+support/mailtrap.js(34,46): error TS2345: Argument of type 'string' is not assignable to parameter of type 'any[]'.
+support/mailtrap.js(53,14): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<boolean>'?
+support/mailtrap.js(67,58): error TS2345: Argument of type 'string' is not assignable to parameter of type 'any[]'.
+support/mailtrap.js(85,14): error TS1064: The return type of an async function or method must be the global Promise<T> type. Did you mean to write 'Promise<void>'?
+support/util.js(11,11): error TS2304: Cannot find name 'browser'.
+support/util.js(33,12): error TS2304: Cannot find name 'int'.
+support/util.js(34,12): error TS2304: Cannot find name 'int'.
+support/util.js(35,14): error TS2304: Cannot find name 'int'.
