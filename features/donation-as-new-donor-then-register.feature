@@ -4,8 +4,8 @@ Feature: New donor: donation completes successfully and donor registers
     I want payment to be taken for a match campaign for a Stripe charity
     So that I can support my chosen charity with a doubled donation
 
-    Scenario: New donor: donation completes successfully and donor registers
-        Given that I am on my chosen Stripe-enabled charity's Donate page
+    Scenario Outline: New donor: donation completes successfully and donor registers
+        Given that I am on my chosen Stripe-enabled charity's <stepper-version> Donate page
         And I close the cookie notice if shown
         When I enter an amount between £5 and £25,000
         And I choose a preference for Gift Aid
@@ -27,3 +27,7 @@ Feature: New donor: donation completes successfully and donor registers
 #        Then the page should update to say I'm registered
 #        When I wait a few seconds
 #        Then I should recieve a registration success email with the email I donated with
+        Examples:
+            | stepper-version |
+            | new             |
+            | old             |

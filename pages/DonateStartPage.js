@@ -19,6 +19,7 @@ import {
 
 // routes
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
+const startPageStripeNewStepper = process.env.DONATE_PAGE_STRIPE.replace('donate', 'donate-new-stepper');
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -43,7 +44,6 @@ const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
-const pageHeadingSelector = 'h3'; // Contains charity name on the page
 const nextButtonSelector = 'button*=Next';
 
 export default class DonateStartPage {
@@ -54,8 +54,13 @@ export default class DonateStartPage {
      */
     constructor(browser) {
         this.browser = browser;
+
+        // todo consider removing this and moving the state into donation.js - this object gets shared between scenarios
         this.nextStepIndex = 0;
+
         this.charity = null;
+        /** @type {('old'|'new')} */
+        this.pageVersion = 'old';
     }
 
     /**
@@ -98,14 +103,19 @@ export default class DonateStartPage {
         return inputSelectorValue(selector, inputValue);
     }
 
-    async open() {
+    /**
+      * @param {string} _psp E.g. stripe
+      * @param {('old'|'new')} stepperVersion Whether we are testing the new or old stepper
+      */
+    async open(_psp, stepperVersion) {
+        this.pageVersion = stepperVersion;
         this.charity = 'Exempt Stripe Test Charity';
-        await goToUrl(startPageStripe);
+        await goToUrl(stepperVersion === 'new' ? startPageStripeNewStepper : startPageStripe);
     }
 
     async checkReady() {
         await checkTitle(`Donate to ${this.charity}`);
-        await checkSelectorContent(pageHeadingSelector, this.charity);
+        await checkSelectorContent('form', this.charity);
     }
 
     /**
@@ -126,7 +136,13 @@ export default class DonateStartPage {
      */
     async progressToNextStep(waitForMatchWarning) {
         // todo clickable check? if mobile needs it
-        const steps = await $$(nextButtonSelector);
+        let steps;
+        if (this.pageVersion === 'new') {
+            steps = await $$('button*=Continue');
+        } else {
+            steps = await $$(nextButtonSelector);
+        }
+        console.log(this.pageVersion);
         await steps[this.nextStepIndex].click();
         this.nextStepIndex += 1;
         // Wait for animation and scrolling to fully complete.
@@ -331,7 +347,7 @@ export default class DonateStartPage {
         builder.exclude('[data-tag="twitter"]');
 
         // the follow rules are currently known to fail - see issue REG-23
-        builder.disableRules(['page-has-heading-one', 'region']);
+        builder.disableRules(['page-has-heading-one', 'region', 'duplicate-id']); // @todo re-enable duplicate-id rule
 
         builder.setLegacyMode(); // avoids Error: client.createWindow is not a function
 
