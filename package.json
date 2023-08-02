@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
+    "tsc": "node_modules/typescript/bin/tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:watch": "esw . --watch --fix",
@@ -40,6 +41,7 @@
     "eslint-plugin-wdio": "^6.6.0",
     "eslint-watch": "^6.0.1",
     "minimist": "^1.2.5",
+    "typescript": "^4.9.5",
     "wdio-chromedriver-service": "^8.0.0"
   }
 }
