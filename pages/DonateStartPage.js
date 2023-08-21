@@ -19,7 +19,7 @@ import {
 
 // routes
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
-const startPageStripeNewStepper = process.env.DONATE_PAGE_STRIPE.replace('donate', 'donate-new-stepper');
+const startPageStripeOldStepper = process.env.DONATE_PAGE_STRIPE.replace('donate', 'donate-old-stepper');
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -110,7 +110,7 @@ export default class DonateStartPage {
     async open(_psp, stepperVersion) {
         this.pageVersion = stepperVersion;
         this.charity = 'Exempt Stripe Test Charity';
-        await goToUrl(stepperVersion === 'new' ? startPageStripeNewStepper : startPageStripe);
+        await goToUrl(stepperVersion === 'old' ? startPageStripeOldStepper : startPageStripe);
     }
 
     async checkReady() {
