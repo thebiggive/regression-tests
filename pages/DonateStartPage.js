@@ -19,7 +19,6 @@ import {
 
 // routes
 const startPageStripe = process.env.DONATE_PAGE_STRIPE;
-const startPageStripeOldStepper = process.env.DONATE_PAGE_STRIPE.replace('donate', 'donate-old-stepper');
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -44,7 +43,6 @@ const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
-const nextButtonSelector = 'button*=Next';
 
 export default class DonateStartPage {
     /**
@@ -59,8 +57,6 @@ export default class DonateStartPage {
         this.nextStepIndex = 0;
 
         this.charity = null;
-        /** @type {('old'|'new')} */
-        this.pageVersion = 'old';
     }
 
     /**
@@ -103,14 +99,9 @@ export default class DonateStartPage {
         return inputSelectorValue(selector, inputValue);
     }
 
-    /**
-      * @param {string} _psp E.g. stripe
-      * @param {('old'|'new')} stepperVersion Whether we are testing the new or old stepper
-      */
-    async open(_psp, stepperVersion) {
-        this.pageVersion = stepperVersion;
+    async open() {
         this.charity = 'Exempt Stripe Test Charity';
-        await goToUrl(stepperVersion === 'old' ? startPageStripeOldStepper : startPageStripe);
+        await goToUrl(startPageStripe);
     }
 
     async checkReady() {
@@ -136,13 +127,7 @@ export default class DonateStartPage {
      */
     async progressToNextStep(waitForMatchWarning) {
         // todo clickable check? if mobile needs it
-        let steps;
-        if (this.pageVersion === 'new') {
-            steps = await $$('button*=Continue');
-        } else {
-            steps = await $$(nextButtonSelector);
-        }
-        console.log(this.pageVersion);
+        const steps = await $$('button*=Continue');
         await steps[this.nextStepIndex].click();
         this.nextStepIndex += 1;
         // Wait for animation and scrolling to fully complete.

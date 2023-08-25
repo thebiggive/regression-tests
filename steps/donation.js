@@ -28,10 +28,10 @@ BeforeAll(() => {
 
 // Steps
 Given(
-    /^that I am on my chosen ([a-zA-Z]+)-enabled charity's ([a-zA-Z]+) Donate page$/,
-    async (psp, stepperVersion) => {
+    /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
+    async (psp) => {
         page.nextStepIndex = 0;
-        await page.open(psp, stepperVersion);
+        await page.open(psp);
         await page.checkReady();
     }
 );
