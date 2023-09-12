@@ -78,7 +78,7 @@ export async function sendKeys(value) {
  */
 export async function enterStripeIframe() {
     // https://webdriver.io/docs/api/webdriver.html#switchtoframe
-    await browser.switchToFrame(await $('iframe[title$="Secure card payment input frame"]'));
+    await browser.switchToFrame(await $('iframe[title$="Secure payment input frame"]'));
 }
 
 /**
