@@ -195,7 +195,10 @@ When(
 
 When(
     'I navigate back to the first step',
-    async () => page.jumpBackToFirstStep(),
+    async () => {
+        page.jumpBackToFirstStep();
+        await browser.pause(500); // wait for page to reload, see DON-883
+    },
 );
 
 When(
