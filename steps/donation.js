@@ -221,10 +221,10 @@ When(
 );
 
 When(
-    'I wait 45 seconds',
-    // 45s to allow SF + Mailtrap time to process everything
+    'I wait long enough for email processing',
+    // 35s to allow SF + Mailtrap time to process everything
     // eslint-disable-next-line wdio/no-pause
-    async () => browser.pause(45 * 1000)
+    async () => browser.pause(35 * 1000)
 );
 
 Then(

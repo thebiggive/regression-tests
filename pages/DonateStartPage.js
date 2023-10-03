@@ -148,10 +148,10 @@ export default class DonateStartPage {
 
     /**
      * set amount value
-     * @param {int} amount number
+     * @param {number} amount
      */
     async setDonationAmount(amount) {
-        await inputSelectorValue(donationAmountSelector, amount);
+        await inputSelectorValue(donationAmountSelector, amount.toString());
         // Leave tip at select dropdown's default if in Stripe mode and that field exists.
     }
 
@@ -331,7 +331,9 @@ export default class DonateStartPage {
      * incompletes.
      */
     async checkNoAccessibilityViolations() {
-        return; //  todo reinstate when known a11y problems fixed.
+        // todo reinstate when known a11y problems fixed, via
+        // https://github.com/thebiggive/donate-frontend/pull/1325 and maybe others
+        return;
 
         /* eslint-disable no-unreachable */
 
