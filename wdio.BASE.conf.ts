@@ -72,7 +72,6 @@ exports.config = {
         require: ['./steps/**/*.js'],
         snippetSyntax: undefined,
         strict: true,
-        tagExpression: 'not @ignore',
         tagsInTitle: false,
         timeout: 90000,
     },
