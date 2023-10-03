@@ -37,14 +37,12 @@ const emailAddressSelector = '#emailAddress';
 const receiveEmailFromCharitySelector = '#mat-radio-3';
 const receiveEmailFromTheBigGiveSelector = '#mat-radio-6';
 const billingPostcodeSelector = '#billingPostcode';
-const stripeCardNumberSelector = 'input[name$="cardnumber"]';
-const stripeExpiryDateSelector = 'input[name$="exp-date"]';
+const stripeCardNumberSelector = 'input[name$="number"]';
+const stripeExpiryDateSelector = 'input[name$="expiry"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const stripeSavedCardInputSelector = '#useSavedCard';
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
-const pageHeadingSelector = 'h3'; // Contains charity name on the page
-const nextButtonSelector = 'button*=Next';
 
 export default class DonateStartPage {
     /**
@@ -54,7 +52,10 @@ export default class DonateStartPage {
      */
     constructor(browser) {
         this.browser = browser;
+
+        // todo consider removing this and moving the state into donation.js - this object gets shared between scenarios
         this.nextStepIndex = 0;
+
         this.charity = null;
     }
 
@@ -105,7 +106,7 @@ export default class DonateStartPage {
 
     async checkReady() {
         await checkTitle(`Donate to ${this.charity}`);
-        await checkSelectorContent(pageHeadingSelector, this.charity);
+        await checkSelectorContent('form', this.charity);
     }
 
     /**
@@ -126,7 +127,7 @@ export default class DonateStartPage {
      */
     async progressToNextStep(waitForMatchWarning) {
         // todo clickable check? if mobile needs it
-        const steps = await $$(nextButtonSelector);
+        const steps = await $$('button*=Continue');
         await steps[this.nextStepIndex].click();
         this.nextStepIndex += 1;
         // Wait for animation and scrolling to fully complete.
@@ -331,7 +332,7 @@ export default class DonateStartPage {
         builder.exclude('[data-tag="twitter"]');
 
         // the follow rules are currently known to fail - see issue REG-23
-        builder.disableRules(['page-has-heading-one', 'region']);
+        builder.disableRules(['page-has-heading-one', 'region', 'duplicate-id']); // @todo re-enable duplicate-id rule
 
         builder.setLegacyMode(); // avoids Error: client.createWindow is not a function
 

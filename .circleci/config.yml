@@ -25,6 +25,7 @@ jobs:
           paths:
             - ~/.cache
       - run: yarn lint
+      - run: yarn tsc || echo "Typescript errors found, not failing build"
       - run: yarn test:testingbot-all
       # - run: yarn test:testingbot-chrome
       # - run: yarn test:testingbot-edge

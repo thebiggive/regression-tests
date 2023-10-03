@@ -18,6 +18,8 @@ import DonateSuccessPage from '../pages/DonateSuccessPage';
  */
 let donationAmount = randomIntFromInterval(5, 100);
 let donor = {};
+
+/** @type DonateStartPage * */
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
@@ -28,6 +30,7 @@ BeforeAll(() => {
 Given(
     /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
     async (psp) => {
+        page.nextStepIndex = 0;
         await page.open(psp);
         await page.checkReady();
     }
@@ -192,7 +195,10 @@ When(
 
 When(
     'I navigate back to the first step',
-    async () => page.jumpBackToFirstStep(),
+    async () => {
+        page.jumpBackToFirstStep();
+        await browser.pause(1000); // wait for page to reload, see DON-883
+    },
 );
 
 When(
