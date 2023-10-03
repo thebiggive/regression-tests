@@ -292,6 +292,7 @@ export default class DonateStartPage {
         await clickSelector(receiveEmailFromCharitySelector);
 
         // Receive email from the Big Give? select NO
+        await this.browser.pause(750); // Seems to need a wait after the other radio select as of Angular Material 15.
         await clickSelector(receiveEmailFromTheBigGiveSelector);
     }
 
@@ -317,6 +318,10 @@ export default class DonateStartPage {
     async submitForm() {
         // Experimental Axe check just before hitting donate.
         this.checkNoAccessibilityViolations();
+
+        // The move to Angular Material 15, or similar, seems to bring in some animation or rendering change
+        // which means we need to wait some fixed time to avoid a stale button element.
+        await this.browser.pause(1000);
 
         await clickSelector(submitBtnSelector);
     }
