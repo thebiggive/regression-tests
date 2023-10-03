@@ -333,6 +333,8 @@ export default class DonateStartPage {
     async checkNoAccessibilityViolations() {
         return; //  todo reinstate when known a11y problems fixed.
 
+        /* eslint-disable no-unreachable */
+
         const builder = new AxeBuilder({ client: browser });
 
         // We accept that the contrast is not good enough on the twitter floating share link
@@ -370,5 +372,7 @@ export default class DonateStartPage {
                 });
             });
         }
+
+        /* eslint-enable no-unreachable */
     }
 }
