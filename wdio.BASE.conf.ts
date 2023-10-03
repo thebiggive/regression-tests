@@ -46,7 +46,7 @@ exports.config = {
     waitforTimeout: 90000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
-    specFileRetries: 0, // for faster failures during dev work, may not merge with zero.
+    specFileRetries: 2,
     services: [
     ], // see wdio.*.conf.js for additional entries
     framework: 'cucumber',
@@ -63,7 +63,7 @@ exports.config = {
         backtrace: false,
         requireModule: [],
         failAmbiguousDefinitions: true,
-        failFast: true, // temp for fast feedback while expecting failures
+        failFast: false,
         ignoreUndefinedDefinitions: false,
         name: [],
         snippets: true,
