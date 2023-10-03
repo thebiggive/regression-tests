@@ -29,7 +29,7 @@ export default class DonateSuccessPage {
 
     /**
      * Checks if balance has updated
-     * @param {int} donationAmount to check
+     * @param {number} donationAmount to check
      */
     static async checkBalance(donationAmount) {
         await checkSelectorContent(

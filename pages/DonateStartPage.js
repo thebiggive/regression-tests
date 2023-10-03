@@ -48,7 +48,7 @@ export default class DonateStartPage {
     /**
      * Set up page with the expectation of starting with the first step and its
      * "Next" button, at array index 0.
-     * @param {WebdriverIO.BrowserObject} browser   Global object for pauses.
+     * @param {WebdriverIO.Browser} browser   Global object for pauses.
      */
     constructor(browser) {
         this.browser = browser;
