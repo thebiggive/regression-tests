@@ -118,6 +118,7 @@ When(
         // https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
         // See ticket REG-21
         // Wait 20 seconds for donation setup & MatchBot & identity & SF callouts
+        // eslint-disable-next-line wdio/no-pause
         await browser.pause(20000);
 
         // Explicitly call the Gift Aid step, in case the browser skipped it.
@@ -197,7 +198,8 @@ When(
     'I navigate back to the first step',
     async () => {
         page.jumpBackToFirstStep();
-        await browser.pause(1000); // wait for page to reload, see DON-883
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(500); // Animation seems to need a moment in some browsers?
     },
 );
 
@@ -216,13 +218,15 @@ Then(
 
 When(
     'I wait a few seconds',
-    async () => browser.pause(45 * 1000)
+    // eslint-disable-next-line wdio/no-pause
+    async () => browser.pause(3 * 1000)
 );
 
 When(
-    'I wait 45 seconds',
-    // 45s to allow SF + Mailtrap time to process everything
-    async () => browser.pause(45 * 1000)
+    'I wait long enough for email processing',
+    // 35s to allow SF + Mailtrap time to process everything
+    // eslint-disable-next-line wdio/no-pause
+    async () => browser.pause(35 * 1000)
 );
 
 Then(

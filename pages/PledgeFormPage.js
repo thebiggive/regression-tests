@@ -12,7 +12,7 @@ const startUrl = `${
 export default class PledgeFormPage {
     /**
      * Set up page with browser object.
-     * @param {WebdriverIO.BrowserObject} browser   Global object for pauses.
+     * @param {WebdriverIO.Browser} browser   Global object for pauses.
      */
     constructor(browser) {
         this.browser = browser;

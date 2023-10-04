@@ -23,5 +23,6 @@ Feature: Pledge form is submitted successfully
     When I wait a few seconds
     Then I should see a Communities card with heading "Thank you!"
     And the main card text should start with confirmation of my chosen pledge amount and the correct charity name
+    When I wait long enough for email processing
     Then my last email subject should contain "Thank you for your pledge"
     And my last email should contain my pledged amount

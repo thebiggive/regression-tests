@@ -8,8 +8,6 @@ import {
 } from '../support/action';
 
 // selectors
-// todo add ID to wrapper in frontend to select the following more specifically:
-const setPasswordButtonSelector = '.cta biggive-button';
 
 const createAccountButtonSelector = '#createAccountButton';
 const receiptSelector = 'div.receipt';
@@ -21,13 +19,17 @@ const balanceTextPreCheck = '£';
 const urlCheck = 'thanks';
 
 export default class DonateSuccessPage {
+    constructor(browser) {
+        this.browser = browser;
+    }
+
     static async checkReady() {
         await checkUrl(urlCheck);
     }
 
     /**
      * Checks if balance has updated
-     * @param {int} donationAmount to check
+     * @param {number} donationAmount to check
      */
     static async checkBalance(donationAmount) {
         await checkSelectorContent(
@@ -37,7 +39,7 @@ export default class DonateSuccessPage {
     }
 
     static async clickOnSetPasswordButton() {
-        await clickSelector(setPasswordButtonSelector);
+        await $('.cta biggive-button').$('>>>a.button').click();
     }
 
     static async populatePassword() {
