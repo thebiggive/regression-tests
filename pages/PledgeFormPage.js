@@ -21,7 +21,7 @@ export default class PledgeFormPage {
     /**
      * Get the input field corresponding to the given label text.
      * @param {string} label    Full or partial label text. No single quotes.
-     * @returns {string}   Input selector
+     * @returns {Promise<string>}   Input selector
      */
     async getCommunitiesInputForLabel(label) {
         return `//label[contains(text(), '${label}')]//..//input`;
@@ -32,7 +32,7 @@ export default class PledgeFormPage {
      * seems to put the label text in an inner <span>.
      *
      * @param {string} label    Full or partial label text. No single quotes.
-     * @returns {string}   Select selector
+     * @returns {Promise<string>}   Select selector
      */
     async getCommunitiesSelectForLabel(label) {
         return `//span[contains(text(), '${label}')]//..//..//select`;

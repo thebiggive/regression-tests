@@ -68,7 +68,7 @@ export default class DonateStartPage {
      * while keeping the step definitions simple.
      *
      * @param {string} selector Element selector.
-     * @returns {any} click() result on success.
+     * @returns {Promise<any>} click() result on success.
      */
     async clickActiveSelector(selector) {
         let bestButton;
@@ -93,7 +93,7 @@ export default class DonateStartPage {
      *
      * @param {string} selector Element selector.
      * @param {string} inputValue The new value.
-     * @returns {any} setValue() result on success.
+     * @returns {Promise<any>} setValue() result on success.
      */
     async inputSelectorValue(selector, inputValue) {
         return inputSelectorValue(selector, inputValue);

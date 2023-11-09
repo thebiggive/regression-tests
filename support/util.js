@@ -30,9 +30,9 @@ export async function closeCookieNotice() {
 /**
  * Generate number between minimum and maximum fixed numbers
  *
- * @param {int} min number
- * @param {int} max number
- * @returns {int} generated number
+ * @param {number} min number
+ * @param {number} max number
+ * @returns {number} generated number
  */
 export function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1)) + min;

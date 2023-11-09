@@ -1,5 +1,10 @@
 const axios = require('axios');
 
+if (!('create' in axios && typeof axios.create === 'function')) {
+    // workaround for TS error;
+    throw new Error('Missing axios create function');
+}
+
 const mailtrapClient = axios.create({
     baseURL: 'https://mailtrap.io',
     headers: {
@@ -11,7 +16,7 @@ const mailtrapClient = axios.create({
  * Makes an authenticated GET call to Mailtrap.io's API.
  *
  * @param {string} path         Request path
- * @param {array} responseType  Deserialised response data
+ * @param {string} responseType  Deserialised response data
  */
 async function mailtrapGet(path, responseType) {
     const response = await mailtrapClient.get(path, { responseType });
@@ -22,7 +27,7 @@ async function mailtrapGet(path, responseType) {
  * Get the latest Mailtrap inbox message, if any.
  *
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {array}     Up to {{count}} messages, if available.
+ * @returns {Promise<array>}     Up to {{count}} messages, if available.
  */
 async function getLatestMessages(toEmailAddress) {
     if (typeof toEmailAddress !== 'string') {
@@ -50,7 +55,7 @@ async function getLatestMessages(toEmailAddress) {
  * @param {string} searchText   Expected text to find anywhere in HTML
  * @param {string} toEmailAddress Only find emails addressed to this account
  *              (or an account that starts with this)
- * @returns {boolean}       Whether the expected text was found.
+ * @returns {Promise<boolean>}       Whether the expected text was found.
  */
 export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
     const messages = await getLatestMessages(toEmailAddress);
@@ -82,7 +87,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
  *
  * @param {string} searchText   Text to expect in latest subject line.
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {void}
+ * @returns {Promise<void>} Promise that resolves when check is done.
  */
 export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress) {
     const messages = await getLatestMessages(toEmailAddress);

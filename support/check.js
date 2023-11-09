@@ -4,7 +4,7 @@ import { WAIT_SECONDS } from './constants';
  * Check if element exists
  *
  * @param {string} selector to be checked
- * @param {int} seconds to wait
+ * @param {number} seconds to wait
  * @returns {Promise<boolean>} True if element exists or false if element doesn't exist
  */
 export async function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
@@ -17,7 +17,7 @@ export async function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
  * Checks whether a non-required selector is already present on the page.
  *
  * @param {string} selector DOM selector to seek
- * @return {boolean} Whether element exists
+ * @return {Promise<boolean>} Whether element exists
  */
 export async function elementExists(selector) {
     return $(selector).isDisplayed();
@@ -27,7 +27,7 @@ export async function elementExists(selector) {
  * Assert URL
  *
  * @param {string} url to be asserted
- * @param {int} seconds to wait
+ * @param {number} seconds to wait
  * @return {Promise<boolean>} return if url matched
  */
 export async function checkUrl(url, seconds = WAIT_SECONDS) {
@@ -46,7 +46,7 @@ export async function checkUrl(url, seconds = WAIT_SECONDS) {
  * Assert URL Regex
  *
  * @param {string} url to be asserted
- * @param {int} seconds to wait
+ * @param {number} seconds to wait
  * @return {Promise<boolean>} return if url match regex
  */
 export async function checkUrlMatch(url, seconds = WAIT_SECONDS) {
@@ -65,7 +65,7 @@ export async function checkUrlMatch(url, seconds = WAIT_SECONDS) {
  * Check webpage title
  *
  * @param {string} title of webpage
- * @param {int} seconds to wait
+ * @param {number} seconds to wait
  * @return {Promise<boolean>} return if title matched
  */
 export async function checkTitle(title, seconds = WAIT_SECONDS) {
@@ -83,10 +83,10 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
 /**
  * Check a specific element contains certain text.
  *
- * @param {Element} element Already-located element.
+ * @param {WebdriverIO.Element} element Already-located element.
  * @param {string} content Expected content.
- * @param {int} seconds Number of seconds to wait.
- * @returns {any} `waitUntil()` result.
+ * @param {number} seconds Number of seconds to wait.
+ * @returns {Promise<any>} `waitUntil()` result.
  */
 async function checkText(element, content, seconds = WAIT_SECONDS) {
     return browser.waitUntil(
@@ -110,7 +110,7 @@ async function checkText(element, content, seconds = WAIT_SECONDS) {
  *
  * @param {string} selector of content
  * @param {string} content text
- * @param {int} seconds to wait
+ * @param {number} seconds to wait
  * @return {Promise<boolean>} return if text exist
  */
 export async function checkSelectorContent(selector, content, seconds = WAIT_SECONDS) {
@@ -130,8 +130,8 @@ export async function checkSelectorContent(selector, content, seconds = WAIT_SEC
  *
  * @param {string} selector DOM element selector.
  * @param {string} content text
- * @param {int} seconds to wait
- * @returns {any} `waitUntil()` result, assuming 1+ elements visible.
+ * @param {number} seconds to wait
+ * @returns {Promise<any>} `waitUntil()` result, assuming 1+ elements visible.
  */
 export async function checkVisibleSelectorContent(selector, content, seconds = WAIT_SECONDS) {
     console.log(`CHECK: First visible element "${selector}" contains content "${content}"`);
