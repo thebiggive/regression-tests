@@ -333,7 +333,6 @@ export default class DonateStartPage {
 
         /* eslint-disable no-unreachable */
 
-        // @ts-expect-error Type 'Browser' is not assignable to type...
         const builder = new AxeBuilder({ client: browser });
 
         // We accept that the contrast is not good enough on the twitter floating share link
