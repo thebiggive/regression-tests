@@ -29,7 +29,8 @@ BeforeAll(() => {
 // Steps
 Given(
     /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
-    async () => {
+    // eslint-disable-next-line no-unused-vars
+    async (psp) => {
         page.nextStepIndex = 0;
         await page.open();
         await page.checkReady();
