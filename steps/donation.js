@@ -29,7 +29,7 @@ BeforeAll(() => {
 // Steps
 Given(
     /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
-    async (psp) => {
+    async () => {
         page.nextStepIndex = 0;
         await page.open();
         await page.checkReady();

@@ -87,7 +87,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
  *
  * @param {string} searchText   Text to expect in latest subject line.
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {Promise<void>}
+ * @returns {Promise<void>} Promise that resolves when check is done.
  */
 export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress) {
     const messages = await getLatestMessages(toEmailAddress);
