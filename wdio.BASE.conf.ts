@@ -61,13 +61,13 @@ exports.config = {
         }],
         ['html-nice', {
             outputDir: './build/wdio/html-reports/',
-            filename: 'report.html',
+            filename: './build/wdio/report.html',
             reportTitle: 'Regression tests report',
             linkScreenshots: true,
             showInBrowser: false,
             collapseTests: false,
             // to turn on screenshots after every test
-            useOnAfterCommandForScreenshot: false
+            useOnAfterCommandForScreenshot: false,
         }],
     ],
     cucumberOpts: {
