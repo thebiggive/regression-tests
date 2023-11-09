@@ -25,11 +25,23 @@ config.path = '/wd/hub';
 config.user = process.env.TESTINGBOT_KEY;
 config.key = process.env.TESTINGBOT_SECRET;
 
-config.reporters.push(['junit', {
-    outputDir: './build/wdio',
-    outputFileFormat(options) {
-        return `results-${options.cid}.${options.capabilities}.xml`;
-    },
-}]);
+config.reporters.push(
+    ['junit', {
+        outputDir: './build/wdio',
+        outputFileFormat(options) {
+            return `results-${options.cid}.${options.capabilities}.xml`;
+        },
+    }],
+    ['html-nice', {
+        outputDir: './build/wdio/html-reports/',
+        filename: './build/wdio/report.html',
+        reportTitle: 'Regression tests report',
+        linkScreenshots: true,
+        showInBrowser: false,
+        collapseTests: false,
+        // to turn on screenshots after every test
+        useOnAfterCommandForScreenshot: false,
+    }],
+);
 
 exports.config = config;

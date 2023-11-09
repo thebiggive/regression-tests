@@ -59,16 +59,6 @@ exports.config = {
                 return `results-${options.cid}.${options.capabilities}.xml`;
             },
         }],
-        ['html-nice', {
-            outputDir: './build/wdio/html-reports/',
-            filename: './build/wdio/report.html',
-            reportTitle: 'Regression tests report',
-            linkScreenshots: true,
-            showInBrowser: false,
-            collapseTests: false,
-            // to turn on screenshots after every test
-            useOnAfterCommandForScreenshot: false,
-        }],
     ],
     cucumberOpts: {
         backtrace: false,
