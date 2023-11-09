@@ -1,3 +1,4 @@
+
 require('dotenv').config(); // load process.env from ".env" file for local
 // Load the libraries we need for path/filesystem manipulation
 const path = require('path');
@@ -57,6 +58,16 @@ exports.config = {
             outputFileFormat(options) {
                 return `results-${options.cid}.${options.capabilities}.xml`;
             },
+        }],
+        ['html-nice', {
+            outputDir: './build/wdio/html-reports/',
+            filename: 'report.html',
+            reportTitle: 'Regression tests report',
+            linkScreenshots: true,
+            showInBrowser: false,
+            collapseTests: false,
+            // to turn on screenshots after every test
+            useOnAfterCommandForScreenshot: false
         }],
     ],
     cucumberOpts: {
