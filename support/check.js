@@ -17,7 +17,7 @@ export async function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
  * Checks whether a non-required selector is already present on the page.
  *
  * @param {string} selector DOM selector to seek
- * @return {boolean} Whether element exists
+ * @return {Promise<boolean>} Whether element exists
  */
 export async function elementExists(selector) {
     return $(selector).isDisplayed();
@@ -83,10 +83,10 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
 /**
  * Check a specific element contains certain text.
  *
- * @param {Element} element Already-located element.
+ * @param {WebdriverIO.Element} element Already-located element.
  * @param {string} content Expected content.
  * @param {number} seconds Number of seconds to wait.
- * @returns {any} `waitUntil()` result.
+ * @returns {Promise<any>} `waitUntil()` result.
  */
 async function checkText(element, content, seconds = WAIT_SECONDS) {
     return browser.waitUntil(
@@ -131,7 +131,7 @@ export async function checkSelectorContent(selector, content, seconds = WAIT_SEC
  * @param {string} selector DOM element selector.
  * @param {string} content text
  * @param {number} seconds to wait
- * @returns {any} `waitUntil()` result, assuming 1+ elements visible.
+ * @returns {Promise<any>} `waitUntil()` result, assuming 1+ elements visible.
  */
 export async function checkVisibleSelectorContent(selector, content, seconds = WAIT_SECONDS) {
     console.log(`CHECK: First visible element "${selector}" contains content "${content}"`);

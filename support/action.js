@@ -23,7 +23,7 @@ export async function clickSelector(selector, options = {}) {
 /**
  * Click an element that we have already tested for existence and clickability.
  *
- * @param {Element} element The element.
+ * @param {HTMLElement} element The element.
  * @param {string} originalSelector Text used to look it up, for info log.
  */
 export async function clickElement(element, originalSelector) {
@@ -92,7 +92,7 @@ export async function leaveStripeIframe() {
  * get element text
  *
  * @param {string} selector of content
- * @returns {string} element text
+ * @returns {Promise<string>} element text
  */
 export async function getSelectorText(selector) {
     if (!(await checkIfElementExists(selector))) {

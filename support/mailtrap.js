@@ -1,5 +1,10 @@
 const axios = require('axios');
 
+if (!('create' in axios && typeof axios.create === 'function')) {
+    // workaround for TS error;
+    throw new Error('Missing axios create function');
+}
+
 const mailtrapClient = axios.create({
     baseURL: 'https://mailtrap.io',
     headers: {
@@ -22,7 +27,7 @@ async function mailtrapGet(path, responseType) {
  * Get the latest Mailtrap inbox message, if any.
  *
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {array}     Up to {{count}} messages, if available.
+ * @returns {Promise<array>}     Up to {{count}} messages, if available.
  */
 async function getLatestMessages(toEmailAddress) {
     if (typeof toEmailAddress !== 'string') {
@@ -31,7 +36,7 @@ async function getLatestMessages(toEmailAddress) {
 
     const params = new URLSearchParams({ search: toEmailAddress });
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?${params.toString()}`;
-    const messages = await mailtrapGet(path, 'json');
+    const messages = await mailtrapGet(path, ['json']);
     console.log(`got ${messages.length} message(s) from mailtrap at path ${path}`);
 
     if (messages.length === 0) {
@@ -50,7 +55,7 @@ async function getLatestMessages(toEmailAddress) {
  * @param {string} searchText   Expected text to find anywhere in HTML
  * @param {string} toEmailAddress Only find emails addressed to this account
  *              (or an account that starts with this)
- * @returns {boolean}       Whether the expected text was found.
+ * @returns {Promise<boolean>}       Whether the expected text was found.
  */
 export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
     const messages = await getLatestMessages(toEmailAddress);
@@ -64,7 +69,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         // where all bodies are got in one go would be slightly better, but is not a big
         // optimisation. For now, let's skip the eslint check for this line.
         // eslint-disable-next-line no-await-in-loop
-        body = await mailtrapGet(messages[ii].html_path, 'document');
+        body = await mailtrapGet(messages[ii].html_path, ['document']);
         if (body.includes(searchText)) {
             return true;
         }
@@ -82,7 +87,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
  *
  * @param {string} searchText   Text to expect in latest subject line.
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {void}
+ * @returns {Promise<void>}
  */
 export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress) {
     const messages = await getLatestMessages(toEmailAddress);

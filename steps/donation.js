@@ -31,7 +31,7 @@ Given(
     /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
     async (psp) => {
         page.nextStepIndex = 0;
-        await page.open(psp);
+        await page.open();
         await page.checkReady();
     }
 );
