@@ -17,7 +17,7 @@ Feature: Existing donor: credit donation completes successfully
         Then I should see my populated first name is "RegressionTest"
         And I should see my populated surname is "User"
         And I should see my populated email is "tech+regression+credits@thebiggive.org.uk"
-        And I should see "Your credit balance will be applied against this donation. No further funds will be taken." instead of asking for my bank details.
+        And I should see "Your donation funds balance will be applied against this donation. No further funds will be taken." instead of asking for my bank details.
         When I continue through this step with no changes
         And I choose a preference for charity and TBG communications
         And I press Donate
