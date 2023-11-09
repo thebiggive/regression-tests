@@ -16,7 +16,7 @@ const mailtrapClient = axios.create({
  * Makes an authenticated GET call to Mailtrap.io's API.
  *
  * @param {string} path         Request path
- * @param {array} responseType  Deserialised response data
+ * @param {string} responseType  Deserialised response data
  */
 async function mailtrapGet(path, responseType) {
     const response = await mailtrapClient.get(path, { responseType });
@@ -36,7 +36,7 @@ async function getLatestMessages(toEmailAddress) {
 
     const params = new URLSearchParams({ search: toEmailAddress });
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?${params.toString()}`;
-    const messages = await mailtrapGet(path, ['json']);
+    const messages = await mailtrapGet(path, 'json');
     console.log(`got ${messages.length} message(s) from mailtrap at path ${path}`);
 
     if (messages.length === 0) {
@@ -69,7 +69,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         // where all bodies are got in one go would be slightly better, but is not a big
         // optimisation. For now, let's skip the eslint check for this line.
         // eslint-disable-next-line no-await-in-loop
-        body = await mailtrapGet(messages[ii].html_path, ['document']);
+        body = await mailtrapGet(messages[ii].html_path, 'document');
         if (body.includes(searchText)) {
             return true;
         }
