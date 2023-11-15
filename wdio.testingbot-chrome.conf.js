@@ -3,7 +3,7 @@ const { config } = require('./wdio.BASE.conf.ts');
 config.capabilities = [{
     browserName: 'chrome',
     platform: 'WIN11',
-    version: '117',
+    version: '119',
     build: config.build,
 }];
 config.services.push('testingbot');

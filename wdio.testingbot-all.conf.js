@@ -4,13 +4,13 @@ config.capabilities = [
     {
         browserName: 'chrome',
         platform: 'WIN11',
-        version: '117',
+        version: '119',
         build: config.build,
     },
     {
         browserName: 'microsoftedge',
         platform: 'WIN11',
-        version: '117',
+        version: '119',
         build: config.build,
         // MS Edge, like IE, seems to also have problems with scroll mgmt behaviour.
         // https://stackoverflow.com/questions/52276194
