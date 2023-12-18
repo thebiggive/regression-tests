@@ -9,6 +9,7 @@ import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '.
 import { closeCookieNotice, randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
+import { checkVisibleSelectorContent } from '../support/check';
 
 /**
  * Note: donationAmount is changable in the `restart-donation` test, whereby the bot changes the
@@ -229,6 +230,10 @@ When(
     // eslint-disable-next-line wdio/no-pause
     async () => browser.pause(35 * 1000)
 );
+
+Then('I should be invited to log in', async () => {
+    checkVisibleSelectorContent('main', 'Log in');
+});
 
 Then(
     'my last email should contain the correct amounts',

@@ -23,3 +23,7 @@ Feature: New donor: restarting donation completes successfully
         Then my last email should contain the correct amounts
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name
+
+        Given that I am on my chosen Stripe-enabled charity's Donate page
+         # And I didn't set a password above, or log-in
+        Then I should be invited to log in
