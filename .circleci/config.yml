@@ -52,7 +52,9 @@ workflows:
   scheduled:
     triggers:
       - schedule:
-          cron: "0 * * * *"
+#          Job generally takes between 11 and 15 minutes to run, so we can run every 15 without running twice at once.
+#          Although if it does run twice at once AFAIK that wouldn't cause any problem.
+          cron: "0,15,30,45 * * * *" # Every 15 minutes. CircleCI doesn't support /15 syntax
           filters:
             branches:
               only:
