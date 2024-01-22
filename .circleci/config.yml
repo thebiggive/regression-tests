@@ -1,6 +1,7 @@
 version: 2.1
 jobs:
   test:
+    resource_class: large
     docker:
       - image: cimg/node:18.10-browsers
         auth:
