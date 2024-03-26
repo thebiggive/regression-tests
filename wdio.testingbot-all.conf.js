@@ -8,6 +8,12 @@ config.capabilities = [
         build: config.build,
     },
     {
+        browserName: 'safari',
+        platform: 'SIERRA',
+        version: '11',
+        build: config.build,
+    },
+    {
         browserName: 'microsoftedge',
         platform: 'WIN11',
         version: '117',
