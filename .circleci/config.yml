@@ -53,10 +53,9 @@ workflows:
   scheduled:
     triggers:
       - schedule:
-#          Job generally takes between 11 and 15 minutes to run, and we anticipate hitting Mailtrap
-#          limits over about one daytime run on 3 platforms every 23 minutes.
+#          Job generally takes between 11 and 15 minutes to run, so we can run every 15 without running twice at once.
 #          Although if it does run twice at once AFAIK that wouldn't cause any problem.
-          cron: "0,30 8,9,10,11,12,13,14,15,16,17 * * *" # Every 30 minutes. CircleCI doesn't support /30 syntax
+          cron: "0,15,30,45 9,10,11,12,13,14,15,16,17 * * *" # Every 15 minutes. CircleCI doesn't support /15 syntax
           filters:
             branches:
               only:
