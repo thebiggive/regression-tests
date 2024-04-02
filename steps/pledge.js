@@ -13,7 +13,11 @@ import {
 import { randomIntFromInterval } from '../support/util';
 
 let emailAddress;
+
+/** @type {PledgeFormPage} */
 let page;
+
+/** @type {any} (looks like we have some inconsistency already between whether this is string or number) */
 let pledgeAmount;
 
 // eslint-disable-next-line new-cap
