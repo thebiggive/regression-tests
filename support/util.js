@@ -8,7 +8,11 @@ import { elementExists } from './check';
  */
 export async function goToUrl(url) {
     console.log(`ACTION: Change URL to "${url}"`);
-    await browser.url(url);
+    try {
+        await browser.url(url);
+    } catch (error) {
+        throw new Error(`error trying to go to URL: ${url}: ${error}`);
+    }
 }
 
 /**
