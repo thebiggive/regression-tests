@@ -14,12 +14,7 @@ Given(/^I am loading the site without Javascript$/, async () => {
 });
 
 When(/^I view the homepage$/, async () => {
-    const client = axios.create({
-        baseURL: 'https://mailtrap.io',
-        headers: {
-            'Api-Token': process.env.MAILTRAP_API_TOKEN,
-        },
-    });
+    const client = axios.create();
     url = process.env.BASE_URL;
     pageContent = (await client.get(url)).data;
 });
