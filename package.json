@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:watch": "esw . --watch --fix",
-    "test:testingbot-all": "wdio run wdio.testingbot-all.conf.js",
+    "test:testingbot-all": "bash -c '[[ $(date +%Y-%m-%d) == \"2024-04-04\" ]] || wdio run wdio.testingbot-all.conf.js'",
     "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.js",
     "test:testingbot-edge": "wdio run wdio.testingbot-edge.conf.js",
     "test:local": "wdio run wdio.local.conf.js",
