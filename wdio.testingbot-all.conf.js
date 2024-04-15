@@ -10,7 +10,7 @@ config.capabilities = [
     {
         browserName: 'safari',
         platform: 'MONTEREY',
-        version: '15',
+        version: '14',
         build: config.build,
     },
     {
