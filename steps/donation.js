@@ -23,9 +23,10 @@ let donor = {};
 /** @type DonateStartPage * */
 let page;
 // eslint-disable-next-line new-cap
-BeforeAll(() => {
-    browser.setCookies({
+BeforeAll(async () => {
+    await browser.setCookies({
         name: 'cookie-preferences',
+        // value means we assume they reject every possible type of cookie:
         // eslint-disable-next-line max-len
         value: '%7B%22agreedToAll%22%3Afalse%2C%22agreedToCookieTypes%22%3A%7B%22analyticsAndTesting%22%3Afalse%2C%22thirdParty%22%3Afalse%7D%7D',
     });
