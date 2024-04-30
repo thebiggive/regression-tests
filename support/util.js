@@ -20,7 +20,7 @@ export async function goToUrl(url) {
  * other elements.
  */
 export async function closeCookieNotice() {
-    const selector = '#accept-all-button';
+    const selector = 'w-div > span:last-child'; // Cookie banner close button
 
     if (!(await elementExists(selector))) {
         console.log('No cookie notice to close');
