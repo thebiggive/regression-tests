@@ -24,6 +24,12 @@ let donor = {};
 let page;
 // eslint-disable-next-line new-cap
 BeforeAll(() => {
+    browser.setCookies({
+        name: 'cookie-preferences',
+        // eslint-disable-next-line max-len
+        value: '%7B%22agreedToAll%22%3Afalse%2C%22agreedToCookieTypes%22%3A%7B%22analyticsAndTesting%22%3Afalse%2C%22thirdParty%22%3Afalse%7D%7D',
+    });
+
     page = new DonateStartPage(browser);
 });
 
