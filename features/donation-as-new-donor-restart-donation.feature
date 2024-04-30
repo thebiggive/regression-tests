@@ -26,4 +26,5 @@ Feature: New donor: restarting donation completes successfully
 
         Given that I am on my chosen Stripe-enabled charity's Donate page
          # And I didn't set a password above, or log-in
+        And I close the cookie notice if shown
         Then I should be invited to log in
