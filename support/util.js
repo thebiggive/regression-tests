@@ -1,6 +1,3 @@
-import { clickSelector } from './action';
-import { elementExists } from './check';
-
 /**
  * Go to URL
  *
@@ -13,22 +10,6 @@ export async function goToUrl(url) {
     } catch (error) {
         throw new Error(`error trying to go to URL: ${url}: ${error}`);
     }
-}
-
-/**
- * Close cookie notice if it's shown, so it doesn't steal focus by being fixed on top of
- * other elements.
- */
-export async function closeCookieNotice() {
-    const selector = 'w-div > span:last-child'; // Cookie banner close button
-
-    if (!(await elementExists(selector))) {
-        console.log('No cookie notice to close');
-        return;
-    }
-
-    await clickSelector(selector);
-    console.log('Closed cookie notice');
 }
 
 /**

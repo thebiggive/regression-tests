@@ -6,7 +6,6 @@ Feature: Existing donor: credit donation completes successfully
 
     Scenario: Existing donor: credit donation completes successfully
         Given that I am on my chosen Stripe-enabled charity's Donate page
-        And I close the cookie notice if shown
         And I click the "Log in" button
         And I enter the ID credit-funded account test email and password
         And I click the popup's login button
