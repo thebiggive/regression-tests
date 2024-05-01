@@ -6,7 +6,7 @@ import {
 } from '@cucumber/cucumber';
 
 import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
-import { closeCookieNotice, randomIntFromInterval } from '../support/util';
+import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkVisibleSelectorContent } from '../support/check';
@@ -36,11 +36,6 @@ Given(
         await page.open();
         await page.checkReady();
     }
-);
-
-When(
-    'I close the cookie notice if shown',
-    closeCookieNotice,
 );
 
 When("I click the popup's login button", async () => {
