@@ -1,4 +1,3 @@
-@skip()
 Feature: Pledge form is submitted successfully
 
   As a pledger
