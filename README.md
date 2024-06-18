@@ -43,6 +43,9 @@ These are configured and scheduled [with CircleCI](./circle.yml).
 The runner is now TestingBot where we have an open source plan. We are running against recent stable Chrome and
 Edge versions, once per hour.
 
+[![TestingBot](https://testingbot.com/assets/logo.png)](https://testingbot.com)
+
+
 ## Future development notes
 
 We may want to add tests for the charity login page. We had some dead code relating to this,
