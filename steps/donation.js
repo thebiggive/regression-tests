@@ -223,7 +223,7 @@ When(
     'I wait long enough for email processing',
     // 35s to allow SF + Mailtrap time to process everything
     // eslint-disable-next-line wdio/no-pause
-    async () => browser.pause(35 * 1000)
+    async () => browser.pause(95 * 1000)
 );
 
 Then('I should be invited to log in', async () => {
