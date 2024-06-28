@@ -13,7 +13,7 @@ Given(/^I am loading the site without Javascript$/, async () => {
     // no-op
 });
 
-When(/^I view the homepage$/, async () => {
+When(/^I view the homepage$/, { timeout: 1000 }, async () => {
     const client = axios.create();
     url = process.env.BASE_URL;
     pageContent = (await client.get(url)).data;
