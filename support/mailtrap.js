@@ -43,7 +43,7 @@ async function getLatestMessages(toEmailAddress) {
         return [];
     }
 
-    const count = 5;
+    const count = 15;
     return messages.slice(0, count); // Latest emails.
 }
 
