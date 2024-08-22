@@ -3,7 +3,7 @@ jobs:
   test:
     resource_class: large
     docker:
-      - image: cimg/node:20.17-browsers
+      - image: cimg/node:20.16-browsers
         auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_ACCESS_TOKEN
