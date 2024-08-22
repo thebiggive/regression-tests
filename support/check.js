@@ -120,7 +120,7 @@ export async function checkSelectorContent(selector, content, seconds = WAIT_SEC
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
-    return checkText(await $(selector), content, seconds);
+    return checkText(await $(selector).getElement(), content, seconds);
 }
 
 /**
