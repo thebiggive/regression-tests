@@ -20,7 +20,7 @@ const mailtrapClient = axios.create({
  *
  * @param {string} path         Request path
  * @param {string} responseType  Deserialised response data
- * @returns {Promise<unknown>}
+ * @returns {Promise<unknown>} Data from Mailtrap API
  */
 async function mailtrapGet(path, responseType) {
     const response = await mailtrapClient.get(path, { responseType });
@@ -74,6 +74,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         // optimisation. For now, let's skip the eslint check for this line.
         // eslint-disable-next-line no-await-in-loop
 
+        // eslint-disable-next-line no-await-in-loop
         body = /** @type {string} */ (await mailtrapGet(messages[ii].html_path, 'document'));
         if (body.includes(searchText)) {
             return true;

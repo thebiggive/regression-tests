@@ -6,7 +6,6 @@
     "moduleResolution": "node",
     "alwaysStrict": true,
     "strict": true,
-    "strictNullChecks": false,
     "declaration": true,
     "removeComments": false,
     "noEmit": true,

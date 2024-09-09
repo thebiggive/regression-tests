@@ -65,11 +65,11 @@ When(
         switch (dataPoint) {
             case 'email address':
                 elementId = 'loginEmailAddress';
-                value = process.env.DONOR_ID_REGISTERED_EMAIL;
+                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_EMAIL);
                 break;
             case 'password':
                 elementId = 'loginPassword';
-                value = process.env.DONOR_ID_REGISTERED_PASSWORD;
+                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_PASSWORD);
                 break;
             default:
                 throw new Error('Unknown value');
@@ -80,13 +80,13 @@ When(
 );
 
 When('I enter the ID account test email and password', async () => {
-    await browser.keys(['Tab', process.env.DONOR_ID_REGISTERED_EMAIL]);
-    await browser.keys(['Tab', process.env.DONOR_ID_REGISTERED_PASSWORD]);
+    await browser.keys(['Tab', /** @type {string} */ (process.env.DONOR_ID_REGISTERED_EMAIL)]);
+    await browser.keys(['Tab', /** @type {string} */ (process.env.DONOR_ID_REGISTERED_PASSWORD)]);
 });
 
 When('I enter the ID credit-funded account test email and password', async () => {
-    await browser.keys(['Tab', process.env.CREDIT_EMAIL]);
-    await browser.keys(['Tab', process.env.CREDIT_PASSWORD]);
+    await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_EMAIL)]);
+    await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_PASSWORD)]);
 });
 
 When(
@@ -247,7 +247,10 @@ Then(
 Then(
     'my last email should contain the charity\'s custom thank you message',
     async () => {
-        if (!(await checkAnEmailBodyContainsText(process.env.CHARITY_CUSTOM_THANKS, donor.email))) {
+        const customThanks = process.env.CHARITY_CUSTOM_THANKS;
+        if (!customThanks) throw new Error('Custom thanks message not set in environment');
+
+        if (!(await checkAnEmailBodyContainsText(customThanks, donor.email))) {
             throw new Error('Charity thank you message not found in email');
         }
     }
