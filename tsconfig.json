@@ -5,12 +5,13 @@
     "checkJs": true,
     "moduleResolution": "node",
     "alwaysStrict": true,
+    "strict": true,
     "strictNullChecks": false,
     "declaration": true,
     "removeComments": false,
     "noEmit": true,
     "skipLibCheck": true,
-    "types": ["node", "@wdio/globals/types"],
+    "types": ["node", "@wdio/globals/types"]
   },
   "include": [
     "pages",
