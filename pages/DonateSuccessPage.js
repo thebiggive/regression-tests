@@ -19,10 +19,6 @@ const balanceTextPreCheck = '£';
 const urlCheck = 'thanks';
 
 export default class DonateSuccessPage {
-    constructor(browser) {
-        this.browser = browser;
-    }
-
     static async checkReady() {
         await checkUrl(urlCheck);
     }

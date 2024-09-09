@@ -137,8 +137,8 @@ export async function checkVisibleSelectorContent(selector, content, seconds = W
     console.log(`CHECK: First visible element "${selector}" contains content "${content}"`);
 
     let firstVisibleElement;
-    await $$(selector).forEach((element) => {
-        if (element.isDisplayed()) {
+    await $$(selector).forEach(async (element) => {
+        if (await element.isDisplayed()) {
             firstVisibleElement = element;
         }
     });

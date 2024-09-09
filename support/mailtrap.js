@@ -1,3 +1,6 @@
+/**
+ * @typedef {{subject: string, html_path: string}} emailMessage
+ */
 const axios = require('axios');
 
 if (!('create' in axios && typeof axios.create === 'function')) {
@@ -17,6 +20,7 @@ const mailtrapClient = axios.create({
  *
  * @param {string} path         Request path
  * @param {string} responseType  Deserialised response data
+ * @returns {Promise<unknown>} Data from Mailtrap API
  */
 async function mailtrapGet(path, responseType) {
     const response = await mailtrapClient.get(path, { responseType });
@@ -27,7 +31,7 @@ async function mailtrapGet(path, responseType) {
  * Get the latest Mailtrap inbox message, if any.
  *
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {Promise<array>}     Up to {{count}} messages, if available.
+ * @returns {Promise<Array<emailMessage>>} Up to {{count}} messages, if available.
  */
 async function getLatestMessages(toEmailAddress) {
     if (typeof toEmailAddress !== 'string') {
@@ -36,7 +40,7 @@ async function getLatestMessages(toEmailAddress) {
 
     const params = new URLSearchParams({ search: toEmailAddress });
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?${params.toString()}`;
-    const messages = await mailtrapGet(path, 'json');
+    const messages = /** @type {Array<emailMessage>} */ (await mailtrapGet(path, 'json'));
     console.log(`got ${messages.length} message(s) from mailtrap at path ${path}`);
 
     if (messages.length === 0) {
@@ -69,7 +73,9 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         // where all bodies are got in one go would be slightly better, but is not a big
         // optimisation. For now, let's skip the eslint check for this line.
         // eslint-disable-next-line no-await-in-loop
-        body = await mailtrapGet(messages[ii].html_path, 'document');
+
+        // eslint-disable-next-line no-await-in-loop
+        body = /** @type {string} */ (await mailtrapGet(messages[ii].html_path, 'document'));
         if (body.includes(searchText)) {
             return true;
         }

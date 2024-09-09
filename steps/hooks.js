@@ -7,7 +7,8 @@ before(async (scenario) => {
 after(async (scenarioResult) => {
     // Here it is added to a failed step, but each time you call
     // `browser.saveScreenshot()` it will automatically be added to the report
-    if (scenarioResult.result.status !== 'PASSED') {
+    const status = scenarioResult && scenarioResult.result && scenarioResult.result.status;
+    if (status !== 'PASSED') {
         // It will add the screenshot to the JSON
         await console.warn('WARNING: Step Failed - screenshot being taken...');
 
@@ -15,5 +16,5 @@ after(async (scenarioResult) => {
         const filePath = `build/failure-${datetime}.png`;
         await browser.saveScreenshot(filePath);
     }
-    return scenarioResult.result.status;
+    return status;
 });

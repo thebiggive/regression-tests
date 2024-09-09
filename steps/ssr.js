@@ -15,7 +15,10 @@ Given(/^I am loading the site without Javascript$/, async () => {
 
 When(/^I view the homepage$/, { timeout: 1000 }, async () => {
     const client = axios.create();
-    url = process.env.BASE_URL;
+    const baseurl = process.env.BASE_URL;
+    if (!baseurl) throw new Error('BASE_URL not defined in enviornment');
+    url = baseurl;
+
     pageContent = (await client.get(url)).data;
 });
 

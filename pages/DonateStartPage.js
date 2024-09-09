@@ -18,7 +18,7 @@ import {
 } from '../support/action';
 
 // routes
-const startPageStripe = process.env.DONATE_PAGE_STRIPE;
+const startPageStripe = /** @type {string} */ (process.env.DONATE_PAGE_STRIPE);
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -56,7 +56,7 @@ export default class DonateStartPage {
         // todo consider removing this and moving the state into donation.js - this object gets shared between scenarios
         this.nextStepIndex = 0;
 
-        this.charity = null;
+        this.charity = 'Exempt Stripe Test Charity';
     }
 
     /**
@@ -146,6 +146,9 @@ export default class DonateStartPage {
         }
     }
 
+    /**
+     * @param {number} amount Amount to donate in pounds GBP
+     */
     async setDonationAmount(amount) {
         await inputSelectorValue(donationAmountSelector, amount.toString());
         // Leave tip at select dropdown's default if in Stripe mode and that field exists.
