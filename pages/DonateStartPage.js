@@ -146,6 +146,9 @@ export default class DonateStartPage {
         }
     }
 
+    /**
+     * @param {number} amount Amount to donate in pounds GBP
+     */
     async setDonationAmount(amount) {
         await inputSelectorValue(donationAmountSelector, amount.toString());
         // Leave tip at select dropdown's default if in Stripe mode and that field exists.

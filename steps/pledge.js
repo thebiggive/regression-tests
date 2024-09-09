@@ -12,6 +12,9 @@ import {
 } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
 
+/**
+ * @type {string}
+ */
 let emailAddress;
 
 /** @type {PledgeFormPage} */

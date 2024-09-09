@@ -18,7 +18,9 @@ import { checkVisibleSelectorContent } from '../support/check';
  * See REG-21
  */
 let donationAmount = randomIntFromInterval(5, 100);
-let donor = {};
+
+/** @type {{firstName: string, lastName: string, email: string}} */
+let donor;
 
 /** @type DonateStartPage * */
 let page;
