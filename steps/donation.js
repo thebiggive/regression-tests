@@ -20,7 +20,11 @@ import { checkVisibleSelectorContent } from '../support/check';
 let donationAmount = randomIntFromInterval(5, 100);
 
 /** @type {{firstName: string, lastName: string, email: string}} */
-let donor;
+let donor = {
+    firstName: 'default-first-name',
+    lastName: 'default-last-name',
+    email: 'default-email',
+};
 
 /** @type DonateStartPage * */
 let page;
