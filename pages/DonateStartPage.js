@@ -40,7 +40,7 @@ const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="number"]';
 const stripeExpiryDateSelector = 'input[name$="expiry"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
-const stripeSavedCardInputSelector = '#useSavedCard';
+const selectedSavedCardSelector = 'data-selected-payment-form="saved" PickerItem--selected"';
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
 
@@ -251,18 +251,13 @@ export default class DonateStartPage {
      * @param {string} lastFour The last 4 digits of the card number.
      */
     async checkSavedCardIsSelected(lastFour) {
-        if (!(await checkIfElementExists(stripeSavedCardInputSelector))) {
+        if (!(await checkIfElementExists(selectedSavedCardSelector))) {
             throw new Error('Saved card input checkbox not detected.');
         }
 
-        const checkboxInput = await $(stripeSavedCardInputSelector);
-        if (!(await (await checkboxInput.$('input')).getProperty('checked'))) {
-            throw new Error('Saved card is not auto-selected.');
-        }
-
         await checkSelectorContent(
-            stripeSavedCardInputSelector,
-            `Use saved card ending ${lastFour}.`,
+            selectedSavedCardSelector,
+            `•••• ${lastFour}.`,
         );
     }
 
