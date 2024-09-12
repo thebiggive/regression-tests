@@ -74,18 +74,18 @@ export async function sendKeys(value) {
 }
 
 /**
- * Move focus into the embedded Stripe iframe input fields.
+ * Move focus into the embedded Stripe iframe input fields, run the callable, the move focus back to main form.
+ *
+ * @template T
+ * @param {() => T} callable Function to run inside stripe iframe
+ * @return T
  */
-export async function enterStripeIframe() {
-    // https://webdriver.io/docs/api/webdriver.html#switchtoframe
+export async function inStripeIframe(callable) {
     await browser.switchToFrame(await $('iframe[title$="Secure payment input frame"]'));
-}
-
-/**
- * Move focus back to the outer page for main form interaction.
- */
-export async function leaveStripeIframe() {
+    const returnVal = await callable();
     await browser.switchToParentFrame();
+
+    return returnVal;
 }
 
 /**

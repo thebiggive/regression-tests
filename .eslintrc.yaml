@@ -47,7 +47,4 @@ rules:
         - 'When'
         - 'Then'
   strict: 'off'
-  valid-jsdoc:
-    - 'error'
-    - requireReturn: false
   no-console: 'off'
