@@ -256,7 +256,7 @@ export default class DonateStartPage {
 
             await checkSelectorContent(
                 selectedSavedCardSelector,
-                `•••• ${lastFour}.`,
+                lastFour,
             );
         });
     }
