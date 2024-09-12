@@ -251,6 +251,7 @@ export default class DonateStartPage {
      * @param {string} lastFour The last 4 digits of the card number.
      */
     async checkSavedCardIsSelected(lastFour) {
+        await enterStripeIframe();
         if (!(await checkIfElementExists(selectedSavedCardSelector))) {
             throw new Error('Saved card input checkbox not detected.');
         }
@@ -259,6 +260,7 @@ export default class DonateStartPage {
             selectedSavedCardSelector,
             `•••• ${lastFour}.`,
         );
+        await leaveStripeIframe();
     }
 
     /**
