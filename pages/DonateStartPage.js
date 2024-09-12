@@ -40,7 +40,7 @@ const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="number"]';
 const stripeExpiryDateSelector = 'input[name$="expiry"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
-const selectedSavedCardSelector = '.PickerItem--selected"';
+const selectedSavedCardSelector = 'div[data-selected-payment-form="saved"] .PickerItem--selected"';
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
 
