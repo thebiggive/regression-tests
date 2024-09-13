@@ -4,7 +4,6 @@ import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
     checkSelectorContent,
-    checkIfElementExists,
     checkVisibleSelectorContent,
     elementExists
 }
@@ -34,7 +33,7 @@ const lastNameSelector = '#lastName';
 const emailAddressSelector = '#emailAddress';
 const receiveEmailFromCharitySelector = '#mat-radio-3';
 const receiveEmailFromTheBigGiveSelector = '#mat-radio-6';
-const billingPostcodeSelector = '#billingPostcode';
+export const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="number"]';
 const stripeExpiryDateSelector = 'input[name$="expiry"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
@@ -233,10 +232,6 @@ export default class DonateStartPage {
      *
      */
     async checkCreditMessageDisplayed(expectedCreditMessage) {
-        if (!(await checkIfElementExists(stripeUseCreditsMessageSelector))) {
-            throw new Error(`Message not shown: ${expectedCreditMessage}`);
-        }
-
         await checkSelectorContent(
             stripeUseCreditsMessageSelector,
             `${expectedCreditMessage}`,
@@ -250,10 +245,6 @@ export default class DonateStartPage {
      */
     async checkSavedCardIsSelected(lastFour) {
         await inStripeIframe(async () => {
-            if (!(await checkIfElementExists(selectedSavedCardSelector))) {
-                throw new Error('Saved card input checkbox not detected.');
-            }
-
             await checkSelectorContent(
                 selectedSavedCardSelector,
                 lastFour,

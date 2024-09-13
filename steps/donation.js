@@ -7,9 +7,10 @@ import {
 
 import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
-import DonateStartPage from '../pages/DonateStartPage';
+import DonateStartPage, { billingPostcodeSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkVisibleSelectorContent } from '../support/check';
+import { inputSelectorValue } from '../support/action';
 
 /**
  * Note: donationAmount is changable in the `restart-donation` test, whereby the bot changes the
@@ -317,3 +318,6 @@ Then(
         }
     }
 );
+Then(/^I enter a billing postcode$/, async () => {
+    await inputSelectorValue(billingPostcodeSelector, 'N1 1AA');
+});
