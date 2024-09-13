@@ -16,6 +16,7 @@ Feature: Existing donor: saved payment method donation completes successfully
         And I should see my populated surname is "User"
         And I should see my populated email is "tech+regression+donor@thebiggive.org.uk"
         And I should see an existing card ending 4242 already pre-selected
+        And I enter a billing postcode
         When I continue through this step with no changes
         And I choose a preference for charity and TBG communications
         And I press Donate
