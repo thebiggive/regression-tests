@@ -33,7 +33,7 @@ const lastNameSelector = '#lastName';
 const emailAddressSelector = '#emailAddress';
 const receiveEmailFromCharitySelector = '#mat-radio-3';
 const receiveEmailFromTheBigGiveSelector = '#mat-radio-6';
-export const billingPostcodeSelector = '#billingPostcode';
+const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="number"]';
 const stripeExpiryDateSelector = 'input[name$="expiry"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
