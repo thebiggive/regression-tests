@@ -84,11 +84,13 @@ When(
 );
 
 When('I enter the ID account test email and password', async () => {
+    await browser.keys(['Tab', 'Tab']); // skip friendly captcha which for some reason grabs focus first
     await browser.keys(['Tab', /** @type {string} */ (process.env.DONOR_ID_REGISTERED_EMAIL)]);
     await browser.keys(['Tab', /** @type {string} */ (process.env.DONOR_ID_REGISTERED_PASSWORD)]);
 });
 
 When('I enter the ID credit-funded account test email and password', async () => {
+    await browser.keys(['Tab', 'Tab']); // friendly captcha as above
     await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_EMAIL)]);
     await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_PASSWORD)]);
 });
