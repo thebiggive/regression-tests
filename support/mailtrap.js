@@ -67,7 +67,6 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         return false;
     }
 
-    let body;
     for (let ii = 0; ii < messages.length; ii += 1) {
         // Seems like we need await with the current approach to get the content. A refactor
         // where all bodies are got in one go would be slightly better, but is not a big
@@ -75,13 +74,11 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         // eslint-disable-next-line no-await-in-loop
 
         // eslint-disable-next-line no-await-in-loop
-        body = /** @type {string} */ (await mailtrapGet(messages[ii].html_path, 'document'));
+        const body = /** @type {string} */ (await mailtrapGet(messages[ii].html_path, 'document'));
         if (body.includes(searchText)) {
             return true;
         }
     }
-
-    console.error(`Expected "${searchText}" not found in email body:\n\n${body}`);
 
     return false;
 }
