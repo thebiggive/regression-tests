@@ -9,7 +9,7 @@ config.capabilities = [
     },
     {
         browserName: 'safari',
-        platform: 'SIERRA',
+        platform: 'MOJAVE',
         version: '12',
         build: config.build,
     },
