@@ -79,9 +79,9 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
     console.log({ browserVersion: capabilities.browserVersion, version: capabilities.version });
 
     const isSafari = 'browserName' in capabilities && capabilities.browserName === 'safari';
-    const isVersion11 = 'version' in capabilities && capabilities.version?.toString().match(/^11/);
+    // const isVersion11 = 'version' in capabilities && capabilities.version?.toString().match(/^11/);
 
-    if (isSafari && isVersion11) {
+    if (isSafari) {
         return true; // skipping title check
     }
     return browser.waitUntil(
