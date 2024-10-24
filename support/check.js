@@ -73,10 +73,10 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
     // @ts-ignore
     console.log(browser.capabilities.browserName);
     // @ts-ignore
-    console.log(browser.capabilities.browserVersion);
+    console.log({ browserVersion: browser.capabilities.browserVersion, version: browser.capabilities.version });
     // TEMPORARY fix
     // @ts-ignore
-    if (browser.capabilities.browserName.includes('Safari') && browser.capabilities.browserVersion.includes('11')) {
+    if (browser.capabilities.browserName.includes('safari') && browser.capabilities.version.includes('11')) {
         return true;
     }
     return browser.waitUntil(
