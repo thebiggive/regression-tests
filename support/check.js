@@ -78,7 +78,10 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
     // @ts-ignore
     console.log({ browserVersion: capabilities.browserVersion, version: capabilities.version });
 
-    const isSafari = 'browserName' in capabilities && capabilities.browserName === 'safari';
+    const isSafari = 'browserName' in capabilities
+        && capabilities.browserName
+        && capabilities.browserName.toString().toLowerCase() === 'safari';
+
     // const isVersion11 = 'version' in capabilities && capabilities.version?.toString().match(/^11/);
 
     if (isSafari) {
