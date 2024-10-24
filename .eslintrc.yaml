@@ -16,7 +16,7 @@ globals:
 
 
 parserOptions:
-  ecmaVersion: 8
+  ecmaVersion: latest
 
 root: true
 
@@ -48,3 +48,4 @@ rules:
         - 'Then'
   strict: 'off'
   no-console: 'off'
+

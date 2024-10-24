@@ -71,14 +71,14 @@ export async function checkUrlMatch(url, seconds = WAIT_SECONDS) {
 export async function checkTitle(title, seconds = WAIT_SECONDS) {
     console.log(`CHECK: Title contains "${title}"`);
 
-    const capabilities = browser.capabilities;
+    const { capabilities } = browser;
     // @ts-ignore
     console.log(capabilities.browserName);
 
     // @ts-ignore
     console.log({ browserVersion: capabilities.browserVersion, version: capabilities.version });
 
-    const isSafari = 'browserName' in capabilities && capabilities.browserName ==='safari';
+    const isSafari = 'browserName' in capabilities && capabilities.browserName === 'safari';
     const isVersion11 = 'version' in capabilities && capabilities.version?.toString().match(/^11/);
 
     if (isSafari && isVersion11) {
