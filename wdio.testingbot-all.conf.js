@@ -9,8 +9,8 @@ config.capabilities = [
     },
     {
         browserName: 'safari',
-        platform: 'MOJAVE',
-        version: '12',
+        platform: 'CATALINA',
+        version: '13',
         build: config.build,
     },
     {
