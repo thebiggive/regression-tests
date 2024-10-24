@@ -16,7 +16,7 @@ globals:
 
 
 parserOptions:
-  ecmaVersion: latest
+  ecmaVersion: 8
 
 root: true
 

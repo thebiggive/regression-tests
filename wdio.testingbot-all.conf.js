@@ -10,7 +10,7 @@ config.capabilities = [
     {
         browserName: 'safari',
         platform: 'SIERRA',
-        version: '11',
+        version: '12',
         build: config.build,
     },
     {
