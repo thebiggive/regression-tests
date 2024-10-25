@@ -60,6 +60,10 @@ export async function setSelectOption(selector, value) {
         throw new Error(`Expected element "${selector}" to exist`);
     }
 
+    if (!(await $(selector).isClickable())) {
+        await $(selector).scrollIntoView();
+    }
+
     await $(selector).selectByAttribute('value', value);
 }
 
