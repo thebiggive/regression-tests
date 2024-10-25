@@ -76,9 +76,8 @@ When(
 );
 
 When('I enter the ID credit-funded account test email and password', async () => {
-    await browser.keys(['Tab', 'Tab']); // friendly captcha as above
-    await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_EMAIL)]);
-    await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_PASSWORD)]);
+    await page.inputSelectorValue('>>>#loginEmailAddress', /** @type {string} */ (process.env.CREDIT_EMAIL));
+    await page.inputSelectorValue('>>>#loginPassword', /** @type {string} */ (process.env.CREDIT_PASSWORD));
 });
 
 When(
