@@ -1,4 +1,3 @@
-@skip()
 Feature: New donor: donation completes successfully and donor registers
 
     As a new donor

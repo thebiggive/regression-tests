@@ -1,4 +1,3 @@
-@skip()
 Feature: The site is rendered server side
 
   We use server side rendering to make the site faster to use for people and easier for search engines to index.
