@@ -76,7 +76,10 @@ export default class PledgeFormPage {
 
     async acceptTerms() {
         // Hack for now as the input isn't properly labelled. We should fix this for a11y too.
-        await clickSelector("//span[@class='slds-checkbox']//span[@class='slds-checkbox_faux']");
+        // The slightly more specfic commented selector worked for Chromium but not Safari.
+        // Deep selector with `name=iAccept` found the element but it wasn't interactible.
+        // await clickSelector("//span[@class='slds-checkbox']//span[@class='slds-checkbox_faux']");
+        await clickSelector('lightning-input.slds-m-bottom_large');
     }
 
     /**
