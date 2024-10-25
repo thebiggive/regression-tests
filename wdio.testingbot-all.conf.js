@@ -6,6 +6,7 @@ config.capabilities = [
         platform: 'SEQUOIA',
         version: '18',
         build: config.build,
+        elementScrollBehavior: 1, // from bottom.
     },
 ];
 config.maxInstances = 1;
