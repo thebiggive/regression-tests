@@ -1,5 +1,6 @@
 const { config } = require('./wdio.BASE.conf.ts');
 
+// For possible browsers see https://testingbot.com/support/getting-started/browsers.html
 config.capabilities = [
     {
         browserName: 'chrome',
@@ -9,8 +10,8 @@ config.capabilities = [
     },
     {
         browserName: 'safari',
-        platform: 'CATALINA',
-        version: '13',
+        platform: 'MONTEREY',
+        version: '15',
         build: config.build,
     },
     {
