@@ -11,6 +11,7 @@
     "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.js",
     "test:testingbot-edge": "wdio run wdio.testingbot-edge.conf.js",
     "test:local": "wdio run wdio.local.conf.js",
+    "test:local-safari": "wdio run wdio.local-safari.conf.js",
     "clean": "del-cli build/* !build/.gitkeep"
   },
   "engines": {
@@ -34,7 +35,7 @@
     "@wdio/testingbot-service": "^8.0.0",
     "@wdio/types": "^8.16.7",
     "axios": "^1.7.4",
-    "chromedriver": "^119.0.1",
+    "chromedriver": "^130.0.1",
     "del-cli": "^5.1.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.50.0",
