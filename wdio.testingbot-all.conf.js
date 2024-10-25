@@ -8,6 +8,12 @@ config.capabilities = [
         build: config.build,
     },
     {
+        browserName: 'safari',
+        platform: 'SEQUOIA',
+        version: '18',
+        build: config.build,
+    },
+    {
         browserName: 'microsoftedge',
         platform: 'WIN11',
         version: 'latest',
