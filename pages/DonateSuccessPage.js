@@ -28,9 +28,13 @@ export default class DonateSuccessPage {
      * @param {number} donationAmount to check
      */
     static async checkBalance(donationAmount) {
+        // For now checking just the 'Your donation' amount itself is a fairly good check that
+        // *probably* the correct figure was set to that value. We included the prefix before
+        // but this isn't reliable cross-browser because the receipt is a table and Chromium
+        // browsers summarise it as "Your donation £123" while Safari shows "Your donation£123".
         await checkSelectorContent(
             receiptSelector,
-            `Your donation ${balanceTextPreCheck}${donationAmount}`,
+            `${balanceTextPreCheck}${donationAmount}`,
         );
     }
 
