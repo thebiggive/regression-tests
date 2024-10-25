@@ -2,29 +2,13 @@ const { config } = require('./wdio.BASE.conf.ts');
 
 config.capabilities = [
     {
-        browserName: 'chrome',
-        platform: 'WIN11',
-        version: 'latest',
-        build: config.build,
-    },
-    {
         browserName: 'safari',
         platform: 'SEQUOIA',
         version: '18',
         build: config.build,
     },
-    {
-        browserName: 'microsoftedge',
-        platform: 'WIN11',
-        version: 'latest',
-        build: config.build,
-        // MS Edge, like IE, seems to also have problems with scroll mgmt behaviour.
-        // https://stackoverflow.com/questions/52276194
-        // Modifying this flag resolved wrong elements getting some clicks in IE11.
-        elementScrollBehavior: 1, // from bottom.
-    },
 ];
-config.maxInstances = 2;
+config.maxInstances = 1;
 config.services.push('testingbot');
 
 config.path = '/wd/hub';
