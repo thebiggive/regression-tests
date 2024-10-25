@@ -16,6 +16,9 @@ export default class PledgeFormPage {
      */
     constructor(browser) {
         this.browser = browser;
+        // Needed for Safari to find the terms checkbox seemingly, even though the click helper
+        // is meant to scroll it into view.
+        this.browser.maximizeWindow();
     }
 
     /**
@@ -78,6 +81,7 @@ export default class PledgeFormPage {
         // Hack for now as the input isn't properly labelled. We should fix this for a11y too.
         // The slightly more specfic commented selector worked for Chromium but not Safari.
         // Deep selector with `name=iAccept` found the element but it wasn't interactible.
+        // This also seems to be Safari-reliable only when we maximise the window.
         // await clickSelector("//span[@class='slds-checkbox']//span[@class='slds-checkbox_faux']");
         await clickSelector('lightning-input.slds-m-bottom_large');
     }
