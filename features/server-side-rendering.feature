@@ -1,3 +1,5 @@
+# No need to do this one in all browsers
+@skip(browserName="safari")
 Feature: The site is rendered server side
 
   We use server side rendering to make the site faster to use for people and easier for search engines to index.
