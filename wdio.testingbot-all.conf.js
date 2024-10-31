@@ -9,8 +9,8 @@ config.capabilities = [
     },
     {
         browserName: 'safari',
-        platform: 'SEQUOIA',
-        version: '18',
+        platform: 'MONTEREY',
+        version: '15',
         build: config.build,
     },
     {
