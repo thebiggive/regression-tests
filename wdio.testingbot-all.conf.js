@@ -9,8 +9,8 @@ config.capabilities = [
     // },
     {
         browserName: 'safari',
-        platform: 'MONTEREY',
-        version: '15',
+        platform: 'VENTURA',
+        version: '16',
         build: config.build,
     },
     // {
