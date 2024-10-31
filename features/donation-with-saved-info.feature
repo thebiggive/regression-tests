@@ -7,7 +7,8 @@ Feature: Existing donor: saved payment method donation completes successfully
     Scenario: Existing donor: saved payment method donation completes successfully
         Given that I am on my chosen Stripe-enabled charity's Donate page
         And I click the "Log in" button
-        And I enter the ID account test email and password
+        And I enter the ID account test email address for "Email address"
+        And I enter the ID account test password for "Password"
         And I click the popup's login button
         Then I should see "Logged in as tech+regression+donor@thebiggive.org.uk" in the ID info box
         When I enter an amount between £5 and £25,000

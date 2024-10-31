@@ -112,11 +112,12 @@ Then(
 
 Then(
     // eslint-disable-next-line max-len
-    'the main card text should start with confirmation of my chosen pledge amount and the correct charity name',
+    'the main card text should contain my chosen pledge amount and the correct charity name',
     async () => {
-        const text = `Thank you for your generous match funding pledge of £${pledgeAmount}.00 `
-            + 'to Exempt Stripe Test Charity';
-        await page.checkForCardWithCopy(text);
+        // Spacing in string summary varies by browser, so we look for 3 key parts separately for now.
+        await page.checkForCardWithCopy('Thank you for your generous match funding');
+        await page.checkForCardWithCopy(`£${pledgeAmount}.00`);
+        await page.checkForCardWithCopy('Exempt Stripe Test Charity');
     }
 );
 

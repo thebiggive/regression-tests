@@ -53,14 +53,6 @@ When(/I click the "([^"]+)" button/, async (buttonText) => {
     await page.clickActiveSelector(`button*=${buttonText}`);
 });
 
-/**
- * Currently unused because we had trouble targeting inputs in the target DOM
- * correctly. For now, we work around this using `keys()` inside the login modal.
- *
- * See next fn for that implemenation.
- *
- * {@link https://github.com/webdriverio/webdriverio/issues/4509
- */
 When(
     /I enter the ID account test ([a-z\s]+) for "[^"]+"/,
     async (dataPoint) => {
@@ -79,20 +71,13 @@ When(
                 throw new Error('Unknown value');
         }
 
-        await page.inputSelectorValue(`#${elementId}`, value);
+        await page.inputSelectorValue(`>>>#${elementId}`, value);
     },
 );
 
-When('I enter the ID account test email and password', async () => {
-    await browser.keys(['Tab', 'Tab']); // skip friendly captcha which for some reason grabs focus first
-    await browser.keys(['Tab', /** @type {string} */ (process.env.DONOR_ID_REGISTERED_EMAIL)]);
-    await browser.keys(['Tab', /** @type {string} */ (process.env.DONOR_ID_REGISTERED_PASSWORD)]);
-});
-
 When('I enter the ID credit-funded account test email and password', async () => {
-    await browser.keys(['Tab', 'Tab']); // friendly captcha as above
-    await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_EMAIL)]);
-    await browser.keys(['Tab', /** @type {string} */ (process.env.CREDIT_PASSWORD)]);
+    await page.inputSelectorValue('>>>#loginEmailAddress', /** @type {string} */ (process.env.CREDIT_EMAIL));
+    await page.inputSelectorValue('>>>#loginPassword', /** @type {string} */ (process.env.CREDIT_PASSWORD));
 });
 
 When(
