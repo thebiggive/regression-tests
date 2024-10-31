@@ -9,8 +9,8 @@ config.capabilities = [
     },
     {
         browserName: 'safari',
-        platform: 'SEQUOIA',
-        version: '18',
+        platform: 'VENTURA',
+        version: '16',
         build: config.build,
     },
     {
