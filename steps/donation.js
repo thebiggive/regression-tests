@@ -247,11 +247,13 @@ Then('I should be invited to log in', async () => {
  * @param {number} amount
  */
 const checkAmountInEmail = async (amount) => {
+    const formattedAmount = amount.toLocaleString('en-GB');
+
     if (!(await checkAnEmailBodyContainsText(
-        `Donation: <strong>£${amount}.00</strong>`,
+        `Donation: <strong>£${formattedAmount}.00</strong>`,
         donor.email
     ))) {
-        throw new Error(`Donation amount £${amount} not found in email`);
+        throw new Error(`Donation amount £${formattedAmount} not found in email`);
     }
 };
 

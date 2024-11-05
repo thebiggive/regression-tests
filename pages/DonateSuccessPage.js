@@ -15,7 +15,6 @@ const passwordSelector = '#password';
 const registrationTextSelector = '#registrationCompleteText';
 
 // checks
-const balanceTextPreCheck = '£';
 const urlCheck = 'thanks';
 
 export default class DonateSuccessPage {
@@ -32,9 +31,12 @@ export default class DonateSuccessPage {
         // *probably* the correct figure was set to that value. We included the prefix before
         // but this isn't reliable cross-browser because the receipt is a table and Chromium
         // browsers summarise it as "Your donation £123" while Safari shows "Your donation£123".
+
+        const formattedAmount = donationAmount.toLocaleString('en-GB');
+
         await checkSelectorContent(
             receiptSelector,
-            `${balanceTextPreCheck}${donationAmount}`,
+            `£${formattedAmount}`,
         );
     }
 
