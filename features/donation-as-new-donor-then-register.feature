@@ -7,8 +7,8 @@ Feature: New donor: donation completes successfully and donor registers
     Scenario: New donor: donation completes successfully and donor registers
         Given that I am on my chosen Stripe-enabled charity's Donate page
         When I enter an amount of £25000
-        And I choose a preference for Gift Aid
-        And I enter my name, email address and Stripe payment details
+        And I say no to Gift Aid
+        And I enter my name, email address and UK Visa card number
         And I choose a preference for charity and TBG communications
         And I press Donate
         When I wait a few seconds

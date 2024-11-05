@@ -13,7 +13,7 @@ Feature: Existing donor: saved payment method donation completes successfully
         Then I should see "Logged in as tech+regression+donor@thebiggive.org.uk" in the ID info box
 
         When I enter an amount of £25000
-        And I choose a preference for Gift Aid
+        And I say no to Gift Aid
         Then I should see my populated first name is "RegressionTest"
         And I should see my populated surname is "User"
         And I should see my populated email is "tech+regression+donor@thebiggive.org.uk"

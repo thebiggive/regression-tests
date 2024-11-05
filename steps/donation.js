@@ -131,15 +131,15 @@ When(
 );
 
 When(
-    'I choose a preference for Gift Aid',
+    'I say no to Gift Aid',
     async () => {
-        await page.setGiftAidChoice();
+        await page.selectNoGiftAid();
         await page.progressToNextStep(true);
     }
 );
 
 When(
-    'I enter my name, email address and Stripe payment details',
+    'I enter my name, email address and UK Visa card number',
     async () => {
         donor = await page.populateNameAndEmail();
         await page.populateStripePaymentDetails();
@@ -338,3 +338,8 @@ Then(
         }
     }
 );
+Then('my charity charity has been charged a vat inclusive fee of £{float}', async () => {
+    // @todo MAT-384 - connect to stripe and check what we've charged as the fee for this donation.
+    // We may be able to do this by reading the stripe transaction ID from the thank you page or email, or they may
+    // be another way to find it.
+});
