@@ -12,12 +12,9 @@ import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkVisibleSelectorContent } from '../support/check';
 
 /**
- * Note: donationAmount is changable in the `restart-donation` test, whereby the bot changes the
- * donation amount after cancelling the first. Hence, it's not a constant variable.
- * See `When('I re-enter an amount between £5 and £25,000', ...)` method.
- * See REG-21
+ * @type {number}
  */
-let donationAmount = randomIntFromInterval(5, 100);
+let donationAmount;
 
 /** @type {{firstName: string, lastName: string, email: string}} */
 let donor = {
@@ -86,8 +83,13 @@ When(
 );
 
 When(
-    'I enter an amount between £5 and £25,000',
-    async () => {
+    'I enter an amount between £{int} and £{int}',
+    /**
+     * @param {number} lowerBound
+     * @param {number} upperBound
+     */
+    async (lowerBound, upperBound) => {
+        donationAmount = randomIntFromInterval(lowerBound, upperBound);
         await page.setDonationAmount(donationAmount);
         await page.progressToNextStep(true);
     }
