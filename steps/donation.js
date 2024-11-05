@@ -94,6 +94,18 @@ When(
 );
 
 When(
+    'I enter an amount of £{int}',
+    /**
+     * @param {number} amountEntered
+     */
+    async (amountEntered) => {
+        donationAmount = amountEntered;
+        await page.setDonationAmount(donationAmount);
+        await page.progressToNextStep(true);
+    }
+);
+
+When(
     'I re-enter an amount between £5 and £25,000',
     async () => {
         // Update donation amount by -1, relative to its itinial value.
@@ -199,12 +211,20 @@ When(
 );
 
 Then(
-    /^I should be redirected to a Thank You confirmation page with the correct amount$/,
-    async () => {
+    'I should be redirected to a Thank You confirmation page with amount £{int}',
+    /**
+     * @param {number} amount
+     */
+    async (amount) => {
         await DonateSuccessPage.checkReady();
-        await DonateSuccessPage.checkBalance(donationAmount);
+        await DonateSuccessPage.checkBalance(amount);
     }
 );
+
+Then(/^I should be redirected to a Thank You confirmation page with the correct amount$/, async () => {
+    await DonateSuccessPage.checkReady();
+    await DonateSuccessPage.checkBalance(donationAmount);
+});
 
 When(
     'I wait a few seconds',
@@ -223,16 +243,26 @@ Then('I should be invited to log in', async () => {
     checkVisibleSelectorContent('main', 'Log in');
 });
 
+/**
+ * @param {number} amount
+ */
+const checkAmountInEmail = async (amount) => {
+    if (!(await checkAnEmailBodyContainsText(
+        `Donation: <strong>£${amount}.00</strong>`,
+        donor.email
+    ))) {
+        throw new Error(`Donation amount £${amount} not found in email`);
+    }
+};
+
+Then(
+    'my last email should contain amount £{int}',
+    async (amount) => checkAmountInEmail(amount)
+);
+
 Then(
     'my last email should contain the correct amounts',
-    async () => {
-        if (!(await checkAnEmailBodyContainsText(
-            `Donation: <strong>£${donationAmount}.00</strong>`,
-            donor.email
-        ))) {
-            throw new Error(`Donation amount £${donationAmount} not found in email`);
-        }
-    }
+    async () => checkAmountInEmail(donationAmount)
 );
 
 Then(

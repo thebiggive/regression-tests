@@ -11,7 +11,8 @@ Feature: Existing donor: saved payment method donation completes successfully
         And I enter the ID account test password for "Password"
         And I click the popup's login button
         Then I should see "Logged in as tech+regression+donor@thebiggive.org.uk" in the ID info box
-        When I enter an amount between £5 and £25,000
+
+        When I enter an amount of £25000
         And I choose a preference for Gift Aid
         Then I should see my populated first name is "RegressionTest"
         And I should see my populated surname is "User"
@@ -23,6 +24,6 @@ Feature: Existing donor: saved payment method donation completes successfully
         When I wait a few seconds
         Then I should be redirected to a Thank You confirmation page with the correct amount
         When I wait long enough for email processing
-        Then my last email should contain the correct amounts
+        Then my last email should contain amount £25000
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name
