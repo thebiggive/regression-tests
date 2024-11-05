@@ -11,20 +11,21 @@ Feature: New donor: restarting donation completes successfully
         And I enter my name, email address and UK Visa card number
         And I choose a preference for charity and TBG communications
         And I navigate back to the first step
-        And I re-enter an amount between £5 and £25,000
+        # Update donation amount by -1, relative to its initial value.
+        And I update the amount to £24999
         And I say no to Gift Aid
         And I enter my name, email address and UK Visa card number
         And I choose a preference for charity and TBG communications
         And I press Donate
         When I wait a few seconds
-        Then I should be redirected to a Thank You confirmation page with amount £25000
+        Then I should be redirected to a Thank You confirmation page with amount £24999
         When I wait long enough for email processing
-        Then my last email should contain amount £25000
+        Then my last email should contain amount £24999
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name
 
-        ## Fee is calculated as (25000*1.5/100+0.2)*1.2
-        And my charity charity has been charged a vat inclusive fee of £450.24
+        ## Fee is calculated as (24999*1.5/100+0.2)*1.2
+        And my charity charity has been charged a vat inclusive fee of £450.22
 
         Given that I am on my chosen Stripe-enabled charity's Donate page
          # And I didn't set a password above, or log-in

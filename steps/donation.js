@@ -108,12 +108,12 @@ When(
 );
 
 When(
-    'I re-enter an amount between £5 and £25,000',
-    async () => {
-        // Update donation amount by -1, relative to its itinial value.
-        // Re-store new value in same variable so that the following check passes later:
-        // `DonateSuccessPage.checkBalance(donationAmount);`
-        donationAmount -= 1;
+    'I update the amount to £{int}',
+    /**
+     * @param {number} amount
+     */
+    async (amount) => {
+        donationAmount = amount;
         await page.setDonationAmount(donationAmount);
         await page.progressToNextStep(true);
 
