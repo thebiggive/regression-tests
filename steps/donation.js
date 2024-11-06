@@ -16,7 +16,10 @@ import { checkVisibleSelectorContent } from '../support/check';
  */
 let donationAmount;
 
-/** @type {{firstName: string, lastName: string, email: string}} */
+/**
+ * @typedef {{firstName: string, lastName: string, email: string}} Donor
+   @type {Donor}
+ * */
 let donor = {
     firstName: 'default-first-name',
     lastName: 'default-last-name',
@@ -338,8 +341,15 @@ Then(
         }
     }
 );
-Then('my charity charity has been charged a vat inclusive fee of £{float}', async () => {
+Then(
+    'my charity charity has been charged a vat inclusive fee of £{float}',
+    /**
+     * @param {number} amount
+     */
+    // eslint-disable-next-line no-unused-vars
+    async (amount) => {
     // @todo MAT-384 - connect to stripe and check what we've charged as the fee for this donation.
     // We may be able to do this by reading the stripe transaction ID from the thank you page or email, or they may
     // be another way to find it.
-});
+    }
+);

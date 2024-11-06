@@ -160,6 +160,7 @@ export default class DonateStartPage {
 
     /**
      * Enter first & last name and email address, in Stripe mode.
+     * @returns {Promise<import('../steps/donation').Donor>}
      */
     async populateNameAndEmail() {
         const firstName = generateIdentifier('Firstname-');
