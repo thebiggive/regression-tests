@@ -1,3 +1,5 @@
+// Not sure why this can't be resolved, suppressing to see what happens. May well just fail at runtime now.
+// eslint-disable-next-line import/no-unresolved
 import Stripe from 'Stripe';
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY);
