@@ -27,7 +27,7 @@ const donationAmountSelector = '#donationAmount';
 // ideally. Now we don't support IE for any journey we can hopefully use standard Xpath.
 const yourDonationStepSelector = '#cdk-step-label-0-0';
 const giftAidStepSelector = '#cdk-step-label-0-1';
-const claimGiftAidSelector = '#mat-radio-9';
+const rejectGiftAidSelector = '#mat-radio-9';
 const firstNameSelector = '#firstName';
 const lastNameSelector = '#lastName';
 const emailAddressSelector = '#emailAddress';
@@ -151,15 +151,16 @@ export default class DonateStartPage {
         // Leave tip at select dropdown's default if in Stripe mode and that field exists.
     }
 
-    async setGiftAidChoice() {
+    async selectNoGiftAid() {
         // Pause for 2 secs
         await this.browser.pause(2000);
         // Claim Gift Aid? select NO. This means no additional Stripe mode fields for now.
-        await clickSelector(claimGiftAidSelector);
+        await clickSelector(rejectGiftAidSelector);
     }
 
     /**
      * Enter first & last name and email address, in Stripe mode.
+     * @returns {Promise<import('../steps/donation').Donor>}
      */
     async populateNameAndEmail() {
         const firstName = generateIdentifier('Firstname-');
@@ -260,7 +261,10 @@ export default class DonateStartPage {
         await inputSelectorValue(billingPostcodeSelector, 'N1 1AA');
 
         await inStripeIframe(async () => {
-            await inputSelectorValue(stripeCardNumberSelector, '4000008260000000');
+            /** see https://docs.stripe.com/testing */
+            const UKVisaCardPAN = '4000008260000000';
+
+            await inputSelectorValue(stripeCardNumberSelector, UKVisaCardPAN);
             await inputSelectorValue(stripeExpiryDateSelector, '01/25');
             await inputSelectorValue(stripeCvcSelector, '123');
         });

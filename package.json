@@ -44,6 +44,7 @@
     "eslint-plugin-wdio": "^8.8.7",
     "eslint-watch": "^8.0.0",
     "minimist": "^1.2.8",
+    "stripe": "github:stripe/stripe-node",
     "typescript": "^5.2.2",
     "wdio-chromedriver-service": "^8.1.1"
   }

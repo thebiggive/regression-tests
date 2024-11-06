@@ -12,14 +12,14 @@ import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkVisibleSelectorContent } from '../support/check';
 
 /**
- * Note: donationAmount is changable in the `restart-donation` test, whereby the bot changes the
- * donation amount after cancelling the first. Hence, it's not a constant variable.
- * See `When('I re-enter an amount between £5 and £25,000', ...)` method.
- * See REG-21
+ * @type {number}
  */
-let donationAmount = randomIntFromInterval(5, 100);
+let donationAmount;
 
-/** @type {{firstName: string, lastName: string, email: string}} */
+/**
+ * @typedef {{firstName: string, lastName: string, email: string}} Donor
+   @type {Donor}
+ * */
 let donor = {
     firstName: 'default-first-name',
     lastName: 'default-last-name',
@@ -86,20 +86,37 @@ When(
 );
 
 When(
-    'I enter an amount between £5 and £25,000',
-    async () => {
+    'I enter an amount between £{int} and £{int}',
+    /**
+     * @param {number} lowerBound
+     * @param {number} upperBound
+     */
+    async (lowerBound, upperBound) => {
+        donationAmount = randomIntFromInterval(lowerBound, upperBound);
         await page.setDonationAmount(donationAmount);
         await page.progressToNextStep(true);
     }
 );
 
 When(
-    'I re-enter an amount between £5 and £25,000',
-    async () => {
-        // Update donation amount by -1, relative to its itinial value.
-        // Re-store new value in same variable so that the following check passes later:
-        // `DonateSuccessPage.checkBalance(donationAmount);`
-        donationAmount -= 1;
+    'I enter an amount of £{int}',
+    /**
+     * @param {number} amountEntered
+     */
+    async (amountEntered) => {
+        donationAmount = amountEntered;
+        await page.setDonationAmount(donationAmount);
+        await page.progressToNextStep(true);
+    }
+);
+
+When(
+    'I update the amount to £{int}',
+    /**
+     * @param {number} amount
+     */
+    async (amount) => {
+        donationAmount = amount;
         await page.setDonationAmount(donationAmount);
         await page.progressToNextStep(true);
 
@@ -117,15 +134,15 @@ When(
 );
 
 When(
-    'I choose a preference for Gift Aid',
+    'I say no to Gift Aid',
     async () => {
-        await page.setGiftAidChoice();
+        await page.selectNoGiftAid();
         await page.progressToNextStep(true);
     }
 );
 
 When(
-    'I enter my name, email address and Stripe payment details',
+    'I enter my name, email address and UK Visa card number',
     async () => {
         donor = await page.populateNameAndEmail();
         await page.populateStripePaymentDetails();
@@ -199,12 +216,20 @@ When(
 );
 
 Then(
-    /^I should be redirected to a Thank You confirmation page with the correct amount$/,
-    async () => {
+    'I should be redirected to a Thank You confirmation page with amount £{int}',
+    /**
+     * @param {number} amount
+     */
+    async (amount) => {
         await DonateSuccessPage.checkReady();
-        await DonateSuccessPage.checkBalance(donationAmount);
+        await DonateSuccessPage.checkBalance(amount);
     }
 );
+
+Then(/^I should be redirected to a Thank You confirmation page with the correct amount$/, async () => {
+    await DonateSuccessPage.checkReady();
+    await DonateSuccessPage.checkBalance(donationAmount);
+});
 
 When(
     'I wait a few seconds',
@@ -223,16 +248,28 @@ Then('I should be invited to log in', async () => {
     checkVisibleSelectorContent('main', 'Log in');
 });
 
+/**
+ * @param {number} amount
+ */
+const checkAmountInEmail = async (amount) => {
+    const formattedAmount = amount.toLocaleString('en-GB');
+
+    if (!(await checkAnEmailBodyContainsText(
+        `Donation: <strong>£${formattedAmount}.00</strong>`,
+        donor.email
+    ))) {
+        throw new Error(`Donation amount £${formattedAmount} not found in email`);
+    }
+};
+
+Then(
+    'my last email should contain amount £{int}',
+    async (amount) => checkAmountInEmail(amount)
+);
+
 Then(
     'my last email should contain the correct amounts',
-    async () => {
-        if (!(await checkAnEmailBodyContainsText(
-            `Donation: <strong>£${donationAmount}.00</strong>`,
-            donor.email
-        ))) {
-            throw new Error(`Donation amount £${donationAmount} not found in email`);
-        }
-    }
+    async () => checkAmountInEmail(donationAmount)
 );
 
 Then(
@@ -302,5 +339,17 @@ Then(
             throw new Error(`Registration email with expected copy not found.
             Expected: ${expectedCopy}`);
         }
+    }
+);
+Then(
+    'my charity charity has been charged a vat inclusive fee of £{float}',
+    /**
+     * @param {number} amount
+     */
+    // eslint-disable-next-line no-unused-vars
+    async (amount) => {
+    // @todo MAT-384 - connect to stripe and check what we've charged as the fee for this donation.
+    // We may be able to do this by reading the stripe transaction ID from the thank you page or email, or they may
+    // be another way to find it.
     }
 );
