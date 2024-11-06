@@ -10,7 +10,7 @@ import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkVisibleSelectorContent } from '../support/check';
-import {checkStripeCustomerExists} from "../support/stripe";
+import { checkStripeCustomerExists } from '../support/stripe';
 
 /**
  * @type {number}
