@@ -10,6 +10,7 @@ import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkVisibleSelectorContent } from '../support/check';
+import {checkStripeCustomerExists} from "../support/stripe";
 
 /**
  * @type {number}
@@ -348,6 +349,7 @@ Then(
      */
     // eslint-disable-next-line no-unused-vars
     async (amount) => {
+        checkStripeCustomerExists(donor.email);
     // @todo MAT-384 - connect to stripe and check what we've charged as the fee for this donation.
     // We may be able to do this by reading the stripe transaction ID from the thank you page or email, or they may
     // be another way to find it.
