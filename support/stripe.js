@@ -1,9 +1,11 @@
-// Not sure why this can't be resolved, suppressing to see what happens. May well just fail at runtime now.
-// @ts-ignore
-// eslint-disable-next-line import/no-unresolved
-import Stripe from 'Stripe';
+import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_API_KEY);
+const stripeApiKey = process.env.STRIPE_API_KEY;
+if (!stripeApiKey) {
+    throw new Error('Stripe API KEY not set in environment');
+}
+
+const stripe = new Stripe(stripeApiKey);
 
 /**
  * @param {string} email
