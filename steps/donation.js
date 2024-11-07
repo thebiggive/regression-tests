@@ -10,7 +10,7 @@ import { randomIntFromInterval } from '../support/util';
 import DonateStartPage from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkVisibleSelectorContent } from '../support/check';
-import { checkStripeCustomerExists } from '../support/stripe';
+import { checkStripeCustomerExists, getChargedAmount } from '../support/stripe';
 
 /**
  * @type {number}
@@ -345,13 +345,23 @@ Then(
 Then(
     'my charity charity has been charged a vat inclusive fee of £{float}',
     /**
-     * @param {number} amount
+     * @param {number} expectedAmount
      */
     // eslint-disable-next-line no-unused-vars
-    async (amount) => {
+    async (expectedAmount) => {
         checkStripeCustomerExists(donor.email);
-    // @todo MAT-384 - connect to stripe and check what we've charged as the fee for this donation.
-    // We may be able to do this by reading the stripe transaction ID from the thank you page or email, or they may
-    // be another way to find it.
+
+        const thanksPageurl = await browser.getUrl();
+        const donationUUId = thanksPageurl.split('/').pop();
+        if (!donationUUId) {
+            throw new Error(`Couldn't find donation UUID in URL: ${thanksPageurl}`);
+        }
+
+        const amountChargedToCharity = await getChargedAmount(donationUUId);
+        if (amountChargedToCharity !== expectedAmount) {
+            throw new Error(
+                `Amount charged to charity not as expected, expected ${expectedAmount}, found ${amountChargedToCharity}`
+            );
+        }
     }
 );
