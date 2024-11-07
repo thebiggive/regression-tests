@@ -1,3 +1,7 @@
+# Skipped in edge as failing about 50% of time. See Jira DON-1088.
+# Failures show "Error: First name value not as expected. Expected "RegressionTest", got "[object Object]""
+
+@skip(browserName="edge")
 Feature: Existing donor: saved payment method donation completes successfully
 
     As a returning donor
