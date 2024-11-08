@@ -376,6 +376,6 @@ Given(
         verifyStripePaymentIntentDetails({
             totalCharged, applicationFee, feeGros, feeNet, feeVAT,
         });
-        console.log('CHECK: Other stripe payment intent details are as epxected');
+        console.log('CHECK: Other stripe payment intent details are as expected');
     }
 );
