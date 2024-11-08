@@ -362,6 +362,8 @@ Then(
             throw new Error(
                 `Amount charged to charity not as expected, expected ${expectedAmount}, found ${amountChargedToCharity}`
             );
+        } else {
+            console.log(`CHECK: Stripe shows amount charged to charity is £${amountChargedToCharity} as expected`);
         }
     }
 );
