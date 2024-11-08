@@ -118,8 +118,7 @@ async function checkText(element, content, seconds = WAIT_SECONDS) {
         async () => {
             const text = element.getText();
             if (!(await text).includes(content)) {
-                console.error(`Expected content ${content} not found in text ${(await text)}`);
-                return false;
+                throw new Error(`Expected content ${content} not found in text ${(await text)}`);
             }
             return true;
         },
