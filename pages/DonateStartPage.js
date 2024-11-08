@@ -208,7 +208,9 @@ export default class DonateStartPage {
     async checkDonorSurname(expectedSurname) {
         const surname = await $(lastNameSelector).getValue();
         if (surname !== expectedSurname) {
-            throw new Error(`Surname value not as expected, expected "${expectedSurname}", got "${surname}"`);
+            throw new Error(
+                `Surname value not as expected, expected "${expectedSurname}", got "${JSON.stringify(surname)}"`
+            );
         }
     }
 
@@ -222,7 +224,7 @@ export default class DonateStartPage {
     async checkDonorEmail(expectedEmail) {
         const email = await $(emailAddressSelector).getValue();
         if (email !== expectedEmail) {
-            throw new Error(`Email value not as expected, expectd ${expectedEmail}, got ${email}`);
+            throw new Error(`Email value not as expected, expectd ${expectedEmail}, got ${JSON.stringify(email)}`);
         }
     }
 
