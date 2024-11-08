@@ -4,7 +4,7 @@ import {
 
 import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
-import DonateStartPage, {emailAddressSelector, firstNameSelector, lastNameSelector} from '../pages/DonateStartPage';
+import DonateStartPage, { emailAddressSelector, firstNameSelector, lastNameSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkSelectorContent, checkSelectorValue, checkVisibleSelectorContent } from '../support/check';
 
