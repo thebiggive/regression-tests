@@ -48,3 +48,4 @@ rules:
         - 'Then'
   strict: 'off'
   no-console: 'off'
+  no-return-await: 'off' # deprecated see https://eslint.org/docs/latest/rules/no-return-await
