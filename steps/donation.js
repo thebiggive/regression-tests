@@ -343,7 +343,7 @@ Then(
     }
 );
 Then(
-    'my charity charity has been charged a vat inclusive fee of £{float}',
+    'my charity has been charged a vat inclusive fee of £{float}',
     /**
      * @param {number} expectedAmount
      */

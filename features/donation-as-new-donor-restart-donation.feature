@@ -25,7 +25,7 @@ Feature: New donor: restarting donation completes successfully
         And my last email should contain the correct name
 
         ## Fee is calculated as round(round(24999*1.5/100+0.2)*1.2)
-        And my charity charity has been charged a vat inclusive fee of £450.23
+        And my charity has been charged a vat inclusive fee of £450.23
 
         Given that I am on my chosen Stripe-enabled charity's Donate page
          # And I didn't set a password above, or log-in
