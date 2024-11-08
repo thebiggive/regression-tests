@@ -4,6 +4,7 @@ import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
     checkSelectorContent,
+    checkSelectorValue,
     checkVisibleSelectorContent,
     elementExists
 }
@@ -190,12 +191,7 @@ export default class DonateStartPage {
      *
      */
     async checkDonorFirstName(expectedFirstName) {
-        const firstName = await $(firstNameSelector).getValue();
-        if (firstName !== expectedFirstName) {
-            throw new Error(
-                `First name value not as expected. Expected "${expectedFirstName}", got "${JSON.stringify(firstName)}"`
-            );
-        }
+        await checkSelectorValue(firstNameSelector, expectedFirstName);
     }
 
     /**
@@ -206,12 +202,7 @@ export default class DonateStartPage {
      *
      */
     async checkDonorSurname(expectedSurname) {
-        const surname = await $(lastNameSelector).getValue();
-        if (surname !== expectedSurname) {
-            throw new Error(
-                `Surname value not as expected, expected "${expectedSurname}", got "${JSON.stringify(surname)}"`
-            );
-        }
+        await checkSelectorValue(lastNameSelector, expectedSurname);
     }
 
     /**
@@ -222,10 +213,7 @@ export default class DonateStartPage {
      *
      */
     async checkDonorEmail(expectedEmail) {
-        const email = await $(emailAddressSelector).getValue();
-        if (email !== expectedEmail) {
-            throw new Error(`Email value not as expected, expectd ${expectedEmail}, got ${JSON.stringify(email)}`);
-        }
+        await checkSelectorValue(emailAddressSelector, expectedEmail);
     }
 
     /**

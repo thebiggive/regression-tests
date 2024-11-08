@@ -81,6 +81,31 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
 }
 
 /**
+ * Check a specific form element contains the given value.
+ *
+ * @param {WebdriverIO.Element} element Already-located element.
+ * @param {string} value
+ * @param {number} seconds Number of seconds to wait.
+ * @returns {Promise<any>} `waitUntil()` result.
+ */
+async function checkValue(element, value, seconds = WAIT_SECONDS) {
+    return browser.waitUntil(
+        async () => {
+            const text = element.getValue();
+            if ((await text) !== value) {
+                console.error(`Expected value ${value} did not match text ${(await text)}`);
+                return false;
+            }
+            return true;
+        },
+        {
+            timeout: seconds * 1000,
+            timeoutMsg: `Expected element to have value "${value}"`,
+        },
+    );
+}
+
+/**
  * Check a specific element contains certain text.
  *
  * @param {WebdriverIO.Element} element Already-located element.
@@ -103,6 +128,24 @@ async function checkText(element, content, seconds = WAIT_SECONDS) {
             timeoutMsg: `Expected element to contain "${content}"`,
         },
     );
+}
+
+/**
+ * Assert element with given value exists
+ *
+ * @param {string} selector
+ * @param {string} value
+ * @param {number} seconds Time to wait
+ * @return {Promise<boolean>} return if text exist
+ */
+export async function checkSelectorValue(selector, value, seconds = WAIT_SECONDS) {
+    console.log(`CHECK: Element "${selector}" has value "${value}"`);
+
+    if (!(await checkIfElementExists(selector))) {
+        throw new Error(`Expected element "${selector}" to exist`);
+    }
+
+    return checkValue(await $(selector), value, seconds);
 }
 
 /**
