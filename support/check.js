@@ -91,8 +91,8 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
 async function checkValue(element, value, seconds = WAIT_SECONDS) {
     return browser.waitUntil(
         async () => {
-            const text = element.getValue();
-            if ((await text) !== value) {
+            const text = await element.getValue();
+            if (text !== value) {
                 console.error(`Expected value ${value} did not match text ${(await text)}`);
                 return false;
             }
