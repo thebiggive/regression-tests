@@ -68,16 +68,6 @@ export async function setSelectOption(selector, value) {
 }
 
 /**
- * Send keys
- *
- * @param {string} value to be typed
- */
-export async function sendKeys(value) {
-    console.log(`ACTION: Send keys "${value}"`);
-    await browser.keys(value);
-}
-
-/**
  * Move focus into the embedded Stripe iframe input fields, run the callable, the move focus back to main form.
  *
  * @template T
@@ -90,23 +80,4 @@ export async function inStripeIframe(callable) {
     await browser.switchToParentFrame();
 
     return returnVal;
-}
-
-/**
- * get element text
- *
- * @param {string} selector of content
- * @returns {Promise<string>} element text
- */
-export async function getSelectorText(selector) {
-    if (!(await checkIfElementExists(selector))) {
-        throw new Error(`Expected element "${selector}" to exist`);
-    }
-    const element = $(selector);
-    const text = await element.getText();
-    console.log(
-        `GET: Element "${selector}" contains content "${text}"`
-    );
-
-    return text;
 }
