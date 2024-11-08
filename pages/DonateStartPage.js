@@ -28,9 +28,9 @@ const donationAmountSelector = '#donationAmount';
 const yourDonationStepSelector = '#cdk-step-label-0-0';
 const giftAidStepSelector = '#cdk-step-label-0-1';
 const rejectGiftAidSelector = '#mat-radio-9';
-const firstNameSelector = '#firstName';
-const lastNameSelector = '#lastName';
-const emailAddressSelector = '#emailAddress';
+export const firstNameSelector = '#firstName';
+export const lastNameSelector = '#lastName';
+export const emailAddressSelector = '#emailAddress';
 const receiveEmailFromCharitySelector = '#mat-radio-3';
 const receiveEmailFromTheBigGiveSelector = '#mat-radio-6';
 const billingPostcodeSelector = '#billingPostcode';
@@ -38,7 +38,6 @@ const stripeCardNumberSelector = 'input[name$="number"]';
 const stripeExpiryDateSelector = 'input[name$="expiry"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const selectedSavedCardSelector = '.PickerItem--selected';
-const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 const continueBtnSelector = '>>>#proceed-with-donation';
 
 export default class DonateStartPage {
@@ -113,6 +112,8 @@ export default class DonateStartPage {
      * @param {string} expectedText  Text anticipated somewhere in the box.
      */
     async checkIdInfo(expectedText) {
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(1500); // Give the login call a short processing time.
         await checkVisibleSelectorContent(idInfoSelector, expectedText);
     }
 
@@ -180,63 +181,6 @@ export default class DonateStartPage {
             lastName,
             email,
         };
-    }
-
-    /**
-     * Verify that the name matches the Stripe test Customer's for the donor with an
-     * existing ID account.
-     *
-     * @param {string} expectedFirstName - stores the expected first name as per the user story
-     *
-     */
-    async checkDonorFirstName(expectedFirstName) {
-        const firstName = await $(firstNameSelector).getValue();
-        if (firstName !== expectedFirstName) {
-            throw new Error(`First name value not as expected. Expected "${expectedFirstName}", got "${firstName}"`);
-        }
-    }
-
-    /**
-     * Verify that the surname matches the Stripe test Customer's for the donor with an
-     * existing ID account.
-     *
-     * @param {string} expectedSurname - stores the expected first name as per the user story
-     *
-     */
-    async checkDonorSurname(expectedSurname) {
-        const surname = await $(lastNameSelector).getValue();
-        if (surname !== expectedSurname) {
-            throw new Error(`Surname value not as expected, expected "${expectedSurname}", got "${surname}"`);
-        }
-    }
-
-    /**
-     * Verify that the email matches the Stripe test Customer's for the donor with an
-     * existing ID account.
-     *
-     * @param {string} expectedEmail - stores the expected first name as per the user story
-     *
-     */
-    async checkDonorEmail(expectedEmail) {
-        const email = await $(emailAddressSelector).getValue();
-        if (email !== expectedEmail) {
-            throw new Error(`Email value not as expected, expectd ${expectedEmail}, got ${email}`);
-        }
-    }
-
-    /**
-     * Verify that the donation form doesn't ask for bank details, but shows a message
-     * telling the donor that their credit balance will be used.
-     *
-     * @param {string} expectedCreditMessage - stores the expected message telling the
-     * user that their credit balance will be used.
-     *
-     */
-    async checkCreditMessageDisplayed(expectedCreditMessage) {
-        await checkSelectorContent(
-            stripeUseCreditsMessageSelector,
-            `${expectedCreditMessage}`,
-        );
     }
 
     /**

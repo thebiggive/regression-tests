@@ -1,16 +1,15 @@
 import {
-    BeforeAll,
-    Given,
-    Then,
-    When
+    BeforeAll, Given, Then, When
 } from '@cucumber/cucumber';
 
 import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
-import DonateStartPage from '../pages/DonateStartPage';
+import DonateStartPage, { emailAddressSelector, firstNameSelector, lastNameSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
-import { checkVisibleSelectorContent } from '../support/check';
 import { checkStripeCustomerExists, getChargedAmount } from '../support/stripe';
+import { checkSelectorContent, checkSelectorValue, checkVisibleSelectorContent } from '../support/check';
+
+const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
 /**
  * @type {number}
@@ -154,7 +153,7 @@ When(
 When(
     /I should see my populated first name is "([^"]+)"/,
     async (expectedFirstName) => {
-        page.checkDonorFirstName(expectedFirstName);
+        await checkSelectorValue(firstNameSelector, expectedFirstName);
         // set donor.firstName so the test titled 'my last email
         // should contain the correct name' works correctly
         donor.firstName = expectedFirstName;
@@ -164,7 +163,7 @@ When(
 When(
     /I should see my populated surname is "([^"]+)"/,
     async (expectedSurname) => {
-        page.checkDonorSurname(expectedSurname);
+        await checkSelectorValue(lastNameSelector, expectedSurname);
         // set donor.lastName so the test titled 'my last email
         // should contain the correct name' works correctly
         donor.lastName = expectedSurname;
@@ -174,14 +173,17 @@ When(
 When(
     /I should see my populated email is "([^"]+)"/,
     async (expectedEmail) => {
-        page.checkDonorEmail(expectedEmail);
+        await checkSelectorValue(emailAddressSelector, expectedEmail);
         donor.email = expectedEmail;
     },
 );
 
 When(
     /I should see "([^"]+)" instead of asking for my bank details./,
-    async (expectedCreditMessage) => page.checkCreditMessageDisplayed(expectedCreditMessage),
+    async (expectedCreditMessage) => await checkSelectorContent(
+        stripeUseCreditsMessageSelector,
+        expectedCreditMessage,
+    ),
 );
 
 When(
