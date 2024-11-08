@@ -181,7 +181,7 @@ When(
     /I should see "([^"]+)" instead of asking for my bank details./,
     async (expectedCreditMessage) => await checkSelectorContent(
         stripeUseCreditsMessageSelector,
-        `${expectedCreditMessage}`,
+        expectedCreditMessage,
     ),
 );
 
