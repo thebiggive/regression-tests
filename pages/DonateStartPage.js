@@ -192,7 +192,9 @@ export default class DonateStartPage {
     async checkDonorFirstName(expectedFirstName) {
         const firstName = await $(firstNameSelector).getValue();
         if (firstName !== expectedFirstName) {
-            throw new Error(`First name value not as expected. Expected "${expectedFirstName}", got "${firstName}"`);
+            throw new Error(
+                `First name value not as expected. Expected "${expectedFirstName}", got "${JSON.stringify(firstName)}"`
+            );
         }
     }
 
