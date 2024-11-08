@@ -8,6 +8,9 @@ if (!stripeApiKey) {
 
 const stripe = new Stripe(stripeApiKey);
 
+/** @type {Stripe.PaymentIntent} */
+let paymentIntent;
+
 /**
  * @param {string} email
  */
@@ -36,9 +39,9 @@ export async function getChargedAmount(donationUUID) {
 
     // search docs say it results are *usually* available in less than a minute so we may have to experiment to
     // see if this is flaky or not. I don't think we have another great way to find the PI.
-    const paymentIntent = (await stripe.paymentIntents.search({
+    [paymentIntent] = (await stripe.paymentIntents.search({
         query: `metadata["donationId"]:"${donationUUID}"`,
-    })).data[0];
+    })).data;
 
     if (!paymentIntent) {
         throw new Error(`Payment intent not found: for donation ${donationUUID}`);
@@ -50,4 +53,32 @@ export async function getChargedAmount(donationUUID) {
     }
 
     return +applicationFeeAmount / 100 - +paymentIntent.metadata.tipAmount;
+}
+
+/**
+ * @param {Object} expectedAmounts
+ * @param {number} expectedAmounts.totalCharged
+ * @param {number} expectedAmounts.feeChargedToUs
+ * @param {number} expectedAmounts.applicationFee
+ * @param {number} expectedAmounts.feeGros
+ * @param {number} expectedAmounts.feeNet
+ * @param {number} expectedAmounts.feeVAT
+ */
+export function verifyStripePaymentIntentDetails(expectedAmounts) {
+    console.log('TEMP LOG DELETE BEFORE MERGE');
+    console.log(JSON.stringify(paymentIntent, null, 2));
+
+    const actualDataFromStripe = {
+        totalCharged: paymentIntent.amount / 100,
+        feeChargedToUs: 42, // not sure where this will be in PI data, will check log.
+        applicationFee: (paymentIntent.application_fee_amount || 0) / 100,
+        feeGros: +(paymentIntent.metadata.stripeFeeRechargeGross) / 100,
+        feeNet: paymentIntent.metadata.stripeFeeRechargeNet,
+        feeVAT: +(paymentIntent.metadata.stripeFeeRechargeVat) / 100,
+    };
+
+    if (JSON.stringify(actualDataFromStripe) !== JSON.stringify(expectedAmounts)) {
+        console.error({ expectedAmounts, actualDataFromStripe });
+        throw new Error('Amounts in stripe payment intent did not all match expectations');
+    }
 }
