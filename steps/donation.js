@@ -6,7 +6,7 @@ import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '.
 import { randomIntFromInterval } from '../support/util';
 import DonateStartPage, { emailAddressSelector, firstNameSelector, lastNameSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
-import { checkStripeCustomerExists, getChargedAmount } from '../support/stripe';
+import { checkStripeCustomerExists, getChargedAmount, verifyStripePaymentIntentDetails } from '../support/stripe';
 import { checkSelectorContent, checkSelectorValue, checkVisibleSelectorContent } from '../support/check';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
@@ -367,5 +367,15 @@ Then(
         } else {
             console.log(`CHECK: Stripe shows amount charged to charity is £${amountChargedToCharity} as expected`);
         }
+    }
+);
+Given(
+    'other payment intent data is as expected: total charged to donor: £{float}, '
+    + 'application fee £{float}, stripe fee gross £{float}, stripe fee net £{float}, stripe fee vat £{float}',
+    (totalCharged, applicationFee, feeGros, feeNet, feeVAT) => {
+        verifyStripePaymentIntentDetails({
+            totalCharged, applicationFee, feeGros, feeNet, feeVAT,
+        });
+        console.log('CHECK: Other stripe payment intent details are as expected');
     }
 );
