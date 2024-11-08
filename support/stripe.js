@@ -55,7 +55,6 @@ export async function getChargedAmount(donationUUID) {
     return +applicationFeeAmount / 100 - +paymentIntent.metadata.tipAmount;
 }
 
-
 /**
  * @param {Object} expectedAmounts
  * @param {number} expectedAmounts.totalCharged
