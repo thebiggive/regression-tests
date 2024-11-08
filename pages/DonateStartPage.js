@@ -114,6 +114,8 @@ export default class DonateStartPage {
      * @param {string} expectedText  Text anticipated somewhere in the box.
      */
     async checkIdInfo(expectedText) {
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(1500); // Give the login call a short processing time.
         await checkVisibleSelectorContent(idInfoSelector, expectedText);
     }
 
