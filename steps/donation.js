@@ -370,11 +370,12 @@ Then(
     }
 );
 Given(
-    'other payment intent data is as expected: total charged to donor: £{float}, fee stripe charged us £{float}, '
+    'other payment intent data is as expected: total charged to donor: £{float}, '
     + 'application fee £{float}, stripe fee gross £{float}, stripe fee net £{float}, stripe fee vat £{float}',
-    (totalCharged, feeChargedToUs, applicationFee, feeGros, feeNet, feeVAT) => {
+    (totalCharged, applicationFee, feeGros, feeNet, feeVAT) => {
         verifyStripePaymentIntentDetails({
-            totalCharged, feeChargedToUs, applicationFee, feeGros, feeNet, feeVAT,
+            totalCharged, applicationFee, feeGros, feeNet, feeVAT,
         });
+        console.log('CHECK: Other stripe payment intent details are as epxected');
     }
 );

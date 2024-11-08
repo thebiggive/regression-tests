@@ -55,19 +55,16 @@ export async function getChargedAmount(donationUUID) {
     return +applicationFeeAmount / 100 - +paymentIntent.metadata.tipAmount;
 }
 
+
 /**
  * @param {Object} expectedAmounts
  * @param {number} expectedAmounts.totalCharged
- * @param {number} expectedAmounts.feeChargedToUs
  * @param {number} expectedAmounts.applicationFee
  * @param {number} expectedAmounts.feeGros
  * @param {number} expectedAmounts.feeNet
  * @param {number} expectedAmounts.feeVAT
  */
 export function verifyStripePaymentIntentDetails(expectedAmounts) {
-    console.log('TEMP LOG DELETE BEFORE MERGE');
-    console.log(JSON.stringify(paymentIntent, null, 2));
-
     // would use spread syntax instead of Object.assign but eslint here doesn't seem to recognise it. Even though
     // it tells me to prefer it
     // eslint-disable-next-line prefer-object-spread
@@ -78,7 +75,6 @@ export function verifyStripePaymentIntentDetails(expectedAmounts) {
     const actualDataFromStripe = {
         status: paymentIntent.status,
         totalCharged: paymentIntent.amount / 100,
-        feeChargedToUs: 42, // not sure where this will be in PI data, will check log.
         applicationFee: (paymentIntent.application_fee_amount || 0) / 100,
         feeGros: +(paymentIntent.metadata.stripeFeeRechargeGross),
         feeNet: +(paymentIntent.metadata.stripeFeeRechargeNet),
