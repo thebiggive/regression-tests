@@ -26,7 +26,7 @@ Feature: New donor: restarting donation completes successfully
 
         ## Fee is calculated as round(round(24999*1.5/100+0.2)*1.2)
         And my charity has been charged a vat inclusive fee of £450.23
-        And other payment intent data is as expected: total charged to donor: £1.1, fee stripe charged us £2.2, application fee £3.3, stripe fee gross £4.4, stripe fee net £5.5, stripe fee vat £6.6
+        And other payment intent data is as expected: total charged to donor: £26873.92, fee stripe charged us £2.2, application fee £2325.15, stripe fee gross £450.23, stripe fee net £375.19, stripe fee vat £75.04
 
         Given that I am on my chosen Stripe-enabled charity's Donate page
          # And I didn't set a password above, or log-in

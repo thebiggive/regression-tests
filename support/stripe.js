@@ -68,17 +68,26 @@ export function verifyStripePaymentIntentDetails(expectedAmounts) {
     console.log('TEMP LOG DELETE BEFORE MERGE');
     console.log(JSON.stringify(paymentIntent, null, 2));
 
+    // would use spread syntax instead of Object.assign but eslint here doesn't seem to recognise it. Even though
+    // it tells me to prefer it
+    // eslint-disable-next-line prefer-object-spread
+    const expected = Object.assign({
+        status: 'succeeded',
+    }, expectedAmounts);
+
     const actualDataFromStripe = {
+        status: paymentIntent.status,
         totalCharged: paymentIntent.amount / 100,
         feeChargedToUs: 42, // not sure where this will be in PI data, will check log.
         applicationFee: (paymentIntent.application_fee_amount || 0) / 100,
-        feeGros: +(paymentIntent.metadata.stripeFeeRechargeGross) / 100,
-        feeNet: paymentIntent.metadata.stripeFeeRechargeNet,
-        feeVAT: +(paymentIntent.metadata.stripeFeeRechargeVat) / 100,
+        feeGros: +(paymentIntent.metadata.stripeFeeRechargeGross),
+        feeNet: +(paymentIntent.metadata.stripeFeeRechargeNet),
+        feeVAT: +(paymentIntent.metadata.stripeFeeRechargeVat),
     };
 
-    if (JSON.stringify(actualDataFromStripe) !== JSON.stringify(expectedAmounts)) {
-        console.error({ expectedAmounts, actualDataFromStripe });
-        throw new Error('Amounts in stripe payment intent did not all match expectations');
+    // consider using an assertion library soon to make it easier to check object equality.
+    if (JSON.stringify(actualDataFromStripe) !== JSON.stringify(expected)) {
+        console.error({ expected, actualDataFromStripe });
+        throw new Error('values in stripe payment intent did not all match expectations');
     }
 }
