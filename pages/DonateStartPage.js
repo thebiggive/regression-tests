@@ -191,6 +191,7 @@ export default class DonateStartPage {
             firstName,
             lastName,
             email,
+            password: null,
         };
     }
 

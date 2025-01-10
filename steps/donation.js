@@ -68,17 +68,17 @@ When("I click the popup's login button", async () => {
     await page.clickActiveSelector('>>>#login-modal-submit');
 });
 
-When(/I click the "([^"]+)" Big Give button/, async (buttonText) => {
+When(/I click the "([^"]+)" Big Give button/, async () => {
     const button = await $('biggive-button');
     // todo actually check the text; for now we assume there's one.
-    //.find(
-      //  async (el) => (await el.getText()).includes(buttonText),
-    //);
-
-    console.log('button in bg btn thing', button);
+    // .find(
+    //  async (el) => (await el.getText()).includes(buttonText),
+    // );
 
     // `isClickable()` doesn't work with shadow DOM pseudo-buttons, not entirely sure why.
-    const realButton = button.$('>>>a.button');
+    /** @type {HTMLElement} */
+    // @ts-ignore Can't work out why TS is unhappy with the @type here so far. @todo fix if possible.
+    const realButton = await button.$('>>>a.button');
     await clickElement(realButton, '[biggive-button two stage select]');
 });
 
