@@ -68,9 +68,11 @@ When("I click the popup's login button", async () => {
     await page.clickActiveSelector('>>>#login-modal-submit');
 });
 
-When(/I click the "([^"]+)" Big Give button/, async () => {
+// eslint-disable-next-line no-unused-vars
+When(/I click the "([^"]+)" Big Give button/, async (_buttonText) => {
     const button = await $('biggive-button');
-    // todo actually check the text; for now we assume there's one.
+    // todo actually check the text; for now we assume there's one. Can maybe replace scrollIntoView boilerplate
+    // then too.
     // .find(
     //  async (el) => (await el.getText()).includes(buttonText),
     // );
@@ -79,6 +81,10 @@ When(/I click the "([^"]+)" Big Give button/, async () => {
     /** @type {HTMLElement} */
     // @ts-ignore Can't work out why TS is unhappy with the @type here so far. @todo fix if possible.
     const realButton = await button.$('>>>a.button');
+    // possibly not needed, testingbot might have been failing because of arg count mismatch.
+    // keeping for now in interest of maybe having it pass before the weekend
+    realButton.scrollIntoView();
+
     await clickElement(realButton, '[biggive-button two stage select]');
 });
 
