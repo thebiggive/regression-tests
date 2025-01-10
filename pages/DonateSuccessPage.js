@@ -45,7 +45,9 @@ export default class DonateSuccessPage {
     }
 
     static async populatePassword() {
-        await inputSelectorValue(passwordSelector, this.generateRandomPassword());
+        const newPassword = this.generateRandomPassword();
+        await inputSelectorValue(passwordSelector, newPassword);
+        return newPassword;
     }
 
     static async clickOnCreateAccountButton() {

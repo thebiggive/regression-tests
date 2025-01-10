@@ -1,0 +1,24 @@
+Feature: New donor registers and sets up new Regular Giving mandate
+
+    As a new donor
+    I want to set a password and initiate a monthly Regular Giving commitment
+    And I want my first donation to be collected immediately
+    So that I can support my chosen charity regularly
+
+    Scenario: New donor registers and sets up new Regular Giving mandate
+        Given I am on the standalone Register page
+        When I enter my name, email address and password
+        And I click the "Register" Big Give button
+        Then the page should update to say I'm registered
+        When I enter the same email and password to log in
+        And I click the "Login" Big Give button
+        Then I should be on the "My account" page
+        When I open the Regular Giving application campaign start donating page
+        And I enter an amount of £1
+        And I enter a UK Visa card number
+        And I click the "Start regular giving now" button
+        When I wait a few seconds
+        Then I should be redirected to a mandate detail page showing amount £1
+        And the page should say monthly processing started today and will proceed on the current day-ish each month
+        When I wait long enough for email processing
+        Then my last email should contain a new monthly mandate confirmation showing amount £1

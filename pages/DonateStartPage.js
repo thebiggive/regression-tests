@@ -16,6 +16,7 @@ import {
 
 // routes
 const startPageStripe = /** @type {string} */ (process.env.DONATE_PAGE_STRIPE);
+const regularGivingCampaignId = /** @type {string} */ (process.env.REGULAR_GIVING_CAMPAIGN_ID);
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -98,6 +99,16 @@ export default class DonateStartPage {
     async open() {
         this.charity = 'Exempt Stripe Test Charity';
         await goToUrl(startPageStripe);
+    }
+
+    async openRegister() {
+        await goToUrl('/register');
+        await checkTitle('Register');
+    }
+
+    async openRegularGiving() {
+        await goToUrl(`/regular-giving/${regularGivingCampaignId}`);
+        await checkTitle('Regular Giving');
     }
 
     async checkReady() {
