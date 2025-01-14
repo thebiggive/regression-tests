@@ -32,22 +32,23 @@ export async function clickElement(element, originalSelector) {
 }
 
 /**
+ * Clicks a custom `<biggive-button>` with the given text.
  * @param {string} text
  */
 export async function clickBigGiveButtonWithText(text) {
-    /** @type {WebdriverIO.Element|null} */
-    const buttonWithText = await $$('biggive-button').find(
-        async (el) => (await el.getText()).includes(text),
-    );
+    console.log(`ACTION: Click Big Give button '${text}'`);
 
-    if (!buttonWithText) {
-        return;
+    const selector = `biggive-button[label="${text}"]`;
+    const customButton = await $(selector);
+    if (!customButton) {
+        throw new Error(`Expected <biggive-button> "${text}" to exist`);
     }
 
     /** @type {WebdriverIO.Element} */
-    const innerButtonLink = await buttonWithText.$('>>>a.button');
+    const innerButtonLink = await customButton.$('>>>a.button');
     await innerButtonLink.waitForClickable();
-    await clickElement(innerButtonLink, `biggive-button*=${text}`);
+
+    await clickElement(innerButtonLink, `${selector} >>>a.button`);
 }
 
 /**

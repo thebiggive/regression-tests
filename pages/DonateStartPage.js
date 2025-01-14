@@ -181,6 +181,7 @@ export default class DonateStartPage {
         // because we never hit the error of the email already being used by another used. REG-26.
         const email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
 
+        await $(firstNameSelector).waitForStable(); // test:local-safari needed this for first input to work.
         await inputSelectorValue(firstNameSelector, firstName);
         await inputSelectorValue(lastNameSelector, lastName);
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
