@@ -6,13 +6,7 @@ Feature: New donor registers and sets up new Regular Giving mandate
     So that I can support my chosen charity regularly
 
     Scenario: New donor registers and sets up new Regular Giving mandate
-        Given I am on the standalone Register page
-        When I enter my name, email address and password
-        And I click the "Register" Big Give button
-        Then the page should update to say I'm registered
-        When I enter the same email and password to log in
-        And I click the "Login" Big Give button
-        Then I should be on the "My account" page
+        Given I have registered and logged in as a donor
         When I open the Regular Giving application campaign start donating page
         And I enter an amount of £1
         And I enter a UK Visa card number

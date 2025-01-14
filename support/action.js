@@ -23,12 +23,31 @@ export async function clickSelector(selector, options = {}) {
 /**
  * Click an element that we have already tested for existence and clickability.
  *
- * @param {HTMLElement} element The element.
+ * @param {WebdriverIO.Element} element The element.
  * @param {string} originalSelector Text used to look it up, for info log.
  */
 export async function clickElement(element, originalSelector) {
     console.log(`ACTION: Click already-checked element from selector ${originalSelector}`);
     await element.click();
+}
+
+/**
+ * @param {string} text
+ */
+export async function clickBigGiveButtonWithText(text) {
+    /** @type {WebdriverIO.Element|null} */
+    const buttonWithText = await $$('biggive-button').find(
+        async (el) => (await el.getText()).includes(text),
+    );
+
+    if (!buttonWithText) {
+        return;
+    }
+
+    /** @type {WebdriverIO.Element} */
+    const innerButtonLink = await buttonWithText.$('>>>a.button');
+    await innerButtonLink.waitForClickable();
+    await clickElement(innerButtonLink, `biggive-button*=${text}`);
 }
 
 /**

@@ -272,6 +272,19 @@ export default class DonateStartPage {
     }
 
     /**
+     * @param {{firstName: string, lastName: string, email: string, password: string|null}} donor
+     */
+    async inputLoginFields(donor) {
+        if (donor.password === null) {
+            throw new Error('Donor password not set');
+        }
+        await this.inputSelectorValue('>>>#loginEmailAddress', donor.email);
+        await this.inputSelectorValue('>>>#loginPassword', donor.password);
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(1500); // Enough time for Friendly Captcha when the form was filled quickly.
+    }
+
+    /**
      * Run Axe on the current page. Fail tests if there are unexpected violations. Log
      * incompletes.
      */

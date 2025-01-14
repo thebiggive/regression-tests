@@ -14,7 +14,7 @@ import {
     checkUrl,
     checkVisibleSelectorContent
 } from '../support/check';
-import { clickElement } from '../support/action';
+import { clickBigGiveButtonWithText } from '../support/action';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -42,8 +42,20 @@ BeforeAll(async () => {
 });
 
 // Steps
-Given('I am on the standalone Register page', async () => {
+Given('I have registered and logged in as a donor', async () => {
     await page.openRegister();
+
+    // Complete register form
+    donor = await page.populateNameAndEmail();
+    donor.password = await DonateSuccessPage.populatePassword();
+    await clickBigGiveButtonWithText('Register');
+    await DonateSuccessPage.checkCopySaysImRegistered();
+
+    // Complete login form
+    await page.inputLoginFields(donor);
+    await clickBigGiveButtonWithText('Log in');
+
+    await checkTitle('My account – Big Give');
 });
 
 Given(
@@ -66,26 +78,6 @@ When(/^I open the Regular Giving application campaign start donating page$/, asy
 When("I click the popup's login button", async () => {
     // We use an ID here as we can't combine deep and text selectors.
     await page.clickActiveSelector('>>>#login-modal-submit');
-});
-
-// eslint-disable-next-line no-unused-vars
-When(/I click the "([^"]+)" Big Give button/, async (_buttonText) => {
-    const button = await $('biggive-button');
-    // todo actually check the text; for now we assume there's one. Can maybe replace scrollIntoView boilerplate
-    // then too.
-    // .find(
-    //  async (el) => (await el.getText()).includes(buttonText),
-    // );
-
-    // `isClickable()` doesn't work with shadow DOM pseudo-buttons, not entirely sure why.
-    /** @type {HTMLElement} */
-    // @ts-ignore Can't work out why TS is unhappy with the @type here so far. @todo fix if possible.
-    const realButton = await button.$('>>>a.button');
-    // possibly not needed, testingbot might have been failing because of arg count mismatch.
-    // keeping for now in interest of maybe having it pass before the weekend
-    realButton.scrollIntoView();
-
-    await clickElement(realButton, '[biggive-button two stage select]');
 });
 
 When(/I click the "([^"]+)" button/, async (buttonText) => {
@@ -190,24 +182,6 @@ When(
         await page.progressToNextStep(false);
     }
 );
-
-When(
-    'I enter my name, email address and password',
-    async () => {
-        donor = await page.populateNameAndEmail();
-        donor.password = await DonateSuccessPage.populatePassword();
-    }
-);
-
-When('I enter the same email and password to log in', async () => {
-    if (donor.password === null) {
-        throw new Error('Donor password not set');
-    }
-    await page.inputSelectorValue('>>>#loginEmailAddress', donor.email);
-    await page.inputSelectorValue('>>>#loginPassword', donor.password);
-    // eslint-disable-next-line wdio/no-pause
-    await browser.pause(1500); // Enough time for Friendly Captcha when the form was filled quickly.
-});
 
 When('I enter a UK Visa card number', async () => {
     await page.populateStripePaymentDetails();
