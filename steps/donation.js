@@ -306,19 +306,11 @@ Then(
         // which gives e.g. 'Jan 10, 2025'.
         const todayMediumFormatted = (new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' })).format(today);
         const dayOfCurrentMonthOr28 = Math.min(28, today.getDate());
-        // I expect this will fail in Safari similarly to other table stuff.
-        // @todo decide what to do about that.
-        await checkSelectorContent(
-            'main',
-            `Day of month ${dayOfCurrentMonthOr28}`,
-        );
 
-        console.log('medium date we want', todayMediumFormatted);
-
-        await checkSelectorContent(
-            'main',
-            `Active from ${todayMediumFormatted}`,
-        );
+        // Safari and other browsers summarise table contents differently, so we have put IDs on the 2 key
+        // cells we check here.
+        await checkSelectorContent('#regularActiveFrom', todayMediumFormatted); // 'Active from' row
+        await checkSelectorContent('#regularDayOfMonth', dayOfCurrentMonthOr28.toString()); // 'Day of month' row
     }
 );
 
