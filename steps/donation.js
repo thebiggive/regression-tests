@@ -272,7 +272,7 @@ Then(/^I should be redirected to a Thank You confirmation page with the correct 
     await DonateSuccessPage.checkBalance(donationAmount);
 });
 
-Then('I should be redirected to a mandate detail page showing amount £{int}', async (amount) => {
+Then('I should see a Regular Giving mandate for £{int} in my account', async (amount) => {
     await checkUrl('/my-account/regular-giving/'); // ID after this varies.
 
     const expectedSummaryLine = `Your donation of £${amount} is worth £${amount * 2} for the first 3 months!`;
@@ -299,7 +299,7 @@ Then('I should be invited to log in', async () => {
 });
 
 Then(
-    'the page should say monthly processing started today and will proceed on the current day-ish each month',
+    'the mandate should say monthly processing started today and will proceed on the current day-ish each month',
     async () => {
         const today = new Date();
         // Angular default is the US locale date order, and we don't override that, so explicitly ask for en-US

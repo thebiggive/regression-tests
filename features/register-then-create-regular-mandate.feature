@@ -12,7 +12,7 @@ Feature: New donor registers and sets up new Regular Giving mandate
         And I enter a UK Visa card number
         And I click the "Start regular giving now" button
         When I wait a few seconds
-        Then I should be redirected to a mandate detail page showing amount £1
-        And the page should say monthly processing started today and will proceed on the current day-ish each month
+        Then I should see a Regular Giving mandate for £1 in my account
+        And the mandate should say monthly processing started today and will proceed on the current day-ish each month
         When I wait long enough for email processing
         Then my last email should contain a new monthly mandate confirmation showing amount £1
