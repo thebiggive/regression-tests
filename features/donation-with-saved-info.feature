@@ -5,7 +5,7 @@ Feature: Existing donor: saved payment method donation completes successfully
     So that I can support my chosen charity with a doubled donation
 
     Scenario: Existing donor: saved payment method donation completes successfully
-        Given that I am on my chosen Stripe-enabled charity's Donate page
+        Given that I am on my chosen charity's Donate page
         And I click the "Log in" button
         And I enter the ID account test email address for "Email address"
         And I enter the ID account test password for "Password"

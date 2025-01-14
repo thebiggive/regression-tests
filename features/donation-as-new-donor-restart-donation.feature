@@ -5,7 +5,7 @@ Feature: New donor: restarting donation completes successfully
     So that I can support my chosen charity with a doubled donation
 
     Scenario: New donor: restarting donation completes successfully
-        Given that I am on my chosen Stripe-enabled charity's Donate page
+        Given that I am on my chosen charity's Donate page
         When I enter an amount of £25000
         And I say no to Gift Aid
         And I enter my name, email address and UK Visa card number
@@ -28,6 +28,6 @@ Feature: New donor: restarting donation completes successfully
         And my charity has been charged a vat inclusive fee of £450.23
         And other payment intent data is as expected: total charged to donor: £26873.92, application fee £2325.15, stripe fee gross £450.23, stripe fee net £375.19, stripe fee vat £75.04
 
-        Given that I am on my chosen Stripe-enabled charity's Donate page
+        Given that I am on my chosen charity's Donate page
          # And I didn't set a password above, or log-in
         Then I should be invited to log in

@@ -7,7 +7,14 @@ import { randomIntFromInterval } from '../support/util';
 import DonateStartPage, { emailAddressSelector, firstNameSelector, lastNameSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkStripeCustomerExists, getChargedAmount, verifyStripePaymentIntentDetails } from '../support/stripe';
-import { checkSelectorContent, checkSelectorValue, checkVisibleSelectorContent } from '../support/check';
+import {
+    checkSelectorContent,
+    checkSelectorValue,
+    checkTitle,
+    checkUrl,
+    checkVisibleSelectorContent
+} from '../support/check';
+import { clickBigGiveButtonWithText } from '../support/action';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -17,13 +24,14 @@ const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 let donationAmount;
 
 /**
- * @typedef {{firstName: string, lastName: string, email: string}} Donor
+ * @typedef {{firstName: string, lastName: string, email: string, password: string|null}} Donor
    @type {Donor}
  * */
 let donor = {
     firstName: 'default-first-name',
     lastName: 'default-last-name',
     email: 'default-email',
+    password: null,
 };
 
 /** @type DonateStartPage * */
@@ -34,15 +42,38 @@ BeforeAll(async () => {
 });
 
 // Steps
+Given('I have registered and logged in as a donor', async () => {
+    await page.openRegister();
+
+    // Complete register form
+    donor = await page.populateNameAndEmail();
+    donor.password = await DonateSuccessPage.populatePassword();
+    await clickBigGiveButtonWithText('Register');
+    await DonateSuccessPage.checkCopySaysImRegistered();
+
+    // Complete login form
+    await page.inputLoginFields(donor);
+    await clickBigGiveButtonWithText('Log in');
+
+    await checkTitle('My account – Big Give');
+});
+
 Given(
-    /^that I am on my chosen ([a-zA-Z]+)-enabled charity's Donate page$/,
-    // eslint-disable-next-line no-unused-vars
-    async (psp) => {
+    /^that I am on my chosen charity's Donate page$/,
+    async () => {
         page.nextStepIndex = 0;
         await page.open();
         await page.checkReady();
     }
 );
+
+Then(/^I should be on the "([^"]+)" page$/, async (title) => {
+    await checkTitle(`${title} – Big Give`);
+});
+
+When(/^I open the Regular Giving application campaign start donating page$/, async () => {
+    await page.openRegularGiving();
+});
 
 When("I click the popup's login button", async () => {
     // We use an ID here as we can't combine deep and text selectors.
@@ -50,6 +81,8 @@ When("I click the popup's login button", async () => {
 });
 
 When(/I click the "([^"]+)" button/, async (buttonText) => {
+    // Sometimes a top level <button> Angular-styled, sometimes nested inside shadow
+    // DOM in a <biggive-button>, so use >>> to make it work either way.
     await page.clickActiveSelector(`button*=${buttonText}`);
 });
 
@@ -150,6 +183,11 @@ When(
     }
 );
 
+When('I enter a UK Visa card number', async () => {
+    await page.populateStripePaymentDetails();
+    await page.progressToNextStep(false);
+});
+
 When(
     /I should see my populated first name is "([^"]+)"/,
     async (expectedFirstName) => {
@@ -234,6 +272,15 @@ Then(/^I should be redirected to a Thank You confirmation page with the correct 
     await DonateSuccessPage.checkBalance(donationAmount);
 });
 
+Then('I should see a Regular Giving mandate for £{int} in my account', async (amount) => {
+    await checkUrl('/my-account/regular-giving/'); // ID after this varies.
+
+    const expectedSummaryLine = `Your donation of £${amount} is worth £${amount * 2} for the first 3 months!`;
+    await checkSelectorContent('div.donation-summary', expectedSummaryLine);
+    // Tricky to be more specific; same reason as DonateSuccessPage.checkBalance.
+    await checkSelectorContent('div.receipt', `£${amount}`);
+});
+
 When(
     'I wait a few seconds',
     // eslint-disable-next-line wdio/no-pause
@@ -250,6 +297,22 @@ When(
 Then('I should be invited to log in', async () => {
     checkVisibleSelectorContent('main', 'Log in');
 });
+
+Then(
+    'the mandate should say monthly processing started today and will proceed on the current day-ish each month',
+    async () => {
+        const today = new Date();
+        // Angular default is the US locale date order, and we don't override that, so explicitly ask for en-US
+        // which gives e.g. 'Jan 10, 2025'.
+        const todayMediumFormatted = (new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' })).format(today);
+        const dayOfCurrentMonthOr28 = Math.min(28, today.getDate());
+
+        // Safari and other browsers summarise table contents differently, so we have put IDs on the 2 key
+        // cells we check here.
+        await checkSelectorContent('#regularActiveFrom', todayMediumFormatted); // 'Active from' row
+        await checkSelectorContent('#regularDayOfMonth', dayOfCurrentMonthOr28.toString()); // 'Day of month' row
+    }
+);
 
 /**
  * @param {number} amount
@@ -295,6 +358,19 @@ Then(
             donor.email,
         ))) {
             throw new Error(`Donor name ${donor.firstName} ${donor.lastName} not found in email`);
+        }
+    }
+);
+
+Then(
+    'my last email should contain a new monthly mandate confirmation showing amount £{int}',
+    async (amount) => {
+        const formattedAmount = `£${amount.toLocaleString('en-GB')}.00`;
+        if (!(await checkAnEmailBodyContainsText(
+            `Donation: <strong>${formattedAmount}</strong>`,
+            donor.email,
+        ))) {
+            throw new Error(`Amount ${formattedAmount} not found in email`);
         }
     }
 );

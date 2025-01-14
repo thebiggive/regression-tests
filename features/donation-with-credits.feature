@@ -5,7 +5,7 @@ Feature: Existing donor: credit donation completes successfully
     So that I can support my chosen charity with a doubled donation
 
     Scenario: Existing donor: credit donation completes successfully
-        Given that I am on my chosen Stripe-enabled charity's Donate page
+        Given that I am on my chosen charity's Donate page
         And I click the "Log in" button
         And I enter the ID credit-funded account test email and password
         And I click the popup's login button

@@ -16,6 +16,7 @@ import {
 
 // routes
 const startPageStripe = /** @type {string} */ (process.env.DONATE_PAGE_STRIPE);
+const regularGivingCampaignId = /** @type {string} */ (process.env.REGULAR_GIVING_CAMPAIGN_ID);
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -100,6 +101,16 @@ export default class DonateStartPage {
         await goToUrl(startPageStripe);
     }
 
+    async openRegister() {
+        await goToUrl('/register');
+        await checkTitle('Register');
+    }
+
+    async openRegularGiving() {
+        await goToUrl(`/regular-giving/${regularGivingCampaignId}`);
+        await checkTitle('Regular Giving');
+    }
+
     async checkReady() {
         await checkTitle(`Donate to ${this.charity}`);
         await checkSelectorContent('form', this.charity);
@@ -170,6 +181,7 @@ export default class DonateStartPage {
         // because we never hit the error of the email already being used by another used. REG-26.
         const email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
 
+        await $(firstNameSelector).waitForStable(); // test:local-safari needed this for first input to work.
         await inputSelectorValue(firstNameSelector, firstName);
         await inputSelectorValue(lastNameSelector, lastName);
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
@@ -180,6 +192,7 @@ export default class DonateStartPage {
             firstName,
             lastName,
             email,
+            password: null,
         };
     }
 
@@ -257,6 +270,19 @@ export default class DonateStartPage {
         await this.browser.pause(1000);
 
         await clickSelector(submitBtnSelector);
+    }
+
+    /**
+     * @param {{firstName: string, lastName: string, email: string, password: string|null}} donor
+     */
+    async inputLoginFields(donor) {
+        if (donor.password === null) {
+            throw new Error('Donor password not set');
+        }
+        await this.inputSelectorValue('>>>#loginEmailAddress', donor.email);
+        await this.inputSelectorValue('>>>#loginPassword', donor.password);
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(1500); // Enough time for Friendly Captcha when the form was filled quickly.
     }
 
     /**

@@ -5,7 +5,7 @@ Feature: New donor: donation completes successfully and donor registers
     So that I can support my chosen charity with a doubled donation
 
     Scenario: New donor: donation completes successfully and donor registers
-        Given that I am on my chosen Stripe-enabled charity's Donate page
+        Given that I am on my chosen charity's Donate page
         When I enter an amount of £25000
         And I say no to Gift Aid
         And I enter my name, email address and UK Visa card number
