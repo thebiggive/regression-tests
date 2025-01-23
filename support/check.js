@@ -114,10 +114,17 @@ async function checkValue(element, value, seconds = WAIT_SECONDS) {
  * @returns {Promise<any>} `waitUntil()` result.
  */
 async function checkText(element, content, seconds = WAIT_SECONDS) {
+    /**
+     * @param {string} string
+     */
+    function collapseWhitespace(string) {
+        return string.replace(/\s\s+/g, ' ');
+    }
+
     return browser.waitUntil(
         async () => {
-            const text = element.getText();
-            if (!(await text).includes(content)) {
+            const text = collapseWhitespace(await element.getText());
+            if (!text.includes(content)) {
                 throw new Error(`Expected content ${content} not found in text ${(await text)}`);
             }
             return true;
