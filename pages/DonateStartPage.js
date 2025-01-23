@@ -14,6 +14,8 @@ import {
     inputSelectorValue, inStripeIframe
 } from '../support/action';
 
+import { CHARITY_NAME } from '../support/constants';
+
 // routes
 const startPageStripe = /** @type {string} */ (process.env.DONATE_PAGE_STRIPE);
 const regularGivingCampaignId = /** @type {string} */ (process.env.REGULAR_GIVING_CAMPAIGN_ID);
@@ -52,8 +54,6 @@ export default class DonateStartPage {
 
         // todo consider removing this and moving the state into donation.js - this object gets shared between scenarios
         this.nextStepIndex = 0;
-
-        this.charity = 'Exempt Stripe Test Charity';
     }
 
     /**
@@ -97,7 +97,6 @@ export default class DonateStartPage {
     }
 
     async open() {
-        this.charity = 'Exempt Stripe Test Charity';
         await goToUrl(startPageStripe);
     }
 
@@ -112,8 +111,8 @@ export default class DonateStartPage {
     }
 
     async checkReady() {
-        await checkTitle(`Donate to ${this.charity}`);
-        await checkSelectorContent('form', this.charity);
+        await checkTitle(`Donate to ${CHARITY_NAME}`);
+        await checkSelectorContent('form', CHARITY_NAME);
     }
 
     /**
