@@ -11,6 +11,7 @@ import {
     checkAnEmailSubjectContainsText
 } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
+import { CHARITY_NAME } from '../support/constants';
 
 /**
  * @type {string}
@@ -117,7 +118,7 @@ Then(
         // Spacing in string summary varies by browser, so we look for 3 key parts separately for now.
         await page.checkForCardWithCopy('Thank you for your generous match funding');
         await page.checkForCardWithCopy(`£${pledgeAmount}.00`);
-        await page.checkForCardWithCopy('Exempt Stripe Test Charity');
+        await page.checkForCardWithCopy(CHARITY_NAME);
     }
 );
 
@@ -126,7 +127,7 @@ Then(
     async () => {
         const expectedBody = 'Thank you for your generous match funding pledge of '
             + `£${pledgeAmount}.00 to `
-            + 'Exempt Stripe Test Charity for the campaign: Pledge test campaign';
+            + `${CHARITY_NAME} for the campaign: Pledge test campaign`;
         if (await checkAnEmailBodyContainsText(expectedBody, emailAddress)) {
             console.log(`CHECK: Email refers to £${pledgeAmount} pledge and correct campaign`);
         } else {

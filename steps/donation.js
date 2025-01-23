@@ -15,6 +15,7 @@ import {
     checkVisibleSelectorContent
 } from '../support/check';
 import { clickBigGiveButtonWithText } from '../support/action';
+import { CHARITY_NAME } from '../support/constants';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -275,7 +276,9 @@ Then(/^I should be redirected to a Thank You confirmation page with the correct 
 Then('I should see a Regular Giving mandate for £{int} in my account', async (amount) => {
     await checkUrl('/my-account/regular-giving/'); // ID after this varies.
 
-    const expectedSummaryLine = `Your donation of £${amount} is worth £${amount * 2} for the first 3 months!`;
+    // eslint-disable-next-line max-len
+    const expectedSummaryLine = `Your donation of £${amount} is worth £${amount * 2} to ${CHARITY_NAME} for the first 3 months!`;
+
     await checkSelectorContent('div.donation-summary', expectedSummaryLine);
     // Tricky to be more specific; same reason as DonateSuccessPage.checkBalance.
     await checkSelectorContent('div.receipt', `£${amount}`);
