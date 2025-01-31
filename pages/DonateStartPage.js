@@ -231,10 +231,10 @@ export default class DonateStartPage {
         // Allow enough time for the checkboxes to render
         await this.browser.pause(1000);
 
-        await clickSelector('#no-receive-emails-from-charity');
+        await clickSelector('#no-receive-emails-from-charity input');
 
         await this.browser.pause(750); // Seems to need a wait after the other radio select as of Angular Material 15.
-        await clickSelector('#no-receive-emails-from-biggive');
+        await clickSelector('#no-receive-emails-from-biggive input');
     }
 
     /**
