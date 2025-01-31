@@ -196,7 +196,6 @@ When('I progress to next step', async () => {
     await page.progressToNextStep(false);
 });
 
-
 When(
     /I should see my populated first name is "([^"]+)"/,
     async (expectedFirstName) => {
