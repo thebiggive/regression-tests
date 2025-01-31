@@ -34,6 +34,8 @@ const rejectGiftAidSelector = '#mat-radio-9';
 export const firstNameSelector = '#firstName';
 export const lastNameSelector = '#lastName';
 export const emailAddressSelector = '#emailAddress';
+const receiveEmailFromCharitySelector = '#mat-radio-3';
+const receiveEmailFromTheBigGiveSelector = '#mat-radio-6';
 const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="number"]';
 const stripeExpiryDateSelector = 'input[name$="expiry"]';
@@ -231,10 +233,12 @@ export default class DonateStartPage {
         // Allow enough time for the checkboxes to render
         await this.browser.pause(1000);
 
-        await clickSelector('#no-receive-emails-from-charity input');
+        // Receive email from the charity? select NO
+        await clickSelector(receiveEmailFromCharitySelector);
 
+        // Receive email from the Big Give? select NO
         await this.browser.pause(750); // Seems to need a wait after the other radio select as of Angular Material 15.
-        await clickSelector('#no-receive-emails-from-biggive input');
+        await clickSelector(receiveEmailFromTheBigGiveSelector);
     }
 
     /**
