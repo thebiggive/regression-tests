@@ -10,6 +10,7 @@ Feature: New donor registers and sets up new Regular Giving mandate
         When I open the Regular Giving application campaign start donating page
         And I enter an amount of £1
         And I enter a UK Visa card number
+        And I progress to next step
         And I click the "Start regular giving now" button
         When I wait a few seconds
         Then I should see a Regular Giving mandate for £1 in my account
