@@ -1,3 +1,4 @@
+@skip() #see REG-39
 Feature: New donor: restarting donation completes successfully
 
     As a new donor

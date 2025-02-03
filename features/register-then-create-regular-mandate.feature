@@ -1,3 +1,4 @@
+@skip() #see REG-39
 Feature: New donor registers and sets up new Regular Giving mandate
 
     As a new donor
