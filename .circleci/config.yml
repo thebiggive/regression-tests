@@ -62,7 +62,7 @@ workflows:
       - schedule:
           # Overnight we don't need to run jobs so often, we're mostly not looking at results, so just run a few times overnight
           # Ideally we'd only run tests after we've changed code but that's harder to automate.
-          cron: "0 18,19,20,0,6 * * *"
+          cron: "0 18,0,6 * * *"
           filters:
             branches:
               only:
