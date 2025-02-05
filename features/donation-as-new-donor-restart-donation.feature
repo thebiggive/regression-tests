@@ -1,4 +1,3 @@
-@skip() #see REG-39
 Feature: New donor: restarting donation completes successfully
 
     As a new donor
@@ -21,9 +20,9 @@ Feature: New donor: restarting donation completes successfully
         When I wait a few seconds
         Then I should be redirected to a Thank You confirmation page with amount £24999
         When I wait long enough for email processing
-#        Then my last email should contain amount £24999
-#        And my last email should contain the charity's custom thank you message
-#        And my last email should contain the correct name
+        Then my last email should contain amount £24999
+        And my last email should contain the charity's custom thank you message
+        And my last email should contain the correct name
 
         ## Fee is calculated as round(round(24999*1.5/100+0.2)*1.2)
         And my charity has been charged a vat inclusive fee of £450.23

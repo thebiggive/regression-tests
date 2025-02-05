@@ -1,4 +1,3 @@
-@skip() #see REG-39
 Feature: New donor: donation completes successfully and donor registers
 
     As a new donor
@@ -23,4 +22,4 @@ Feature: New donor: donation completes successfully and donor registers
         And I press on the button to create an account
         Then the page should update to say I'm registered
         When I wait long enough for email processing
-#        Then I should recieve a registration success email with the email I donated with
+        Then I should recieve a registration success email with the email I donated with
