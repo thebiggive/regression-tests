@@ -16,4 +16,4 @@ Feature: New donor registers and sets up new Regular Giving mandate
         Then I should see a Regular Giving mandate for £1 in my account
         And the mandate should say monthly processing started today and will proceed on the current day-ish each month
         When I wait long enough for email processing
-#        Then my last email should contain a new monthly mandate confirmation showing amount £1
+        Then my last email should contain a new monthly mandate confirmation showing amount £1
