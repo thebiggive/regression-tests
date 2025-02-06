@@ -134,9 +134,13 @@ export default class DonateStartPage {
      *                                              funds depleted warning.
      */
     async progressToNextStep(waitForMatchWarning) {
-        // todo clickable check? if mobile needs it
         const steps = await $$('button*=Continue');
-        await steps[this.nextStepIndex].click();
+
+        await this.browser.pause(250);
+        /** @type {WebdriverIO.Element} */
+        const step = steps[this.nextStepIndex];
+        await step.waitForStable();
+        await step.click();
         this.nextStepIndex += 1;
         // Wait for animation and scrolling to fully complete.
         // Test passing was intermittent without this fixed wait.
@@ -221,7 +225,7 @@ export default class DonateStartPage {
             const UKVisaCardPAN = '4000008260000000';
 
             await inputSelectorValue(stripeCardNumberSelector, UKVisaCardPAN);
-            await inputSelectorValue(stripeExpiryDateSelector, '01/25');
+            await inputSelectorValue(stripeExpiryDateSelector, '01/35');
             await inputSelectorValue(stripeCvcSelector, '123');
         });
     }

@@ -189,13 +189,6 @@ When('I enter a UK Visa card number', async () => {
     await page.progressToNextStep(false);
 });
 
-/**
- * Hack to enable progress past steps that are not required in regression tests
- */
-When('I progress to next step', async () => {
-    await page.progressToNextStep(false);
-});
-
 When(
     /I should see my populated first name is "([^"]+)"/,
     async (expectedFirstName) => {
