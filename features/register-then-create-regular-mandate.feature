@@ -12,7 +12,7 @@ Feature: New donor registers and sets up new Regular Giving mandate
         And I skip over Gift Aid step
         And I wait a few seconds
         And I enter a UK Visa card number
-        And I choose a preference for charity and TBG communications
+        And I skip over comms preferences step
         And I click the "Start regular giving now" button
         When I wait a few seconds
         Then I should see a Regular Giving mandate for £1 in my account

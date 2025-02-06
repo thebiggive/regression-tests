@@ -175,7 +175,8 @@ When(
     }
 );
 
-When('I skip over Gift Aid step', async () => {
+// eslint-disable-next-line no-unused-vars
+When(/I skip over (.+) step/, async (_stepDescription) => {
     await page.progressToNextStep(false);
 });
 
