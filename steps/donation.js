@@ -175,6 +175,11 @@ When(
     }
 );
 
+// eslint-disable-next-line no-unused-vars
+When(/I skip over (.+) step/, async (_stepDescription) => {
+    await page.progressToNextStep(false);
+});
+
 When(
     'I enter my name, email address and UK Visa card number',
     async () => {
