@@ -175,6 +175,10 @@ When(
     }
 );
 
+When('I skip over Gift Aid step', async () => {
+    await page.progressToNextStep(false);
+});
+
 When(
     'I enter my name, email address and UK Visa card number',
     async () => {
