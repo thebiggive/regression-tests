@@ -251,7 +251,7 @@ When(
 When(
     'I navigate back to the first step',
     async () => {
-        page.jumpBackToFirstStep();
+        await page.jumpBackToFirstStep();
         // eslint-disable-next-line wdio/no-pause
         await browser.pause(500); // Animation seems to need a moment in some browsers?
     },
@@ -387,6 +387,8 @@ When(
     /^I press on the button to set a password$/,
     async () => {
         await DonateSuccessPage.clickOnSetPasswordButton();
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(1000); // Give modal state change and ID service 1s grace.
     }
 );
 

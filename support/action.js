@@ -32,6 +32,28 @@ export async function clickElement(element, originalSelector) {
 }
 
 /**
+ * Clicks the *first* radio button whose label is a match.
+ *
+ * @param {string} text Copy to partially or fully match in Material radio's label
+ * @returns {Promise<void>}
+ */
+export async function clickMaterialRadioWithLabel(text) {
+    console.log(`ACTION: Click radio with label "${text}"`);
+
+    const labels = $$('.mdc-label');
+    /** @type {WebdriverIO.Element|false} */
+    const label = await labels.find(
+        async (theLabel) => (await theLabel.getText()).includes(text)
+    );
+    if (!label) {
+        throw new Error(`Expected radio with label "${text}" to exist`);
+    }
+
+    await label.waitForClickable();
+    await label.click();
+}
+
+/**
  * Clicks a custom `<biggive-button>` with the given text.
  * @param {string} text
  */
