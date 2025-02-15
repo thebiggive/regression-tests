@@ -10,8 +10,10 @@ import {
     from '../support/check';
 import {
     clickElement,
+    clickMaterialRadioWithLabel,
     clickSelector,
-    inputSelectorValue, inStripeIframe
+    inputSelectorValue,
+    inStripeIframe
 } from '../support/action';
 
 import { CHARITY_NAME } from '../support/constants';
@@ -26,16 +28,11 @@ const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
 // Now we show the Gift Aid section conditionally, this is mounted last
 // and the ratio gets the highest ID.
-// TODO avoid these hacks for radio selectors! We should be checking copy
-// ideally. Now we don't support IE for any journey we can hopefully use standard Xpath.
 const yourDonationStepSelector = '#cdk-step-label-0-0';
 const giftAidStepSelector = '#cdk-step-label-0-1';
-const rejectGiftAidSelector = '#mat-radio-5-input';
 export const firstNameSelector = '#firstName';
 export const lastNameSelector = '#lastName';
 export const emailAddressSelector = '#emailAddress';
-const receiveEmailFromCharitySelector = '#mat-radio-1-input';
-const receiveEmailFromTheBigGiveSelector = '#mat-radio-3-input';
 const billingPostcodeSelector = '#billingPostcode';
 const stripeCardNumberSelector = 'input[name$="number"]';
 const stripeExpiryDateSelector = 'input[name$="expiry"]';
@@ -167,10 +164,7 @@ export default class DonateStartPage {
     }
 
     async selectNoGiftAid() {
-        // Pause for 2 secs
-        await this.browser.pause(2000);
-        // Claim Gift Aid? select NO. This means no additional Stripe mode fields for now.
-        await clickSelector(rejectGiftAidSelector);
+        await clickMaterialRadioWithLabel('No, I do not meet the criteria');
     }
 
     /**
@@ -234,15 +228,12 @@ export default class DonateStartPage {
      * Choose email communication preferences.
      */
     async setCommsPreferences() {
-        // Allow enough time for the checkboxes to render
-        await this.browser.pause(1000);
-
         // Receive email from the charity? select NO
-        await clickSelector(receiveEmailFromCharitySelector);
+        // Keeping this generic because we have varying charity data, and fortunately the charity question comes
+        // first; so by clicking the first match it will be the right one.
+        await clickMaterialRadioWithLabel('No, I would not like to receive emails');
 
-        // Receive email from the Big Give? select NO
-        await this.browser.pause(750); // Seems to need a wait after the other radio select as of Angular Material 15.
-        await clickSelector(receiveEmailFromTheBigGiveSelector);
+        await clickMaterialRadioWithLabel('No, I would not like to receive emails from Big Give');
     }
 
     /**

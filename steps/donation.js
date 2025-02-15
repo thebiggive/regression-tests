@@ -387,6 +387,8 @@ When(
     /^I press on the button to set a password$/,
     async () => {
         await DonateSuccessPage.clickOnSetPasswordButton();
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(1000); // Give modal state change and ID service 1s grace.
     }
 );
 
