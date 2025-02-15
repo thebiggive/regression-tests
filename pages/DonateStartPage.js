@@ -26,8 +26,6 @@ const regularGivingCampaignId = /** @type {string} */ (process.env.REGULAR_GIVIN
 const idInfoSelector = '.id-info';
 const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
-// Now we show the Gift Aid section conditionally, this is mounted last
-// and the ratio gets the highest ID.
 const yourDonationStepSelector = '#cdk-step-label-0-0';
 const giftAidStepSelector = '#cdk-step-label-0-1';
 export const firstNameSelector = '#firstName';
