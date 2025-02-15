@@ -251,7 +251,7 @@ When(
 When(
     'I navigate back to the first step',
     async () => {
-        page.jumpBackToFirstStep();
+        await page.jumpBackToFirstStep();
         // eslint-disable-next-line wdio/no-pause
         await browser.pause(500); // Animation seems to need a moment in some browsers?
     },

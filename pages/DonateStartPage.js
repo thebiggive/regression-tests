@@ -26,8 +26,8 @@ const regularGivingCampaignId = /** @type {string} */ (process.env.REGULAR_GIVIN
 const idInfoSelector = '.id-info';
 const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
-const yourDonationStepSelector = '#cdk-step-label-0-0';
-const giftAidStepSelector = '#cdk-step-label-0-1';
+const yourDonationStepSelector = '#cdk-stepper-0-label-0';
+const giftAidStepSelector = '#cdk-stepper-0-label-1';
 export const firstNameSelector = '#firstName';
 export const lastNameSelector = '#lastName';
 export const emailAddressSelector = '#emailAddress';
