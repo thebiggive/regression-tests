@@ -162,7 +162,9 @@ export default class DonateStartPage {
     }
 
     async selectNoGiftAid() {
-        await clickMaterialRadioWithLabel('No, I do not meet the criteria');
+        // Prefix 'No, ' in bold has line breaks after in the reported text value in e.g. Safari 16. So just
+        // check the subsequent copy snippet which doesn't vary between browsers.
+        await clickMaterialRadioWithLabel('I do not meet the criteria');
     }
 
     /**
