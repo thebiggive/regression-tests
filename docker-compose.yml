@@ -2,7 +2,7 @@ version: '3'
 services:
 
   tests:
-    image: cimg/node:22.14-browsers
+    image: cimg/node:14.19-browsers
     working_dir: /app
     command: yarn test:testingbot-chrome
     user: root
