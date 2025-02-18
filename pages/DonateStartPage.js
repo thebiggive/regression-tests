@@ -16,6 +16,8 @@ import {
     inStripeIframe
 } from '../support/action';
 
+// Temporarily unused.
+// eslint-disable-next-line no-unused-vars
 import { CHARITY_NAME } from '../support/constants';
 
 // routes
