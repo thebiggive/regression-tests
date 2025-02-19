@@ -27,7 +27,8 @@ export default class PledgeFormPage {
      * @returns {Promise<string>}   Input selector
      */
     async getCommunitiesInputForLabel(label) {
-        return `//label[contains(text(), '${label}')]//..//input`;
+        const inputId = $(`label*='${label}'`).getAttribute('for');
+        return `input[id='${inputId}']`;
     }
 
     /**
@@ -38,7 +39,8 @@ export default class PledgeFormPage {
      * @returns {Promise<string>}   Select selector
      */
     async getCommunitiesSelectForLabel(label) {
-        return `//span[contains(text(), '${label}')]//..//..//select`;
+        const selectId = $(`label*='${label}'`).getAttribute('for');
+        return `select[id='${selectId}']`;
     }
 
     async open() {
@@ -53,7 +55,7 @@ export default class PledgeFormPage {
      */
     async checkBannerSays(title) {
         await checkSelectorContent(
-            "//div[@class='hero-banner cCmpNewPledge']//h2[@class='slds-m-bottom_small']",
+            'div.hero-banner.cCmpNewPledge h2.slds-m-bottom_small',
             title
         );
     }
@@ -106,7 +108,8 @@ export default class PledgeFormPage {
     }
 
     async setGiftAidToYes() {
-        await clickSelector("//span[@class='slds-radio']//span[contains(text(), 'Yes')]");
+        // Hack for now to avoid unsupported xpath; first inner span should be 'Yes'?
+        await clickSelector('span.slds-radio span');
     }
 
     async setPledgerTitle() {
@@ -155,8 +158,7 @@ export default class PledgeFormPage {
     async checkForCardWithHeading(heading) {
         // .slds-card__header
         await checkSelectorContent(
-            // eslint-disable-next-line max-len
-            "//h2[@class='slds-card__header-title']//span[@class='slds-text-heading_small slds-truncate']",
+            'h2.slds-card__header-title span.slds-text-heading_small.slds-truncate',
             heading,
         );
     }
@@ -168,6 +170,6 @@ export default class PledgeFormPage {
      * @param {string} text Expected copy.
      */
     async checkForCardWithCopy(text) {
-        await checkSelectorContent("//div[@class='slds-card__body']", text);
+        await checkSelectorContent('div.slds-card__body', text);
     }
 }

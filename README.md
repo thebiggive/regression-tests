@@ -31,6 +31,7 @@ yarn install
 
 ### Run locally
 
+[todo check whether still needed]
 Make sure you have the correct `Chromedriver` version for your Chrome installed.
 ```
 yarn test:local

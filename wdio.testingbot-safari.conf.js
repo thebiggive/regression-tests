@@ -2,8 +2,8 @@ const { config } = require('./wdio.BASE.conf.ts');
 
 config.capabilities = [{
     browserName: 'safari',
-    platform: 'VENTURA',
-    version: '16',
+    platform: 'SONOMA',
+    version: '18',
     build: config.build,
 }];
 config.services.push('testingbot');
