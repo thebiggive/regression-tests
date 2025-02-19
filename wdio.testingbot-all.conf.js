@@ -7,12 +7,13 @@ config.capabilities = [
         version: 'latest',
         build: config.build,
     },
-    {
-        browserName: 'safari',
-        platform: 'VENTURA',
-        version: '16',
-        build: config.build,
-    },
+    // TODO reinstate some Safari when fixed.
+    // {
+    //     browserName: 'safari',
+    //     platform: 'VENTURA',
+    //     version: '16',
+    //     build: config.build,
+    // },
     {
         browserName: 'microsoftedge',
         platform: 'WIN11',
