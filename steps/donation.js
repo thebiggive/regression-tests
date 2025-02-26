@@ -280,10 +280,16 @@ Then(/^I should be redirected to a Thank You confirmation page with the correct 
 Then('I should see a Regular Giving mandate for £{int} in my account', async (amount) => {
     await checkUrl('/my-account/regular-giving/'); // ID after this varies.
 
-    // eslint-disable-next-line max-len
-    const expectedSummaryLine = `Your donation of £${amount}`;
+    await checkSelectorContent(
+        'body',
+        'Thank you! Your generous regular donation has been set up'
+    );
 
-    await checkSelectorContent('div.donation-summary', expectedSummaryLine);
+    await checkSelectorContent(
+        'div.donation-summary',
+        `Your donation of £${amount}`
+    );
+
     // Tricky to be more specific; same reason as DonateSuccessPage.checkBalance.
     await checkSelectorContent('div.receipt', `£${amount}`);
 });
