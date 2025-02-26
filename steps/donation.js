@@ -279,6 +279,10 @@ Then(/^I should be redirected to a Thank You confirmation page with the correct 
 });
 
 Then('I should see a Regular Giving mandate for £{int} in my account', async (amount) => {
+    // Pause for Stripe to do a callback and activate the regular giving mandate.
+    // eslint-disable-next-line wdio/no-pause
+    await browser.pause(15 * 1000);
+
     await checkUrl('/my-account/regular-giving/'); // ID after this varies.
 
     // eslint-disable-next-line max-len
@@ -291,7 +295,6 @@ Then('I should see a Regular Giving mandate for £{int} in my account', async (a
 
 When(
     'I wait a few seconds',
-    // eslint-disable-next-line wdio/no-pause
     async () => browser.pause(3 * 1000)
 );
 
