@@ -15,7 +15,6 @@ import {
     checkVisibleSelectorContent
 } from '../support/check';
 import { clickBigGiveButtonWithText } from '../support/action';
-import { CHARITY_NAME } from '../support/constants';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
