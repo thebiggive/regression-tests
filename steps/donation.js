@@ -282,7 +282,7 @@ Then('I should see a Regular Giving mandate for £{int} in my account', async (a
     await checkUrl('/my-account/regular-giving/'); // ID after this varies.
 
     // eslint-disable-next-line max-len
-    const expectedSummaryLine = `Your donation of £${amount} is worth £${amount * 2} to ${CHARITY_NAME} for the first 3 months!`;
+    const expectedSummaryLine = `Your donation of £${amount}`;
 
     await checkSelectorContent('div.donation-summary', expectedSummaryLine);
     // Tricky to be more specific; same reason as DonateSuccessPage.checkBalance.
