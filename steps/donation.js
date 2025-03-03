@@ -14,7 +14,7 @@ import {
     checkUrl,
     checkVisibleSelectorContent
 } from '../support/check';
-import {clickActiveSelector, clickBigGiveButtonWithText, clickSelector } from '../support/action';
+import { clickBigGiveButtonWithText, clickSelector } from '../support/action';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -77,15 +77,13 @@ When(/^I open the Regular Giving application campaign start donating page$/, asy
 
 When("I click the popup's login button", async () => {
     // We use an ID here as we can't combine deep and text selectors.
-    await clickActiveSelector('>>>#login-modal-submit');
-    await page.browser.pause(1000);
+    await page.clickActiveSelector('>>>#login-modal-submit');
 });
 
 When(/I click the "([^"]+)" button/, async (buttonText) => {
     // Sometimes a top level <button> Angular-styled, sometimes nested inside shadow
     // DOM in a <biggive-button>, so use >>> to make it work either way.
-    await clickActiveSelector(`button*=${buttonText}`);
-    await page.browser.pause(1000);
+    await page.clickActiveSelector(`button*=${buttonText}`);
 });
 
 When(
@@ -473,6 +471,5 @@ Given(
     }
 );
 Given(/^I confirm that I am an adult$/, async () => {
-    await clickActiveSelector('#aged18OrOver-input');
-    await page.browser.pause(1000);
+    await clickSelector('#aged18OrOver-input');
 });
