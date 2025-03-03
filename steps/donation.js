@@ -14,7 +14,7 @@ import {
     checkUrl,
     checkVisibleSelectorContent
 } from '../support/check';
-import {clickActiveSelector, clickBigGiveButtonWithText, clickSelector } from '../support/action';
+import { clickActiveSelector, clickBigGiveButtonWithText } from '../support/action';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
