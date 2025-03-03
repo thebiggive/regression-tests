@@ -14,7 +14,7 @@ import {
     checkUrl,
     checkVisibleSelectorContent
 } from '../support/check';
-import { clickBigGiveButtonWithText, clickSelector } from '../support/action';
+import { clickBigGiveButtonWithText } from '../support/action';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -471,5 +471,6 @@ Given(
     }
 );
 Given(/^I confirm that I am an adult$/, async () => {
-    await clickSelector('#aged18OrOver-input');
+    // no-op because FE lets us cheat for now
+    // see https://github.com/thebiggive/donate-frontend/pull/1894
 });
