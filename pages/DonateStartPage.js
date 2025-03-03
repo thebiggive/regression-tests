@@ -9,6 +9,7 @@ import {
 }
     from '../support/check';
 import {
+    clickElement,
     clickMaterialRadioWithLabel,
     clickSelector,
     inputSelectorValue,
