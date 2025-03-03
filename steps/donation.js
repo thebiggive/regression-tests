@@ -14,7 +14,7 @@ import {
     checkUrl,
     checkVisibleSelectorContent
 } from '../support/check';
-import { clickBigGiveButtonWithText } from '../support/action';
+import {clickBigGiveButtonWithText, clickSelector} from '../support/action';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -470,3 +470,6 @@ Given(
         console.log('CHECK: Other stripe payment intent details are as expected');
     }
 );
+Given(/^I confirm that I am an adult$/, async () => {
+    await clickSelector('#aged18OrOver-input');
+});
