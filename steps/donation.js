@@ -139,7 +139,6 @@ When(
     async (amountEntered) => {
         donationAmount = amountEntered;
         await page.setDonationAmount(donationAmount);
-        await page.progressToNextStep(true);
     }
 );
 
@@ -472,4 +471,5 @@ Given(
 );
 Given(/^I confirm that I am an adult$/, async () => {
     await clickSelector('#aged18OrOver-input');
+    await page.progressToNextStep(false);
 });
