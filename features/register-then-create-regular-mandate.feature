@@ -8,8 +8,8 @@ Feature: New donor registers and sets up new Regular Giving mandate
     Scenario: New donor registers and sets up new Regular Giving mandate
         Given I have registered and logged in as a donor
         When I open the Regular Giving application campaign start donating page
-        And I enter an amount of £1
         And I confirm that I am an adult
+        And I enter an amount of £1
         And I skip over Gift Aid step
         And I wait a few seconds
         And I enter a UK Visa card number
