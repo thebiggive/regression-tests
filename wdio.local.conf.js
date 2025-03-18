@@ -7,6 +7,5 @@ config.capabilities[0]['goog:chromeOptions'].args = [
     '--disable-setuid-sandbox',
     '--disable-dev-shm-usage',
 ];
-config.services.push('chromedriver');
 
 exports.config = config;

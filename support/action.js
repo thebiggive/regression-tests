@@ -117,9 +117,21 @@ export async function setSelectOption(selector, value) {
  * @return T
  */
 export async function inStripeIframe(callable) {
-    await browser.switchToFrame(await $('iframe[title$="Secure payment input frame"]'));
+    // await browser.switchFrame($('iframe[title$="Secure payment input frame"]'));
+    await browser.switchFrame($('iframe')); // todo tighten selector probs
+
+    // check the title of the page
+    console.log(await browser.execute(() => ['first log', document.title, document.URL]));
+
+    // eslint-disable-next-line wdio/no-pause
+    await browser.pause(2500); // Wait for the iframe to be active
+
+    // await driver.switchFrame($('iframe[title$="Secure payment input frame"]'));
+    // console.log(await browser.execute(() => ['second log', document.title, document.URL]));
+
     const returnVal = await callable();
-    await browser.switchToParentFrame();
+    // await browser.switchToParentFrame();
+    await browser.switchFrame(null); // parent again
 
     return returnVal;
 }

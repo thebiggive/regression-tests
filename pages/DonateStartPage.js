@@ -32,9 +32,9 @@ export const firstNameSelector = '#firstName';
 export const lastNameSelector = '#lastName';
 export const emailAddressSelector = '#emailAddress';
 const billingPostcodeSelector = '#billingPostcode';
-const stripeCardNumberSelector = 'input[name$="number"]';
-const stripeExpiryDateSelector = 'input[name$="expiry"]';
-const stripeCvcSelector = 'input[name$="cvc"]';
+const stripeCardNumberSelector = '#Field-numberInput';
+const stripeExpiryDateSelector = 'input[name=expiry]';
+const stripeCvcSelector = 'input[name=cvc]';
 const selectedSavedCardSelector = '.PickerItem--selected';
 const continueBtnSelector = '>>>#proceed-with-donation';
 
@@ -162,7 +162,9 @@ export default class DonateStartPage {
     }
 
     async selectNoGiftAid() {
-        await clickMaterialRadioWithLabel('No, I do not meet the criteria');
+        // Prefix 'No, ' in bold has line breaks after in the reported text value in e.g. Safari 16. So just
+        // check the subsequent copy snippet which doesn't vary between browsers.
+        await clickMaterialRadioWithLabel('I do not meet the criteria');
     }
 
     /**
@@ -213,10 +215,16 @@ export default class DonateStartPage {
         await inputSelectorValue(billingPostcodeSelector, 'N1 1AA');
 
         await inStripeIframe(async () => {
+            browser.scroll(0, -300); // scroll up enough for menu not to obscure Stripe.js iframe.
+
             /** see https://docs.stripe.com/testing */
             const UKVisaCardPAN = '4000008260000000';
 
-            await inputSelectorValue(stripeCardNumberSelector, UKVisaCardPAN);
+            console.log('card number element', $(stripeCardNumberSelector));
+
+            await $(stripeCardNumberSelector).setValue(UKVisaCardPAN);
+
+            // await inputSelectorValue(stripeCardNumberSelector, UKVisaCardPAN);
             await inputSelectorValue(stripeExpiryDateSelector, '01/35');
             await inputSelectorValue(stripeCvcSelector, '123');
         });
