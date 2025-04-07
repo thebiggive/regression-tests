@@ -50,30 +50,27 @@ workflows:
       - test:
           context:
             - docker-hub-creds
-# Scheduled run commented out due to regtest env storage issue that we don't need to fix on a Friday night.
-#  Ticket created to fix next week.
-#
-#  scheduled:
-#    triggers:
-#      - schedule:
-##          Job generally takes ~30 minutes to run and some overlap is OK, so we can run every 30.
-#          cron: "0,30 9,10,11,12,13,14,15,16,17 * * *" # Every 30 minutes. CircleCI doesn't support /30 syntax
-#          filters:
-#            branches:
-#              only:
-#                - main
-#      - schedule:
-#          # Overnight we don't need to run jobs so often, we're mostly not looking at results, so just run a few times overnight
-#          # Ideally we'd only run tests after we've changed code but that's harder to automate.
-#          cron: "0 18,0,6 * * *"
-#          filters:
-#            branches:
-#              only:
-#                - main
-#    jobs:
-#      - test:
-#          context:
-#            - docker-hub-creds
+  scheduled:
+    triggers:
+      - schedule:
+#          Job generally takes ~30 minutes to run and some overlap is OK, so we can run every 30.
+          cron: "0,30 9,10,11,12,13,14,15,16,17 * * *" # Every 30 minutes. CircleCI doesn't support /30 syntax
+          filters:
+            branches:
+              only:
+                - main
+      - schedule:
+          # Overnight we don't need to run jobs so often, we're mostly not looking at results, so just run a few times overnight
+          # Ideally we'd only run tests after we've changed code but that's harder to automate.
+          cron: "0 18,0,6 * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - test:
+          context:
+            - docker-hub-creds
 
 orbs:
   slack: circleci/slack@3.4.2
