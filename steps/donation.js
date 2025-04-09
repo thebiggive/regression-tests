@@ -48,7 +48,7 @@ Given('I have registered and logged in as a donor', async () => {
     // Complete register form
     donor = await page.populateNameAndEmail();
     donor.password = await DonateSuccessPage.populatePassword();
-    await clickBigGiveButtonWithOuterSelector('#register-button > biggive-button');
+    await clickBigGiveButtonWithOuterSelector('#register-button');
     await DonateSuccessPage.checkCopySaysImRegistered();
 
     // Complete login form
