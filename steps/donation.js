@@ -14,7 +14,7 @@ import {
     checkUrl,
     checkVisibleSelectorContent
 } from '../support/check';
-import { clickBigGiveButtonWithText } from '../support/action';
+import { clickBigGiveButtonWithOuterSelector, clickBigGiveButtonWithText } from '../support/action';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -48,7 +48,7 @@ Given('I have registered and logged in as a donor', async () => {
     // Complete register form
     donor = await page.populateNameAndEmail();
     donor.password = await DonateSuccessPage.populatePassword();
-    await clickBigGiveButtonWithText('Register');
+    await clickBigGiveButtonWithOuterSelector('#register-button > biggive-button');
     await DonateSuccessPage.checkCopySaysImRegistered();
 
     // Complete login form

@@ -54,16 +54,13 @@ export async function clickMaterialRadioWithLabel(text) {
 }
 
 /**
- * Clicks a custom `<biggive-button>` with the given text.
- * @param {string} text
+ * @param {WebdriverIO.Element|null} customButton
+ * @param {string} selector
+ * @returns {Promise<void>}
  */
-export async function clickBigGiveButtonWithText(text) {
-    console.log(`ACTION: Click Big Give button '${text}'`);
-
-    const selector = `biggive-button[label="${text}"]`;
-    const customButton = await $(selector);
+async function clickBigGiveButton(customButton, selector) {
     if (!customButton) {
-        throw new Error(`Expected <biggive-button> "${text}" to exist`);
+        throw new Error(`Expected <biggive-button> "${selector}" to exist`);
     }
 
     /** @type {WebdriverIO.Element} */
@@ -71,6 +68,26 @@ export async function clickBigGiveButtonWithText(text) {
     await innerButtonLink.waitForClickable();
 
     await clickElement(innerButtonLink, `${selector} >>>a.button`);
+}
+
+/**
+ * @param {string} selector
+ */
+export async function clickBigGiveButtonWithOuterSelector(selector) {
+    console.log(`ACTION: Click Big Give button with selector "${selector}"`);
+    const customButton = await $(selector);
+    await clickBigGiveButton(customButton, selector);
+}
+
+/**
+ * Clicks a custom `<biggive-button>` with the given text. Must be a static `label`.
+ * @param {string} text
+ */
+export async function clickBigGiveButtonWithText(text) {
+    console.log(`ACTION: Click Big Give button '${text}'`);
+    const selector = `biggive-button[label="${text}"]`;
+    const customButton = await $(selector);
+    await clickBigGiveButton(customButton, selector);
 }
 
 /**
