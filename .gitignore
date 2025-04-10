@@ -2,8 +2,10 @@ node_modules
 build/*
 !build/.gitkeep
 .env
+.env.ci
 *.cid
 package-lock.json
 
 # IDEs
 .idea/
+.vscode/
