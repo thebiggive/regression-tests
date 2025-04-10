@@ -28,8 +28,6 @@ jobs:
       - run: yarn lint
       - run: yarn tsc
       - run: yarn test:testingbot-all
-      # - run: yarn test:testingbot-chrome
-      # - run: yarn test:testingbot-edge
       - store_test_results:
           path: ~/app/build
       - store_artifacts:
@@ -44,7 +42,6 @@ jobs:
           webhook: ${SLACK_WEBHOOK_SUCCESS}
 
 workflows:
-  version: 2
   commit:
     jobs:
       - test:
