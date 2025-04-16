@@ -101,6 +101,8 @@ export default class DonateStartPage {
     }
 
     async openRegularGiving() {
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(500); // Intermittent issues with session state without this.
         await goToUrl(`/regular-giving/${regularGivingCampaignId}`);
         await checkTitle('Regular Giving');
     }
