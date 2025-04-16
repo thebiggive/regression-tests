@@ -167,27 +167,44 @@ export default class DonateStartPage {
         await clickMaterialRadioWithLabel('No, I do not meet the criteria');
     }
 
+    async populateEmail() {
+        // This enforces the email to likely be unique, so the test to create an account works
+        // because we never hit the error of the email already being used by another used. REG-26.
+        const email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
+
+        // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
+        // fake SMTP server, regardless of the donor's given email address.
+        await inputSelectorValue(emailAddressSelector, email);
+
+        return email;
+    }
+
+    async populateNames() {
+        const firstName = generateIdentifier('Firstname-');
+        const lastName = generateIdentifier('Lastname-');
+
+        await $(firstNameSelector).waitForStable(); // test:local-safari needed this for first input to work.
+
+        await inputSelectorValue(firstNameSelector, firstName);
+        await inputSelectorValue(lastNameSelector, lastName);
+
+        return {
+            firstName,
+            lastName,
+        };
+    }
+
     /**
      * Enter first & last name and email address, in Stripe mode.
      * @returns {Promise<import('../steps/donation').Donor>}
      */
     async populateNameAndEmail() {
-        const firstName = generateIdentifier('Firstname-');
-        const lastName = generateIdentifier('Lastname-');
-        // This enforces the email to always be unique, so the test to create an account works
-        // because we never hit the error of the email already being used by another used. REG-26.
-        const email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
-
-        await $(firstNameSelector).waitForStable(); // test:local-safari needed this for first input to work.
-        await inputSelectorValue(firstNameSelector, firstName);
-        await inputSelectorValue(lastNameSelector, lastName);
-        // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
-        // fake SMTP server, regardless of the donor's given email address.
-        await inputSelectorValue(emailAddressSelector, email);
+        const names = await this.populateNames();
+        const email = await this.populateEmail();
 
         return {
-            firstName,
-            lastName,
+            firstName: names.firstName,
+            lastName: names.lastName,
             email,
             password: null,
         };

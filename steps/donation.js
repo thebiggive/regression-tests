@@ -2,7 +2,7 @@ import {
     BeforeAll, Given, Then, When
 } from '@cucumber/cucumber';
 
-import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText } from '../support/mailtrap';
+import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText, getVerifyCode } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
 import DonateStartPage, { emailAddressSelector, firstNameSelector, lastNameSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
@@ -46,7 +46,21 @@ Given('I have registered and logged in as a donor', async () => {
     await page.openRegister();
 
     // Complete register form
-    donor = await page.populateNameAndEmail();
+    donor.email = await page.populateEmail();
+    await clickBigGiveButtonWithOuterSelector('#register-button');
+
+    // In other Mailtrap places we wait 35s atm, I'm hoping we can do a little less here.
+    // eslint-disable-next-line wdio/no-pause
+    await browser.pause(15 * 1000);
+
+    const verifyCode = await getVerifyCode(donor.email); // From Mailtrap recent email subject
+    await page.inputSelectorValue('>>>#code', verifyCode);
+    await clickBigGiveButtonWithText('Continue');
+
+    const names = await page.populateNames();
+    donor.firstName = names.firstName;
+    donor.lastName = names.lastName;
+
     donor.password = await DonateSuccessPage.populatePassword();
     await clickBigGiveButtonWithOuterSelector('#register-button');
     await DonateSuccessPage.checkCopySaysImRegistered();

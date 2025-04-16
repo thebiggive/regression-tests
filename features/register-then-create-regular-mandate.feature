@@ -1,5 +1,3 @@
-# Skipped while ID-47 login system changes are in progress.
-@skip()
 Feature: New donor registers and sets up new Regular Giving mandate
 
     As a new donor
