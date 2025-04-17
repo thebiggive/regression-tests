@@ -90,7 +90,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
  *
  * @param {string} searchText   Text to expect in latest subject line.
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {Promise<void>} Promise that resolves when check is done.
+ * @returns {Promise<string>} Promise that resolves with first match when check is done.
  */
 export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress) {
     const messages = await getLatestMessages(toEmailAddress);
@@ -100,11 +100,20 @@ export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress
 
     for (let ii = 0; ii < messages.length; ii += 1) {
         if (messages[ii].subject.includes(searchText)) {
-            return;
+            return messages[ii].subject;
         }
     }
 
     const joinedSubjects = messages.map((m) => m.subject).join(', ');
 
     throw new Error(`"${searchText}" not found in email subjects: "${joinedSubjects}"`);
+}
+
+/**
+ * @param {string} forEmailAddress
+ * @returns {Promise<string>}
+ */
+export async function getVerifyCode(forEmailAddress) {
+    const subject = await checkAnEmailSubjectContainsText('is your Big Give verification code', forEmailAddress);
+    return subject.replace(/^.+([0-9]{6}) is your Big Give verification code/, '$1');
 }
