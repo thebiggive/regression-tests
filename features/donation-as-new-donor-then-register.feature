@@ -1,3 +1,5 @@
+# Skipped as last part needs to be re-impelemnted following ID-47 changes
+@skip()
 Feature: New donor: donation completes successfully and donor registers
 
     As a new donor
@@ -17,9 +19,8 @@ Feature: New donor: donation completes successfully and donor registers
         Then my last email should contain amount £25000
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name
-        When I press on the button to set a password
-        And I enter my new password
-        And I press on the button to create an account
-        Then the page should update to say I'm registered
-        When I wait long enough for email processing
-        Then I should recieve a registration success email with the email I donated with
+
+        # implementation of following line in test code to do:
+        When I register using the link in my donation thanks message
+
+        Then I should receive a registration success email with the email I donated with

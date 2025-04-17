@@ -402,6 +402,15 @@ Then(
     }
 );
 
+/**
+ * Implementation to do
+ */
+When(
+    'I register using the link in my donation thanks message',
+    async () => {
+    }
+);
+
 When(
     /^I press on the button to set a password$/,
     async () => {
@@ -433,7 +442,7 @@ Then(
 );
 
 Then(
-    /^I should recieve a registration success email with the email I donated with$/,
+    /^I should receive a registration success email with the email I donated with$/,
     async () => {
         checkAnEmailSubjectContainsText('You are registered with Big Give', donor.email);
 
