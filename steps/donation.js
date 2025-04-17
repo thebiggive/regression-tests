@@ -70,6 +70,12 @@ Given('I have registered and logged in as a donor', async () => {
     await clickBigGiveButtonWithText('Log in');
 
     await checkTitle('My account – Big Give');
+
+    // Actions after this may rely on a message having been sent from Identity to Matchbot to turn
+    // a Person record into a DonorAccount. E.g. the regular giving form assumes donor has a
+    // DonorAccount in matchbot and errors if not.
+    // eslint-disable-next-line wdio/no-pause
+    await browser.pause(10 * 1000);
 });
 
 Given(
