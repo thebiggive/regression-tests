@@ -1,5 +1,3 @@
-# Skipped as last part needs to be re-impelemnted following ID-47 changes
-@skip()
 Feature: New donor: donation completes successfully and donor registers
 
     As a new donor
@@ -20,7 +18,5 @@ Feature: New donor: donation completes successfully and donor registers
         And my last email should contain the charity's custom thank you message
         And my last email should contain the correct name
 
-        # implementation of following line in test code to do:
         When I register using the link in my donation thanks message
-
         Then I should receive a registration success email with the email I donated with

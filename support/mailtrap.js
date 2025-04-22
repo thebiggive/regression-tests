@@ -2,6 +2,9 @@
  * @typedef {{subject: string, html_path: string}} emailMessage
  */
 const axios = require('axios');
+const jsdom = require('jsdom');
+
+const { JSDOM } = jsdom;
 
 if (!('create' in axios && typeof axios.create === 'function')) {
     // workaround for TS error;
@@ -52,6 +55,15 @@ async function getLatestMessages(toEmailAddress) {
 }
 
 /**
+ * @param {emailMessage} message
+ * @return {Promise<string>}
+ */
+async function fetchEmailBodyHtml(message) {
+    // @ts-expect-error - we know this should return a promise of string.
+    return await mailtrapGet(message.html_path, 'document');
+}
+
+/**
  * Checks whether expected text was in a recent email HTML body.
  *
  * Be sure to `await` any results that should impact test pass/fail status!
@@ -74,7 +86,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         // eslint-disable-next-line no-await-in-loop
 
         // eslint-disable-next-line no-await-in-loop
-        const body = /** @type {string} */ (await mailtrapGet(messages[ii].html_path, 'document'));
+        const body = await fetchEmailBodyHtml(messages[ii]);
         if (body.includes(searchText)) {
             return true;
         }
@@ -90,7 +102,7 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
  *
  * @param {string} searchText   Text to expect in latest subject line.
  * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {Promise<string>} Promise that resolves with first match when check is done.
+ * @returns {Promise<emailMessage>} Promise that resolves with first match when check is done.
  */
 export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress) {
     const messages = await getLatestMessages(toEmailAddress);
@@ -100,7 +112,7 @@ export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress
 
     for (let ii = 0; ii < messages.length; ii += 1) {
         if (messages[ii].subject.includes(searchText)) {
-            return messages[ii].subject;
+            return messages[ii];
         }
     }
 
@@ -114,6 +126,31 @@ export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress
  * @returns {Promise<string>}
  */
 export async function getVerifyCode(forEmailAddress) {
-    const subject = await checkAnEmailSubjectContainsText('is your Big Give verification code', forEmailAddress);
-    return subject.replace(/^.+([0-9]{6}) is your Big Give verification code/, '$1');
+    const message = await checkAnEmailSubjectContainsText('is your Big Give verification code', forEmailAddress);
+    return message.subject.replace(/^.+([0-9]{6}) is your Big Give verification code/, '$1');
+}
+
+/**
+ * @param {string} forEmailAddress
+ * @return Promise<URL|undefined>
+ */
+export async function findAccountSetupLinkInRecentEmail(forEmailAddress) {
+    const message = await checkAnEmailSubjectContainsText(
+        'Thanks for your donation',
+        forEmailAddress
+    );
+
+    const html = await fetchEmailBodyHtml(message);
+
+    const element = new JSDOM(html).window.document.getElementById('create-account');
+    if (element === null) {
+        return undefined;
+    }
+
+    const href = element.getAttribute('href');
+    if (href === null) {
+        return undefined;
+    }
+
+    return new URL(href);
 }
