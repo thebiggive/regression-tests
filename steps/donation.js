@@ -2,8 +2,13 @@ import {
     BeforeAll, Given, Then, When
 } from '@cucumber/cucumber';
 
-import { checkAnEmailBodyContainsText, checkAnEmailSubjectContainsText, getVerifyCode } from '../support/mailtrap';
-import { randomIntFromInterval } from '../support/util';
+import {
+    checkAnEmailBodyContainsText,
+    checkAnEmailSubjectContainsText,
+    findAccountSetupLinkInRecentEmail,
+    getVerifyCode
+} from '../support/mailtrap';
+import { goToUrl, randomIntFromInterval } from '../support/util';
 import DonateStartPage, { emailAddressSelector, firstNameSelector, lastNameSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
 import { checkStripeCustomerExists, getChargedAmount, verifyStripePaymentIntentDetails } from '../support/stripe';
@@ -15,6 +20,7 @@ import {
     checkVisibleSelectorContent
 } from '../support/check';
 import { clickBigGiveButtonWithOuterSelector, clickBigGiveButtonWithText } from '../support/action';
+import RegistrationPage from '../pages/RegistrationPage';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -61,9 +67,9 @@ Given('I have registered and logged in as a donor', async () => {
     donor.firstName = names.firstName;
     donor.lastName = names.lastName;
 
-    donor.password = await DonateSuccessPage.populatePassword();
+    donor.password = await RegistrationPage.populatePassword();
     await clickBigGiveButtonWithOuterSelector('#register-button');
-    await DonateSuccessPage.checkCopySaysImRegistered();
+    await RegistrationPage.checkCopySaysImRegistered();
 
     // Complete login form
     await page.inputLoginFields(donor);
@@ -414,6 +420,15 @@ Then(
 When(
     'I register using the link in my donation thanks message',
     async () => {
+        const link = await findAccountSetupLinkInRecentEmail(donor.email);
+        if (!link) {
+            throw new Error('Link not found in donation thanks message');
+        }
+        await goToUrl(link.toString());
+
+        await RegistrationPage.populatePassword();
+        await clickBigGiveButtonWithOuterSelector('#register-button-post-donation');
+        await RegistrationPage.checkCopySaysImRegistered();
     }
 );
 
@@ -427,23 +442,9 @@ When(
 );
 
 When(
-    /^I enter my new password$/,
-    async () => {
-        await DonateSuccessPage.populatePassword();
-    }
-);
-
-When(
     /^I press on the button to create an account$/,
     async () => {
         await DonateSuccessPage.clickOnCreateAccountButton();
-    }
-);
-
-Then(
-    /^the page should update to say I'm registered$/,
-    async () => {
-        await DonateSuccessPage.checkCopySaysImRegistered();
     }
 );
 

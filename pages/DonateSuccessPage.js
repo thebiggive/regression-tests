@@ -2,17 +2,12 @@ import {
     checkUrl,
     checkSelectorContent
 } from '../support/check';
-import {
-    clickSelector,
-    inputSelectorValue
-} from '../support/action';
+import { clickSelector } from '../support/action';
 
 // selectors
 
 const createAccountButtonSelector = '#createAccountButton';
 const receiptSelector = 'div.receipt';
-const passwordSelector = '#password';
-const registrationTextSelector = '#registrationCompleteText';
 
 // checks
 const urlCheck = 'thanks';
@@ -44,21 +39,7 @@ export default class DonateSuccessPage {
         await $('.cta biggive-button').$('>>>a.button').click();
     }
 
-    static async populatePassword() {
-        const newPassword = this.generateRandomPassword();
-        await inputSelectorValue(passwordSelector, newPassword);
-        return newPassword;
-    }
-
     static async clickOnCreateAccountButton() {
         await clickSelector(createAccountButtonSelector);
-    }
-
-    static async checkCopySaysImRegistered() {
-        await checkSelectorContent(registrationTextSelector, 'You are now registered');
-    }
-
-    static generateRandomPassword() {
-        return Array(20).fill(0).map(() => Math.random().toString(36).charAt(2)).join('');
     }
 }
