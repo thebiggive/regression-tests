@@ -451,6 +451,8 @@ When(
 Then(
     /^I should receive a registration success email with the email I donated with$/,
     async () => {
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(15 * 1000);
         checkAnEmailSubjectContainsText('You are registered with Big Give', donor.email);
 
         // eslint-disable-next-line max-len

@@ -19,5 +19,4 @@ Feature: New donor: donation completes successfully and donor registers
         And my last email should contain the correct name
 
         When I register using the link in my donation thanks message
-#     Last line temporarily commented out while failing - will restore tomorrow.
-#        Then I should receive a registration success email with the email I donated with
+        Then I should receive a registration success email with the email I donated with
