@@ -4,8 +4,8 @@ import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
     checkSelectorContent,
-    checkVisibleSelectorContent,
-    elementExists
+    elementExists,
+    checkVisibleSelectorContent
 }
     from '../support/check';
 import {

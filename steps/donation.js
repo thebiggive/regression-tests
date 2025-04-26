@@ -21,6 +21,7 @@ import {
 } from '../support/check';
 import { clickBigGiveButtonWithOuterSelector, clickBigGiveButtonWithText } from '../support/action';
 import RegistrationPage from '../pages/RegistrationPage';
+import withRetryAndPause from '../support/withPauseAndRetry';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -405,22 +406,29 @@ Then(
     'my last email should contain a new monthly mandate confirmation showing amount £{int}',
     async (amount) => {
         const formattedAmount = `£${amount.toLocaleString('en-GB')}.00`;
-        if (!(await checkAnEmailBodyContainsText(
-            `Donation: <strong>${formattedAmount}</strong>`,
-            donor.email,
-        ))) {
-            throw new Error(`Amount ${formattedAmount} not found in email`);
-        }
+        withRetryAndPause({
+            callback: async () => {
+                if (!(await checkAnEmailBodyContainsText(
+                    `Donation: <strong>${formattedAmount}</strong>`,
+                    donor.email,
+                ))) {
+                    throw new Error(`Amount ${formattedAmount} not found in email`);
+                }
+            },
+            label: 'CHECK_EMAIL_FOR_MANDATE_CONFIRMATION',
+        });
     }
 );
 
-/**
- * Implementation to do
- */
 When(
     'I register using the link in my donation thanks message',
     async () => {
-        const link = await findAccountSetupLinkInRecentEmail(donor.email);
+        const link = await withRetryAndPause({
+            callback: () => findAccountSetupLinkInRecentEmail(donor.email),
+            predicate: (l) => !!l,
+            label: 'FIND_LINK_IN_THANKS_MESSAGE',
+        });
+
         if (!link) {
             throw new Error('Link not found in donation thanks message');
         }
