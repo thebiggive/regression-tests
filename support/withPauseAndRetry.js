@@ -21,16 +21,16 @@ export default async function withPauseAndRetry({ callback, predicate, label }) 
         try {
             // eslint-disable-next-line no-await-in-loop
             result = await callback();
-            if (!predicate) {
-                break;
+            if (!predicate || predicate(result)) {
+                return result;
             }
-            if (!predicate(result)) {
-                badResult = result;
-            }
-            break;
+
+            // result didn't satisfy the predicate, so is bad.
+            badResult = result;
         } catch (error) {
             lastError = error;
         }
+
         const delaySeconds = 2 ** retryCount;
         console.log(`${label} failed, pausing ${delaySeconds} seconds before retry`);
         // eslint-disable-next-line no-await-in-loop,wdio/no-pause
@@ -38,11 +38,7 @@ export default async function withPauseAndRetry({ callback, predicate, label }) 
         retryCount += 1;
     }
 
-    if (result !== undefined) {
-        return result;
-    }
-
-    console.log(`${label} failed ${retryCount} times, giving up,`);
+    console.log(`${label} failed ${retryCount + 1} times, giving up,`);
 
     if (badResult !== undefined) {
         return badResult;
