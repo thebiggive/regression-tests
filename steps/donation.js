@@ -406,12 +406,17 @@ Then(
     'my last email should contain a new monthly mandate confirmation showing amount £{int}',
     async (amount) => {
         const formattedAmount = `£${amount.toLocaleString('en-GB')}.00`;
-        if (!(await checkAnEmailBodyContainsText(
-            `Donation: <strong>${formattedAmount}</strong>`,
-            donor.email,
-        ))) {
-            throw new Error(`Amount ${formattedAmount} not found in email`);
-        }
+        withRetryAndPause({
+            callback: async () => {
+                if (!(await checkAnEmailBodyContainsText(
+                    `Donation: <strong>${formattedAmount}</strong>`,
+                    donor.email,
+                ))) {
+                    throw new Error(`Amount ${formattedAmount} not found in email`);
+                }
+            },
+            label: 'CHECK_EMAIL_FOR_MANDATE_CONFIRMATION',
+        });
     }
 );
 
