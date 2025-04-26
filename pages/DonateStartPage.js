@@ -23,7 +23,6 @@ const startPageStripe = /** @type {string} */ (process.env.DONATE_PAGE_STRIPE);
 const regularGivingCampaignId = /** @type {string} */ (process.env.REGULAR_GIVING_CAMPAIGN_ID);
 
 // selectors
-const idInfoSelector = '.id-info';
 const submitBtnSelector = 'button*=Donate ';
 const donationAmountSelector = '#donationAmount';
 const yourDonationStepSelector = '#cdk-stepper-0-label-0';
@@ -110,18 +109,6 @@ export default class DonateStartPage {
     async checkReady() {
         await checkTitle(`Donate to ${CHARITY_NAME}`);
         await checkSelectorContent('form', CHARITY_NAME);
-    }
-
-    /**
-     * Check the Identity service info box above the stepper contains
-     * the given text.
-     *
-     * @param {string} expectedText  Text anticipated somewhere in the box.
-     */
-    async checkIdInfo(expectedText) {
-        // eslint-disable-next-line wdio/no-pause
-        await browser.pause(1500); // Give the login call a short processing time.
-        await checkVisibleSelectorContent(idInfoSelector, expectedText);
     }
 
     /**

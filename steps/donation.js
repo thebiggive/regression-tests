@@ -141,11 +141,6 @@ When('I enter the ID credit-funded account test email and password', async () =>
 });
 
 When(
-    /I should see "([^"]+)" in the ID info box/,
-    async (expectedText) => page.checkIdInfo(expectedText),
-);
-
-When(
     'I enter an amount between £{int} and £{int}',
     /**
      * @param {number} lowerBound

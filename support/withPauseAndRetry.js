@@ -1,6 +1,6 @@
 /**
  * Calls the provided callback function, and if it throws or the given predicate returns false on the result retries
- * up to four times, with pauses in between of 1s, 2s, 4s and 8s.
+ * up to four times, with pauses in between of 1s, 2s, 4s and 8s, for a total of up to 15.
  *
  * @template T
  * @param {{callback: function():T, predicate?: function(T): boolean, label: string}} args
