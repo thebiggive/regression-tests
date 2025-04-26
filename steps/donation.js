@@ -21,6 +21,7 @@ import {
 } from '../support/check';
 import { clickBigGiveButtonWithOuterSelector, clickBigGiveButtonWithText } from '../support/action';
 import RegistrationPage from '../pages/RegistrationPage';
+import withRetryAndPause from '../support/withPauseAndRetry';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -414,13 +415,15 @@ Then(
     }
 );
 
-/**
- * Implementation to do
- */
 When(
     'I register using the link in my donation thanks message',
     async () => {
-        const link = await findAccountSetupLinkInRecentEmail(donor.email);
+        const link = await withRetryAndPause({
+            callback: () => findAccountSetupLinkInRecentEmail(donor.email),
+            predicate: (l) => !!l,
+            label: 'FIND_LINK_IN_THANKS_MESSAGE',
+        });
+
         if (!link) {
             throw new Error('Link not found in donation thanks message');
         }
