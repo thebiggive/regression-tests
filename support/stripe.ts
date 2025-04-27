@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+// eslint-disable-next-line import/no-nodejs-modules
 import { setTimeout } from 'node:timers/promises';
 
 const stripeApiKey = process.env.STRIPE_API_KEY;

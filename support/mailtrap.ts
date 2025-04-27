@@ -1,8 +1,10 @@
+import * as jsdom from "jsdom";
+// eslint-disable-next-line import/no-duplicates
+import axios from 'axios';
+// eslint-disable-next-line import/no-duplicates
+import ResponseType from "axios";
 
 export type emailMessage = {subject: string, html_path: string}
-
-const axios = require('axios');
-const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
 
@@ -18,6 +20,8 @@ const mailtrapClient = axios.create({
     },
 });
 
+type ResponseType = AxiosRequestConfig['responseType'];
+
 /**
  * Makes an authenticated GET call to Mailtrap.io's API.
  *
@@ -25,7 +29,7 @@ const mailtrapClient = axios.create({
  * @param responseType  Deserialised response data
  * @returns Data from Mailtrap API
  */
-async function mailtrapGet(path: string, responseType: string): Promise<unknown> {
+async function mailtrapGet(path: string, responseType: ResponseType): Promise<unknown> {
     const response = await mailtrapClient.get(path, { responseType });
     return response.data;
 }
@@ -78,7 +82,6 @@ export async function checkAnEmailBodyContainsText(searchText: string, toEmailAd
         // Seems like we need await with the current approach to get the content. A refactor
         // where all bodies are got in one go would be slightly better, but is not a big
         // optimisation. For now, let's skip the eslint check for this line.
-        // eslint-disable-next-line no-await-in-loop
 
         // eslint-disable-next-line no-await-in-loop
         const body = await fetchEmailBodyHtml(messages[ii]);

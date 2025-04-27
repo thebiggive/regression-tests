@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-named-as-default
 import AxeBuilder from '@axe-core/webdriverio';
 
 import { generateIdentifier, goToUrl } from '../support/util';
@@ -63,7 +64,7 @@ export default class DonateStartPage {
      * while keeping the step definitions simple.
      *
      * @param selector Element selector.
-     * @returns click() result on success.
+     * @returns {Promise<any>} click() result on success.
      */
     async clickActiveSelector(selector: string) {
         let bestButton;

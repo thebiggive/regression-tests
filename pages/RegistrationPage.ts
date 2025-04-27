@@ -9,6 +9,7 @@ export default class RegistrationPage {
         try {
             await inputSelectorValue('#password', newPassword);
         } catch (error) {
+            void error;
             await inputSelectorValue('#password-post-donation', newPassword);
         }
         return newPassword;

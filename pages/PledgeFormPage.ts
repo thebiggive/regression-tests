@@ -156,7 +156,6 @@ export default class PledgeFormPage {
     async checkForCardWithHeading(heading: string) {
         // .slds-card__header
         await checkSelectorContent(
-            // eslint-disable-next-line max-len
             "//h2[@class='slds-card__header-title']//span[@class='slds-text-heading_small slds-truncate']",
             heading,
         );

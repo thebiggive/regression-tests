@@ -37,7 +37,6 @@ let donor: Donor = {
 };
 
 let page: DonateStartPage;
-// eslint-disable-next-line new-cap
 BeforeAll(async () => {
     page = new DonateStartPage(browser);
 });
@@ -175,7 +174,6 @@ When(
         await page.progressToNextStep(true);
 
         // The page will likely jump over the Gift Aid step, see this thread to understand why:
-        // eslint-disable-next-line max-len
         // https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
         // See ticket REG-21
         // Wait 20 seconds for donation setup & MatchBot & identity & SF callouts
@@ -195,8 +193,7 @@ When(
     }
 );
 
-// eslint-disable-next-line no-unused-vars
-When(/I skip over (.+) step/, async (_stepDescription) => {
+When(/I skip over (.+) step/, async () => {
     await page.progressToNextStep(false);
 });
 
@@ -263,7 +260,7 @@ When(
 When(
     'I choose a preference for charity and TBG communications',
     async () => {
-        await page.setCommsPreferences();
+          await page.setCommsPreferences();
         await page.progressToNextStep(false);
     }
 );
@@ -454,7 +451,6 @@ Then(
         await browser.pause(15 * 1000);
         checkAnEmailSubjectContainsText('You are registered with Big Give', donor.email);
 
-        // eslint-disable-next-line max-len
         const expectedCopy = `You are now registered for Big Give with the email address: ${donor.email}`;
 
         if (!(await checkAnEmailBodyContainsText(
@@ -471,7 +467,6 @@ Then(
     /**
      * @param {number} expectedAmount
      */
-    // eslint-disable-next-line no-unused-vars
     async (expectedAmount) => {
         checkStripeCustomerExists(donor.email);
 
