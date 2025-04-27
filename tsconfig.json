@@ -8,9 +8,10 @@
     "strict": true,
     "declaration": true,
     "removeComments": false,
-    "noEmit": true,
+    "noEmit": false,
     "skipLibCheck": true,
-    "types": ["node", "@wdio/globals/types"]
+    "types": ["node", "@wdio/globals/types"],
+    "outDir": "./build",
   },
   "include": [
     "pages",
