@@ -193,7 +193,8 @@ When(
     }
 );
 
-When(/I skip over (.+) step/, async () => {
+When(/I skip over (.+) step/, async (step: string) => {
+    void step;
     await page.progressToNextStep(false);
 });
 
