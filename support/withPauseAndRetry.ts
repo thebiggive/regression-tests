@@ -1,12 +1,10 @@
 /**
  * Calls the provided callback function, and if it throws or the given predicate returns false on the result retries
  * up to four times, with pauses in between of 1s, 2s, 4s and 8s.
- *
- * @template T
- * @param {{callback: function():T, predicate?: function(T): boolean, label: string}} args
- * @returns {Promise<T>}
  */
-export default async function withPauseAndRetry({ callback, predicate, label }) {
+export default async function withPauseAndRetry<T>(
+    { callback, predicate, label }: {callback: () => T, predicate?: (arg0: T) => boolean, label: string}
+) {
     const maxTries = 4;
     let result;
     let retryCount = 0;

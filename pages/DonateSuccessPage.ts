@@ -19,9 +19,9 @@ export default class DonateSuccessPage {
 
     /**
      * Checks if balance has updated
-     * @param {number} donationAmount to check
+     * @param donationAmount to check
      */
-    static async checkBalance(donationAmount) {
+    static async checkBalance(donationAmount: number) {
         // For now checking just the 'Your donation' amount itself is a fairly good check that
         // *probably* the correct figure was set to that value. We included the prefix before
         // but this isn't reliable cross-browser because the receipt is a table and Chromium

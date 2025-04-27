@@ -3,11 +3,9 @@ import {
 } from '@cucumber/cucumber';
 import axios from 'axios';
 
-/** @type {string} */
-let pageContent;
+let pageContent: string;
 
-/** @type {string} */
-let url;
+let url: string;
 
 Given(/^I am loading the site without Javascript$/, async () => {
     // no-op

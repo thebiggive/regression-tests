@@ -3,11 +3,11 @@ import { WAIT_SECONDS } from './constants';
 /**
  * Check if element exists
  *
- * @param {string} selector to be checked
- * @param {number} seconds to wait
- * @returns {Promise<boolean>} True if element exists or false if element doesn't exist
+ * @param selector to be checked
+ * @param seconds to wait
+ * @returns True if element exists or false if element doesn't exist
  */
-export async function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
+export async function checkIfElementExists(selector: string, seconds = WAIT_SECONDS): Promise<boolean> {
     console.log(`CHECK: Check "${selector}" exists`);
 
     return $(selector).waitForExist({ timeout: seconds * 1000 });
@@ -16,21 +16,21 @@ export async function checkIfElementExists(selector, seconds = WAIT_SECONDS) {
 /**
  * Checks whether a non-required selector is already present on the page.
  *
- * @param {string} selector DOM selector to seek
- * @return {Promise<boolean>} Whether element exists
+ * @param selector DOM selector to seek
+ * @return  Whether element exists
  */
-export async function elementExists(selector) {
+export async function elementExists(selector: string) {
     return $(selector).isDisplayed();
 }
 
 /**
  * Assert URL
  *
- * @param {string} url to be asserted
- * @param {number} seconds to wait
- * @return {Promise<boolean>} return if url matched
+ * @param url to be asserted
+ * @param  seconds to wait
+ * @return if url matched
  */
-export async function checkUrl(url, seconds = WAIT_SECONDS) {
+export async function checkUrl(url: string, seconds = WAIT_SECONDS): Promise<boolean> {
     console.log(`CHECK: URL contains "${url}"`);
 
     return browser.waitUntil(
@@ -45,11 +45,11 @@ export async function checkUrl(url, seconds = WAIT_SECONDS) {
 /**
  * Assert URL Regex
  *
- * @param {string} url to be asserted
- * @param {number} seconds to wait
- * @return {Promise<boolean>} return if url match regex
+ * @param url to be asserted
+ * @param seconds to wait
+ * @return return if url match regex
  */
-export async function checkUrlMatch(url, seconds = WAIT_SECONDS) {
+export async function checkUrlMatch(url: string, seconds = WAIT_SECONDS): Promise<boolean> {
     console.log(`CHECK: URL matches "${url}"`);
     const regex = new RegExp(url);
     return browser.waitUntil(
@@ -64,11 +64,11 @@ export async function checkUrlMatch(url, seconds = WAIT_SECONDS) {
 /**
  * Check webpage title
  *
- * @param {string} title of webpage
- * @param {number} seconds to wait
- * @return {Promise<boolean>} return if title matched
+ * @param title of webpage
+ * @param seconds to wait
+ * @return return if title matched
  */
-export async function checkTitle(title, seconds = WAIT_SECONDS) {
+export async function checkTitle(title: string, seconds = WAIT_SECONDS): Promise<boolean> {
     console.log(`CHECK: Title contains "${title}"`);
 
     return browser.waitUntil(
@@ -83,12 +83,12 @@ export async function checkTitle(title, seconds = WAIT_SECONDS) {
 /**
  * Check a specific form element contains the given value.
  *
- * @param {WebdriverIO.Element} element Already-located element.
- * @param {string} value
- * @param {number} seconds Number of seconds to wait.
- * @returns {Promise<any>} `waitUntil()` result.
+ * @param element Already-located element.
+ * @param value
+ * @param seconds Number of seconds to wait.
+ * @returns `waitUntil()` result.
  */
-async function checkValue(element, value, seconds = WAIT_SECONDS) {
+async function checkValue(element: WebdriverIO.Element, value: string, seconds = WAIT_SECONDS): Promise<any> {
     return browser.waitUntil(
         async () => {
             const text = await element.getValue();
@@ -108,16 +108,13 @@ async function checkValue(element, value, seconds = WAIT_SECONDS) {
 /**
  * Check a specific element contains certain text.
  *
- * @param {WebdriverIO.Element} element Already-located element.
- * @param {string} content Expected content.
- * @param {number} seconds Number of seconds to wait.
+ * @param element Already-located element.
+ * @param content Expected content.
+ * @param seconds Number of seconds to wait.
  * @returns {Promise<any>} `waitUntil()` result.
  */
-async function checkText(element, content, seconds = WAIT_SECONDS) {
-    /**
-     * @param {string} string
-     */
-    function collapseWhitespace(string) {
+async function checkText(element: WebdriverIO.Element, content: string, seconds = WAIT_SECONDS): Promise<any> {
+    function collapseWhitespace(string: string) {
         return string.replace(/\s\s+/g, ' ');
     }
 
@@ -139,12 +136,12 @@ async function checkText(element, content, seconds = WAIT_SECONDS) {
 /**
  * Assert element with given value exists
  *
- * @param {string} selector
- * @param {string} value
- * @param {number} seconds Time to wait
- * @return {Promise<boolean>} return if text exist
+ * @param selector
+ * @param  value
+ * @param seconds Time to wait
+ * @return if text exist
  */
-export async function checkSelectorValue(selector, value, seconds = WAIT_SECONDS) {
+export async function checkSelectorValue(selector: string, value: string, seconds = WAIT_SECONDS): Promise<boolean> {
     console.log(`CHECK: Element "${selector}" has value "${value}"`);
 
     if (!(await checkIfElementExists(selector))) {
@@ -157,12 +154,12 @@ export async function checkSelectorValue(selector, value, seconds = WAIT_SECONDS
 /**
  * Assert content exists
  *
- * @param {string} selector of content
- * @param {string} content text
- * @param {number} seconds to wait
+ * @param selector of content
+ * @param content text
+ * @param seconds to wait
  * @return {Promise<boolean>} return if text exist
  */
-export async function checkSelectorContent(selector, content, seconds = WAIT_SECONDS) {
+export async function checkSelectorContent(selector: string, content: string, seconds: number = WAIT_SECONDS) {
     console.log(`CHECK: Element "${selector}" contains content "${content}"`);
 
     if (!(await checkIfElementExists(selector))) {
@@ -177,12 +174,12 @@ export async function checkSelectorContent(selector, content, seconds = WAIT_SEC
  * you should design tests using selectors you expect multiple of on the page but *only
  * one visible* at a time.
  *
- * @param {string} selector DOM element selector.
- * @param {string} content text
- * @param {number} seconds to wait
- * @returns {Promise<any>} `waitUntil()` result, assuming 1+ elements visible.
+ * @param selector DOM element selector.
+ * @param content text
+ * @param seconds to wait
+ * @returns  `waitUntil()` result, assuming 1+ elements visible.
  */
-export async function checkVisibleSelectorContent(selector, content, seconds = WAIT_SECONDS) {
+export async function checkVisibleSelectorContent(selector: string, content: string, seconds: number = WAIT_SECONDS) {
     console.log(`CHECK: First visible element "${selector}" contains content "${content}"`);
 
     let firstVisibleElement;

@@ -1,9 +1,4 @@
-/**
- * Go to URL
- *
- * @param {string} url to go
- */
-export async function goToUrl(url) {
+export async function goToUrl(url: string) {
     console.log(`ACTION: Change URL to "${url}"`);
     try {
         await browser.url(url);
@@ -15,11 +10,8 @@ export async function goToUrl(url) {
 /**
  * Generate number between minimum and maximum fixed numbers
  *
- * @param {number} min number
- * @param {number} max number
- * @returns {number} generated number
  */
-export function randomIntFromInterval(min, max) { // min and max included
+export function randomIntFromInterval(min: number, max: number) { // min and max included
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
