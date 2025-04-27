@@ -7,12 +7,12 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:watch": "esw . --watch --fix",
-    "test:testingbot-all": "wdio run wdio.testingbot-all.conf.js",
-    "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.js",
-    "test:testingbot-edge": "wdio run wdio.testingbot-edge.conf.js",
-    "test:testingbot-safari": "wdio run wdio.testingbot-safari.conf.js",
-    "test:local": "wdio run wdio.local.conf.js",
-    "test:local-safari": "wdio run wdio.local-safari.conf.js",
+    "test:testingbot-all": "wdio run wdio.testingbot-all.conf.cjs",
+    "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.cjs",
+    "test:testingbot-edge": "wdio run wdio.testingbot-edge.conf.cjs",
+    "test:testingbot-safari": "wdio run wdio.testingbot-safari.conf.cjs",
+    "test:local": "wdio run wdio.local.conf.cjs",
+    "test:local-safari": "wdio run wdio.local-safari.conf.cjs",
     "clean": "del-cli build/* !build/.gitkeep"
   },
   "engines": {
