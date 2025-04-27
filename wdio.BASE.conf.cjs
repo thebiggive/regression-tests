@@ -69,7 +69,7 @@ exports.config = {
         snippets: true,
         source: true,
         profile: [],
-        require: ['./steps/**/*.ts'],
+        require: ['./steps/**/*.js'],
         snippetSyntax: undefined,
         strict: true,
         tagsInTitle: false,
