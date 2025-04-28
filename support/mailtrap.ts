@@ -1,5 +1,5 @@
 import * as jsdom from "jsdom";
-// eslint-disable-next-line import/no-duplicates
+// eslint-disable-next-line import/no-duplicates,import/named
 import axios, {AxiosRequestConfig} from 'axios';
 // eslint-disable-next-line import/no-duplicates
 import ResponseType from "axios";
