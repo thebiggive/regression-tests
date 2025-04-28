@@ -13,6 +13,8 @@ if (!('create' in axios && typeof axios.create === 'function')) {
     throw new Error('Missing axios create function');
 }
 
+const unused = 'foo';
+
 const mailtrapClient = axios.create({
     baseURL: 'https://mailtrap.io',
     headers: {
