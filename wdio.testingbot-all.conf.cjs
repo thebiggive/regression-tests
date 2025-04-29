@@ -24,7 +24,7 @@ config.capabilities = [
         elementScrollBehavior: 1, // from bottom.
     },
 ];
-config.maxInstances = 2;
+config.maxInstances = 1;
 config.services.push('testingbot');
 
 config.path = '/wd/hub';
