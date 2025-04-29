@@ -1,8 +1,10 @@
-/**
- * @typedef {{subject: string, html_path: string}} emailMessage
- */
-const axios = require('axios');
-const jsdom = require('jsdom');
+import * as jsdom from "jsdom";
+// eslint-disable-next-line import/no-duplicates,import/named
+import axios, {AxiosRequestConfig} from 'axios';
+// eslint-disable-next-line import/no-duplicates
+import ResponseType from "axios";
+
+export type emailMessage = {subject: string, html_path: string}
 
 const { JSDOM } = jsdom;
 
@@ -18,14 +20,16 @@ const mailtrapClient = axios.create({
     },
 });
 
+type ResponseType = AxiosRequestConfig['responseType'];
+
 /**
  * Makes an authenticated GET call to Mailtrap.io's API.
  *
- * @param {string} path         Request path
- * @param {string} responseType  Deserialised response data
- * @returns {Promise<unknown>} Data from Mailtrap API
+ * @param path         Request path
+ * @param responseType  Deserialised response data
+ * @returns Data from Mailtrap API
  */
-async function mailtrapGet(path, responseType) {
+async function mailtrapGet(path: string, responseType: ResponseType): Promise<unknown> {
     const response = await mailtrapClient.get(path, { responseType });
     return response.data;
 }
@@ -36,14 +40,14 @@ async function mailtrapGet(path, responseType) {
  * @param {string} toEmailAddress Only find emails addressed to this account
  * @returns {Promise<Array<emailMessage>>} Up to {{count}} messages, if available.
  */
-async function getLatestMessages(toEmailAddress) {
+async function getLatestMessages(toEmailAddress: string): Promise<emailMessage[]> {
     if (typeof toEmailAddress !== 'string') {
         throw new Error(`Expected toEmailAddress to be string, was ${typeof toEmailAddress}: ${toEmailAddress}`);
     }
 
     const params = new URLSearchParams({ search: toEmailAddress });
     const path = `/api/v1/inboxes/${process.env.MAILTRAP_INBOX_ID}/messages?${params.toString()}`;
-    const messages = /** @type {Array<emailMessage>} */ (await mailtrapGet(path, 'json'));
+    const messages = (await mailtrapGet(path, 'json')) as emailMessage[];
     console.log(`got ${messages.length} message(s) from mailtrap at path ${path}`);
 
     if (messages.length === 0) {
@@ -54,13 +58,8 @@ async function getLatestMessages(toEmailAddress) {
     return messages.slice(0, count); // Latest emails.
 }
 
-/**
- * @param {emailMessage} message
- * @return {Promise<string>}
- */
-async function fetchEmailBodyHtml(message) {
-    // @ts-expect-error - we know this should return a promise of string.
-    return await mailtrapGet(message.html_path, 'document');
+async function fetchEmailBodyHtml(message: emailMessage): Promise<string> {
+    return await mailtrapGet(message.html_path, 'document') as string;
 }
 
 /**
@@ -68,12 +67,12 @@ async function fetchEmailBodyHtml(message) {
  *
  * Be sure to `await` any results that should impact test pass/fail status!
  *
- * @param {string} searchText   Expected text to find anywhere in HTML
- * @param {string} toEmailAddress Only find emails addressed to this account
+ * @param searchText   Expected text to find anywhere in HTML
+ * @param toEmailAddress Only find emails addressed to this account
  *              (or an account that starts with this)
  * @returns {Promise<boolean>}       Whether the expected text was found.
  */
-export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
+export async function checkAnEmailBodyContainsText(searchText: string, toEmailAddress: string) {
     const messages = await getLatestMessages(toEmailAddress);
     if (messages.length === 0) {
         return false;
@@ -83,7 +82,6 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
         // Seems like we need await with the current approach to get the content. A refactor
         // where all bodies are got in one go would be slightly better, but is not a big
         // optimisation. For now, let's skip the eslint check for this line.
-        // eslint-disable-next-line no-await-in-loop
 
         // eslint-disable-next-line no-await-in-loop
         const body = await fetchEmailBodyHtml(messages[ii]);
@@ -100,11 +98,11 @@ export async function checkAnEmailBodyContainsText(searchText, toEmailAddress) {
  *
  * Throws if the subject was not found.
  *
- * @param {string} searchText   Text to expect in latest subject line.
- * @param {string} toEmailAddress Only find emails addressed to this account
- * @returns {Promise<emailMessage>} Promise that resolves with first match when check is done.
+ * @param searchText   Text to expect in latest subject line.
+ * @param toEmailAddress Only find emails addressed to this account
+ * @returns Promise that resolves with first match when check is done.
  */
-export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress) {
+export async function checkAnEmailSubjectContainsText(searchText: string, toEmailAddress: string): Promise<emailMessage> {
     const messages = await getLatestMessages(toEmailAddress);
     if (messages.length === 0) {
         throw new Error('No email messages found');
@@ -121,20 +119,13 @@ export async function checkAnEmailSubjectContainsText(searchText, toEmailAddress
     throw new Error(`"${searchText}" not found in email subjects: "${joinedSubjects}"`);
 }
 
-/**
- * @param {string} forEmailAddress
- * @returns {Promise<string>}
- */
-export async function getVerifyCode(forEmailAddress) {
+
+export async function getVerifyCode(forEmailAddress: string): Promise<string> {
     const message = await checkAnEmailSubjectContainsText('is your Big Give verification code', forEmailAddress);
     return message.subject.replace(/^.+([0-9]{6}) is your Big Give verification code/, '$1');
 }
 
-/**
- * @param {string} forEmailAddress
- * @return Promise<URL|undefined>
- */
-export async function findAccountSetupLinkInRecentEmail(forEmailAddress) {
+export async function findAccountSetupLinkInRecentEmail(forEmailAddress: string) {
     const message = await checkAnEmailSubjectContainsText(
         'Thanks for your donation',
         forEmailAddress

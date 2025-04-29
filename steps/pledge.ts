@@ -13,18 +13,13 @@ import {
 import { randomIntFromInterval } from '../support/util';
 import { CHARITY_NAME } from '../support/constants';
 
-/**
- * @type {string}
- */
-let emailAddress;
+let emailAddress: string;
 
-/** @type {PledgeFormPage} */
-let page;
+let page: PledgeFormPage;
 
 /** @type {any} (looks like we have some inconsistency already between whether this is string or number) */
-let pledgeAmount;
+let pledgeAmount: any;
 
-// eslint-disable-next-line new-cap
 BeforeAll(() => {
     page = new PledgeFormPage(browser);
 });
@@ -112,7 +107,6 @@ Then(
 );
 
 Then(
-    // eslint-disable-next-line max-len
     'the main card text should contain my chosen pledge amount and the correct charity name',
     async () => {
         // Spacing in string summary varies by browser, so we look for 3 key parts separately for now.

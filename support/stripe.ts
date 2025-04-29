@@ -1,4 +1,5 @@
 import Stripe from 'stripe';
+// eslint-disable-next-line import/no-nodejs-modules
 import { setTimeout } from 'node:timers/promises';
 
 const stripeApiKey = process.env.STRIPE_API_KEY;
@@ -8,13 +9,9 @@ if (!stripeApiKey) {
 
 const stripe = new Stripe(stripeApiKey);
 
-/** @type {Stripe.PaymentIntent} */
-let paymentIntent;
+let paymentIntent: Stripe.PaymentIntent;
 
-/**
- * @param {string} email
- */
-export async function checkStripeCustomerExists(email) {
+export async function checkStripeCustomerExists(email: string) {
     const customers = await stripe.customers.list({
         email,
     });
@@ -28,11 +25,7 @@ export async function checkStripeCustomerExists(email) {
     }
 }
 
-/**
- * @param {string} donationUUID
- * @return {Promise<number>}
- */
-export async function getChargedAmount(donationUUID) {
+export async function getChargedAmount(donationUUID: string) {
     // 1s delay to give Stripe a little time to update search index.
     await setTimeout(1000);
 
@@ -54,15 +47,10 @@ export async function getChargedAmount(donationUUID) {
     return +applicationFeeAmount / 100 - +paymentIntent.metadata.tipAmount;
 }
 
-/**
- * @param {Object} expectedAmounts
- * @param {number} expectedAmounts.totalCharged
- * @param {number} expectedAmounts.applicationFee
- * @param {number} expectedAmounts.feeGros
- * @param {number} expectedAmounts.feeNet
- * @param {number} expectedAmounts.feeVAT
- */
-export function verifyStripePaymentIntentDetails(expectedAmounts) {
+
+export function verifyStripePaymentIntentDetails(
+    expectedAmounts: { totalCharged: number; applicationFee: number; feeGros: number; feeNet: number; feeVAT: number; }
+) {
     // would use spread syntax instead of Object.assign but eslint here doesn't seem to recognise it. Even though
     // it tells me to prefer it
     // eslint-disable-next-line prefer-object-spread

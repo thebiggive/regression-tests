@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-named-as-default
 import AxeBuilder from '@axe-core/webdriverio';
 
 import { generateIdentifier, goToUrl } from '../support/util';
@@ -17,10 +18,11 @@ import {
 } from '../support/action';
 
 import { CHARITY_NAME } from '../support/constants';
+import {Donor} from "../steps/donation";
 
 // routes
-const startPageStripe = /** @type {string} */ (process.env.DONATE_PAGE_STRIPE);
-const regularGivingCampaignId = /** @type {string} */ (process.env.REGULAR_GIVING_CAMPAIGN_ID);
+const startPageStripe =  (process.env.DONATE_PAGE_STRIPE)!;
+const regularGivingCampaignId = (process.env.REGULAR_GIVING_CAMPAIGN_ID)!;
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -39,15 +41,17 @@ const selectedSavedCardSelector = '.PickerItem--selected';
 const continueBtnSelector = '>>>#proceed-with-donation';
 
 export default class DonateStartPage {
+    private browser: WebdriverIO.Browser;
+    public nextStepIndex: number;
     /**
      * Set up page with the expectation of starting with the first step and its
      * "Next" button, at array index 0.
-     * @param {WebdriverIO.Browser} browser   Global object for pauses.
+     * @param browser   Global object for pauses.
      */
-    constructor(browser) {
+    constructor(browser: WebdriverIO.Browser) {
         this.browser = browser;
 
-        // todo consider removing this and moving the state into donation.js - this object gets shared between scenarios
+        // todo consider removing this and moving the state into donation.ts - this object gets shared between scenarios
         this.nextStepIndex = 0;
     }
 
@@ -59,10 +63,10 @@ export default class DonateStartPage {
      * For now, comes with a 1s pause after click to give APIs etc. time to run
      * while keeping the step definitions simple.
      *
-     * @param {string} selector Element selector.
+     * @param selector Element selector.
      * @returns {Promise<any>} click() result on success.
      */
-    async clickActiveSelector(selector) {
+    async clickActiveSelector(selector: string) {
         let bestButton;
 
         await $$(selector).forEach(async (thisButton) => {
@@ -83,11 +87,11 @@ export default class DonateStartPage {
     /**
      * Input into any selectable field.
      *
-     * @param {string} selector Element selector.
-     * @param {string} inputValue The new value.
-     * @returns {Promise<any>} setValue() result on success.
+     * @param selector Element selector.
+     * @param  inputValue The new value.
+     * @returns setValue() result on success.
      */
-    async inputSelectorValue(selector, inputValue) {
+    async inputSelectorValue(selector: string, inputValue: string) {
         return inputSelectorValue(selector, inputValue);
     }
 
@@ -116,9 +120,9 @@ export default class DonateStartPage {
      * Check the Identity service info box above the stepper contains
      * the given text.
      *
-     * @param {string} expectedText  Text anticipated somewhere in the box.
+     * @param expectedText  Text anticipated somewhere in the box.
      */
-    async checkIdInfo(expectedText) {
+    async checkIdInfo(expectedText: string) {
         // eslint-disable-next-line wdio/no-pause
         await browser.pause(1500); // Give the login call a short processing time.
         await checkVisibleSelectorContent(idInfoSelector, expectedText);
@@ -127,10 +131,10 @@ export default class DonateStartPage {
     /**
      * Click the Stepper's currently visible "Next" button.
      *
-     * @param {boolean} waitForMatchWarning Whether to anticipate a possible match
+     * @param waitForMatchWarning Whether to anticipate a possible match
      *                                              funds depleted warning.
      */
-    async progressToNextStep(waitForMatchWarning) {
+    async progressToNextStep(waitForMatchWarning: boolean) {
         const steps = await $$('button*=Continue');
 
         await this.browser.pause(250);
@@ -156,9 +160,9 @@ export default class DonateStartPage {
     }
 
     /**
-     * @param {number} amount Amount to donate in pounds GBP
+     * @param amount Amount to donate in pounds GBP
      */
-    async setDonationAmount(amount) {
+    async setDonationAmount(amount: number) {
         await inputSelectorValue(donationAmountSelector, amount.toString());
         // Leave tip at select dropdown's default if in Stripe mode and that field exists.
     }
@@ -213,9 +217,9 @@ export default class DonateStartPage {
     /**
      * Check a Stripe saved card is available and active.
      *
-     * @param {string} lastFour The last 4 digits of the card number.
+     * @param lastFour The last 4 digits of the card number.
      */
-    async checkSavedCardIsSelected(lastFour) {
+    async checkSavedCardIsSelected(lastFour: string) {
         await inStripeIframe(async () => {
             await checkSelectorContent(
                 selectedSavedCardSelector,
@@ -283,10 +287,7 @@ export default class DonateStartPage {
         await clickSelector(submitBtnSelector);
     }
 
-    /**
-     * @param {{firstName: string, lastName: string, email: string, password: string|null}} donor
-     */
-    async inputLoginFields(donor) {
+    async inputLoginFields(donor: Donor) {
         if (donor.password === null) {
             throw new Error('Donor password not set');
         }

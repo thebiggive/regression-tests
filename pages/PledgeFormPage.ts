@@ -10,11 +10,12 @@ const startUrl = `${
  * Unauthentiacted pledge submission form page for charity to share.
  */
 export default class PledgeFormPage {
+    private browser: WebdriverIO.Browser;
     /**
      * Set up page with browser object.
-     * @param {WebdriverIO.Browser} browser   Global object for pauses.
+     * @param  browser   Global object for pauses.
      */
-    constructor(browser) {
+    constructor(browser: WebdriverIO.Browser) {
         this.browser = browser;
         // Needed for Safari to find the terms checkbox seemingly, even though the click helper
         // is meant to scroll it into view.
@@ -23,10 +24,10 @@ export default class PledgeFormPage {
 
     /**
      * Get the input field corresponding to the given label text.
-     * @param {string} label    Full or partial label text. No single quotes.
-     * @returns {Promise<string>}   Input selector
+     * @param label    Full or partial label text. No single quotes.
+     * @returns Input selector
      */
-    async getCommunitiesInputForLabel(label) {
+    async getCommunitiesInputForLabel(label: string) {
         return `//label[contains(text(), '${label}')]//..//input`;
     }
 
@@ -34,10 +35,10 @@ export default class PledgeFormPage {
      * Get the select field corresponding to the given label text. For `lightning:select` SF
      * seems to put the label text in an inner <span>.
      *
-     * @param {string} label    Full or partial label text. No single quotes.
+     * @param label    Full or partial label text. No single quotes.
      * @returns {Promise<string>}   Select selector
      */
-    async getCommunitiesSelectForLabel(label) {
+    async getCommunitiesSelectForLabel(label: string) {
         return `//span[contains(text(), '${label}')]//..//..//select`;
     }
 
@@ -49,9 +50,9 @@ export default class PledgeFormPage {
 
     /**
      * Confirm Communities banner small title text contains `title`.
-     * @param {string}  title   Expected title contents
+     * @param title   Expected title contents
      */
-    async checkBannerSays(title) {
+    async checkBannerSays(title: string) {
         await checkSelectorContent(
             "//div[@class='hero-banner cCmpNewPledge']//h2[@class='slds-m-bottom_small']",
             title
@@ -60,17 +61,17 @@ export default class PledgeFormPage {
 
     /**
      * Enter the given number of pounds.
-     * @param {string}  amount  Whole number of pounds
+     * @param amount  Whole number of pounds
      */
-    async setPledgeAmount(amount) {
+    async setPledgeAmount(amount: string) {
         await inputSelectorValue(await this.getCommunitiesInputForLabel('Pledge amount'), amount);
     }
 
     /**
      * Sets the pledge payment method
-     * @param {string}  method  Select option from form
+     * @param method  Select option from form
      */
-    async setPaymentMethod(method) {
+    async setPaymentMethod(method: string) {
         await setSelectOption(
             await this.getCommunitiesSelectForLabel('I will pay by the following method'),
             method,
@@ -96,9 +97,9 @@ export default class PledgeFormPage {
 
     /**
      * Sets the pledger relationship to the charity
-     * @param {string}  relationship  Select option from form
+     * @param relationship  Select option from form
      */
-    async setRelationship(relationship) {
+    async setRelationship(relationship: string) {
         await setSelectOption(
             await this.getCommunitiesSelectForLabel('What is your relationship with the charity?'),
             relationship,
@@ -132,30 +133,29 @@ export default class PledgeFormPage {
 
     /**
      * Populates 'Email' or 'Confirm Email'.
-     * @param {string} label        Field label
-     * @param {string} emailAddress Value to enter
+     * @param  label        Field label
+     * @param  emailAddress Value to enter
      */
-    async setPledgerEmail(label, emailAddress) {
+    async setPledgerEmail(label: string, emailAddress: string) {
         await inputSelectorValue(await this.getCommunitiesInputForLabel(label), emailAddress);
     }
 
     /**
      * Clicks a <button>
-     * @param {string}  buttonText  Button text to find. No single quotes.
+     * @param  buttonText  Button text to find. No single quotes.
      */
-    async clickButton(buttonText) {
+    async clickButton(buttonText: string) {
         await clickSelector(`//button[contains(text(), '${buttonText}')]`);
     }
 
     /**
      * Checks if a Communities card heading has this copy.
      *
-     * @param {string} heading Expected heading.
+     * @param heading Expected heading.
      */
-    async checkForCardWithHeading(heading) {
+    async checkForCardWithHeading(heading: string) {
         // .slds-card__header
         await checkSelectorContent(
-            // eslint-disable-next-line max-len
             "//h2[@class='slds-card__header-title']//span[@class='slds-text-heading_small slds-truncate']",
             heading,
         );
@@ -165,9 +165,9 @@ export default class PledgeFormPage {
      * Checks if a Communities card contains this copy, ignoring formatting and
      * checking child elements.
      *
-     * @param {string} text Expected copy.
+     * @param text Expected copy.
      */
-    async checkForCardWithCopy(text) {
+    async checkForCardWithCopy(text: string) {
         await checkSelectorContent("//div[@class='slds-card__body']", text);
     }
 }

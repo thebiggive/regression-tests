@@ -29,5 +29,4 @@ Feature: New donor: restarting donation completes successfully
         And other payment intent data is as expected: total charged to donor: £26873.92, application fee £2325.15, stripe fee gross £450.23, stripe fee net £375.19, stripe fee vat £75.04
 
         Given that I am on my chosen charity's Donate page
-         # And I didn't set a password above, or log-in
         Then I should be invited to log in

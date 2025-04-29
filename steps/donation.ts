@@ -25,25 +25,18 @@ import withRetryAndPause from '../support/withPauseAndRetry';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
-/**
- * @type {number}
- */
-let donationAmount;
+let donationAmount: number;
 
-/**
- * @typedef {{firstName: string, lastName: string, email: string, password: string|null}} Donor
-   @type {Donor}
- * */
-let donor = {
+export type Donor = { firstName: string; lastName: string; email: string; password: string | null };
+
+let donor: Donor = {
     firstName: 'default-first-name',
     lastName: 'default-last-name',
     email: 'default-email',
     password: null,
 };
 
-/** @type DonateStartPage * */
-let page;
-// eslint-disable-next-line new-cap
+let page: DonateStartPage;
 BeforeAll(async () => {
     page = new DonateStartPage(browser);
 });
@@ -121,11 +114,11 @@ When(
         switch (dataPoint) {
             case 'email address':
                 elementId = 'loginEmailAddress';
-                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_EMAIL);
+                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_EMAIL)!;
                 break;
             case 'password':
                 elementId = 'loginPassword';
-                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_PASSWORD);
+                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_PASSWORD)!;
                 break;
             default:
                 throw new Error('Unknown value');
@@ -136,8 +129,8 @@ When(
 );
 
 When('I enter the ID credit-funded account test email and password', async () => {
-    await page.inputSelectorValue('>>>#loginEmailAddress', /** @type {string} */ (process.env.CREDIT_EMAIL));
-    await page.inputSelectorValue('>>>#loginPassword', /** @type {string} */ (process.env.CREDIT_PASSWORD));
+    await page.inputSelectorValue('>>>#loginEmailAddress', (process.env.CREDIT_EMAIL)!);
+    await page.inputSelectorValue('>>>#loginPassword', (process.env.CREDIT_PASSWORD)!);
 });
 
 When(
@@ -181,7 +174,6 @@ When(
         await page.progressToNextStep(true);
 
         // The page will likely jump over the Gift Aid step, see this thread to understand why:
-        // eslint-disable-next-line max-len
         // https://thebiggive.slack.com/archives/C04BETLU4UC/p1670948304352859?thread_ts=1670945073.540179&cid=C04BETLU4UC
         // See ticket REG-21
         // Wait 20 seconds for donation setup & MatchBot & identity & SF callouts
@@ -201,8 +193,8 @@ When(
     }
 );
 
-// eslint-disable-next-line no-unused-vars
-When(/I skip over (.+) step/, async (_stepDescription) => {
+When(/I skip over (.+) step/, async (step: string) => {
+    void step;
     await page.progressToNextStep(false);
 });
 
@@ -269,7 +261,7 @@ When(
 When(
     'I choose a preference for charity and TBG communications',
     async () => {
-        await page.setCommsPreferences();
+          await page.setCommsPreferences();
         await page.progressToNextStep(false);
     }
 );
@@ -279,7 +271,7 @@ When(
     async () => {
         await page.jumpBackToFirstStep();
         // eslint-disable-next-line wdio/no-pause
-        await browser.pause(500); // Animation seems to need a moment in some browsers?
+        await browser.pause(1_000); // Animation seems to need a moment in some browsers?
     },
 );
 
@@ -354,10 +346,7 @@ Then(
     }
 );
 
-/**
- * @param {number} amount
- */
-const checkAmountInEmail = async (amount) => {
+const checkAmountInEmail = async (amount: number) => {
     const formattedAmount = amount.toLocaleString('en-GB');
 
     if (!(await checkAnEmailBodyContainsText(
@@ -463,7 +452,6 @@ Then(
         await browser.pause(15 * 1000);
         checkAnEmailSubjectContainsText('You are registered with Big Give', donor.email);
 
-        // eslint-disable-next-line max-len
         const expectedCopy = `You are now registered for Big Give with the email address: ${donor.email}`;
 
         if (!(await checkAnEmailBodyContainsText(
@@ -480,7 +468,6 @@ Then(
     /**
      * @param {number} expectedAmount
      */
-    // eslint-disable-next-line no-unused-vars
     async (expectedAmount) => {
         checkStripeCustomerExists(donor.email);
 

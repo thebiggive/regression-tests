@@ -3,10 +3,10 @@ import { checkIfElementExists } from './check';
 /**
  * Click on element
  *
- * @param {string} selector to be clicked
- * @param {object} options for example { button: 'right' }
+ * @param selector to be clicked
+ * @param options for example { button: 'right' }
  */
-export async function clickSelector(selector, options = {}) {
+export async function clickSelector(selector: string, options = {}) {
     console.log(`ACTION: Click "${selector}"`);
 
     if (!(await checkIfElementExists(selector))) {
@@ -23,10 +23,9 @@ export async function clickSelector(selector, options = {}) {
 /**
  * Click an element that we have already tested for existence and clickability.
  *
- * @param {WebdriverIO.Element} element The element.
- * @param {string} originalSelector Text used to look it up, for info log.
+ * @param originalSelector Text used to look it up, for info log.
  */
-export async function clickElement(element, originalSelector) {
+export async function clickElement(element: WebdriverIO.Element, originalSelector: string) {
     console.log(`ACTION: Click already-checked element from selector ${originalSelector}`);
     await element.click();
 }
@@ -34,15 +33,14 @@ export async function clickElement(element, originalSelector) {
 /**
  * Clicks the *first* radio button whose label is a match.
  *
- * @param {string} text Copy to partially or fully match in Material radio's label
- * @returns {Promise<void>}
+ * @param text Copy to partially or fully match in Material radio's label
  */
-export async function clickMaterialRadioWithLabel(text) {
+export async function clickMaterialRadioWithLabel(text: string) {
     console.log(`ACTION: Click radio with label "${text}"`);
 
     const labels = $$('.mdc-label');
-    /** @type {WebdriverIO.Element|false} */
-    const label = await labels.find(
+
+    const label: WebdriverIO.Element|false  = await labels.find(
         async (theLabel) => (await theLabel.getText()).includes(text)
     );
     if (!label) {
@@ -53,12 +51,7 @@ export async function clickMaterialRadioWithLabel(text) {
     await label.click();
 }
 
-/**
- * @param {WebdriverIO.Element|null} customButton
- * @param {string} selector
- * @returns {Promise<void>}
- */
-async function clickBigGiveButton(customButton, selector) {
+async function clickBigGiveButton(customButton: WebdriverIO.Element|null, selector: string) {
     if (!customButton) {
         throw new Error(`Expected <biggive-button> "${selector}" to exist`);
     }
@@ -70,10 +63,7 @@ async function clickBigGiveButton(customButton, selector) {
     await clickElement(innerButtonLink, `${selector} >>>a.button`);
 }
 
-/**
- * @param {string} selector
- */
-export async function clickBigGiveButtonWithOuterSelector(selector) {
+export async function clickBigGiveButtonWithOuterSelector(selector: string) {
     console.log(`ACTION: Click Big Give button with selector "${selector}"`);
     const customButton = await $(selector);
     await clickBigGiveButton(customButton, selector);
@@ -81,9 +71,8 @@ export async function clickBigGiveButtonWithOuterSelector(selector) {
 
 /**
  * Clicks a custom `<biggive-button>` with the given text. Must be a static `label`.
- * @param {string} text
  */
-export async function clickBigGiveButtonWithText(text) {
+export async function clickBigGiveButtonWithText(text: string) {
     console.log(`ACTION: Click Big Give button '${text}'`);
     const selector = `biggive-button[label="${text}"]`;
     const customButton = await $(selector);
@@ -93,10 +82,10 @@ export async function clickBigGiveButtonWithText(text) {
 /**
  * Set value inside input
  *
- * @param {string} selector to be filled
- * @param {string} value to be inserted
+ * @param selector to be filled
+ * @param value to be inserted
  */
-export async function inputSelectorValue(selector, value) {
+export async function inputSelectorValue(selector: string, value: string) {
     console.log(`ACTION: Input "${selector}" with "${value}"`);
 
     if (!(await checkIfElementExists(selector))) {
@@ -109,10 +98,10 @@ export async function inputSelectorValue(selector, value) {
 /**
  * Select Option
  *
- * @param {string} selector select input
- * @param {string} value value
+ * @param selector select input
+ * @param value value
  */
-export async function setSelectOption(selector, value) {
+export async function setSelectOption(selector: string, value: string) {
     console.log(`ACTION: Set select option "${selector}" value "${value}"`);
 
     if (!(await checkIfElementExists(selector))) {
@@ -130,10 +119,10 @@ export async function setSelectOption(selector, value) {
  * Move focus into the embedded Stripe iframe input fields, run the callable, the move focus back to main form.
  *
  * @template T
- * @param {() => T} callable Function to run inside stripe iframe
+ * @paramcallable Function to run inside stripe iframe
  * @return T
  */
-export async function inStripeIframe(callable) {
+export async function inStripeIframe<T>(callable: () => T) {
     await browser.switchToFrame(await $('iframe[title$="Secure payment input frame"]'));
     const returnVal = await callable();
     await browser.switchToParentFrame();
