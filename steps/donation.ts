@@ -271,7 +271,7 @@ When(
     async () => {
         await page.jumpBackToFirstStep();
         // eslint-disable-next-line wdio/no-pause
-        await browser.pause(500); // Animation seems to need a moment in some browsers?
+        await browser.pause(1_000); // Animation seems to need a moment in some browsers?
     },
 );
 
