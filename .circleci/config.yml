@@ -25,7 +25,7 @@ jobs:
           key: node18-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache
-      - run: yarn lint # mabye not working?
+      - run: yarn lint
       - run: yarn tsc
       - run: yarn test:testingbot-all
       - store_test_results:
