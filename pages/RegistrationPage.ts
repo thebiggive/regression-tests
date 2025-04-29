@@ -8,8 +8,7 @@ export default class RegistrationPage {
         const newPassword = this.generateRandomPassword();
         try {
             await inputSelectorValue('#password', newPassword);
-        } catch (error) {
-            void error;
+        } catch (_error) {
             await inputSelectorValue('#password-post-donation', newPassword);
         }
         return newPassword;

@@ -3,7 +3,7 @@
  * up to four times, with pauses in between of 1s, 2s, 4s and 8s.
  */
 export default async function withPauseAndRetry<T>(
-    { callback, predicate, label }: {callback: () => T, predicate?: (arg0: T) => boolean, label: string}
+    { callback, predicate, label }: {callback: () => T, predicate?: (_arg0: T) => boolean, label: string}
 ) {
     const maxTries = 4;
     let result;
