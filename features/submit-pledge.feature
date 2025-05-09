@@ -1,6 +1,7 @@
 # Terms checkbox is not currently select-able by our current WD.io selectors in Safari, and
 # we will probably replace this form soon enough that that isn't worth fixing.
-@skip(browserName="safari")
+#@skip(browserName="safari")
+@skip()
 Feature: Pledge form is submitted successfully
 
   As a pledger
