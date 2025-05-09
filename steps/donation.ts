@@ -201,7 +201,20 @@ When(/I skip over (.+) step/, async (step: string) => {
 When(
     'I enter my name, email address and UK Visa card number',
     async () => {
-        donor = await page.populateNameAndEmail();
+        donor = await page.populateNameAndEmail({});
+        await page.populateStripePaymentDetails();
+        await page.progressToNextStep(false);
+    }
+);
+
+/**
+ * We have a limited allowance of test emails per month, so we don't want to test the email feature more than
+ * necessary.
+ */
+When(
+    'I enter my name, an email address that does not receive email and UK Visa card number',
+    async () => {
+        donor = await page.populateNameAndEmail({noSendEmail: true});
         await page.populateStripePaymentDetails();
         await page.progressToNextStep(false);
     }
