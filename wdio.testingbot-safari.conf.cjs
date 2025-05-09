@@ -1,4 +1,4 @@
-const { config } = require('./wdio.BASE.conf.ts');
+const { config } = require('./wdio.BASE.conf.cjs');
 
 config.capabilities = [{
     browserName: 'safari',
