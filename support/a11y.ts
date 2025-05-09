@@ -5,15 +5,19 @@ import AxeBuilder from '@axe-core/webdriverio';
  * Run Axe on the current page. Fail tests if there are unexpected violations. Log
  * incompletes.
  */
-export async function checkNoAccessibilityViolations(){
+export default async function checkNoAccessibilityViolations(options = {withAngularStepperException: false}){
     console.log('Running Axe accessibility check...');
 
+    // Our footer white on blue currently fails AA level checks. For now, we test everything to A level
+    // so we can maintain as few exceptions as possible.
     const builder = new AxeBuilder({ client: browser }).withTags(['wcag2a']);
 
     // Suppress known Angular Material vertical stepper ARIA role error. Using rule
     // suppression as we don't want to exclude the whole #stepper.
     // https://github.com/angular/components/issues/26444
-    builder.disableRules(['aria-required-children']);
+    if (options.withAngularStepperException) {
+        builder.disableRules(['aria-required-children']);
+    }
 
     const result = await builder.analyze();
 
@@ -29,7 +33,6 @@ export async function checkNoAccessibilityViolations(){
         });
 
         throw new Error(
-            // eslint-disable-next-line max-len
             `Accessibility check failed, ${violationCount} issues:\n\n${JSON.stringify(result.violations, null, '  ')}`
         );
     }

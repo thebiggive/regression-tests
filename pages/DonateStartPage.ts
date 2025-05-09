@@ -16,7 +16,7 @@ import {
 
 import { CHARITY_NAME } from '../support/constants';
 import {Donor} from "../steps/donation";
-import { checkNoAccessibilityViolations } from '../support/a11y';
+import checkNoAccessibilityViolations from '../support/a11y';
 
 // routes
 const startPageStripe =  (process.env.DONATE_PAGE_STRIPE)!;
@@ -276,7 +276,7 @@ export default class DonateStartPage {
      */
     async submitForm() {
         // Axe accessibility check just before hitting donate.
-        await checkNoAccessibilityViolations();
+        await checkNoAccessibilityViolations({ withAngularStepperException: true });
 
         // The move to Angular Material 15, or similar, seems to bring in some animation or rendering change
         // which means we need to wait some fixed time to avoid a stale button element.

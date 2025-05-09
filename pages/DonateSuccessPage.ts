@@ -3,7 +3,7 @@ import {
     checkSelectorContent
 } from '../support/check';
 import { clickSelector } from '../support/action';
-import {checkNoAccessibilityViolations} from '../support/a11y';
+import checkNoAccessibilityViolations from '../support/a11y';
 
 // selectors
 
