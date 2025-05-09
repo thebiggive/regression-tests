@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/no-named-as-default
-import AxeBuilder from '@axe-core/webdriverio';
-
 import { generateIdentifier, goToUrl } from '../support/util';
 import {
     checkTitle,
@@ -19,6 +16,7 @@ import {
 
 import { CHARITY_NAME } from '../support/constants';
 import {Donor} from "../steps/donation";
+import { checkNoAccessibilityViolations } from '../support/a11y';
 
 // routes
 const startPageStripe =  (process.env.DONATE_PAGE_STRIPE)!;
@@ -277,8 +275,8 @@ export default class DonateStartPage {
      * Press donate button
      */
     async submitForm() {
-        // Experimental Axe check just before hitting donate.
-        this.checkNoAccessibilityViolations();
+        // Axe accessibility check just before hitting donate.
+        await checkNoAccessibilityViolations();
 
         // The move to Angular Material 15, or similar, seems to bring in some animation or rendering change
         // which means we need to wait some fixed time to avoid a stale button element.
@@ -297,55 +295,5 @@ export default class DonateStartPage {
         await browser.pause(1500); // Enough time for Friendly Captcha when the form was filled quickly.
     }
 
-    /**
-     * Run Axe on the current page. Fail tests if there are unexpected violations. Log
-     * incompletes.
-     */
-    async checkNoAccessibilityViolations() {
-        // todo reinstate when known a11y problems fixed, via
-        // https://github.com/thebiggive/donate-frontend/pull/1325 and maybe others
-        return;
 
-        /* eslint-disable no-unreachable */
-
-        const builder = new AxeBuilder({ client: browser });
-
-        // We accept that the contrast is not good enough on the twitter floating share link
-        builder.exclude('[data-tag="twitter"]');
-
-        // the follow rules are currently known to fail - see issue REG-23
-        builder.disableRules(['page-has-heading-one', 'region', 'duplicate-id']); // @todo re-enable duplicate-id rule
-
-        const result = await builder.analyze();
-
-        const violationCount = result.violations.length;
-        if (violationCount > 0) {
-            console.log(`${violationCount} accessibility violations`);
-
-            result.violations.forEach((violation) => {
-                console.log(violation.description);
-                violation.nodes.forEach((node) => {
-                    console.log(node.html);
-                });
-            });
-
-            throw new Error(
-                // eslint-disable-next-line max-len
-                `Accessibility check failed before donate button click, ${violationCount} issues:\n\n${JSON.stringify(result.violations, null, '  ')}`
-            );
-        }
-
-        if (result && result.incomplete.length > 0) {
-            console.log(`${result.incomplete.length} accessibility incomplete items`);
-
-            result.incomplete.forEach((incompleteItem) => {
-                console.log(incompleteItem.description);
-                incompleteItem.nodes.forEach((node) => {
-                    console.log(node.html);
-                });
-            });
-        }
-
-        /* eslint-enable no-unreachable */
-    }
 }
