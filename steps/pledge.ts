@@ -12,6 +12,7 @@ import {
 } from '../support/mailtrap';
 import { randomIntFromInterval } from '../support/util';
 import { CHARITY_NAME } from '../support/constants';
+import checkNoAccessibilityViolations from '../support/a11y';
 
 let emailAddress: string;
 
@@ -26,7 +27,10 @@ BeforeAll(() => {
 
 Given(
     "I open the pledge campaign's pledge form",
-    async () => page.open()
+    async () => {
+        await page.open();
+        await checkNoAccessibilityViolations({ withAngularStepperException: false, withSalesforceHeaderException: true });
+    }
 );
 
 Then(

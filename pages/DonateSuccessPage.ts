@@ -3,6 +3,7 @@ import {
     checkSelectorContent
 } from '../support/check';
 import { clickSelector } from '../support/action';
+import checkNoAccessibilityViolations from '../support/a11y';
 
 // selectors
 
@@ -15,6 +16,7 @@ const urlCheck = 'thanks';
 export default class DonateSuccessPage {
     static async checkReady() {
         await checkUrl(urlCheck);
+        await checkNoAccessibilityViolations();
     }
 
     /**

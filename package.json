@@ -11,7 +11,7 @@
     "test:testingbot-chrome": "wdio run wdio.testingbot-chrome.conf.cjs",
     "test:testingbot-edge": "wdio run wdio.testingbot-edge.conf.cjs",
     "test:testingbot-safari": "wdio run wdio.testingbot-safari.conf.cjs",
-    "test:local": "wdio run wdio.local.conf.cjs",
+    "test:local": "node_modules/typescript/bin/tsc && wdio run wdio.local.conf.cjs",
     "test:local-safari": "wdio run wdio.local-safari.conf.cjs",
     "clean": "del-cli build/* !build/.gitkeep"
   },
