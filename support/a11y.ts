@@ -5,7 +5,9 @@ import AxeBuilder from '@axe-core/webdriverio';
  * Run Axe on the current page. Fail tests if there are unexpected violations. Log
  * incompletes.
  */
-export default async function checkNoAccessibilityViolations(options = {withAngularStepperException: false}){
+export default async function checkNoAccessibilityViolations(
+    options = {withAngularStepperException: false, withSalesforceHeaderException: false}
+){
     console.log('Running Axe accessibility check...');
 
     // Our footer white on blue currently fails AA level checks. For now, we test everything to A level
@@ -17,6 +19,11 @@ export default async function checkNoAccessibilityViolations(options = {withAngu
     // https://github.com/angular/components/issues/26444
     if (options.withAngularStepperException) {
         builder.disableRules(['aria-required-children']);
+    }
+
+    // Experience Cloud default nav appears to set an invalid & redundant ARIA role on this element.
+    if (options.withSalesforceHeaderException) {
+        builder.exclude('header.lf-header_navigation');
     }
 
     const result = await builder.analyze();

@@ -276,7 +276,7 @@ export default class DonateStartPage {
      */
     async submitForm() {
         // Axe accessibility check just before hitting donate.
-        await checkNoAccessibilityViolations({ withAngularStepperException: true });
+        await checkNoAccessibilityViolations({ withAngularStepperException: true, withSalesforceHeaderException: false });
 
         // The move to Angular Material 15, or similar, seems to bring in some animation or rendering change
         // which means we need to wait some fixed time to avoid a stale button element.
