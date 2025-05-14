@@ -286,12 +286,19 @@ export default class DonateStartPage {
      * Press donate button
      */
     async submitForm() {
+        // The move to Angular Material 15, or similar, seems to bring in some animation or rendering change
+        // which means we need to wait some time to avoid a stale button element. Axe also found the page not ready
+        // with no wait. Hoping that `readyState` can replace a fixed 1s wait.
+        await browser.waitUntil(
+            () => browser.execute(() => document.readyState === 'complete'),
+            {
+                timeout: 10_000,
+                timeoutMsg: 'Page not loaded in 10s',
+            }
+        );
+
         // Axe accessibility check just before hitting donate.
         await checkNoAccessibilityViolations({ withAngularStepperException: true, withSalesforceHeaderException: false });
-
-        // The move to Angular Material 15, or similar, seems to bring in some animation or rendering change
-        // which means we need to wait some fixed time to avoid a stale button element.
-        await this.browser.pause(1000);
 
         await clickSelector(submitBtnSelector);
     }
