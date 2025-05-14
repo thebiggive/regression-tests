@@ -10,9 +10,13 @@ export default async function checkNoAccessibilityViolations(
 ){
     console.log('Running Axe accessibility check...');
 
-    // Our footer white on blue currently fails AA level checks. For now, we test everything to A level
-    // so we can maintain as few exceptions as possible.
-    const builder = new AxeBuilder({ client: browser }).withTags(['wcag2a']);
+    // We test A and AA levels of WCAG (I think version 2.1) and make only narrow exceptions as the context requires
+    // based on the passed `options`. Informational messages about checks that can't be completed don't fail the test
+    // but are logged. Known cases on the Donate form are:
+    // 1. mat-icon-button has a background image – not sure why exactly
+    // 2. our footer campaign theme links have their icons as background images to the main link text – we should be
+    //    able to change that quite easily if we want to reduce these info messages.
+    const builder = new AxeBuilder({ client: browser }).withTags(['wcag2a', 'wcag2aa']);
 
     // Suppress known Angular Material vertical stepper ARIA role error. Using rule
     // suppression as we don't want to exclude the whole #stepper.

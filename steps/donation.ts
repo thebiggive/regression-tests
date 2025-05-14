@@ -87,10 +87,6 @@ Given(
     }
 );
 
-Then(/^I should be on the "([^"]+)" page$/, async (title) => {
-    await checkTitle(`${title} – Big Give`);
-});
-
 When(/^I open the Regular Giving application campaign start donating page$/, async () => {
     await page.openRegularGiving();
 });
