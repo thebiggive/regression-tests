@@ -29,8 +29,9 @@ export default async function withPauseAndRetry<T>(
             lastError = error;
         }
 
-        const delaySeconds = 2 ** retryCount;
-        console.log(`${label} failed, pausing ${delaySeconds} seconds before retry`);
+        const lastMessage = lastError instanceof Error ? lastError.message : JSON.stringify(lastError);
+        const delaySeconds = 4 ** retryCount;
+        console.log(`${label} failed with ${lastMessage}, pausing ${delaySeconds} seconds before retry`);
         // eslint-disable-next-line no-await-in-loop,wdio/no-pause
         await browser.pause(delaySeconds * 1000);
         retryCount += 1;

@@ -21,7 +21,7 @@ import {
 } from '../support/check';
 import { clickBigGiveButtonWithOuterSelector, clickBigGiveButtonWithText } from '../support/action';
 import RegistrationPage from '../pages/RegistrationPage';
-import withRetryAndPause from '../support/withPauseAndRetry';
+import withPauseAndRetry from '../support/withPauseAndRetry';
 
 const stripeUseCreditsMessageSelector = '#useCreditsMessage';
 
@@ -404,7 +404,7 @@ Then(
     'my last email should contain a new monthly mandate confirmation showing amount £{int}',
     async (amount) => {
         const formattedAmount = `£${amount.toLocaleString('en-GB')}.00`;
-        withRetryAndPause({
+        withPauseAndRetry({
             callback: async () => {
                 if (!(await checkAnEmailBodyContainsText(
                     `Donation: <strong>${formattedAmount}</strong>`,
@@ -421,7 +421,7 @@ Then(
 When(
     'I register using the link in my donation thanks message',
     async () => {
-        const link = await withRetryAndPause({
+        const link = await withPauseAndRetry({
             callback: () => findAccountSetupLinkInRecentEmail(donor.email),
             predicate: (l) => !!l,
             label: 'FIND_LINK_IN_THANKS_MESSAGE',
