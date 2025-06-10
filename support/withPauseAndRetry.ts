@@ -9,6 +9,7 @@ export default async function withPauseAndRetry<T>(
     let result;
     let retryCount = 0;
     let lastError;
+    let lastMessage;
     let badResult;
 
     while (retryCount < maxTries) {
@@ -25,11 +26,12 @@ export default async function withPauseAndRetry<T>(
 
             // result didn't satisfy the predicate, so is bad.
             badResult = result;
+            lastMessage = `Bad result: ${badResult}`;
         } catch (error) {
             lastError = error;
+            lastMessage = lastError instanceof Error ? lastError.message : JSON.stringify(lastError);
         }
 
-        const lastMessage = lastError instanceof Error ? lastError.message : JSON.stringify(lastError);
         const delaySeconds = 4 ** retryCount;
         console.log(`${label} failed with ${lastMessage}, pausing ${delaySeconds} seconds before retry`);
         // eslint-disable-next-line no-await-in-loop,wdio/no-pause
