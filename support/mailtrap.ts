@@ -135,12 +135,12 @@ export async function findAccountSetupLinkInRecentEmail(forEmailAddress: string)
 
     const element = new JSDOM(html).window.document.getElementById('create-account');
     if (element === null) {
-        return undefined;
+        throw new Error('No "create-account" ID link found in email body for ' + forEmailAddress);
     }
 
     const href = element.getAttribute('href');
     if (href === null) {
-        return undefined;
+        throw new Error('No "href" attribute found on "create-account" link in email body');
     }
 
     return new URL(href);
