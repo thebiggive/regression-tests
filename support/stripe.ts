@@ -26,8 +26,8 @@ export async function checkStripeCustomerExists(email: string) {
 }
 
 export async function getChargedAmount(donationUUID: string) {
-    // 1s delay to give Stripe a little time to update search index.
-    await setTimeout(1000);
+    // 3s delay to give Stripe a little time to update search index. Test mode is a bit slow sometimes.
+    await setTimeout(3_000);
 
     // search docs say it results are *usually* available in less than a minute so we may have to experiment to
     // see if this is flaky or not. I don't think we have another great way to find the PI.
