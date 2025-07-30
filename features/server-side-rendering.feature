@@ -7,4 +7,4 @@ Feature: The site is rendered server side
   Scenario: Homepage is server side rendered
     Given I am loading the site without Javascript
     When I view the homepage
-    Then I should see in the source "Double the difference"
+    Then I should see in the source "The leading online match funding platform"
