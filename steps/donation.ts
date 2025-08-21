@@ -155,6 +155,8 @@ When(
     async (amountEntered) => {
         donationAmount = amountEntered;
         await page.setDonationAmount(donationAmount);
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(500); // Safari Regular Giving has intermittent stepper undefined warnings without this.
         await page.progressToNextStep(false);
     }
 );
