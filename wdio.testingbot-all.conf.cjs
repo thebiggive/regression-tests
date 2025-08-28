@@ -10,7 +10,7 @@ config.capabilities = [
     {
         browserName: 'safari',
         platform: 'VENTURA',
-        version: '15',
+        version: '16', // 16.3 – older than the point releases which last reached iOS – as of April 2025
         build: config.build,
     },
     {
