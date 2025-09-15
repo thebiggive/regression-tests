@@ -40,8 +40,26 @@ jobs:
           fail_only: false
           only_for_branches: main
           webhook: ${SLACK_WEBHOOK_SUCCESS}
-
+  clear_storage:
+    resource_class: large
+    docker:
+      - image: cimg/node:18.10-browsers
+        auth:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_ACCESS_TOKEN
+    steps:
+      - run: curl -X POST https://thebiggive--regtest1.sandbox.my.salesforce-sites.com/donations/services/apexrest/v2.0/free-test-storage
 workflows:
+  clear_storage:
+    jobs:
+      - clear_storage
+    triggers:
+      - schedule:
+          cron: "0 10,15 * * *" # daily at 10am and 3pm
+          filters:
+            branches:
+              only:
+                - main
   commit:
     jobs:
       - test:
