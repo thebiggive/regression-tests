@@ -103,6 +103,10 @@ export default class DonateStartPage {
         await goToUrl(startPageStripe);
     }
 
+    async openWithLegacyApp() {
+        await goToUrl(`${startPageStripe}?legacy=1&no-compat-check=1`);
+    }
+
     async openRegister() {
         await goToUrl('/register');
         await checkTitle('Register');
