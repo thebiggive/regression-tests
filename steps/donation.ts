@@ -87,6 +87,15 @@ Given(
     }
 );
 
+Given(
+    /^that I am on my chosen charity's Donate page, using the legacy browser app$/,
+    async () => {
+        page.nextStepIndex = 0;
+        await page.openWithLegacyApp();
+        await page.checkReady();
+    }
+);
+
 When(/^I open the Regular Giving application campaign start donating page$/, async () => {
     await page.openRegularGiving();
 });
