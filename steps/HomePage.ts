@@ -8,7 +8,7 @@ Given(
         const baseurl = process.env.BASE_URL;
         if (!baseurl) throw new Error('BASE_URL not defined in enviornment');
 
-        await goToUrl(baseurl);
+        await goToUrl(baseurl + "?noredirect=");
     }
 );
 Then(
