@@ -14,5 +14,7 @@ Given(
 Then(
     /^there should be no accessibility violations detected$/,
     async function () {
-    await checkNoAccessibilityViolations();
+    await checkNoAccessibilityViolations(
+        {withAngularStepperException: false, withSalesforceHeaderException: false, withContrastRatioException: true}
+    );
 });
