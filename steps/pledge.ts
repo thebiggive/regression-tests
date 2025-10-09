@@ -29,7 +29,11 @@ Given(
     "I open the pledge campaign's pledge form",
     async () => {
         await page.open();
-        await checkNoAccessibilityViolations({ withAngularStepperException: false, withSalesforceHeaderException: true });
+        await checkNoAccessibilityViolations({
+            withAngularStepperException: false,
+            withSalesforceHeaderException: true,
+            withContrastRatioException: false,
+        });
     }
 );
 
