@@ -1,6 +1,7 @@
 import {Given, Then} from "@cucumber/cucumber";
 import {goToUrl} from "../support/util";
 import checkNoAccessibilityViolations from "../support/a11y";
+import {checkTitle} from '../support/check';
 
 Given(
     'I am on the home page',
@@ -9,6 +10,7 @@ Given(
         if (!baseurl) throw new Error('BASE_URL not defined in enviornment');
 
         await goToUrl(baseurl + "?noredirect=");
+        await checkTitle('Big Give');
     }
 );
 Then(
