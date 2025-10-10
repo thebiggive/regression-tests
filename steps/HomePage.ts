@@ -3,7 +3,7 @@ import {goToUrl} from "../support/util";
 import checkNoAccessibilityViolations from "../support/a11y";
 
 Given(
-    /^that I am on my the home page page$/,
+    'I am on the home page',
     async () => {
         const baseurl = process.env.BASE_URL;
         if (!baseurl) throw new Error('BASE_URL not defined in enviornment');
