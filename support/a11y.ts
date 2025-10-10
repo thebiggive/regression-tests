@@ -6,7 +6,7 @@ import AxeBuilder from '@axe-core/webdriverio';
  * incompletes.
  */
 export default async function checkNoAccessibilityViolations(
-    options = {withAngularStepperException: false, withSalesforceHeaderException: false}
+    options = {withAngularStepperException: false, withSalesforceHeaderException: false, withContrastRatioException: false}
 ){
     console.log('Running Axe accessibility check...');
 
@@ -28,6 +28,11 @@ export default async function checkNoAccessibilityViolations(
     // Experience Cloud default nav appears to set an invalid & redundant ARIA role on this element.
     if (options.withSalesforceHeaderException) {
         builder.exclude('header.lf-header_navigation');
+    }
+
+    if (options.withContrastRatioException){
+        // known issue of low contrast in footer
+        builder.exclude('#footer-primary-heading');
     }
 
     const result = await builder.analyze();
