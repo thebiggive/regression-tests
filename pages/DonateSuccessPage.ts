@@ -38,7 +38,7 @@ export default class DonateSuccessPage {
     }
 
     static async clickOnSetPasswordButton() {
-        await $('.cta biggive-button').$('>>>a.button').click();
+        await $('.cta biggive-button').$('>>>.button').click();
     }
 
     static async clickOnCreateAccountButton() {

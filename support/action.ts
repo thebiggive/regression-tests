@@ -56,11 +56,14 @@ async function clickBigGiveButton(customButton: WebdriverIO.Element|null, select
         throw new Error(`Expected <biggive-button> "${selector}" to exist`);
     }
 
+    // .button class should be applied to exactly one child, which can be either a <button> or an <a> link
+    // depending on whether the button does real navigation.
+
     /** @type {WebdriverIO.Element} */
-    const innerButtonLink = await customButton.$('>>>a.button');
+    const innerButtonLink = await customButton.$('>>>.button');
     await innerButtonLink.waitForClickable();
 
-    await clickElement(innerButtonLink, `${selector} >>>a.button`);
+    await clickElement(innerButtonLink, `${selector} >>>.button`);
 }
 
 export async function clickBigGiveButtonWithOuterSelector(selector: string) {
