@@ -27,7 +27,17 @@ jobs:
             - ~/.cache
       - run: yarn lint
       - run: yarn tsc
-      - run: yarn test:testingbot-all
+      - run:
+          name: Run Tests
+          command: |
+            timeout 57m yarn test:testingbot-all
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 124 ]; then
+              echo "Tests timed out after 57 minutes"
+              exit 1
+            fi
+            exit $EXIT_CODE
+          no_output_timeout: 57m
       - store_test_results:
           path: ~/app/build
       - store_artifacts:
