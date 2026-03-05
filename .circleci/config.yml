@@ -27,6 +27,7 @@ jobs:
             - ~/.cache
       - run: yarn lint
       - run: yarn tsc
+#       timeout below  needed because we don't get a slack notification if we wait an hour and let CircleCI time out out. We will if the timeout command kills the process.
       - run:
           name: Run Tests
           command: |
