@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   test:
-    resource_class: large
+    resource_class: medium
     docker:
       - image: cimg/node:18.10-browsers
         auth:
@@ -41,7 +41,7 @@ jobs:
           only_for_branches: main
           webhook: ${SLACK_WEBHOOK_SUCCESS}
   clear_storage:
-    resource_class: large
+    resource_class: medium
     docker:
       - image: cimg/node:18.10-browsers
         auth:
