@@ -68,8 +68,9 @@ workflows:
   scheduled:
     triggers:
       - schedule:
-#          Job generally takes ~30 minutes to run and some overlap is OK, so we can run every 30.
-          cron: "0,30 9,10,11,12,13,14,15,16,17 * * *" # Every 30 minutes. CircleCI doesn't support /30 syntax
+#          Job generally takes ~30 minutes to run and some overlap is OK, so we could run every 30,
+#          But to reduce costs we only run once per hour now.
+          cron: "0 9,10,11,12,13,14,15,16,17 * * *" # Every 30 minutes. CircleCI doesn't support /30 syntax
           filters:
             branches:
               only:
