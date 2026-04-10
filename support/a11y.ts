@@ -6,7 +6,7 @@ import AxeBuilder from '@axe-core/webdriverio';
  * incompletes.
  */
 export default async function checkNoAccessibilityViolations(
-    options = {withAngularStepperException: false, withSalesforceHeaderException: false, withContrastRatioException: false}
+    options = {withSalesforceHeaderException: false, withContrastRatioException: false}
 ){
     console.log('Running Axe accessibility check...');
 
@@ -17,13 +17,6 @@ export default async function checkNoAccessibilityViolations(
     // 2. our footer campaign theme links have their icons as background images to the main link text – we should be
     //    able to change that quite easily if we want to reduce these info messages.
     const builder = new AxeBuilder({ client: browser }).withTags(['wcag2a', 'wcag2aa']);
-
-    // Suppress known Angular Material vertical stepper ARIA role error. Using rule
-    // suppression as we don't want to exclude the whole #stepper.
-    // https://github.com/angular/components/issues/26444
-    if (options.withAngularStepperException) {
-        builder.disableRules(['aria-required-children']);
-    }
 
     // Experience Cloud default nav appears to set an invalid & redundant ARIA role on this element.
     if (options.withSalesforceHeaderException) {

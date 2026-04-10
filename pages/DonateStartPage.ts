@@ -303,7 +303,6 @@ export default class DonateStartPage {
 
         // Axe accessibility check just before hitting donate.
         await checkNoAccessibilityViolations({
-            withAngularStepperException: false,
             withSalesforceHeaderException: false,
             withContrastRatioException: false,
         });
