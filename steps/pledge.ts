@@ -30,7 +30,6 @@ Given(
     async () => {
         await page.open();
         await checkNoAccessibilityViolations({
-            withAngularStepperException: false,
             withSalesforceHeaderException: true,
             withContrastRatioException: false,
         });
