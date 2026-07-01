@@ -484,11 +484,8 @@ Then(
     }
 );
 Then(
-    'my charity has been charged a vat inclusive fee of {int} pence',
-    /**
-     * @param {number} expectedAmount
-     */
-    async (expectedAmount) => {
+    'my charity has been charged a vat inclusive fee of £([0-9.]+)',
+    async (expectedAmount: string) => {
         checkStripeCustomerExists(donor.email);
 
         const thanksPageurl = await browser.getUrl();
@@ -498,7 +495,10 @@ Then(
         }
 
         const amountChargedToCharityPence = await getChargedAmountPence(donationUUId);
-        if (amountChargedToCharityPence !== expectedAmount) {
+
+        // rounding is required for some but not all numbers to deal with approximation from converting from
+        // decimal (i.e. string) to float.
+        if (amountChargedToCharityPence !== Math.round(100 * Number(expectedAmount))) {
             throw new Error(
                 `Amount charged to charity not as expected, expected ${expectedAmount}, found ${amountChargedToCharityPence}`
             );
