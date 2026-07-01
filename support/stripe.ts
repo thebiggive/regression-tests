@@ -25,7 +25,7 @@ export async function checkStripeCustomerExists(email: string) {
     }
 }
 
-export async function getChargedAmount(donationUUID: string) {
+export async function getChargedAmountPence(donationUUID: string) {
     // 3s delay to give Stripe a little time to update search index. Test mode is a bit slow sometimes.
     await setTimeout(3_000);
 
@@ -44,7 +44,7 @@ export async function getChargedAmount(donationUUID: string) {
         throw new Error('Application fee amount missing');
     }
 
-    return +applicationFeeAmount / 100 - +paymentIntent.metadata.tipAmount;
+    return +applicationFeeAmount - (+paymentIntent.metadata.tipAmount * 100);
 }
 
 

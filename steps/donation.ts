@@ -11,7 +11,7 @@ import {
 import { goToUrl, randomIntFromInterval } from '../support/util';
 import DonateStartPage, { emailAddressSelector, firstNameSelector, lastNameSelector } from '../pages/DonateStartPage';
 import DonateSuccessPage from '../pages/DonateSuccessPage';
-import { checkStripeCustomerExists, getChargedAmount, verifyStripePaymentIntentDetails } from '../support/stripe';
+import { checkStripeCustomerExists, getChargedAmountPence, verifyStripePaymentIntentDetails } from '../support/stripe';
 import {
     checkSelectorContent,
     checkSelectorValue,
@@ -484,7 +484,7 @@ Then(
     }
 );
 Then(
-    'my charity has been charged a vat inclusive fee of £{float}',
+    'my charity has been charged a vat inclusive fee of {int} pence',
     /**
      * @param {number} expectedAmount
      */
@@ -497,13 +497,13 @@ Then(
             throw new Error(`Couldn't find donation UUID in URL: ${thanksPageurl}`);
         }
 
-        const amountChargedToCharity = await getChargedAmount(donationUUId);
-        if (amountChargedToCharity !== expectedAmount) {
+        const amountChargedToCharityPence = await getChargedAmountPence(donationUUId);
+        if (amountChargedToCharityPence !== expectedAmount) {
             throw new Error(
-                `Amount charged to charity not as expected, expected ${expectedAmount}, found ${amountChargedToCharity}`
+                `Amount charged to charity not as expected, expected ${expectedAmount}, found ${amountChargedToCharityPence}`
             );
         } else {
-            console.log(`CHECK: Stripe shows amount charged to charity is £${amountChargedToCharity} as expected`);
+            console.log(`CHECK: Stripe shows amount charged to charity is £${amountChargedToCharityPence} as expected`);
         }
     }
 );
