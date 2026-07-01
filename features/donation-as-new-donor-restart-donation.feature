@@ -20,9 +20,9 @@ Feature: New donor: restarting donation completes successfully
         When I wait a few seconds
         Then I should be redirected to a Thank You confirmation page with amount £24999
 
-        ## Fee is calculated as round(round(24999*1.5/100+0.2)*1.2)
-        And my charity has been charged a vat inclusive fee of £450.23
-        And other payment intent data is as expected: total charged to donor: £26998.92, application fee £2450.15, stripe fee gross £450.23, stripe fee net £375.19, stripe fee vat £75.04
+        ## Fee is calculated as round(round(24999*1.9/100+0.25)*1.2)
+        And my charity has been charged a vat inclusive fee of £570.28
+        And other payment intent data is as expected: total charged to donor: £26998.92, application fee £2570.20, stripe fee gross £570.28, stripe fee net £475.23, stripe fee vat £95.05
 
         Given that I am on my chosen charity's Donate page
         Then I should be invited to log in
