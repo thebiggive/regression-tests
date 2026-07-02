@@ -484,7 +484,7 @@ Then(
     }
 );
 Then(
-    'my charity has been charged a vat inclusive fee of £([0-9.]+)',
+    /^my charity has been charged a vat inclusive fee of £([0-9.]+)$/,
     async (expectedAmount: string) => {
         checkStripeCustomerExists(donor.email);
 

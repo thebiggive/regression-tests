@@ -38,7 +38,7 @@ yarn test:local
 
 ## Test runs on CI
 
-These are configured and scheduled [with CircleCI](./circle.yml).
+These are configured and scheduled [with CircleCI](./.circleci/config.yml).
 
 The runner is now TestingBot where we have an open source plan. We are running against recent stable Chrome and
 Edge versions, once per hour.
