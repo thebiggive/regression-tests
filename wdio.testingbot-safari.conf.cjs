@@ -11,8 +11,6 @@ config.services.push('testingbot');
 config.path = '/wd/hub';
 config.user = process.env.TESTINGBOT_KEY;
 config.key = process.env.TESTINGBOT_SECRET;
-config.connectionRetryTimeout = 180_000;
-config.connectionTimeout = 180_000;
 
 config.reporters.push(['junit', {
     outputDir: './build/wdio',
