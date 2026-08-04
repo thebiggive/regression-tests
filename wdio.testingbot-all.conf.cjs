@@ -7,13 +7,12 @@ config.capabilities = [
         version: 'latest',
         build: config.build,
     },
-    // temporarily removed Safari because connections to safari seem to be timing out in testingbot.
-    // {
-    //     browserName: 'safari',
-    //     platform: 'VENTURA',
-    //     version: '16', // 16.3 – older than the point releases which last reached iOS – as of April 2025
-    //     build: config.build,
-    // },
+    {
+        browserName: 'safari',
+        platform: 'VENTURA',
+        version: '16', // 16.3 – older than the point releases which last reached iOS – as of April 2025
+        build: config.build,
+    },
     {
         browserName: 'microsoftedge',
         platform: 'WIN11',
