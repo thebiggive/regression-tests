@@ -8,4 +8,4 @@ Feature: Read an Explore card's title
     Given I am on the Explore page
     When I wait a few seconds
     # (typo matches the current long-lived campaign on Regression, don't want to edit and possibly affect anything else)
-    Then I should see an explore grid containing text "Fund some charitiable work"
+    Then I should see an explore grid containing text "Fund some charitable work"
