@@ -14,6 +14,7 @@ import checkNoAccessibilityViolations from '../support/a11y';
 
 // routes
 const startPageStripe =  (process.env.DONATE_PAGE_STRIPE)!;
+const regularGivingCampaignId = (process.env.REGULAR_GIVING_CAMPAIGN_ID)!;
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -31,7 +32,7 @@ const stripeCvcSelector = 'input[name$="cvc"]';
 const selectedSavedCardSelector = '.PickerItem--selected';
 const continueBtnSelector = '>>>#proceed-with-donation';
 
-export default class DonateStartPage {
+export default class RegularGivingStartPage {
     private browser: WebdriverIO.Browser;
     public nextStepIndex: number;
     /**
@@ -97,6 +98,13 @@ export default class DonateStartPage {
     async openRegister() {
         await goToUrl('/register');
         await checkTitle('Register');
+    }
+
+    async openRegularGiving() {
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(500); // Intermittent issues with session state without this.
+        await goToUrl(`/regular-giving/${regularGivingCampaignId}`);
+        await checkTitle('Regular Giving');
     }
 
     async checkReady() {
