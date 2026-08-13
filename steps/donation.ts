@@ -108,17 +108,22 @@ When(/I click the "([^"]+)" button/, async (buttonText) => {
 
 When(
     /I enter the ID account test ([a-z\s]+) for "[^"]+"/,
-    async (dataPoint) => {
+    async function (dataPoint){
         let elementId;
         let value;
+
+        this.donor = this.donor ?? {} as unknown as Donor;
+
         switch (dataPoint) {
             case 'email address':
                 elementId = 'loginEmailAddress';
-                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_EMAIL)!;
+                this.donor.email = process.env.DONOR_ID_REGISTERED_EMAIL!;
+                value = this.donor.email;
                 break;
             case 'password':
                 elementId = 'loginPassword';
-                value = /** @type {string} */ (process.env.DONOR_ID_REGISTERED_PASSWORD)!;
+                this.donor.password = process.env.DONOR_ID_REGISTERED_PASSWORD!;
+                value = this.donor.password;
                 break;
             default:
                 throw new Error('Unknown value');
