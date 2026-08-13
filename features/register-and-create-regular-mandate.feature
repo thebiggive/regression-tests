@@ -16,7 +16,7 @@ Feature: New donor registers and sets up new Regular Giving mandate
         And I create and enter a random password to continue
         And I continue past the gift aid step
         And I wait a few seconds
-        And I enter a UK Visa card number
+        And I enter a UK Visa card number for regular giving
         And I continue past the comms preferences step
         And I click to start regular giving now
         When I wait a few seconds
