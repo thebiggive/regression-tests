@@ -2,7 +2,7 @@ import {BeforeAll, Given, Then, When,} from '@cucumber/cucumber';
 
 import {generateRandomPassword, goToUrl, randomEmail, randomFirstName, randomLastName} from '../support/util';
 import {checkSelectorContent, checkTitle, checkUrl} from "../support/check";
-import {clickBigGiveButtonWithText, inputSelectorValue} from "../support/action";
+import {inputSelectorValue} from "../support/action";
 import {emailAddressSelector} from "../pages/DonateStartPage";
 import {checkAnEmailBodyContainsText, getRegularGivingTempPassword} from "../support/mailtrap";
 import withPauseAndRetry from "../support/withPauseAndRetry";
