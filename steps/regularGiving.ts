@@ -106,11 +106,23 @@ When(/^I create and enter a random password to continue$/, async function () {
 
     // DON-1195-todo - change ID below and in frontend to something more accurately descriptive
     await inputSelectorValue('#password-post-donation', this.donor!.password);
-    await clickBigGiveButtonWithText('Continue');
+    await (await $$('#continue-from-about-you'))[0].click();
 
     // time for account to be set up:
     // eslint-disable-next-line wdio/no-pause
     await browser.pause(5 * 1000);
+});
+
+When(/I continue past the gift aid step/, async () => {
+    await (await $$('#continue-from-gift-aid'))[0].click();
+});
+
+When(/I continue past the comms preferences step/, async () => {
+    await (await $$('#continue-from-coms-preferences'))[0].click();
+});
+
+When(/I click to start regular giving now/, async () => {
+    await (await $$('#start-regular-giving-now'))[0].click();
 });
 
 Then('I should see a Regular Giving mandate for £{int} in my account', async (amount: number) => {

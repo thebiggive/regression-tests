@@ -14,11 +14,11 @@ Feature: New donor registers and sets up new Regular Giving mandate
         And I prove to the regular giving form that I can receive emails
         And I enter my first and last name
         And I create and enter a random password to continue
-        And I skip over Gift Aid step
+        And I continue past the gift aid step
         And I wait a few seconds
         And I enter a UK Visa card number
-        And I skip over comms preferences step
-        And I click the "Start regular giving now" button
+        And I continue past the comms preferences step
+        And I click to start regular giving now
         When I wait a few seconds
         Then I should see a Regular Giving mandate for £1 in my account
         And the mandate should say monthly processing started today and will proceed on the current day-ish each month
