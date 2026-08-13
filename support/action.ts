@@ -79,6 +79,7 @@ export async function clickBigGiveButtonWithText(text: string) {
     console.log(`ACTION: Click Big Give button '${text}'`);
     const selector = `biggive-button[label="${text}"]`;
     const customButton = await $(selector);
+    console.log("found customer button", {customButton});
     await clickBigGiveButton(customButton, selector);
 }
 

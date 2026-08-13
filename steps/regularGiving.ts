@@ -90,7 +90,9 @@ When(/^I prove to the regular giving form that I can receive emails$/, async fun
     const tempPassword = await getRegularGivingTempPassword(this.donor!.email); // From Mailtrap recent email subject
     // todo - add ID onto temp password input box in FE to allow more specific selector use below.
     await inputSelectorValue('input#temp-password-input', tempPassword);
+    console.log('will click to continue past temp password step');
     await clickBigGiveButtonWithText('Continue');
+    console.log('did click to continue past temp password step');
 });
 When(/^I enter my first and last name$/, async function () {
     const firstNameSelector = '#firstName';
