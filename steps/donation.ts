@@ -202,8 +202,8 @@ When(/I skip over (.+) step/, async (step: string) => {
 
 When(
     'I enter my name, email address and UK Visa card number',
-    async () => {
-        donor = await page.populateNameAndEmail({});
+    async function () {
+        this.donor = await page.populateNameAndEmail({});
         await page.populateStripePaymentDetails();
         await page.progressToNextStep(false);
     }
