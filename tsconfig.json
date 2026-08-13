@@ -17,10 +17,10 @@
     "pages",
     "steps",
     "support",
+    "types/**.*"
   ],
   "exclude": [
     "__tests__",
     "node_modules",
-    "types"
   ]
 }

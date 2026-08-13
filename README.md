@@ -6,7 +6,7 @@
 
 ### Framework
 
-These tests use [Webdriver.io](https://webdriver.io/).
+These tests use [Cucumber](https://cucumber.io/docs/) and [Webdriver.io](https://webdriver.io/).
 
 #### Awaiting results
 

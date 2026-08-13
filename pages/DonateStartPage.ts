@@ -1,11 +1,5 @@
-import { generateIdentifier, goToUrl } from '../support/util';
-import {
-    checkTitle,
-    checkSelectorContent,
-    elementExists,
-    checkVisibleSelectorContent
-}
-    from '../support/check';
+import {goToUrl, randomEmail, randomFirstName, randomLastName} from '../support/util';
+import {checkSelectorContent, checkTitle, checkVisibleSelectorContent, elementExists} from '../support/check';
 import {
     clickElement,
     clickMaterialRadioWithLabel,
@@ -14,13 +8,12 @@ import {
     inStripeIframe
 } from '../support/action';
 
-import { CHARITY_NAME } from '../support/constants';
+import {CHARITY_NAME} from '../support/constants';
 import {Donor} from "../steps/donation";
 import checkNoAccessibilityViolations from '../support/a11y';
 
 // routes
 const startPageStripe =  (process.env.DONATE_PAGE_STRIPE)!;
-const regularGivingCampaignId = (process.env.REGULAR_GIVING_CAMPAIGN_ID)!;
 
 // selectors
 const idInfoSelector = '.id-info';
@@ -37,12 +30,6 @@ const stripeExpiryDateSelector = 'input[name$="expiry"]';
 const stripeCvcSelector = 'input[name$="cvc"]';
 const selectedSavedCardSelector = '.PickerItem--selected';
 const continueBtnSelector = '>>>#proceed-with-donation';
-
-/**
- * Magic string recognized by mailer in regtest env to say we don't need the email to be sent. Saves on our monthly
- * testing limits.
- */
-const NO_SEND_EMAIL = 'NO_SEND_EMAIL';
 
 export default class DonateStartPage {
     private browser: WebdriverIO.Browser;
@@ -112,13 +99,6 @@ export default class DonateStartPage {
         await checkTitle('Register');
     }
 
-    async openRegularGiving() {
-        // eslint-disable-next-line wdio/no-pause
-        await browser.pause(500); // Intermittent issues with session state without this.
-        await goToUrl(`/regular-giving/${regularGivingCampaignId}`);
-        await checkTitle('Regular Giving');
-    }
-
     async checkReady() {
         await checkTitle(`Donate to ${CHARITY_NAME}`);
         await checkSelectorContent('form', CHARITY_NAME);
@@ -182,12 +162,7 @@ export default class DonateStartPage {
     async populateEmail(noSend = false) {
         // This enforces the email to likely be unique, so the test to create an account works
         // because we never hit the error of the email already being used by another used. REG-26.
-        let email;
-        if (noSend) {
-            email = `${generateIdentifier(NO_SEND_EMAIL + '+')}@thebiggivetest.org.uk`;
-        } else {
-            email = `${generateIdentifier('tech+regression+tests+')}@thebiggivetest.org.uk`;
-        }
+        const email = randomEmail(noSend);
 
         // Mailer is configured in the Regression environment to send mail via Mailtrap.io's
         // fake SMTP server, regardless of the donor's given email address.
@@ -197,8 +172,8 @@ export default class DonateStartPage {
     }
 
     async populateNames() {
-        const firstName = generateIdentifier('Firstname-');
-        const lastName = generateIdentifier('Lastname-');
+        const firstName = randomFirstName();
+        const lastName = randomLastName();
 
         await $(firstNameSelector).waitForStable(); // test:local-safari needed this for first input to work.
 

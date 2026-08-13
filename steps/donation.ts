@@ -16,7 +16,6 @@ import {
     checkSelectorContent,
     checkSelectorValue,
     checkTitle,
-    checkUrl,
     checkVisibleSelectorContent
 } from '../support/check';
 import { clickBigGiveButtonWithOuterSelector, clickBigGiveButtonWithText } from '../support/action';
@@ -42,10 +41,11 @@ BeforeAll(async () => {
 });
 
 // Steps
-Given('I have registered and logged in as a donor', async () => {
+Given('I have registered and logged in as a donor', async function() {
     await page.openRegister();
 
     // Complete register form
+    this.donor = donor;
     donor.email = await page.populateEmail();
     await clickBigGiveButtonWithOuterSelector('#register-button');
 
@@ -95,10 +95,6 @@ Given(
         await page.checkReady();
     }
 );
-
-When(/^I open the Regular Giving application campaign start donating page$/, async () => {
-    await page.openRegularGiving();
-});
 
 When("I click the popup's login button", async () => {
     // We use an ID here as we can't combine deep and text selectors.
@@ -316,23 +312,6 @@ Then(/^I should be redirected to a Thank You confirmation page with the correct 
     await DonateSuccessPage.checkBalance(donationAmount);
 });
 
-Then('I should see a Regular Giving mandate for £{int} in my account', async (amount) => {
-    await checkUrl('/my-account/regular-giving/'); // ID after this varies.
-
-    await checkSelectorContent(
-        'body',
-        'Thank you! Your generous regular donation has been set up'
-    );
-
-    await checkSelectorContent(
-        'div.donation-summary',
-        `Your donation of £${amount}`
-    );
-
-    // Tricky to be more specific; same reason as DonateSuccessPage.checkBalance.
-    await checkSelectorContent('div.receipt', `£${amount}`);
-});
-
 When(
     'I wait a few seconds',
     // eslint-disable-next-line wdio/no-pause
@@ -347,24 +326,8 @@ When(
 );
 
 Then('I should be invited to log in', async () => {
-    checkVisibleSelectorContent('main', 'Log in');
+    await checkVisibleSelectorContent('main', 'Log in');
 });
-
-Then(
-    'the mandate should say monthly processing started today and will proceed on the current day-ish each month',
-    async () => {
-        const today = new Date();
-        // Angular default is the US locale date order, and we don't override that, so explicitly ask for en-US
-        // which gives e.g. 'Jan 10, 2025'.
-        const todayMediumFormatted = (new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' })).format(today);
-        const dayOfCurrentMonthOr28 = Math.min(28, today.getDate());
-
-        // Safari and other browsers summarise table contents differently, so we have put IDs on the 2 key
-        // cells we check here.
-        await checkSelectorContent('#regularActiveFrom', todayMediumFormatted); // 'Active from' row
-        await checkSelectorContent('#regularDayOfMonth', dayOfCurrentMonthOr28.toString()); // 'Day of month' row
-    }
-);
 
 const checkAmountInEmail = async (amount: number) => {
     const formattedAmount = amount.toLocaleString('en-GB');
@@ -411,24 +374,6 @@ Then(
     }
 );
 
-Then(
-    'my last email should contain a new monthly mandate confirmation showing amount £{int}',
-    async (amount) => {
-        const formattedAmount = `£${amount.toLocaleString('en-GB')}.00`;
-        withPauseAndRetry({
-            callback: async () => {
-                if (!(await checkAnEmailBodyContainsText(
-                    `Donation: <strong>${formattedAmount}</strong>`,
-                    donor.email,
-                ))) {
-                    throw new Error(`Amount ${formattedAmount} not found in email`);
-                }
-            },
-            label: 'CHECK_EMAIL_FOR_MANDATE_CONFIRMATION',
-        });
-    }
-);
-
 When(
     'I register using the link in my donation thanks message',
     async () => {
@@ -467,16 +412,16 @@ When(
 
 Then(
     /^I should receive a registration success email with the email I donated with$/,
-    async () => {
+    async function () {
         // eslint-disable-next-line wdio/no-pause
         await browser.pause(15 * 1000);
-        checkAnEmailSubjectContainsText('You are registered with Big Give', donor.email);
+        await checkAnEmailSubjectContainsText('You are registered with Big Give', this.donor!.email);
 
-        const expectedCopy = `You are now registered for Big Give with the email address: ${donor.email}`;
+        const expectedCopy = `You are now registered for Big Give with the email address: ${this.donor!.email}`;
 
         if (!(await checkAnEmailBodyContainsText(
             expectedCopy,
-            donor.email
+            this.donor!.email
         ))) {
             throw new Error(`Registration email with expected copy not found.
             Expected: ${expectedCopy}`);
@@ -486,7 +431,7 @@ Then(
 Then(
     /^my charity has been charged a vat inclusive fee of £([0-9.]+)$/,
     async (expectedAmount: string) => {
-        checkStripeCustomerExists(donor.email);
+        await checkStripeCustomerExists(donor.email);
 
         const thanksPageurl = await browser.getUrl();
         const donationUUId = thanksPageurl.split('/').pop();
@@ -517,7 +462,3 @@ Given(
         console.log('CHECK: Other stripe payment intent details are as expected');
     }
 );
-Given(/^I confirm that I am an adult$/, async () => {
-    // no-op because FE lets us cheat for now
-    // see https://github.com/thebiggive/donate-frontend/pull/1894
-});

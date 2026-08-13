@@ -125,6 +125,12 @@ export async function getVerifyCode(forEmailAddress: string): Promise<string> {
     return message.subject.replace(/^.+([0-9]{6}) is your Big Give verification code/, '$1');
 }
 
+export async function getRegularGivingTempPassword(forEmailAddress: string): Promise<string> {
+    const message = await checkAnEmailSubjectContainsText('Your temporary password for regular giving', forEmailAddress);
+    const html = await fetchEmailBodyHtml(message);
+    return html.match(/\b[0-9]{6}\b/)![0];
+}
+
 export async function findAccountSetupLinkInRecentEmail(forEmailAddress: string) {
     const message = await checkAnEmailSubjectContainsText(
         'Thanks for your donation',
