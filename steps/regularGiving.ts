@@ -1,8 +1,4 @@
-import {
-    BeforeAll, Given,
-    Then,
-    When,
-} from '@cucumber/cucumber';
+import {BeforeAll, Given, Then, When,} from '@cucumber/cucumber';
 
 import {generateRandomPassword, goToUrl, randomEmail, randomFirstName, randomLastName} from '../support/util';
 import {checkSelectorContent, checkTitle, checkUrl} from "../support/check";
@@ -91,7 +87,9 @@ When(/^I prove to the regular giving form that I can receive emails$/, async fun
     // todo - add ID onto temp password input box in FE to allow more specific selector use below.
     await inputSelectorValue('input#temp-password-input', tempPassword);
     console.log('will click to continue past temp password step');
-    await clickBigGiveButtonWithText('Continue');
+
+    await (await $$('#contine-from-auth'))[0].click();
+
     console.log('did click to continue past temp password step');
 });
 When(/^I enter my first and last name$/, async function () {
