@@ -128,9 +128,15 @@ When(
     },
 );
 
-When('I enter the ID credit-funded account test email and password', async () => {
-    await page.inputSelectorValue('>>>#loginEmailAddress', (process.env.CREDIT_EMAIL)!);
-    await page.inputSelectorValue('>>>#loginPassword', (process.env.CREDIT_PASSWORD)!);
+When('I enter the ID credit-funded account test email and password', async function() {
+    this.donor = {
+        email: process.env.CREDIT_EMAIL!,
+        password: process.env.CREDIT_PASSWORD!,
+        firstName: '',
+        lastName: '',
+    };
+    await page.inputSelectorValue('>>>#loginEmailAddress', this.donor.email!);
+    await page.inputSelectorValue('>>>#loginPassword', this.donor.password!);
 });
 
 When(
