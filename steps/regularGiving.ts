@@ -5,10 +5,10 @@ import {
 } from '@cucumber/cucumber';
 
 import {generateRandomPassword, goToUrl, randomEmail, randomFirstName, randomLastName} from '../support/util';
-import {checkSelectorContent, checkTitle, checkUrl, elementExists} from "../support/check";
-import {clickBigGiveButtonWithText, clickSelector, inputSelectorValue} from "../support/action";
-import {emailAddressSelector, firstNameSelector, lastNameSelector} from "../pages/DonateStartPage";
-import {checkAnEmailBodyContainsText, getRegularGivingTempPassword, getVerifyCode} from "../support/mailtrap";
+import {checkSelectorContent, checkTitle, checkUrl} from "../support/check";
+import {clickBigGiveButtonWithText, inputSelectorValue} from "../support/action";
+import {emailAddressSelector} from "../pages/DonateStartPage";
+import {checkAnEmailBodyContainsText, getRegularGivingTempPassword} from "../support/mailtrap";
 import withPauseAndRetry from "../support/withPauseAndRetry";
 // import {checkSelectorContent, checkTitle} from "../support/check";
 // import {CHARITY_NAME} from "../support/constants";

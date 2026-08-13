@@ -19,7 +19,7 @@ export default class PledgeFormPage {
         this.browser = browser;
         // Needed for Safari to find the terms checkbox seemingly, even though the click helper
         // is meant to scroll it into view.
-        this.browser.maximizeWindow();
+        void this.browser.maximizeWindow();
     }
 
     /**

@@ -412,10 +412,10 @@ When(
 
 Then(
     /^I should receive a registration success email with the email I donated with$/,
-    async function async () {
+    async function () {
         // eslint-disable-next-line wdio/no-pause
         await browser.pause(15 * 1000);
-        checkAnEmailSubjectContainsText('You are registered with Big Give', this.donor!.email);
+        await checkAnEmailSubjectContainsText('You are registered with Big Give', this.donor!.email);
 
         const expectedCopy = `You are now registered for Big Give with the email address: ${this.donor!.email}`;
 
@@ -431,7 +431,7 @@ Then(
 Then(
     /^my charity has been charged a vat inclusive fee of £([0-9.]+)$/,
     async (expectedAmount: string) => {
-        checkStripeCustomerExists(donor.email);
+        await checkStripeCustomerExists(donor.email);
 
         const thanksPageurl = await browser.getUrl();
         const donationUUId = thanksPageurl.split('/').pop();
