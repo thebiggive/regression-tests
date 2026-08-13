@@ -88,7 +88,7 @@ When(/^I prove to the regular giving form that I can receive emails$/, async fun
     await inputSelectorValue('input#temp-password-input', tempPassword);
     console.log('will click to continue past temp password step');
 
-    await (await $$('#contine-from-auth'))[0].click();
+    await (await $$('#continue-from-auth'))[0].click();
 
     console.log('did click to continue past temp password step');
 });
