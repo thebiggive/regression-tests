@@ -76,7 +76,6 @@ When(
         await inputSelectorValue(donationAmountSelector, amount.toString());
         // eslint-disable-next-line wdio/no-pause
         await browser.pause(500); // Safari Regular Giving has intermittent stepper undefined warnings without this.
-        await progressToNextStep();
     }
 );
 When(/^I enter my email address into the giving form$/, async function () {
