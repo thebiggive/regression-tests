@@ -28,13 +28,6 @@ let donationAmount: number;
 
 export type Donor = { firstName: string; lastName: string; email: string; password: string | null };
 
-let donor: Donor = {
-    firstName: 'default-first-name',
-    lastName: 'default-last-name',
-    email: 'default-email',
-    password: null,
-};
-
 let page: DonateStartPage;
 BeforeAll(async () => {
     page = new DonateStartPage(browser);
@@ -45,28 +38,34 @@ Given('I have registered and logged in as a donor', async function() {
     await page.openRegister();
 
     // Complete register form
-    this.donor = donor;
-    donor.email = await page.populateEmail();
+    this.donor = {
+        firstName: 'default-first-name',
+        lastName: 'default-last-name',
+        email: 'default-email',
+        password: null,
+    };
+
+    this.donor.email = await page.populateEmail();
     await clickBigGiveButtonWithOuterSelector('#register-button');
 
     // In other Mailtrap places we wait 35s atm, I'm hoping we can do a little less here.
     // eslint-disable-next-line wdio/no-pause
     await browser.pause(15 * 1000);
 
-    const verifyCode = await getVerifyCode(donor.email); // From Mailtrap recent email subject
+    const verifyCode = await getVerifyCode(this.donor.email); // From Mailtrap recent email subject
     await page.inputSelectorValue('>>>#code', verifyCode);
     await clickBigGiveButtonWithText('Continue');
 
     const names = await page.populateNames();
-    donor.firstName = names.firstName;
-    donor.lastName = names.lastName;
+    this.donor.firstName = names.firstName;
+    this.donor.lastName = names.lastName;
 
-    donor.password = await RegistrationPage.populatePassword();
+    this.donor.password = await RegistrationPage.populatePassword();
     await clickBigGiveButtonWithOuterSelector('#register-button');
     await RegistrationPage.checkCopySaysImRegistered();
 
     // Complete login form
-    await page.inputLoginFields(donor);
+    await page.inputLoginFields(this.donor);
     await clickBigGiveButtonWithText('Log in');
 
     await checkTitle('My account – Big Give');
@@ -216,8 +215,8 @@ When(
  */
 When(
     'I enter my name, an email address that does not receive email and UK Visa card number',
-    async () => {
-        donor = await page.populateNameAndEmail({noSendEmail: true});
+    async function ()  {
+        this.donor = await page.populateNameAndEmail({noSendEmail: true});
         await page.populateStripePaymentDetails();
         await page.progressToNextStep(false);
     }
@@ -230,29 +229,29 @@ When('I enter a UK Visa card number', async () => {
 
 When(
     /I should see my populated first name is "([^"]+)"/,
-    async (expectedFirstName) => {
+    async function(expectedFirstName) {
         await checkSelectorValue(firstNameSelector, expectedFirstName);
         // set donor.firstName so the test titled 'my last email
         // should contain the correct name' works correctly
-        donor.firstName = expectedFirstName;
+        this.donor!.firstName = expectedFirstName;
     },
 );
 
 When(
     /I should see my populated surname is "([^"]+)"/,
-    async (expectedSurname) => {
+    async function (expectedSurname) {
         await checkSelectorValue(lastNameSelector, expectedSurname);
         // set donor.lastName so the test titled 'my last email
         // should contain the correct name' works correctly
-        donor.lastName = expectedSurname;
+        this.donor!.lastName = expectedSurname;
     },
 );
 
 When(
     /I should see my populated email is "([^"]+)"/,
-    async (expectedEmail) => {
+    async function (expectedEmail) {
         await checkSelectorValue(emailAddressSelector, expectedEmail);
-        donor.email = expectedEmail;
+        this.donor!.email = expectedEmail;
     },
 );
 
@@ -329,7 +328,7 @@ Then('I should be invited to log in', async () => {
     await checkVisibleSelectorContent('main', 'Log in');
 });
 
-const checkAmountInEmail = async (amount: number) => {
+async function checkAmountInEmail (amount: number, donor: Donor)  {
     const formattedAmount = amount.toLocaleString('en-GB');
 
     if (!(await checkAnEmailBodyContainsText(
@@ -338,25 +337,25 @@ const checkAmountInEmail = async (amount: number) => {
     ))) {
         throw new Error(`Donation amount £${formattedAmount} not found in email`);
     }
-};
+}
 
 Then(
     'my last email should contain amount £{int}',
-    async (amount) => checkAmountInEmail(amount)
+    async function (amount) { await checkAmountInEmail(amount, this.donor!)}
 );
 
 Then(
     'my last email should contain the correct amounts',
-    async () => checkAmountInEmail(donationAmount)
+    async function () {await checkAmountInEmail(donationAmount, this.donor!)}
 );
 
 Then(
     'my last email should contain the charity\'s custom thank you message',
-    async () => {
+    async function () {
         const customThanks = process.env.CHARITY_CUSTOM_THANKS;
         if (!customThanks) throw new Error('Custom thanks message not set in environment');
 
-        if (!(await checkAnEmailBodyContainsText(customThanks, donor.email))) {
+        if (!(await checkAnEmailBodyContainsText(customThanks, this.donor!.email))) {
             throw new Error('Charity thank you message not found in email');
         }
     }
@@ -364,7 +363,8 @@ Then(
 
 Then(
     'my last email should contain the correct name',
-    async () => {
+    async function () {
+        const donor = this.donor!;
         if (!(await checkAnEmailBodyContainsText(
             `Donor: <strong>${donor.firstName} ${donor.lastName}</strong>`,
             donor.email,
@@ -376,9 +376,9 @@ Then(
 
 When(
     'I register using the link in my donation thanks message',
-    async () => {
+    async function () {
         const link = await withPauseAndRetry({
-            callback: () => findAccountSetupLinkInRecentEmail(donor.email),
+            callback: () => findAccountSetupLinkInRecentEmail(this.donor!.email), //
             predicate: (l) => !!l,
             label: 'FIND_LINK_IN_THANKS_MESSAGE',
         });
@@ -430,8 +430,8 @@ Then(
 );
 Then(
     /^my charity has been charged a vat inclusive fee of £([0-9.]+)$/,
-    async (expectedAmount: string) => {
-        await checkStripeCustomerExists(donor.email);
+    async function (expectedAmount: string) {
+        await checkStripeCustomerExists(this.donor!.email);
 
         const thanksPageurl = await browser.getUrl();
         const donationUUId = thanksPageurl.split('/').pop();
