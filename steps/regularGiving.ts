@@ -3,7 +3,7 @@ import {BeforeAll, Given, Then, When,} from '@cucumber/cucumber';
 import {generateRandomPassword, goToUrl, randomEmail, randomFirstName, randomLastName} from '../support/util';
 import {checkSelectorContent, checkTitle, checkUrl} from "../support/check";
 import {inputSelectorValue} from "../support/action";
-import {emailAddressSelector} from "../pages/DonateStartPage";
+import DonateStartPage, {emailAddressSelector} from "../pages/DonateStartPage";
 import {checkAnEmailBodyContainsText, getRegularGivingTempPassword} from "../support/mailtrap";
 import withPauseAndRetry from "../support/withPauseAndRetry";
 // import {checkSelectorContent, checkTitle} from "../support/check";
@@ -175,3 +175,8 @@ Then(
         });
     }
 );
+
+When('I enter a UK Visa card number for regular giving', async () => {
+    await (new DonateStartPage(browser)).populateStripePaymentDetails();
+    await (await $$('#continue-from-payment-details'))[0].click();
+});
