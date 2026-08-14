@@ -148,8 +148,10 @@ Then(
         const today = new Date();
         // Angular default is the US locale date order, and we don't override that, so explicitly ask for en-US
         // which gives e.g. 'Jan 10, 2025'.
-        const todayMediumFormatted = (new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' })).format(today);
-        const dayOfCurrentMonthOr28 = Math.min(28, today.getDate());
+        const todayMediumFormatted = (new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeZone: 'UTC' }))
+            .format(today);
+
+        const dayOfCurrentMonthOr28 = Math.min(28, today.getUTCDate());
 
         // Safari and other browsers summarise table contents differently, so we have put IDs on the 2 key
         // cells we check here.
