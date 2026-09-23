@@ -10,6 +10,8 @@ Given(
         if (!baseurl) throw new Error('BASE_URL not defined in enviornment');
 
         await goToUrl(baseurl + "?noredirect=");
+        // eslint-disable-next-line wdio/no-pause
+        await browser.pause(1000); // Safari seems to be having trouble with no pause
         await checkTitle('Big Give');
     }
 );
