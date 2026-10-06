@@ -11,7 +11,7 @@ Given(
             throw new Error('BASE_URL not defined in enviornment');
         }
 
-        await goToUrl(baseurl + "/explore");
+        await goToUrl(baseurl + "explore");
         await checkTitle('Explore Campaigns - Big Give');
 
         await checkNoAccessibilityViolations(
