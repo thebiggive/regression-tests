@@ -12,7 +12,7 @@ Given(
         }
 
         await goToUrl(baseurl + "explore");
-        await checkTitle('Explore Campaigns - Big Give');
+        await checkTitle('Explore campaigns - Big Give');
 
         await checkNoAccessibilityViolations(
             {withSalesforceHeaderException: false, withContrastRatioException: false}
