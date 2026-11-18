@@ -3,7 +3,7 @@ jobs:
   test:
     resource_class: medium
     docker:
-      - image: cimg/node:18.10-browsers
+      - image: cimg/node:24.22-browsers
         auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_ACCESS_TOKEN
@@ -12,9 +12,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - node18-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - node18-deps-{{ .Branch }}
-            - node18-deps
+            - node24-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - node24-deps-{{ .Branch }}
+            - node24-deps
       - run:
           name: Create Download Directory
           command: mkdir ~/app/build/downloads && chmod 0777 ~/app/build/downloads
@@ -22,7 +22,7 @@ jobs:
           name: Install Dependencies
           command: yarn install --ignore-engines --frozen-lockfile --prod
       - save_cache:
-          key: node18-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: node24-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache
       - run: yarn lint
@@ -54,7 +54,7 @@ jobs:
   clear_storage:
     resource_class: medium
     docker:
-      - image: cimg/node:18.10-browsers
+      - image: cimg/node:24.22-browsers
         auth:
           username: $DOCKER_HUB_USERNAME
           password: $DOCKER_HUB_ACCESS_TOKEN
