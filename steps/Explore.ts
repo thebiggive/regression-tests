@@ -15,7 +15,7 @@ Given(
         await checkTitle('Explore campaigns - Big Give');
 
         await checkNoAccessibilityViolations(
-            {withSalesforceHeaderException: false, withContrastRatioException: false}
+            {withSalesforceHeaderException: false}
         );
     }
 );
