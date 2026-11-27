@@ -64,7 +64,10 @@ export default class PledgeFormPage {
      * @param amount  Whole number of pounds
      */
     async setPledgeAmount(amount: string) {
-        await inputSelectorValue(await this.getCommunitiesInputForLabel('Pledge amount'), amount);
+        // temp workaround for getCommunitiesInputForLabel apparently not working now - maybe something has changed
+        // in how the communities site is rendered?
+        await inputSelectorValue('#input-49', amount);
+        // await inputSelectorValue(await this.getCommunitiesInputForLabel('Pledge amount'), amount);
     }
 
     /**
