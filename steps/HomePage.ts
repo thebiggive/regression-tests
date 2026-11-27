@@ -19,6 +19,6 @@ Then(
     /^there should be no accessibility violations detected$/,
     async function () {
     await checkNoAccessibilityViolations(
-        {withSalesforceHeaderException: false, withContrastRatioException: true}
+        {withSalesforceHeaderException: false}
     );
 });

@@ -31,7 +31,6 @@ Given(
         await page.open();
         await checkNoAccessibilityViolations({
             withSalesforceHeaderException: true,
-            withContrastRatioException: false,
         });
     }
 );

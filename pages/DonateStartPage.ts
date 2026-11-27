@@ -279,7 +279,6 @@ export default class DonateStartPage {
         // Axe accessibility check just before hitting donate.
         await checkNoAccessibilityViolations({
             withSalesforceHeaderException: false,
-            withContrastRatioException: false,
         });
 
         await clickSelector(submitBtnSelector);
