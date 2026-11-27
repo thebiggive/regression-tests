@@ -10,6 +10,8 @@ Feature: Pledge form is submitted successfully
   Scenario: Pledge form is submitted successfully
     Given I open the pledge campaign's pledge form
     Then I should see a Communities hero banner saying "Thank you for choosing to pledge to Exempt Stripe Test Charity"
+    # waiting for pledge form elements to stabilize - may fix stale element reference issue seen below if we don't wait.
+    When I wait a few seconds
     When I enter a pledge amount between £100 and £110
     And I choose to pay my pledge by Bank Transfer
     And I accept the pledge Terms & Conditions
